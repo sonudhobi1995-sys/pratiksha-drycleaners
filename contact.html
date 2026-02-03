@@ -1,22 +1,95 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>संपर्क - प्रतीक्षा ड्राई क्लीनर्स</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Contact Us - Pratiksha Dry Cleaners</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+        
+        /* Universal Navigation */
+        nav { background: #003366; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo-box img { height: 45px; width: auto; border-radius: 4px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-dropdown { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .nav-dropdown li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #003366; }
+
+        /* Contact Section Layout */
+        .contact-container { max-width: 900px; margin: 50px auto; padding: 20px; }
+        .info-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        .info-card h1 { color: #003366; margin-bottom: 30px; }
+        .detail-item { margin: 25px 0; font-size: 1.1rem; }
+        .detail-item strong { color: #b8860b; display: block; margin-bottom: 5px; }
+
+        /* Professional Buttons */
+        .btn-call { background: #003366; color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 10px; font-weight: bold; }
+        .btn-wa { background: #25D366; color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 10px; font-weight: bold; }
+
+        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
+    </style>
 </head>
 <body>
-    <header style="background: #003366; color: white; text-align: center; padding: 40px;">
-        <h1>॥ हमसे जुड़ें ॥</h1>
-    </header>
-    <div style="max-width: 800px; margin: auto; padding: 40px; text-align: center;">
-        <img src="contact.jpg" alt="Our Store" style="width: 100%; border-radius: 15px;">
-        <h2 style="color: #003366; margin-top: 20px;">प्रतीक्षा ड्राई क्लीनर्स</h2>
-        <p>अंबाबाड़ी, हनुमान मार्केट, जयपुर</p>
-        <p><strong>फ़ोन:</strong> +91 77408 70095</p>
-        <a href="https://wa.me/917740870095" style="display: inline-block; background: #25D366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 50px; font-weight: bold;">WhatsApp पर बात करें</a>
-        <br><br><a href="index.html">वापस मुख्य पृष्ठ पर</a>
+
+    <nav>
+        <div class="menu-icon" id="menuToggle">
+            <div></div><div></div><div></div>
+        </div>
+        <div class="logo-box">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <ul class="nav-dropdown" id="navMenu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./process.html">Process</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-container">
+        <div class="info-card">
+            <h1>Get In Touch</h1>
+            
+            <div class="detail-item">
+                <strong>Our Location</strong>
+                Pratiksha Dry Cleaners, Ambabari, Jaipur, Rajasthan
+            </div>
+
+            <div class="detail-item">
+                <strong>Call Us</strong>
+                +91 77408 70095
+                <br>
+                <a href="tel:+917740870095" class="btn-call">Make a Call</a>
+            </div>
+
+            <div class="detail-item">
+                <strong>Direct Message</strong>
+                Click below to chat on WhatsApp
+                <br>
+                <a href="https://wa.me/917740870095" class="btn-wa">Chat on WhatsApp</a>
+            </div>
+
+            <div class="detail-item">
+                <strong>Working Hours</strong>
+                Monday - Sunday: 09:00 AM - 09:00 PM
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.style.display = (navMenu.style.display === 'block') ? 'none' : 'block';
+        });
+        document.addEventListener('click', () => { navMenu.style.display = 'none'; });
+    </script>
+
 </body>
 </html>
