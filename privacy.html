@@ -5,27 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Pratiksha Dry Cleaners</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; padding: 40px; background: #f4f7f6; color: #333; }
-        .box { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h1 { color: #003366; border-bottom: 2px solid #b8860b; padding-bottom: 10px; }
-        h2 { color: #003366; margin-top: 25px; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+        
+        /* Universal Navigation */
+        nav { background: #003366; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo-box img { height: 45px; width: auto; border-radius: 4px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-dropdown { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .nav-dropdown li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #003366; }
+
+        .container { max-width: 900px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid #b8860b; }
+        h1 { color: #003366; text-align: center; margin-bottom: 20px; }
+        .last-updated { text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 40px; }
+        
+        .policy-section { margin-bottom: 30px; }
+        .policy-section h2 { color: #003366; font-size: 1.25rem; border-left: 4px solid #b8860b; padding-left: 15px; margin-bottom: 15px; }
+        .policy-section p { line-height: 1.7; font-size: 1rem; text-align: justify; }
+        
+        footer { text-align: center; padding: 30px; color: #888; font-size: 0.9rem; }
+        .home-btn { display: block; width: fit-content; margin: 20px auto; background: #003366; color: white; padding: 10px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="box">
+
+    <nav>
+        <div class="menu-icon" id="menuBtn"><div></div><div></div><div></div></div>
+        <div class="logo-box"><img src="logo.png" alt="Logo"></div>
+        <ul class="nav-dropdown" id="navList">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./process.html">Process</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
         <h1>Privacy Policy</h1>
-        <p>At <strong>Pratiksha Dry Cleaners</strong>, we value your privacy. This policy explains how we handle your information.</p>
-        
-        <h2>1. Information Collection</h2>
-        <p>We collect basic information like your name, phone number, and address only to provide you with laundry and dry-cleaning services.</p>
+        <p class="last-updated">Last Updated: February 2026</p>
 
-        <h2>2. Data Usage</h2>
-        <p>Your data is used solely for order updates, delivery coordination, and service improvements at our Ambabari store.</p>
+        <div class="policy-section">
+            <h2>1. Introduction</h2>
+            <p>Welcome to <strong>Pratiksha Dry Cleaners</strong>. We are committed to protecting your personal information and your right to privacy. This policy explains what information we collect and how we use it to serve you better at our Ambabari store.</p>
+        </div>
 
-        <h2>3. Security</h2>
-        <p>We do not share your personal details with any third-party marketing agencies. Your trust is our priority.</p>
+        <div class="policy-section">
+            <h2>2. Information We Collect</h2>
+            <p>We collect personal information that you voluntarily provide to us when you book a service, such as your name, phone number, and residential address for pickup and delivery services.</p>
+        </div>
 
-        <p style="margin-top:40px;"><a href="./index.html">Back to Home</a></p>
+        <div class="policy-section">
+            <h2>3. How We Use Your Information</h2>
+            <p>Your information is used strictly for business purposes, including processing your orders, sending pickup/delivery updates via WhatsApp, and improving our customer service quality.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>4. Data Sharing</h2>
+            <p>We do not sell, rent, or trade your personal data with third parties. Your information is only shared with our internal team members who are directly involved in your garment care and delivery.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>5. Security of Your Data</h2>
+            <p>We implement professional security measures to maintain the safety of your personal information. Digital records are protected, and physical logs are kept secure within our premises.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>6. Your Rights</h2>
+            <p>You have the right to request access to the data we hold about you or ask for its deletion from our records at any time by contacting us directly.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>7. Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy, you can reach out to <strong>Sonu Bhai</strong> at +91 77408 70095 or visit us at Hanuman Market, Ambabari, Jaipur.</p>
+        </div>
+
+        <a href="./index.html" class="home-btn">Return to Home</a>
     </div>
+
+    <footer>© 2026 PRATIKSHA DRY CLEANERS | Ambabari, Jaipur</footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const navList = document.getElementById('navList');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navList.style.display = (navList.style.display === 'block') ? 'none' : 'block';
+        });
+        document.addEventListener('click', () => { navList.style.display = 'none'; });
+    </script>
 </body>
 </html>
