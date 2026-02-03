@@ -3,50 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - Pratiksha Dry Cleaners</title>
+    <title>Services - Pratiksha Dry Cleaners</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f9fbfd; color: #333; }
-        
-        /* Navigation */
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f9; }
         nav { background: #003366; padding: 15px 0; text-align: center; position: sticky; top: 0; z-index: 1000; }
         nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 20px; }
         nav ul li a { color: white; text-decoration: none; font-weight: bold; }
-
-        /* Hero Header */
-        .service-banner { background: #003366; color: white; text-align: center; padding: 60px 20px; }
-        .service-banner h1 { font-size: 2.5rem; margin: 0; letter-spacing: 1px; }
-        .service-banner p { font-style: italic; opacity: 0.9; margin-top: 10px; }
-
-        /* Main Section */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        
-        /* Featured Service (The one with your photo) */
-        .featured-service { background: white; border-radius: 15px; overflow: hidden; display: flex; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 50px; border: 1px solid #eef2f6; }
-        .featured-image { flex: 1; min-width: 350px; }
-        .featured-image img { width: 100%; height: 100%; object-fit: cover; }
-        .featured-text { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .featured-text h2 { color: #003366; font-size: 2rem; margin-top: 0; }
-        .featured-text p { font-size: 1.1rem; line-height: 1.8; color: #555; }
-
-        /* Service Grid */
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .service-card { background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border-bottom: 4px solid #b8860b; transition: 0.3s; }
-        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .service-card h3 { color: #003366; margin-bottom: 15px; }
-        .service-card p { font-size: 1rem; color: #666; line-height: 1.6; }
-
-        /* Call to Action */
-        .book-now { text-align: center; margin-top: 60px; padding: 40px; background: #fff8e1; border-radius: 15px; }
-        .btn-whatsapp { background: #25D366; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.2rem; display: inline-block; transition: 0.3s; }
-        .btn-whatsapp:hover { background: #128C7E; transform: scale(1.05); }
-
-        footer { text-align: center; padding: 40px; color: #888; }
-
-        @media (max-width: 768px) { .featured-service { flex-direction: column; } }
+        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
+        .featured-card { background: white; display: flex; align-items: center; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 40px; border: 1px solid #e0e0e0; }
+        .image-frame { flex: 0 0 280px; height: 220px; overflow: hidden; background: #eee; }
+        .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .text-side { padding: 30px; flex: 1; }
+        .text-side h2 { color: #003366; margin-top: 0; }
+        .text-side p { line-height: 1.6; color: #555; font-size: 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; text-align: center; border-bottom: 3px solid #b8860b; }
+        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
+        @media (max-width: 600px) { .featured-card { flex-direction: column; } .image-frame { flex: 0 0 auto; width: 100%; height: 200px; } }
     </style>
 </head>
 <body>
-
     <nav>
         <ul>
             <li><a href="./index.html">Home</a></li>
@@ -56,51 +32,35 @@
             <li><a href="./contact.html">Contact</a></li>
         </ul>
     </nav>
-
-    <header class="service-banner">
-        <h1>Our Premium Services</h1>
-        <p>"Revitalizing your garments with the purity of tradition and the precision of technology."</p>
-    </header>
-
     <div class="container">
-        
-        <div class="featured-service">
-            <div class="featured-image">
-                <img src="services1.jpg" alt="Premium Wedding & Occasion Wear">
+        <h1 style="text-align: center; color: #003366;">Our Services</h1>
+        <div class="featured-card">
+            <div class="image-frame">
+                <img src="services1.jpg" alt="Premium Services">
             </div>
-            <div class="featured-text">
+            <div class="text-side">
                 <h2>Wedding & Premium Wear</h2>
-                <p>Specialized care for your most precious garments. From heavy designer lehengas to intricate sherwanis, we use a gentle "Hand-Finish" technique that protects every thread and stone.</p>
-                <p><strong>Perfect for:</strong> Bridal Wear, Tuxedos, Silk Sarees, and Heritage Garments.</p>
+                <p>Specialized care for your most precious garments. We use hand-finishing techniques for lehengas, sherwanis, and silk sarees to ensure every detail is preserved.</p>
+                <p><strong>Excellence Since 1987.</strong></p>
             </div>
         </div>
-
-        <div class="service-grid">
-            <div class="service-card">
-                <h3>Expert Dry Cleaning</h3>
-                <p>Deep cleaning that reaches into the fibers to remove stains and odors, keeping the fabric soft and new.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>Dry Cleaning</h3>
+                <p>Deep cleaning for daily and formal wear.</p>
             </div>
-            <div class="service-card">
-                <h3>Steam Pressing</h3>
-                <p>Professional steam pressing to remove every wrinkle without the risk of burning or shining the fabric.</p>
+            <div class="card">
+                <h3>Steam Press</h3>
+                <p>Wrinkle-free finishing with professional steam technology.</p>
             </div>
-            <div class="service-card">
+            <div class="card">
                 <h3>Stain Removal</h3>
-                <p>Advanced spotting techniques to treat tough stains while maintaining the integrity of the color.</p>
+                <p>Targeted treatment for tough spots and spills.</p>
             </div>
         </div>
-
-        <div class="book-now">
-            <h2>Ready to give your clothes a new life?</h2>
-            <p>Message us on WhatsApp to schedule a pickup or ask for a quote.</p>
-            <a href="https://wa.me/917740870095" class="btn-whatsapp">Book via WhatsApp</a>
-        </div>
-
     </div>
-
     <footer>
-        <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur | Since 1987</p>
+        <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur</p>
     </footer>
-
 </body>
 </html>
