@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRATIKSHA DRY CLEANERS | Ambabari Heritage</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="top-bar">★ TRUSTED IN AMBABARI SINCE 1987 ★</div>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <div class="logo-box">
+                <img src="logo.png" alt="Logo" class="main-logo">
+                <div class="brand-text">
+                    <span class="p-name">PRATIKSHA</span>
+                    <span class="p-sub">DRY CLEANERS</span>
+                </div>
+            </div>
+            <a href="https://wa.me/917740870095" class="pick-up-btn">Pick-up</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="since-tag">ESTABLISHED 1987</span>
+            <h1>शुचिता, संवेदना और <br><span class="gold-highlight">बेहतरीन सफाई</span></h1>
+            <p>सोनू भाई और टीम की ओर से अंबाबाड़ी की सबसे विश्वसनीय ड्राई क्लीनिंग सेवा।</p>
+        </div>
+    </header>
+
+    <section class="expertise">
+        <div class="container">
+            <h2 class="section-title">हमारी विशेषज्ञता (Live)</h2>
+            <div class="horizontal-scroll">
+                <div class="v-card">
+                    <video autoplay muted loop playsinline><source src="gallery/drycleaning.mp4" type="video/mp4"></video>
+                    <h3>General Dry Cleaning</h3>
+                </div>
+                <div class="v-card">
+                    <video autoplay muted loop playsinline><source src="winter.mp4" type="video/mp4"></video>
+                    <h3>Winter Wear</h3>
+                </div>
+                <div class="v-card">
+                    <video autoplay muted loop playsinline><source src="wedding.mp4" type="video/mp4"></video>
+                    <h3>Wedding Wear</h3>
+                </div>
+                <div class="v-card">
+                    <video autoplay muted loop playsinline><source src="steam.mp4" type="video/mp4"></video>
+                    <h3>Steam Iron</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="work-gallery">
+        <div class="container">
+            <h2 class="section-title">गैलरी (Work)</h2>
+            <div class="gallery-trigger" onclick="openGallery()">
+                <img src="gallery/1.jpg" alt="View Gallery">
+                <div class="overlay-text">पूरी गैलरी देखें (1-9 Photos)</div>
+            </div>
+        </div>
+    </section>
+
+    <div id="galleryModal" class="modal">
+        <span class="close-btn" onclick="closeGallery()">&times;</span>
+        <div class="modal-content">
+            <h3>कार्य प्रदर्शनी</h3>
+            <div class="modal-grid">
+                <img src="gallery/1.jpg"> <img src="gallery/2.jpg">
+                <img src="gallery/3.jpg"> <img src="gallery/4.jpg">
+                <img src="gallery/5.jpg"> <img src="gallery/6.jpg">
+                <img src="gallery/7.jpg"> <img src="gallery/8.jpg">
+                <img src="gallery/9.jpg">
+            </div>
+        </div>
+    </div>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-card">
+                <div class="c-line">📍 <span>अंबाबाड़ी, जयपुर (राजस्थान)</span></div>
+                <div class="c-line">📞 <a href="tel:+917740870095">+91 77408 70095</a></div>
+                <div class="c-line">✉️ <a href="mailto:sonudhobi1995@gmail.com">sonudhobi1995@gmail.com</a></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 PRATIKSHA DRY CLEANERS</p>
+        <p>दुर्गा पार्क | हनुमान पार्क | लायंस पार्क क्षेत्र</p>
+    </footer>
+
+    <a href="https://wa.me/917740870095" class="whatsapp-fixed">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+    </a>
+
+    <script>
+        function openGallery() { document.getElementById("galleryModal").style.display = "block"; }
+        function closeGallery() { document.getElementById("galleryModal").style.display = "none"; }
+        window.onclick = function(e) { if(e.target == document.getElementById("galleryModal")) closeGallery(); }
+    </script>
+</body>
+</html>
