@@ -7,39 +7,42 @@
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
         
-        /* Navigation */
-        nav { background: #003366; padding: 15px 0; text-align: center; position: sticky; top: 0; z-index: 1000; }
-        nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
-
-        /* Header */
-        header { background: #003366; color: white; text-align: center; padding: 50px 20px; }
-        header h1 { font-size: 2.2rem; margin: 0; letter-spacing: 1px; }
-
-        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
-
-        /* Step-by-Step Section */
-        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        /* Hamburger Menu Styles */
+        nav { background: #003366; padding: 15px 25px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .brand-name { font-weight: bold; font-size: 1.4rem; letter-spacing: 1px; font-family: 'Arial Black', sans-serif; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
         
-        .process-card { background: white; padding: 30px; border-radius: 12px; border-top: 5px solid #b8860b; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .process-card h3 { color: #003366; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .step-number { font-size: 0.9rem; color: #b8860b; font-weight: bold; text-transform: uppercase; }
+        .nav-links { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .nav-links li { border-bottom: 1px solid #003366; }
+        .nav-links li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 30px; }
 
-        /* Main Process Image Section */
+        /* Process Layout */
+        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
         .process-image-box { text-align: center; margin-bottom: 50px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .process-image-box img { width: 100%; max-width: 700px; border-radius: 10px; }
         .process-image-box h2 { color: #003366; margin-top: 25px; }
 
-        .motto-banner { background: #fdf2e9; text-align: center; padding: 40px 20px; margin-top: 60px; border-radius: 15px; border: 1px dashed #b8860b; }
-        .motto-banner p { font-style: italic; font-size: 1.2rem; color: #5d4037; }
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .process-card { background: white; padding: 30px; border-radius: 12px; border-top: 5px solid #b8860b; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .process-card h3 { color: #003366; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .step-number { font-size: 0.8rem; color: #b8860b; font-weight: bold; text-transform: uppercase; }
 
+        .motto-banner { background: #fdf2e9; text-align: center; padding: 40px 20px; margin-top: 60px; border-radius: 15px; border: 1px dashed #b8860b; font-style: italic; }
+        
         footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <nav>
-        <ul>
+        <div class="brand-name">PRATIKSHA</div>
+        <div class="menu-icon" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul class="nav-links" id="nav-list">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./about.html">About Us</a></li>
@@ -48,59 +51,65 @@
         </ul>
     </nav>
 
-    <header>
-        <h1>How We Care for Your Clothes</h1>
-    </header>
-
     <div class="container">
         
         <div class="process-image-box">
             <img src="process.jpg" alt="Our Quality Cleaning Process">
             <h2>Purity in Every Fiber</h2>
-            <p>We don't just wash; we restore. Our 5-step process ensures your garments get the respect they deserve.</p>
+            <p>Our 5-step restoration process ensures your garments receive the highest level of care.</p>
         </div>
 
         <div class="process-grid">
             <div class="process-card">
                 <span class="step-number">Step 01</span>
                 <h3>Inspection</h3>
-                <p>Every garment is carefully checked for stains, loose buttons, or delicate areas before the process begins.</p>
+                <p>Every garment is checked for stains and delicate areas before we begin.</p>
             </div>
 
             <div class="process-card">
                 <span class="step-number">Step 02</span>
                 <h3>Stain Treatment</h3>
-                <p>Advanced, fabric-safe solutions are applied to target specific stains like ink, oil, or food spills.</p>
+                <p>Fabric-safe solutions target specific spots like ink, oil, or food stains.</p>
             </div>
 
             <div class="process-card">
                 <span class="step-number">Step 03</span>
                 <h3>Gentle Cleaning</h3>
-                <p>Using the latest dry-cleaning technology, we clean your clothes in a controlled environment to maintain their color and texture.</p>
+                <p>Advanced dry-cleaning technology preserves color and fabric texture.</p>
             </div>
 
             <div class="process-card">
                 <span class="step-number">Step 04</span>
                 <h3>Steam Finishing</h3>
-                <p>Our professional steam press removes every wrinkle while giving the garment a fresh, "like-new" crispness.</p>
+                <p>Professional steam press gives your clothes a fresh, crisp, new-like look.</p>
             </div>
 
             <div class="process-card">
                 <span class="step-number">Step 05</span>
-                <h3>Final Quality Check</h3>
-                <p>A final inspection is done. Only when it passes our strict standards is it packed and ready for you.</p>
+                <h3>Quality Check</h3>
+                <p>A final inspection is done to ensure the highest standards of purity.</p>
             </div>
         </div>
 
         <div class="motto-banner">
-            <p>"Just as the ancient sages maintained the purity of their instruments, we maintain the purity of your garments through meticulous care and honest work." <br><strong>— Kul-Deepak Mahasanhita</strong></p>
+            <p>"Just as ancient sages maintained the purity of their instruments, we maintain the purity of your garments through meticulous care." <br><strong>— Kul-Deepak Mahasanhita</strong></p>
         </div>
 
     </div>
 
     <footer>
-        <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur | Professional Care Since 1987</p>
+        <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur</p>
     </footer>
+
+    <script>
+        const hb = document.getElementById('hamburger');
+        const list = document.getElementById('nav-list');
+        hb.addEventListener('click', (e) => {
+            e.stopPropagation();
+            list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+        });
+        document.addEventListener('click', () => { list.style.display = 'none'; });
+    </script>
 
 </body>
 </html>
