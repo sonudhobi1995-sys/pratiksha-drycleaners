@@ -6,41 +6,63 @@
     <title>Our Process - Pratiksha Dry Cleaners</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; }
-        nav.custom-nav { background: #003366; padding: 12px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
-        .nav-center-brand span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
+        nav.custom-nav { background: #003366; padding: 12px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .nav-icon-left { cursor: pointer; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+        .nav-icon-left div { width: 28px; height: 3px; background: white; border-radius: 2px; }
+        .nav-center-brand { flex: 3; text-align: center; }
+        .nav-center-brand span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 1.5px; background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
+        .logo-right { flex: 1; text-align: right; }
+        .logo-right img { height: 45px; width: auto; border-radius: 4px; }
+        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
+        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #003366; }
+
         .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
-        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .process-card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid #D4AF37; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .step-num { color: #D4AF37; font-weight: bold; font-size: 0.8rem; }
+        .process-image-box { text-align: center; margin-bottom: 50px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .process-image-box img { width: 100%; max-width: 700px; border-radius: 10px; }
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .process-card { background: white; padding: 30px; border-radius: 12px; border-top: 5px solid #D4AF37; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .process-card h3 { color: #003366; margin-top: 0; }
+        .step-number { font-size: 0.8rem; color: #D4AF37; font-weight: bold; text-transform: uppercase; }
+        
+        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <nav class="custom-nav">
         <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
         <div class="nav-center-brand"><span>PRATIKSHA DRY CLEANERS</span></div>
-        <div class="logo-right"><img src="logo.png" style="height:45px;"></div>
-        <ul class="nav-dropdown-menu" id="dropdownMenu" style="display:none; position:absolute; top:100%; left:0; width:100%; background:#002244; list-style:none; padding:0;">
-            <li><a href="./index.html" style="color:white; display:block; padding:15px; text-decoration:none;">Home</a></li>
-            <li><a href="./services.html" style="color:white; display:block; padding:15px; text-decoration:none;">Services</a></li>
-            <li><a href="./about.html" style="color:white; display:block; padding:15px; text-decoration:none;">About Us</a></li>
-            <li><a href="./process.html" style="color:white; display:block; padding:15px; text-decoration:none;">Process</a></li>
-            <li><a href="./contact.html" style="color:white; display:block; padding:15px; text-decoration:none;">Contact</a></li>
+        <div class="logo-right"><img src="logo.png" alt="Logo"></div>
+        <ul class="nav-dropdown-menu" id="dropdownMenu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./process.html">Process</a></li>
+            <li><a href="./contact.html">Contact</a></li>
         </ul>
     </nav>
+
     <div class="container">
-        <h2 style="text-align:center; color:#003366;">Purity in Every Fiber</h2>
+        <div class="process-image-box">
+            <img src="process.jpg" alt="Quality Process">
+            <h2 style="color: #003366; margin-top: 25px;">Purity in Every Fiber</h2>
+            <p>Our 5-step restoration process ensures the highest level of care.</p>
+        </div>
         <div class="process-grid">
-            <div class="process-card"><span class="step-num">Step 01</span><h3>Inspection</h3><p>Checking for stains and fabric delicacy.</p></div>
-            <div class="process-card"><span class="step-num">Step 02</span><h3>Stain Treatment</h3><p>Using fabric-safe solutions for spots.</p></div>
-            <div class="process-card"><span class="step-num">Step 03</span><h3>Gentle Cleaning</h3><p>Preserving color and texture.</p></div>
-            <div class="process-card"><span class="step-num">Step 04</span><h3>Steam Finishing</h3><p>Giving a fresh, crisp, new-like look.</p></div>
-            <div class="process-card"><span class="step-num">Step 05</span><h3>Quality Check</h3><p>Ensuring the highest standards of purity.</p></div>
+            <div class="process-card"><span class="step-number">Step 01</span><h3>Inspection</h3><p>Every garment is checked for stains and delicate areas before we begin.</p></div>
+            <div class="process-card"><span class="step-number">Step 02</span><h3>Stain Treatment</h3><p>Fabric-safe solutions target specific spots like ink or oil.</p></div>
+            <div class="process-card"><span class="step-number">Step 03</span><h3>Gentle Cleaning</h3><p>Advanced technology preserves color and fabric texture.</p></div>
+            <div class="process-card"><span class="step-number">Step 04</span><h3>Steam Finishing</h3><p>Professional steam press gives a fresh, new-like look.</p></div>
+            <div class="process-card"><span class="step-number">Step 05</span><h3>Quality Check</h3><p>Final inspection to ensure our highest standards of purity.</p></div>
         </div>
     </div>
+
+    <footer>© 2026 PRATIKSHA DRY CLEANERS</footer>
     <script>
-        document.getElementById('menuToggleBtn').onclick = function(e) { e.stopPropagation(); let m = document.getElementById('dropdownMenu'); m.style.display = (m.style.display === 'block') ? 'none' : 'block'; };
-        document.onclick = function() { document.getElementById('dropdownMenu').style.display = 'none'; };
+        const btn = document.getElementById('menuToggleBtn');
+        const menu = document.getElementById('dropdownMenu');
+        btn.onclick = (e) => { e.stopPropagation(); menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; };
+        document.onclick = () => { menu.style.display = 'none'; };
     </script>
 </body>
 </html>
