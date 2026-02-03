@@ -3,29 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Pratiksha Dry Cleaners</title>
+    <title>Terms & Conditions - Pratiksha Dry Cleaners</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; padding: 40px; background: #f4f7f6; color: #333; }
-        .box { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h1 { color: #003366; border-bottom: 2px solid #b8860b; padding-bottom: 10px; }
-        h2 { color: #003366; margin-top: 25px; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
+        nav { background: #003366; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo-box img { height: 45px; width: auto; border-radius: 4px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-dropdown { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .nav-dropdown li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #003366; }
+
+        .container { max-width: 900px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid #b8860b; }
+        h1 { color: #003366; text-align: center; margin-bottom: 20px; }
+        .update-date { text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 30px; }
+        
+        .terms-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .term-item { padding: 15px; border-bottom: 1px solid #eee; line-height: 1.6; }
+        .term-item strong { color: #003366; display: block; margin-bottom: 5px; }
+        
+        footer { text-align: center; padding: 30px; color: #888; font-size: 0.9rem; }
+        .back-btn { display: block; width: fit-content; margin: 30px auto; background: #003366; color: white; padding: 10px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>Privacy Policy</h1>
-        <p>At <strong>Pratiksha Dry Cleaners</strong>, we value your privacy. This policy explains how we handle your information.</p>
-        
-        <h2>1. Information Collection</h2>
-        <p>We collect basic information like your name, phone number, and address only to provide you with laundry and dry-cleaning services.</p>
 
-        <h2>2. Data Usage</h2>
-        <p>Your data is used solely for order updates, delivery coordination, and service improvements at our Ambabari store.</p>
+    <nav>
+        <div class="menu-icon" id="menuBtn"><div></div><div></div><div></div></div>
+        <div class="logo-box"><img src="logo.png" alt="Logo"></div>
+        <ul class="nav-dropdown" id="navList">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./process.html">Process</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-        <h2>3. Security</h2>
-        <p>We do not share your personal details with any third-party marketing agencies. Your trust is our priority.</p>
+    <div class="container">
+        <h1>Terms and Conditions</h1>
+        <p class="update-date">Effective Date: February 2026</p>
 
-        <p style="margin-top:40px;"><a href="./index.html">Back to Home</a></p>
+        <div class="terms-grid">
+            <div class="term-item"><strong>1. Acceptance of Terms:</strong> By using our services, you agree to comply with all the terms mentioned below.</div>
+            <div class="term-item"><strong>2. Original Bill Requirement:</strong> Customers must present the original bill/challan at the time of delivery.</div>
+            <div class="term-item"><strong>3. Delivery Timeline:</strong> Standard processing takes 3-5 working days. Delays due to weather or technical issues are possible.</div>
+            <div class="term-item"><strong>4. Urgent Service:</strong> A 50% extra charge is applicable for same-day or 24-hour delivery.</div>
+            <div class="term-item"><strong>5. Pocket Inspection:</strong> Please check all pockets before handing over clothes. We are not responsible for valuables left inside.</div>
+            <div class="term-item"><strong>6. Fabric Strength:</strong> We are not liable for damage to very old, weak, or brittle fabrics that cannot withstand the cleaning process.</div>
+            <div class="term-item"><strong>7. Color Fastness:</strong> Risk of color bleeding lies with the customer, especially for new or unwashed fabrics.</div>
+            <div class="term-item"><strong>8. Shrinkage:</strong> We are not responsible for natural shrinkage inherent in certain materials like wool or cotton.</div>
+            <div class="term-item"><strong>9. Pre-existing Damage:</strong> Clothes with holes, tears, or loose stitching are accepted at the owner's risk.</div>
+            <div class="term-item"><strong>10. Stain Removal:</strong> While we try our best, 100% stain removal is not guaranteed for old or permanent stains.</div>
+            <div class="term-item"><strong>11. Embellishments:</strong> We take no responsibility for damage to buttons, beads, sequins, or buckles during heat treatment.</div>
+            <div class="term-item"><strong>12. Collection Deadline:</strong> Clothes must be collected within 15 days of the promised delivery date.</div>
+            <div class="term-item"><strong>13. Storage Charges:</strong> A storage fee may apply for garments left uncollected for more than 30 days.</div>
+            <div class="term-item"><strong>14. Unclaimed Items:</strong> After 45 days, the management reserves the right to dispose of unclaimed items.</div>
+            <div class="term-item"><strong>15. Liability Limit:</strong> In case of loss or total damage, liability is limited to 10 times the cleaning charge or ₹2000, whichever is lower.</div>
+            <div class="term-item"><strong>16. Claim Period:</strong> Any complaint or claim regarding the service must be raised at the time of delivery.</div>
+            <div class="term-item"><strong>17. Home Pickup/Delivery:</strong> Pickup times are subject to availability and location constraints in Ambabari.</div>
+            <div class="term-item"><strong>18. Packaging:</strong> We provide standard packaging. Special packaging requests may incur additional costs.</div>
+            <div class="term-item"><strong>19. Payment:</strong> Payment is preferred at the time of delivery. Digital payments are accepted.</div>
+            <div class="term-item"><strong>20. Service Refusal:</strong> We reserve the right to refuse service for items that are overly soiled or infectious.</div>
+            <div class="term-item"><strong>21. Dry Cleaning Method:</strong> We use professional-grade solvents; specific cleaning methods are chosen at our discretion.</div>
+            <div class="term-item"><strong>22. Count Discrepancy:</strong> Any difference in the number of clothes must be reported during the handover.</div>
+            <div class="term-item"><strong>23. Force Majeure:</strong> We are not liable for loss or damage due to fire, flood, or any natural disaster.</div>
+            <div class="term-item"><strong>24. Digital Privacy:</strong> Customer contact details are kept private as per our Privacy Policy.</div>
+            <div class="term-item"><strong>25. Jurisdiction:</strong> Any legal disputes shall be subject to the exclusive jurisdiction of the courts in Jaipur only.</div>
+        </div>
+
+        <a href="./index.html" class="back-btn">Back to Home</a>
     </div>
+
+    <footer>© 2026 PRATIKSHA DRY CLEANERS | Ambabari, Jaipur</footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const navList = document.getElementById('navList');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navList.style.display = (navList.style.display === 'block') ? 'none' : 'block';
+        });
+        document.addEventListener('click', () => { navList.style.display = 'none'; });
+    </script>
 </body>
 </html>
