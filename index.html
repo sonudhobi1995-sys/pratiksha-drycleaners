@@ -41,7 +41,7 @@
 
     <section class="our-services" style="padding: 40px 0; background: #fdfdfd; border-top: 1px solid #eee;">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; color: #0A2647; margin-bottom: 30px;">Our Specialized Services</h2>
+            <h2 class="section-title" style="text-align: center; color: #0A2647; margin-bottom: 30px;">Our Premium Services</h2>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
                 <div style="background: #fff; padding: 20px 10px; border-radius: 12px; text-align: center; border: 1px solid #eee;">
                     <div style="font-size: 2.2rem; margin-bottom: 10px;">🧺</div>
@@ -82,48 +82,40 @@
             <h2 class="section-title" style="text-align: center; color: #0A2647; margin-bottom: 20px;">Watch Us In Action</h2>
             <div style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); background: #000;">
                 <div id="video-track" style="display: flex; transition: transform 0.5s ease-in-out;">
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="10.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="wedding.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="steam.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter1.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls preload="metadata" style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls preload="metadata" style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls preload="metadata" style="width: 100%;"><source src="10.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls preload="metadata" style="width: 100%;"><source src="wedding.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls preload="metadata" style="width: 100%;"><source src="steam.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls preload="metadata" style="width: 100%;"><source src="winter1.mp4" type="video/mp4"></video></div>
                 </div>
             </div>
-            <p style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 10px;">Videos slide automatically | Click to play sound</p>
+            <p style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 10px;">Swipe or wait to see more videos</p>
         </div>
     </section>
 
-    <section id="feedback-section" style="padding: 50px 0; background: #f9f9f9; border-top: 1px solid #eee;">
+    <section style="padding: 50px 0; background: #f9f9f9; border-top: 1px solid #eee;">
         <div class="container" style="max-width: 500px; margin: auto;">
             <h2 class="section-title" style="text-align: center; color: #0A2647; margin-bottom: 10px;">Your Feedback Matters</h2>
             <div style="background: #fff; padding: 25px; border-radius: 15px; border: 1px solid #eee;">
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="text" id="custName" placeholder="Your Name" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                    <textarea id="custMsg" placeholder="Share your suggestions..." rows="4" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;"></textarea>
-                    <button onclick="sendFeedback()" style="background: #0A2647; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send Feedback via WhatsApp</button>
-                </div>
+                <input type="text" id="custName" placeholder="Your Name" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
+                <textarea id="custMsg" placeholder="Share your suggestions..." rows="4" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;"></textarea>
+                <button onclick="sendFeedback()" style="width: 100%; background: #0A2647; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send via WhatsApp</button>
             </div>
         </div>
     </section>
 
     <section class="rating-location" style="padding: 40px 0; background: #fff; text-align: center;">
         <div class="container">
-            <div style="margin-bottom: 25px;">
-                <div style="color: #D4AF37; font-size: 1.5rem;">★★★★★</div>
-                <p>The Most Trusted Name in Ambabari</p>
-                <a href="https://search.google.com/local/writereview?placeid=ChIJe_b6w96zbTkRPAMh7lnpwP4" target="_blank" style="background: #D4AF37; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; margin-top: 10px;">Rate Us on Google</a>
-            </div>
-            <div>
-                <p>📍 Shop 24-25, Hanuman Market, Ambabari, Jaipur</p>
-                <a href="https://www.google.com/maps/place/?q=place_id:ChIJe_b6w96zbTkRPAMh7lnpwP4" target="_blank" style="background: #0A2647; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; margin-top: 10px;">Open in Google Maps</a>
-            </div>
+            <div style="color: #D4AF37; font-size: 1.5rem;">★★★★★</div>
+            <p>Shop 24-25, Hanuman Market, Ambabari, Jaipur</p>
+            <a href="https://search.google.com/local/writereview?placeid=ChIJe_b6w96zbTkRPAMh7lnpwP4" target="_blank" style="color: #D4AF37; font-weight: bold; text-decoration: none;">Rate Us on Google</a><br>
+            <a href="https://maps.app.goo.gl/9Qv5G" target="_blank" style="background: #0A2647; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; display: inline-block; margin-top: 10px;">Open in Google Maps</a>
         </div>
     </section>
 
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #888; border-top: 1px solid #eee;">
-        <p>© 2026 PRATIKSHA DRY CLEANERS | Managed by Sonu Bhai</p>
-        <p>📞 +91 77408 70095</p>
+        © 2026 PRATIKSHA DRY CLEANERS | Managed by Sonu Bhai
     </footer>
 
     <a href="https://wa.me/917740870095" class="whatsapp-fixed" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
@@ -136,7 +128,7 @@
         setInterval(() => {
             const track = document.getElementById('photo-track');
             const slides = document.querySelectorAll('#photo-track img');
-            if(slides.length > 0) {
+            if(slides.length) {
                 pIdx = (pIdx + 1) % slides.length;
                 track.style.transform = `translateX(-${pIdx * 100}%)`;
             }
@@ -147,10 +139,9 @@
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
             const vSlides = document.querySelectorAll('#video-track > div');
-            if(vSlides.length > 0) {
+            if(vSlides.length) {
                 const currentVid = vSlides[vIdx].querySelector('video');
                 if (currentVid && !currentVid.paused) return; 
-
                 vIdx = (vIdx + 1) % vSlides.length;
                 vTrack.style.transform = `translateX(-${vIdx * 100}%)`;
             }
@@ -160,7 +151,7 @@
             const name = document.getElementById('custName').value;
             const msg = document.getElementById('custMsg').value;
             if(!name || !msg) return alert("Please fill name and message.");
-            const fullMsg = `Hello Sonu Bhai,\n\n*Feedback from:* ${name}\n*Message:* ${msg}`;
+            const fullMsg = `Hello Sonu Bhai, Feedback from: ${name}\n${msg}`;
             window.open(`https://wa.me/917740870095?text=${encodeURIComponent(fullMsg)}`, '_blank');
         }
     </script>
