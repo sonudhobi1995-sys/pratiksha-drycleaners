@@ -9,10 +9,35 @@
     <style>
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #fff; }
         
-        /* Navigation Style: Menu Left, Logo Right */
-        nav.custom-nav { background: #003366; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+        /* Navigation Style: Menu Left, Title Center (Gold), Logo Right */
+        nav.custom-nav { 
+            background: #003366; 
+            padding: 10px 20px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: white; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); 
+        }
+        .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; flex: 1; }
         .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        
+        /* Golden Center Title */
+        .nav-center-title { 
+            flex: 2; 
+            text-align: center; 
+            color: #D4AF37; 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo-right { flex: 1; text-align: right; }
         .logo-right img { height: 45px; width: auto; border-radius: 4px; }
         
         .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
@@ -26,6 +51,11 @@
             50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 30px rgba(255,69,0,0.5); }
             100% { transform: translate(-50%, -50%) scale(1); }
         }
+
+        /* Mobile Adjustment */
+        @media (max-width: 600px) {
+            .nav-center-title { font-size: 0.85rem; letter-spacing: 0px; }
+        }
     </style>
 </head>
 <body>
@@ -34,9 +64,15 @@
         <div class="nav-icon-left" id="menuToggleBtn">
             <div></div><div></div><div></div>
         </div>
+        
+        <div class="nav-center-title">
+            PRATIKSHA DRY CLEANERS
+        </div>
+
         <div class="logo-right">
             <img src="logo.png" alt="Logo">
         </div>
+        
         <ul class="nav-dropdown-menu" id="dropdownMenu">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
@@ -133,8 +169,10 @@
         setInterval(() => {
             const track = document.getElementById('photo-track');
             const slides = document.querySelectorAll('#photo-track img');
-            pIdx = (pIdx + 1) % slides.length;
-            track.style.transform = `translateX(-${pIdx * 100}%)`;
+            if(slides.length > 0) {
+                pIdx = (pIdx + 1) % slides.length;
+                track.style.transform = `translateX(-${pIdx * 100}%)`;
+            }
         }, 3000);
 
         // Video Slider
@@ -142,7 +180,7 @@
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
             const vSlides = document.querySelectorAll('#video-track video');
-            if (vSlides[vIdx].paused) {
+            if (vSlides.length > 0 && vSlides[vIdx].paused) {
                 vIdx = (vIdx + 1) % vSlides.length;
                 vTrack.style.transform = `translateX(-${vIdx * 100}%)`;
             }
