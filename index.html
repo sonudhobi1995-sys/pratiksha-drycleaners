@@ -32,6 +32,8 @@
                     <img src="2.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                     <img src="3.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                     <img src="4.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
+                    <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
+                    <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 </div>
             </div>
         </div>
@@ -83,22 +85,22 @@
                     <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="10.mp4" type="video/mp4"></video></div>
                     <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
                     <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="wedding.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
                     <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="steam.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="5.mp4" type="video/mp4"></video></div>
-                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="6.mp4" type="video/mp4"></video></div>
+                    <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter1.mp4" type="video/mp4"></video></div>
                 </div>
             </div>
-            <p style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 10px;">Automatic Video Showcase | Click to play sound</p>
+            <p style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 10px;">Videos slide automatically | Click to play sound</p>
         </div>
     </section>
 
     <section id="feedback-section" style="padding: 50px 0; background: #f9f9f9; border-top: 1px solid #eee;">
         <div class="container" style="max-width: 500px; margin: auto;">
-            <h2 class="section-title" style="text-align: center; color: #0A2647; margin-bottom: 10px;">Share Your Thoughts</h2>
+            <h2 class="section-title" style="text-align: center; color: #0A2647; margin-bottom: 10px;">Your Feedback Matters</h2>
             <div style="background: #fff; padding: 25px; border-radius: 15px; border: 1px solid #eee;">
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     <input type="text" id="custName" placeholder="Your Name" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
-                    <textarea id="custMsg" placeholder="Share your suggestions or feedback..." rows="4" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;"></textarea>
+                    <textarea id="custMsg" placeholder="Share your suggestions..." rows="4" style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;"></textarea>
                     <button onclick="sendFeedback()" style="background: #0A2647; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send Feedback via WhatsApp</button>
                 </div>
             </div>
@@ -114,7 +116,7 @@
             </div>
             <div>
                 <p>📍 Shop 24-25, Hanuman Market, Ambabari, Jaipur</p>
-                <a href="https://maps.google.com/maps/contrib/111650821721956282912" target="_blank" style="background: #0A2647; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; margin-top: 10px;">Open in Google Maps</a>
+                <a href="https://www.google.com/maps/place/?q=place_id:ChIJe_b6w96zbTkRPAMh7lnpwP4" target="_blank" style="background: #0A2647; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; margin-top: 10px;">Open in Google Maps</a>
             </div>
         </div>
     </section>
@@ -140,7 +142,7 @@
             }
         }, 3000);
 
-        // Video Slider (Prevents sliding if video is playing)
+        // Video Slider (Pauses when playing)
         let vIdx = 0;
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
