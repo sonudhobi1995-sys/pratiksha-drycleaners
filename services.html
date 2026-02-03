@@ -6,9 +6,19 @@
     <title>Services - Pratiksha Dry Cleaners</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f7f9; }
-        nav { background: #003366; padding: 15px 0; text-align: center; position: sticky; top: 0; z-index: 1000; }
-        nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+        
+        /* Navigation Style */
+        nav { background: #003366; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo-box img { height: 45px; width: auto; border-radius: 4px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        
+        /* Dropdown Menu Style */
+        .nav-dropdown { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .nav-dropdown li { border-bottom: 1px solid #003366; }
+        .nav-dropdown li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
+
+        /* Content Layout */
         .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
         .featured-card { background: white; display: flex; align-items: center; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 40px; border: 1px solid #e0e0e0; }
         .image-frame { flex: 0 0 280px; height: 220px; overflow: hidden; background: #eee; }
@@ -16,72 +26,47 @@
         .text-side { padding: 30px; flex: 1; }
         .text-side h2 { color: #003366; margin-top: 0; }
         .text-side p { line-height: 1.6; color: #555; font-size: 1rem; }
+
+        /* Grid for Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .card { background: white; padding: 20px; border-radius: 8px; text-align: center; border-bottom: 3px solid #b8860b; }
+        
         footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
-        @media (max-width: 600px) { .featured-card { flex-direction: column; } .image-frame { flex: 0 0 auto; width: 100%; height: 200px; } }
+
+        @media (max-width: 600px) { 
+            .featured-card { flex-direction: column; } 
+            .image-frame { flex: 0 0 auto; width: 100%; height: 200px; } 
+        }
     </style>
 </head>
 <body>
-    <nav style="background: #003366; padding: 10px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-    
-    <div id="nav-icon-left" style="cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px;">
-        <div style="width: 25px; height: 3px; background: white; border-radius: 2px;"></div>
-        <div style="width: 25px; height: 3px; background: white; border-radius: 2px;"></div>
-        <div style="width: 25px; height: 3px; background: white; border-radius: 2px;"></div>
-    </div>
 
-    <div style="display: flex; align-items: center;">
-        <img src="logo.png" alt="Logo" style="height: 45px; width: auto; border-radius: 4px;">
-    </div>
+    <nav>
+        <div class="menu-icon" id="menuToggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
 
-    <ul id="nav-dropdown-menu" style="list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-        <li style="border-bottom: 1px solid #003366;"><a href="./index.html" style="color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px;">Home</a></li>
-        <li style="border-bottom: 1px solid #003366;"><a href="./services.html" style="color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px;">Services</a></li>
-        <li style="border-bottom: 1px solid #003366;"><a href="./about.html" style="color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px;">About Us</a></li>
-        <li style="border-bottom: 1px solid #003366;"><a href="./process.html" style="color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px;">Process</a></li>
-        <li><a href="./contact.html" style="color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px;">Contact</a></li>
-    </ul>
-</nav>
+        <div class="logo-box">
+            <img src="logo.png" alt="Pratiksha Logo">
+        </div>
 
-<script>
-    const navBtnLeft = document.getElementById('nav-icon-left');
-    const navMenuBox = document.getElementById('nav-dropdown-menu');
-
-    navBtnLeft.addEventListener('click', (e) => {
-        e.stopPropagation();
-        navMenuBox.style.display = (navMenuBox.style.display === 'block') ? 'none' : 'block';
-    });
-
-    document.addEventListener('click', () => {
-        navMenuBox.style.display = 'none';
-    });
-</script>
-
-</nav>
-
-<script>
-    const btn = document.getElementById('hamburger-btn');
-    const links = document.getElementById('dropdown-links');
-
-    // Click to Toggle Menu
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        links.style.display = (links.style.display === 'block') ? 'none' : 'block';
-    });
-
-    // Close menu if user clicks anywhere else on the screen
-    document.addEventListener('click', () => {
-        links.style.display = 'none';
-    });
-</script>
-
+        <ul class="nav-dropdown" id="navMenu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./process.html">Process</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
     </nav>
+
     <div class="container">
         <h1 style="text-align: center; color: #003366;">Our Services</h1>
+        
         <div class="featured-card">
             <div class="image-frame">
-                <img src="services1.jpg" alt="Premium Services">
+                <img src="services1.jpg" alt="Wedding Wear Care">
             </div>
             <div class="text-side">
                 <h2>Wedding & Premium Wear</h2>
@@ -89,6 +74,7 @@
                 <p><strong>Excellence Since 1987.</strong></p>
             </div>
         </div>
+
         <div class="grid">
             <div class="card">
                 <h3>Dry Cleaning</h3>
@@ -104,8 +90,28 @@
             </div>
         </div>
     </div>
+
     <footer>
         <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur</p>
     </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (navMenu.style.display === 'block') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'block';
+            }
+        });
+
+        document.addEventListener('click', () => {
+            navMenu.style.display = 'none';
+        });
+    </script>
+
 </body>
 </html>
