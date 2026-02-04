@@ -22,55 +22,57 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* नेविगेशन बार: Menu -> Logo -> Name | Refresh -> Share */
         nav.custom-nav { 
             background: var(--sun-orange); 
-            padding: 12px 15px; 
+            padding: 10px 15px; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+            height: 60px;
         }
 
-        .nav-left-section { display: flex; align-items: center; gap: 10px; }
+        .nav-left-section { display: flex; align-items: center; gap: 12px; }
         .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
         .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
         
         .nav-brand-area { display: flex; align-items: center; gap: 8px; }
-        .nav-brand-area img { height: 35px; width: auto; border-radius: 4px; border: 1px solid white; }
+        .nav-brand-area img { height: 40px; width: auto; border-radius: 4px; border: 1.5px solid white; }
         .nav-brand-area span {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem;
             color: white;
             text-transform: uppercase;
-            white-space: nowrap;
         }
 
-        .nav-right-actions { display: flex; align-items: center; gap: 15px; }
-        .app-action-icon { cursor: pointer; font-size: 1.2rem; color: white; transition: transform 0.2s; }
+        .nav-right-actions { display: flex; align-items: center; gap: 10px; }
+        .action-btn { 
+            background: rgba(255,255,255,0.2); 
+            color: white; 
+            border: 1px solid white; 
+            padding: 5px 8px; 
+            border-radius: 6px; 
+            font-size: 0.7rem; 
+            font-weight: bold; 
+            cursor: pointer;
+        }
 
-        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
-        .nav-dropdown-menu li { border-bottom: 1px solid #1a3a5a; }
-        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
+        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); z-index: 1001; }
+        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #1a3a5a; }
 
-        .top-bar { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; letter-spacing: 1px; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        .top-bar { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.8rem; }
 
-        .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
+        .service-link { text-decoration: none; color: inherit; display: block; transition: transform 0.2s; }
         .service-link:hover { transform: scale(1.1); }
 
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 30px rgba(46,139,87,0.5); }
             100% { transform: translate(-50%, -50%) scale(1); }
-        }
-
-        @media (max-width: 600px) {
-            .nav-brand-area span { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -81,15 +83,13 @@
             <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
             <div class="nav-brand-area">
                 <img src="logo.png" alt="Logo">
-                <span>PRATIKSHA DRY CLEANERS</span>
+                <span>PRATIKSHA</span>
             </div>
         </div>
-
         <div class="nav-right-actions">
-            <div class="app-action-icon" onclick="refreshApp()" title="Refresh">🔄</div>
-            <div class="app-action-icon" onclick="shareApp()" title="Share">📤</div>
+            <div class="action-btn" onclick="refreshApp()">🔄 रिफ्रेश</div>
+            <div class="action-btn" onclick="shareApp()">📤 शेयर</div>
         </div>
-
         <ul class="nav-dropdown-menu" id="dropdownMenu">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
@@ -99,7 +99,7 @@
         </ul>
     </nav>
 
-    <div class="top-bar">★ AMBABARI: दुर्गा पार्क (E82-124) | हनुमान पार्क (D97-160) ★</div>
+    <div class="top-bar">★ दुर्गा पार्क (E82-124) | हनुमान पार्क (D97-160) ★</div>
 
     <section style="padding: 10px 0; background: var(--cream-bg);">
         <div id="gallery-container" style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange); position: relative; cursor: pointer;">
@@ -158,7 +158,7 @@
 
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #fff; background: var(--saturn-blue);">
         <p>© 2026 PRATIKSHA DRY CLEANERS | Managed by SONU NEEL</p>
-        <p><a href="./privacy.html" style="color:#FFFDD0; text-decoration:none;">Privacy Policy</a> | <a href="./terms.html" style="color:#FFFDD0; text-decoration:none;">Terms & Conditions</a></p>
+        <p><a href="./privacy.html" style="color:#FFFDD0; text-decoration:none;">Privacy Policy</a> | <a href="./terms.html" style="color:#FFFDD0; text-decoration:none;">Terms</a></p>
     </footer>
 
     <a href="https://wa.me/917740870095" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
@@ -166,23 +166,6 @@
     </a>
 
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(reg => console.log('App Active'));
-            });
-        }
-
-        function refreshApp() { window.location.reload(true); }
-        function shareApp() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'PRATIKSHA DRY CLEANERS',
-                    text: 'अंबाबाड़ी की प्रीमियम सर्विस! ऐप इंस्टॉल करें।',
-                    url: window.location.href
-                });
-            }
-        }
-
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.addEventListener('click', (e) => {
@@ -191,26 +174,26 @@
         });
         document.addEventListener('click', () => { menuList.style.display = 'none'; });
 
+        function refreshApp() { window.location.reload(true); }
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({ title: 'PRATIKSHA DRY CLEANERS', url: window.location.href });
+            }
+        }
+
+        // Gallery Slider
         let pIdx = 0;
         let isPaused = false;
         const track = document.getElementById('photo-track');
         const slides = document.querySelectorAll('#photo-track img');
-        const container = document.getElementById('gallery-container');
-        const pauseMsg = document.getElementById('pause-msg');
+        setInterval(() => {
+            if (!isPaused) {
+                pIdx = (pIdx + 1) % slides.length;
+                track.style.transform = `translateX(-${pIdx * 100}%)`;
+            }
+        }, 3000);
 
-        function startGallery() {
-            return setInterval(() => {
-                if (!isPaused) {
-                    pIdx = (pIdx + 1) % slides.length;
-                    track.style.transform = `translateX(-${pIdx * 100}%)`;
-                }
-            }, 3000);
-        }
-
-        let galleryTimer = startGallery();
-        container.addEventListener('mousedown', () => { isPaused = true; pauseMsg.style.display = 'block'; setTimeout(() => { isPaused = false; pauseMsg.style.display = 'none'; }, 10000); });
-        container.addEventListener('touchstart', () => { isPaused = true; pauseMsg.style.display = 'block'; setTimeout(() => { isPaused = false; pauseMsg.style.display = 'none'; }, 10000); });
-
+        // Video Slider
         let vIdx = 0;
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
