@@ -6,17 +6,15 @@
     <title>PRATIKSHA DRY CLEANERS | Premium Fabric Care</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables - ग्रहों के रंग */
         :root {
-            --sun-orange: #FF8C00;   /* सूर्य - ऊर्जा और नई शुरुआत */
-            --mercury-green: #2E8B57; /* बुध - प्रकृति और व्यापार वृद्धि */
-            --saturn-blue: #001F3F;   /* शनि - स्थायित्व और अनुशासन */
-            --cream-bg: #FFFDD0;     /* क्रीम - शुचिता और शुद्धता */
+            --sun-orange: #FF8C00;
+            --mercury-green: #2E8B57;
+            --saturn-blue: #001F3F;
+            --cream-bg: #FFFDD0;
         }
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* Navigation - सूर्य देव का प्रभाव (Sun Orange) */
         nav.custom-nav { 
             background: var(--sun-orange); 
             padding: 12px 20px; 
@@ -38,7 +36,7 @@
             font-weight: 900;
             font-size: 1.1rem;
             letter-spacing: 1.5px;
-            color: white; /* सूर्य के रंग पर सफेद स्पष्ट दिखेगा */
+            color: white;
             text-transform: uppercase;
             display: inline-block;
         }
@@ -50,8 +48,11 @@
         .nav-dropdown-menu li { border-bottom: 1px solid #1a3a5a; }
         .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
 
-        /* Top Bar - शनि का नीला (Deep Blue) */
         .top-bar { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; letter-spacing: 1px; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* Service Links Style */
+        .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
+        .service-link:hover { transform: scale(1.1); }
 
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); }
@@ -67,15 +68,9 @@
 <body>
 
     <nav class="custom-nav">
-        <div class="nav-icon-left" id="menuToggleBtn">
-            <div></div><div></div><div></div>
-        </div>
-        <div class="nav-center-brand">
-            <span>PRATIKSHA DRY CLEANERS</span>
-        </div>
-        <div class="logo-right">
-            <img src="logo.png" alt="Logo">
-        </div>
+        <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
+        <div class="nav-center-brand"><span>PRATIKSHA DRY CLEANERS</span></div>
+        <div class="logo-right"><img src="logo.png" alt="Logo"></div>
         <ul class="nav-dropdown-menu" id="dropdownMenu">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
@@ -88,7 +83,7 @@
     <div class="top-bar">★ AMBABARI: दुर्गा पार्क (E82-124) | हनुमान पार्क (D97-160) ★</div>
 
     <section style="padding: 10px 0; background: var(--cream-bg);">
-        <div style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange);">
+        <div id="gallery-container" style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange); position: relative; cursor: pointer;">
             <div id="photo-track" style="display: flex; transition: transform 0.5s ease-in-out;">
                 <img src="1.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="2.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
@@ -97,22 +92,31 @@
                 <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
             </div>
+            <div id="pause-msg" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; display: none;">Paused (10s)</div>
         </div>
     </section>
 
     <section style="padding: 60px 0; background: #fffdf2; overflow: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
         <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 50px;">Our Premium Services</h2>
         <div style="position: relative; width: 300px; height: 300px; margin: 0 auto;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: var(--mercury-green); border: 4px solid var(--sun-orange); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; text-align: center; animation: pulse 2s infinite;">
-                <div style="font-size: 1.5rem; color: white;">⚡</div>
-                <h4 style="margin: 0; color: white; font-size: 0.75rem; font-weight: 900; line-height: 1.1;">URGENT<br>SERVICE</h4>
-            </div>
-            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🧺<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Dry Clean</p></div>
-            <div style="position: absolute; top: 45px; right: -15px; text-align: center; width: 80px;">👔<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Steam Iron</p></div>
-            <div style="position: absolute; bottom: 45px; right: -15px; text-align: center; width: 80px;">💃<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Wedding</p></div>
-            <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🏠<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Home Decor</p></div>
-            <div style="position: absolute; bottom: 45px; left: -15px; text-align: center; width: 80px;">🧥<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Leather</p></div>
-            <div style="position: absolute; top: 45px; left: -15px; text-align: center; width: 80px;">🧶<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Woolens</p></div>
+            <a href="services.html#rapid" style="text-decoration: none;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: var(--mercury-green); border: 4px solid var(--sun-orange); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; text-align: center; animation: pulse 2s infinite;">
+                    <div style="font-size: 1.5rem; color: white;">⚡</div>
+                    <h4 style="margin: 0; color: white; font-size: 0.65rem; font-weight: 900; line-height: 1.1;">RAPID<br>SERVICE<br>(9AM-9PM)</h4>
+                </div>
+            </a>
+            
+            <a href="services.html#dryclean" class="service-link" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🧺<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Dry Clean</p></a>
+            
+            <a href="services.html#steamiron" class="service-link" style="position: absolute; top: 45px; right: -15px; text-align: center; width: 80px;">👔<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Steam Iron</p></a>
+            
+            <a href="services.html#wedding" class="service-link" style="position: absolute; bottom: 45px; right: -15px; text-align: center; width: 80px;">💃<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Wedding</p></a>
+            
+            <a href="services.html#household" class="service-link" style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🏠<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Home Decor</p></a>
+            
+            <a href="services.html#leather" class="service-link" style="position: absolute; bottom: 45px; left: -15px; text-align: center; width: 80px;">🧥<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Leather</p></a>
+            
+            <a href="services.html#woolens" class="service-link" style="position: absolute; top: 45px; left: -15px; text-align: center; width: 80px;">🧶<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Woolens</p></a>
         </div>
     </section>
 
@@ -157,13 +161,37 @@
         });
         document.addEventListener('click', () => { menuList.style.display = 'none'; });
 
+        // Gallery Control Logic with Smart Pause
         let pIdx = 0;
-        setInterval(() => {
-            const track = document.getElementById('photo-track');
-            const slides = document.querySelectorAll('#photo-track img');
-            pIdx = (pIdx + 1) % slides.length;
-            track.style.transform = `translateX(-${pIdx * 100}%)`;
-        }, 3000);
+        let isPaused = false;
+        const track = document.getElementById('photo-track');
+        const slides = document.querySelectorAll('#photo-track img');
+        const container = document.getElementById('gallery-container');
+        const pauseMsg = document.getElementById('pause-msg');
+
+        function startGallery() {
+            return setInterval(() => {
+                if (!isPaused) {
+                    pIdx = (pIdx + 1) % slides.length;
+                    track.style.transform = `translateX(-${pIdx * 100}%)`;
+                }
+            }, 3000);
+        }
+
+        let galleryTimer = startGallery();
+
+        // Pause on Click/Touch for 10 seconds
+        container.addEventListener('mousedown', pauseGallery);
+        container.addEventListener('touchstart', pauseGallery);
+
+        function pauseGallery() {
+            isPaused = true;
+            pauseMsg.style.display = 'block';
+            setTimeout(() => {
+                isPaused = false;
+                pauseMsg.style.display = 'none';
+            }, 10000); // 10 seconds pause
+        }
 
         let vIdx = 0;
         setInterval(() => {
