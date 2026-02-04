@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRATIKSHA DRY CLEANERS | Premium Fabric Care</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF8C00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="logo.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -153,6 +160,15 @@
     </a>
 
     <script>
+        // सर्विस वर्कर का रजिस्ट्रेशन (App Engine Activation)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Pratiksha App Linked!'))
+                    .catch(err => console.log('Error', err));
+            });
+        }
+
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.addEventListener('click', (e) => {
@@ -180,7 +196,6 @@
 
         let galleryTimer = startGallery();
 
-        // Pause on Click/Touch for 10 seconds
         container.addEventListener('mousedown', pauseGallery);
         container.addEventListener('touchstart', pauseGallery);
 
@@ -190,7 +205,7 @@
             setTimeout(() => {
                 isPaused = false;
                 pauseMsg.style.display = 'none';
-            }, 10000); // 10 seconds pause
+            }, 10000); 
         }
 
         let vIdx = 0;
