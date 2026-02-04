@@ -49,7 +49,7 @@
         .nav-dropdown-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
         .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
 
-        /* 4-Step Process Bar (New Section) */
+        /* 4-Step Process Bar */
         .process-bar { 
             background: white; 
             padding: 30px 10px; 
@@ -62,7 +62,7 @@
         .step-icon { font-size: 1.8rem; margin-bottom: 5px; display: block; }
         .step-name { font-size: 0.75rem; font-weight: 700; color: var(--saturn-blue); text-transform: uppercase; }
 
-        /* Container & Cards Style - Original Structure */
+        /* Container & Cards Style */
         .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
         
         .featured-card { 
@@ -94,6 +94,20 @@
         }
         .card:hover { transform: translateY(-5px); }
         .card h3 { color: var(--saturn-blue); margin-bottom: 10px; }
+
+        /* Detailed Service Cards (New Section) */
+        .service-desc-card {
+            scroll-margin-top: 110px;
+            background: white;
+            padding: 35px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            border-left: 8px solid var(--mercury-green);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; margin: 10px 0; }
+        .service-desc-card p { color: #444; line-height: 1.8; text-align: justify; font-size: 0.95rem; }
+        .detail-tag { font-size: 0.75rem; font-weight: bold; color: var(--sun-orange); text-transform: uppercase; letter-spacing: 1.5px; }
 
         footer { text-align: center; padding: 40px; color: white; background: var(--saturn-blue); font-size: 0.9rem; }
 
@@ -144,21 +158,58 @@
             </div>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <h3>🧺 Dry Cleaning</h3>
-                <p style="font-size: 0.85rem; color: #666;">Deep cleaning for daily and formal wear with eco-friendly solutions.</p>
-            </div>
-            <div class="card">
-                <h3>👔 Steam Press</h3>
-                <p style="font-size: 0.85rem; color: #666;">Wrinkle-free finishing with professional high-pressure steam technology.</p>
-            </div>
-            <div class="card">
-                <h3>✨ Stain Removal</h3>
-                <p style="font-size: 0.85rem; color: #666;">Targeted treatment for tough spots while preserving fabric integrity.</p>
-            </div>
+        <div class="grid" style="margin-bottom: 60px;">
+            <div class="card"><h3>🧺 Dry Cleaning</h3><p style="font-size: 0.85rem; color: #666;">Deep cleaning for daily and formal wear with eco-friendly solutions.</p></div>
+            <div class="card"><h3>👔 Steam Press</h3><p style="font-size: 0.85rem; color: #666;">Wrinkle-free finishing with professional high-pressure steam technology.</p></div>
+            <div class="card"><h3>✨ Stain Removal</h3><p style="font-size: 0.85rem; color: #666;">Targeted treatment for tough spots while preserving fabric integrity.</p></div>
+        </div>
+
+        <h2 style="text-align: center; font-family: 'Playfair Display', serif; color: var(--saturn-blue); margin-bottom: 40px;">Our 7-Star Fabric Care Philosophy</h2>
+
+        <div id="dryclean" class="service-desc-card">
+            <span class="detail-tag">Premium Care</span>
+            <h3>Heritage Dry Cleaning</h3>
+            <p>Since 1987, we have mastered the art of cleaning without damage. We use eco-friendly, fabric-safe solvents that penetrate deep into the fibers to remove oils and stains while preserving the garment's original luster. Ideal for Silk, Designer Wear, and sensitive fabrics.</p>
+        </div>
+
+        <div id="woolens" class="service-desc-card" style="border-left-color: #3498db;">
+            <span class="detail-tag">Winter Protection</span>
+            <h3>Specialized Woolen Care</h3>
+            <p>Woolens require a gentle touch. Our process involves a cold-soak purification method and controlled air-drying to prevent pilling, stretching, or shrinkage. We treat your Pashminas and coats with the warmth they deserve.</p>
+        </div>
+
+        <div id="steamiron" class="service-desc-card" style="border-left-color: var(--sun-orange);">
+            <span class="detail-tag">Advanced Finishing</span>
+            <h3>Professional Steam Ironing</h3>
+            <p>Avoid the 'shine marks' of traditional irons. Our industrial high-pressure steam tables sanitize and relax fabric fibers, providing a crisp, boutique-like finish. Your formals and ethnic wear will look sharp and feel fresh.</p>
+        </div>
+
+        <div id="wedding" class="service-desc-card" style="border-left-color: #8e44ad;">
+            <span class="detail-tag">Preserving Memories</span>
+            <h3>Wedding & Couture Care</h3>
+            <p>A wedding outfit is an emotion. We provide manual 'spot-cleaning' for heavy Lehengas and Sherwanis, ensuring every bead and zari is protected. Each piece is tissue-wrapped to prevent oxidation and long-term fiber damage.</p>
+        </div>
+
+        <div id="household" class="service-desc-card" style="border-left-color: #2c3e50;">
+            <span class="detail-tag">Deep Disinfection</span>
+            <h3>Home Linen & Decor</h3>
+            <p>Remove dust mites and allergens from your heavy curtains, bedspreads, and sofa covers. Our deep-cleaning process ensures your home environment stays healthy and vibrant, without any distortion in the shape of large items.</p>
+        </div>
+
+        <div id="leather" class="service-desc-card" style="border-left-color: #5d4037;">
+            <span class="detail-tag">Revival Service</span>
+            <h3>Leather & Shoe Spa</h3>
+            <p>Leather needs hydration. We use premium conditioning oils to restore the suppleness of your leather jackets and suede shoes. We revive the natural texture and provide a protective layer against dust and moisture.</p>
+        </div>
+
+        <div id="rapid" class="service-desc-card" style="border-left-color: var(--mercury-green);">
+            <span class="detail-tag">Fast Track</span>
+            <h3>Same-Day / Next-Day Service</h3>
+            <p>Need it quick? Our professional team operates from <strong>09:00 AM to 09:00 PM</strong> to ensure your urgent orders are priority-tracked. We guarantee the fastest possible turnaround within our working hours for your rapid needs.</p>
         </div>
     </div>
+
+    
 
     <footer>
         <p>&copy; 2026 Pratiksha Dry Cleaners | Managed by Sonu Bhai</p>
