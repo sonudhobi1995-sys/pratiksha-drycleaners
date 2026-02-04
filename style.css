@@ -1,47 +1,118 @@
 :root {
-    --navy: #0A2647;
-    --gold: #D4AF37;
-    --light: #f4f7f6;
+    --sun-orange: #FF8C00; /* सूर्य देव का ऊर्जावान रंग - Header */
+    --mercury-green: #2E8B57; /* बुध का प्राकृतिक हरा - Buttons/Highlights */
+    --saturn-blue: #001F3F; /* शनि का गहरा नीला - Footer/Top-bar */
+    --cream-light: #FFFDD0; /* क्रीम कलर - Background */
+    --gold-accent: #D4AF37; /* आपकी पुरानी कोडिंग का गोल्ड टच */
 }
 
-body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #333; overflow-x: hidden; }
+body { 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    background: var(--cream-light); /* सफेद की जगह क्रीम */
+    color: #333; 
+    overflow-x: hidden; 
+}
+
 .container { width: 90%; margin: auto; }
 
-.top-bar { background: var(--navy); color: white; text-align: center; padding: 10px; font-size: 0.7rem; letter-spacing: 1px; }
+/* Top Bar - शनि का नीला प्रभाव */
+.top-bar { 
+    background: var(--saturn-blue); 
+    color: white; 
+    text-align: center; 
+    padding: 10px; 
+    font-size: 0.7rem; 
+    letter-spacing: 1px; 
+}
 
-.navbar { padding: 12px 0; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 100; }
+/* Navbar - सूर्य देव का प्रभाव (Header) */
+.navbar { 
+    padding: 12px 0; 
+    border-bottom: 2px solid var(--gold-accent); 
+    position: sticky; 
+    top: 0; 
+    background: var(--sun-orange); /* सूर्य का रंग */
+    z-index: 100; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
 .logo-box { display: flex; align-items: center; gap: 12px; }
-.main-logo { height: 55px; border-radius: 5px; } 
-.p-name { display: block; font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--navy); font-weight: 900; line-height: 1; } 
-.p-sub { font-size: 0.65rem; color: var(--gold); letter-spacing: 3px; font-weight: 700; text-transform: uppercase; }
+.p-name { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.6rem; 
+    color: white; /* सूर्य के रंग पर सफेद जमेगा */
+    font-weight: 900; 
+    line-height: 1; 
+} 
+.p-sub { 
+    font-size: 0.65rem; 
+    color: var(--saturn-blue); /* गहरा नीला फॉर कंट्रास्ट */
+    letter-spacing: 3px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+}
 
-.pick-up-btn { background: var(--navy); color: white; padding: 8px 15px; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 0.75rem; }
+/* बटन - बुध का हरा (Pickup Service) */
+.pick-up-btn { 
+    background: var(--mercury-green); 
+    color: white; 
+    padding: 8px 15px; 
+    text-decoration: none; 
+    border-radius: 25px; 
+    font-weight: 600; 
+    font-size: 0.75rem; 
+    border: 1px solid white;
+}
 
-.hero { padding: 40px 0; }
-.since-tag { color: var(--gold); font-size: 0.7rem; font-weight: 700; }
-.hero h1 { font-family: 'Playfair Display'; font-size: 2rem; margin: 15px 0; color: var(--navy); line-height: 1.2; }
-.gold-highlight { border-bottom: 4px solid var(--gold); }
+/* Hero Section */
+.hero { padding: 40px 0; background: var(--cream-light); }
+.since-tag { color: var(--mercury-green); font-size: 0.7rem; font-weight: 700; }
+.hero h1 { 
+    font-family: 'Playfair Display'; 
+    font-size: 2rem; 
+    margin: 15px 0; 
+    color: var(--saturn-blue); 
+    line-height: 1.2; 
+}
+.gold-highlight { border-bottom: 4px solid var(--mercury-green); }
 
-.horizontal-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
-.v-card { min-width: 180px; background: var(--light); border-radius: 12px; overflow: hidden; border: 1px solid #eee; }
-.v-card video { width: 100%; height: 250px; object-fit: cover; }
-.v-card h3 { font-size: 0.8rem; text-align: center; padding: 10px; margin: 0; color: var(--navy); font-weight: 700; }
+/* Horizontal Scroll - कार्ड्स की क्रीम और हरी थीम */
+.v-card { 
+    min-width: 180px; 
+    background: white; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    border: 1px solid #ddd; 
+}
+.v-card h3 { 
+    font-size: 0.8rem; 
+    text-align: center; 
+    padding: 10px; 
+    margin: 0; 
+    color: var(--mercury-green); 
+    font-weight: 700; 
+}
 
-.gallery-trigger { position: relative; height: 160px; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-.gallery-trigger img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
-.overlay-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; border: 2px solid white; padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; }
+/* Contact Card */
+.contact-card { 
+    background: #fdfae1; /* क्रीम का एक और शेड */
+    padding: 20px; 
+    border-radius: 15px; 
+    margin-top: 20px; 
+    border: 1px solid var(--gold-accent);
+}
 
-.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; }
-.modal-content { background: white; margin: 15% auto; padding: 15px; width: 85%; border-radius: 15px; }
-.modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-.modal-grid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; }
-.close-btn { position: absolute; top: 20px; right: 25px; color: white; font-size: 40px; cursor: pointer; }
+/* Footer - शनि का गहरा नीला */
+footer { 
+    background: var(--saturn-blue); 
+    text-align: center; 
+    padding: 30px; 
+    font-size: 0.65rem; 
+    color: #cbd5e0; 
+    border-top: 1px solid var(--gold-accent); 
+    line-height: 1.6; 
+}
 
-.contact-card { background: var(--light); padding: 20px; border-radius: 15px; margin-top: 20px; }
-.c-line { margin-bottom: 12px; font-size: 0.9rem; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 10px; }
-.c-line a { color: inherit; text-decoration: none; }
-
-footer { text-align: center; padding: 30px; font-size: 0.65rem; color: #999; border-top: 1px solid #eee; line-height: 1.6; }
 .whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; width: 55px; z-index: 1000; }
-
