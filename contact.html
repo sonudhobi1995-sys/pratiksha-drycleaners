@@ -6,26 +6,86 @@
     <title>Contact Us - Pratiksha Dry Cleaners</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
-        nav.custom-nav { background: #003366; padding: 12px 20px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        :root {
+            --sun-orange: #FF8C00;
+            --mercury-green: #2E8B57;
+            --saturn-blue: #001F3F;
+            --cream-bg: #FFFDD0;
+        }
+
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
+        
+        /* Navigation Style */
+        nav.custom-nav { 
+            background: var(--sun-orange); 
+            padding: 12px 20px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+        }
+
         .nav-icon-left { cursor: pointer; flex: 1; display: flex; flex-direction: column; gap: 5px; }
         .nav-icon-left div { width: 28px; height: 3px; background: white; border-radius: 2px; }
-        .nav-center-brand { flex: 3; text-align: center; }
-        .nav-center-brand span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 1.5px; background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; display: inline-block; }
-        .logo-right { flex: 1; text-align: right; }
-        .logo-right img { height: 45px; width: auto; border-radius: 4px; }
-        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
-        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #003366; }
-
-        .contact-container { max-width: 800px; margin: 50px auto; padding: 20px; }
-        .info-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
-        .info-card h1 { color: #003366; margin-bottom: 30px; }
-        .detail-item { margin: 25px 0; font-size: 1.1rem; }
-        .detail-item strong { color: #D4AF37; display: block; margin-bottom: 5px; }
-        .btn-call { background: #003366; color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 10px; font-weight: bold; }
-        .btn-wa { background: #25D366; color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 10px; font-weight: bold; }
         
-        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
+        .nav-center-brand { flex: 3; text-align: center; }
+        .nav-center-brand span {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            color: white;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .logo-right { flex: 1; text-align: right; }
+        .logo-right img { height: 45px; width: auto; border-radius: 4px; border: 1px solid white; }
+        
+        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
+        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        .contact-container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+        
+        /* Contact Flex Layout */
+        .contact-flex { display: flex; flex-wrap: wrap; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--saturn-blue); }
+        
+        .info-side { flex: 1; min-width: 320px; padding: 40px; }
+        .info-side h1 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; margin-bottom: 25px; }
+        
+        .detail-item { margin: 20px 0; text-align: left; }
+        .detail-item strong { color: var(--mercury-green); display: block; margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .detail-item span { font-size: 1.05rem; font-weight: 600; color: #444; }
+
+        .btn-call { background: var(--saturn-blue); color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 15px; font-weight: bold; transition: 0.3s; border: 2px solid var(--saturn-blue); }
+        .btn-wa { background: #25D366; color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; display: inline-block; margin-top: 15px; font-weight: bold; margin-left: 10px; }
+
+        /* Map Section */
+        .map-side { flex: 1; min-width: 320px; background: #eee; min-height: 400px; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Delivery Badge */
+        .delivery-notice { background: #fff8e1; border-left: 5px solid var(--sun-orange); padding: 15px; margin-top: 20px; font-size: 0.85rem; color: #5d4037; font-weight: 500; }
+
+        /* Footer */
+        footer { 
+            background: var(--saturn-blue); 
+            color: white; 
+            padding: 50px 20px; 
+            text-align: center; 
+            margin-top: 60px;
+            border-top: 4px solid var(--sun-orange);
+        }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--sun-orange); margin-bottom: 10px; display: block; }
+
+        @media (max-width: 600px) { 
+            .btn-wa { margin-left: 0; margin-top: 10px; width: 100%; text-align: center; }
+            .btn-call { width: 100%; text-align: center; }
+            .nav-center-brand span { font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -43,16 +103,40 @@
     </nav>
 
     <div class="contact-container">
-        <div class="info-card">
-            <h1>Get In Touch</h1>
-            <div class="detail-item"><strong>Our Location</strong>Pratiksha Dry Cleaners, Ambabari, Jaipur</div>
-            <div class="detail-item"><strong>Serving Specific Areas</strong>Durga Park, Hanuman Park, Lions Park & A-Series</div>
-            <div class="detail-item"><strong>Call Us</strong>+91 77408 70095<br><a href="tel:+917740870095" class="btn-call">Make a Call</a></div>
-            <div class="detail-item"><strong>WhatsApp</strong><br><a href="https://wa.me/917740870095" class="btn-wa">Chat Now</a></div>
-            <div class="detail-item"><strong>Hours</strong>Mon - Sun: 09:00 AM - 09:00 PM</div>
+        <div class="contact-flex">
+            <div class="info-side">
+                <h1>Connect With Us</h1>
+                
+                <div class="detail-item"><strong>Our Workshop</strong><span>Pratiksha Dry Cleaners, Ambabari, Jaipur</span></div>
+                
+                <div class="detail-item"><strong>Service Areas</strong><span>Durga Park (E-Series), Hanuman Park (D-Series), & A-Series</span></div>
+                
+                <div class="detail-item"><strong>Operating Hours</strong><span>Mon - Sun: 09:00 AM - 09:00 PM</span></div>
+
+                <div class="delivery-notice">
+                    🚚 <strong>Pickup Policy:</strong> Free pickup and delivery on orders above ₹250 within Ambabari regions.
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <a href="tel:+917740870095" class="btn-call">📞 Call Now</a>
+                    <a href="https://wa.me/917740870095" class="btn-wa">💬 WhatsApp Pickup</a>
+                </div>
+            </div>
+
+            <div class="map-side">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3557.487679893!2d75.787!3d26.93!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDU1JzQ4LjAiTiA3NcKwNDcnMTMuMiJF!5e0!3m2!1sen!2sin!4v1640000000000" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
     </div>
-    <footer>© 2026 PRATIKSHA DRY CLEANERS</footer>
+
+    
+
+    <footer>
+        <span class="footer-logo">PRATIKSHA DRY CLEANERS</span>
+        <p>Expert Fabric Care Since 1987</p>
+        <p style="font-size: 0.75rem; color: #888; margin-top: 20px;">© 2026 | MANAGED BY SONU BHAI</p>
+    </footer>
+
     <script>
         const btn = document.getElementById('menuToggleBtn');
         const menu = document.getElementById('dropdownMenu');
