@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Pratiksha Dry Cleaners</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF8C00">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,119 +18,111 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* Premium Navigation - Sun Orange Theme */
+        /* नया डार्क और क्लियर नेविगेशन बार */
         nav.custom-nav { 
             background: var(--sun-orange); 
-            padding: 12px 20px; 
+            padding: 10px 15px; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
         }
 
-        .nav-icon-left { cursor: pointer; flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .nav-icon-left div { width: 28px; height: 3px; background: white; border-radius: 2px; }
+        .nav-left-section { display: flex; align-items: center; gap: 12px; }
+        .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .nav-icon-left div { width: 25px; height: 3px; background: var(--saturn-blue); border-radius: 2px; }
         
-        .nav-center-brand { flex: 3; text-align: center; }
-        .nav-center-brand span {
+        .nav-brand-area { display: flex; align-items: center; gap: 8px; }
+        .nav-brand-area img { height: 40px; width: auto; border-radius: 5px; border: 2px solid var(--saturn-blue); }
+        .nav-brand-area span {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 1.5px;
-            color: white;
+            font-size: 0.9rem;
+            color: var(--saturn-blue); /* अब नाम गहरे नीले रंग में दिखेगा */
             text-transform: uppercase;
-            display: inline-block;
         }
 
-        .logo-right { flex: 1; text-align: right; }
-        .logo-right img { height: 45px; width: auto; border-radius: 5px; border: 1px solid rgba(255,255,255,0.2); }
+        .nav-right-actions { display: flex; align-items: center; gap: 8px; }
         
-        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .nav-dropdown-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
-
-        /* 4-Step Process Bar */
-        .process-bar { 
-            background: white; 
-            padding: 30px 10px; 
+        /* बटनों को और अधिक स्पष्ट बनाया गया है */
+        .install-text-btn { 
+            background: var(--saturn-blue); 
+            color: white; 
+            padding: 6px 10px; 
+            border-radius: 8px; 
+            font-size: 0.7rem; 
+            font-weight: bold; 
+            border: none; 
             display: flex; 
-            justify-content: space-around; 
-            text-align: center; 
-            border-bottom: 4px solid var(--mercury-green);
+            align-items: center; 
+            gap: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+
+        .app-action-icon { 
+            background: rgba(255,255,255,0.9); 
+            color: var(--saturn-blue);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid var(--saturn-blue);
+        }
+
+        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); z-index: 1001; }
+        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        /* आपकी ओरिजिनल स्टाइलिंग यहाँ से शुरू होती है */
+        .process-bar { background: white; padding: 30px 10px; display: flex; justify-content: space-around; text-align: center; border-bottom: 4px solid var(--mercury-green); }
         .step { flex: 1; }
         .step-icon { font-size: 1.8rem; margin-bottom: 5px; display: block; }
         .step-name { font-size: 0.75rem; font-weight: 700; color: var(--saturn-blue); text-transform: uppercase; }
 
-        /* Container & Cards Style */
         .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
-        
-        .featured-card { 
-            background: white; 
-            display: flex; 
-            align-items: center; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
-            margin-bottom: 40px; 
-            border-left: 6px solid var(--sun-orange); 
-        }
+        .featured-card { background: white; display: flex; align-items: center; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 40px; border-left: 6px solid var(--sun-orange); }
         .image-frame { flex: 0 0 280px; height: 220px; overflow: hidden; }
         .image-frame img { width: 100%; height: 100%; object-fit: cover; }
-        
         .text-side { padding: 30px; flex: 1; }
         .text-side h2 { color: var(--saturn-blue); margin-top: 0; font-family: 'Playfair Display', serif; }
         .text-side p { line-height: 1.6; color: #555; font-size: 0.95rem; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .card { 
-            background: white; 
-            padding: 25px; 
-            border-radius: 10px; 
-            text-align: center; 
-            border-bottom: 4px solid var(--mercury-green); 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-            transition: 0.3s;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { color: var(--saturn-blue); margin-bottom: 10px; }
-
-        /* Detailed Service Cards (New Section) */
-        .service-desc-card {
-            scroll-margin-top: 110px;
-            background: white;
-            padding: 35px;
-            margin-bottom: 30px;
-            border-radius: 15px;
-            border-left: 8px solid var(--mercury-green);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-        }
-        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; margin: 10px 0; }
-        .service-desc-card p { color: #444; line-height: 1.8; text-align: justify; font-size: 0.95rem; }
-        .detail-tag { font-size: 0.75rem; font-weight: bold; color: var(--sun-orange); text-transform: uppercase; letter-spacing: 1.5px; }
+        .card { background: white; padding: 25px; border-radius: 10px; text-align: center; border-bottom: 4px solid var(--mercury-green); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .service-desc-card { scroll-margin-top: 110px; background: white; padding: 35px; margin-bottom: 30px; border-radius: 15px; border-left: 8px solid var(--mercury-green); box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; }
+        .detail-tag { font-size: 0.75rem; font-weight: bold; color: var(--sun-orange); text-transform: uppercase; }
 
         footer { text-align: center; padding: 40px; color: white; background: var(--saturn-blue); font-size: 0.9rem; }
 
         @media (max-width: 600px) { 
             .featured-card { flex-direction: column; } 
             .image-frame { width: 100%; height: 200px; }
-            .nav-center-brand span { font-size: 0.9rem; letter-spacing: 0.5px; }
-            .process-bar { flex-wrap: wrap; gap: 20px; }
-            .step { min-width: 45%; }
+            .nav-brand-area span { font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
 
     <nav class="custom-nav">
-        <div class="nav-icon-left" id="menuToggleBtn">
-            <div></div><div></div><div></div>
+        <div class="nav-left-section">
+            <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
+            <div class="nav-brand-area">
+                <img src="logo.png" alt="Logo">
+                <span>PRATIKSHA</span>
+            </div>
         </div>
-        <div class="nav-center-brand"><span>PRATIKSHA DRY CLEANERS</span></div>
-        <div class="logo-right"><img src="logo.png" alt="Logo"></div>
+        <div class="nav-right-actions">
+            <button class="install-text-btn" onclick="triggerInstall()">📲 APP</button>
+            <div class="app-action-icon" onclick="shareApp()">📤</div>
+            <div class="app-action-icon" onclick="refreshApp()">🔄</div>
+        </div>
         <ul class="nav-dropdown-menu" id="dropdownMenu">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
@@ -148,9 +143,7 @@
         <h1 style="text-align: center; color: var(--saturn-blue); font-family: 'Playfair Display', serif; margin-bottom: 40px;">Expert Care for Every Fabric</h1>
         
         <div class="featured-card">
-            <div class="image-frame">
-                <img src="services1.jpg" alt="Wedding Wear Care">
-            </div>
+            <div class="image-frame"><img src="services1.jpg" alt="Wedding Wear Care"></div>
             <div class="text-side">
                 <h2>Wedding & Premium Wear</h2>
                 <p>Specialized care for your most precious garments. We use hand-finishing techniques for lehengas, sherwanis, and silk sarees to ensure every detail is preserved.</p>
@@ -175,41 +168,39 @@
         <div id="woolens" class="service-desc-card" style="border-left-color: #3498db;">
             <span class="detail-tag">Winter Protection</span>
             <h3>Specialized Woolen Care</h3>
-            <p>Woolens require a gentle touch. Our process involves a cold-soak purification method and controlled air-drying to prevent pilling, stretching, or shrinkage. We treat your Pashminas and coats with the warmth they deserve.</p>
+            <p>Woolens require a gentle touch. Our process involves a cold-soak purification method and controlled air-drying to prevent pilling, stretching, or shrinkage.</p>
         </div>
 
         <div id="steamiron" class="service-desc-card" style="border-left-color: var(--sun-orange);">
             <span class="detail-tag">Advanced Finishing</span>
             <h3>Professional Steam Ironing</h3>
-            <p>Avoid the 'shine marks' of traditional irons. Our industrial high-pressure steam tables sanitize and relax fabric fibers, providing a crisp, boutique-like finish. Your formals and ethnic wear will look sharp and feel fresh.</p>
+            <p>Avoid the 'shine marks' of traditional irons. Our industrial high-pressure steam tables sanitize and relax fabric fibers, providing a crisp finish.</p>
         </div>
 
         <div id="wedding" class="service-desc-card" style="border-left-color: #8e44ad;">
             <span class="detail-tag">Preserving Memories</span>
             <h3>Wedding & Couture Care</h3>
-            <p>A wedding outfit is an emotion. We provide manual 'spot-cleaning' for heavy Lehengas and Sherwanis, ensuring every bead and zari is protected. Each piece is tissue-wrapped to prevent oxidation and long-term fiber damage.</p>
+            <p>A wedding outfit is an emotion. We provide manual 'spot-cleaning' for heavy Lehengas and Sherwanis, ensuring every bead and zari is protected.</p>
         </div>
 
         <div id="household" class="service-desc-card" style="border-left-color: #2c3e50;">
             <span class="detail-tag">Deep Disinfection</span>
             <h3>Home Linen & Decor</h3>
-            <p>Remove dust mites and allergens from your heavy curtains, bedspreads, and sofa covers. Our deep-cleaning process ensures your home environment stays healthy and vibrant, without any distortion in the shape of large items.</p>
+            <p>Remove dust mites and allergens from your heavy curtains, bedspreads, and sofa covers. Our deep-cleaning process ensures a healthy home.</p>
         </div>
 
         <div id="leather" class="service-desc-card" style="border-left-color: #5d4037;">
             <span class="detail-tag">Revival Service</span>
             <h3>Leather & Shoe Spa</h3>
-            <p>Leather needs hydration. We use premium conditioning oils to restore the suppleness of your leather jackets and suede shoes. We revive the natural texture and provide a protective layer against dust and moisture.</p>
+            <p>Leather needs hydration. We use premium conditioning oils to restore the suppleness of your leather jackets and suede shoes.</p>
         </div>
 
         <div id="rapid" class="service-desc-card" style="border-left-color: var(--mercury-green);">
             <span class="detail-tag">Fast Track</span>
             <h3>Same-Day / Next-Day Service</h3>
-            <p>Need it quick? Our professional team operates from <strong>09:00 AM to 09:00 PM</strong> to ensure your urgent orders are priority-tracked. We guarantee the fastest possible turnaround within our working hours for your rapid needs.</p>
+            <p>Need it quick? Our professional team operates from <strong>09:00 AM to 09:00 PM</strong> to ensure your urgent orders are priority-tracked.</p>
         </div>
     </div>
-
-    
 
     <footer>
         <p>&copy; 2026 Pratiksha Dry Cleaners | Managed by Sonu Bhai</p>
@@ -218,11 +209,12 @@
     <script>
         const btn = document.getElementById('menuToggleBtn');
         const menu = document.getElementById('dropdownMenu');
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-        });
+        btn.addEventListener('click', (e) => { e.stopPropagation(); menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; });
         document.addEventListener('click', () => { menu.style.display = 'none'; });
+
+        function refreshApp() { window.location.reload(true); }
+        function shareApp() { if (navigator.share) { navigator.share({ title: 'Pratiksha Services', url: window.location.href }); } }
+        function triggerInstall() { alert("Use Browser Menu (3 dots) to Install App"); }
     </script>
 </body>
 </html>
