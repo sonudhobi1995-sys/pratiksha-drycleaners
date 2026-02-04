@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Pratiksha Dry Cleaners</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f4f7f9; }
+        :root {
+            --sun-orange: #FF8C00;
+            --mercury-green: #2E8B57;
+            --saturn-blue: #001F3F;
+            --cream-bg: #FFFDD0;
+        }
+
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* Premium Navigation - Inspired by UClean but with your Royal Gold Touch */
+        /* Premium Navigation - Sun Orange Theme */
         nav.custom-nav { 
-            background: #003366; 
+            background: var(--sun-orange); 
             padding: 12px 20px; 
             position: sticky; 
             top: 0; 
@@ -24,20 +31,13 @@
         .nav-icon-left { cursor: pointer; flex: 1; display: flex; flex-direction: column; gap: 5px; }
         .nav-icon-left div { width: 28px; height: 3px; background: white; border-radius: 2px; }
         
-        /* Central Brand Identity - Sparkling Gold Text */
-        .nav-center-brand { 
-            flex: 3; 
-            text-align: center; 
-        }
+        .nav-center-brand { flex: 3; text-align: center; }
         .nav-center-brand span {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             font-size: 1.2rem;
             letter-spacing: 1.5px;
-            /* गोल्डन ग्रेडिएंट इफेक्ट */
-            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: white;
             text-transform: uppercase;
             display: inline-block;
         }
@@ -45,29 +45,64 @@
         .logo-right { flex: 1; text-align: right; }
         .logo-right img { height: 45px; width: auto; border-radius: 5px; border: 1px solid rgba(255,255,255,0.2); }
         
-        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #002244; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .nav-dropdown-menu li { border-bottom: 1px solid #003366; }
+        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .nav-dropdown-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
         .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
 
-        /* Container & Cards Style */
+        /* 4-Step Process Bar (New Section) */
+        .process-bar { 
+            background: white; 
+            padding: 30px 10px; 
+            display: flex; 
+            justify-content: space-around; 
+            text-align: center; 
+            border-bottom: 4px solid var(--mercury-green);
+        }
+        .step { flex: 1; }
+        .step-icon { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+        .step-name { font-size: 0.75rem; font-weight: 700; color: var(--saturn-blue); text-transform: uppercase; }
+
+        /* Container & Cards Style - Original Structure */
         .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
-        .featured-card { background: white; display: flex; align-items: center; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 40px; border: 1px solid #e0e0e0; }
+        
+        .featured-card { 
+            background: white; 
+            display: flex; 
+            align-items: center; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            margin-bottom: 40px; 
+            border-left: 6px solid var(--sun-orange); 
+        }
         .image-frame { flex: 0 0 280px; height: 220px; overflow: hidden; }
         .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+        
         .text-side { padding: 30px; flex: 1; }
-        .text-side h2 { color: #003366; margin-top: 0; }
-        .text-side p { line-height: 1.6; color: #555; }
+        .text-side h2 { color: var(--saturn-blue); margin-top: 0; font-family: 'Playfair Display', serif; }
+        .text-side p { line-height: 1.6; color: #555; font-size: 0.95rem; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 25px; border-radius: 10px; text-align: center; border-bottom: 4px solid #D4AF37; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .card h3 { color: #003366; margin-bottom: 10px; }
+        .card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 10px; 
+            text-align: center; 
+            border-bottom: 4px solid var(--mercury-green); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { color: var(--saturn-blue); margin-bottom: 10px; }
 
-        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9rem; }
+        footer { text-align: center; padding: 40px; color: white; background: var(--saturn-blue); font-size: 0.9rem; }
 
         @media (max-width: 600px) { 
             .featured-card { flex-direction: column; } 
             .image-frame { width: 100%; height: 200px; }
             .nav-center-brand span { font-size: 0.9rem; letter-spacing: 0.5px; }
+            .process-bar { flex-wrap: wrap; gap: 20px; }
+            .step { min-width: 45%; }
         }
     </style>
 </head>
@@ -77,15 +112,8 @@
         <div class="nav-icon-left" id="menuToggleBtn">
             <div></div><div></div><div></div>
         </div>
-
-        <div class="nav-center-brand">
-            <span>PRATIKSHA DRY CLEANERS</span>
-        </div>
-
-        <div class="logo-right">
-            <img src="logo.png" alt="Logo">
-        </div>
-
+        <div class="nav-center-brand"><span>PRATIKSHA DRY CLEANERS</span></div>
+        <div class="logo-right"><img src="logo.png" alt="Logo"></div>
         <ul class="nav-dropdown-menu" id="dropdownMenu">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
@@ -95,8 +123,15 @@
         </ul>
     </nav>
 
+    <div class="process-bar">
+        <div class="step"><span class="step-icon">🚚</span><span class="step-name">Pick-up</span></div>
+        <div class="step"><span class="step-icon">🧼</span><span class="step-name">Purification</span></div>
+        <div class="step"><span class="step-icon">👔</span><span class="step-name">Packing</span></div>
+        <div class="step"><span class="step-icon">🏠</span><span class="step-name">Delivery</span></div>
+    </div>
+
     <div class="container">
-        <h1 style="text-align: center; color: #003366; font-family: 'Playfair Display', serif;">Our Premium Services</h1>
+        <h1 style="text-align: center; color: var(--saturn-blue); font-family: 'Playfair Display', serif; margin-bottom: 40px;">Expert Care for Every Fabric</h1>
         
         <div class="featured-card">
             <div class="image-frame">
@@ -105,28 +140,28 @@
             <div class="text-side">
                 <h2>Wedding & Premium Wear</h2>
                 <p>Specialized care for your most precious garments. We use hand-finishing techniques for lehengas, sherwanis, and silk sarees to ensure every detail is preserved.</p>
-                <p style="color: #D4AF37; font-weight: bold;">Excellence Since 1987.</p>
+                <p style="color: var(--mercury-green); font-weight: bold; font-size: 0.8rem;">TRUSTED EXCELLENCE SINCE 1987.</p>
             </div>
         </div>
 
         <div class="grid">
             <div class="card">
                 <h3>🧺 Dry Cleaning</h3>
-                <p>Deep cleaning for daily and formal wear with eco-friendly solutions.</p>
+                <p style="font-size: 0.85rem; color: #666;">Deep cleaning for daily and formal wear with eco-friendly solutions.</p>
             </div>
             <div class="card">
                 <h3>👔 Steam Press</h3>
-                <p>Wrinkle-free finishing with professional high-pressure steam technology.</p>
+                <p style="font-size: 0.85rem; color: #666;">Wrinkle-free finishing with professional high-pressure steam technology.</p>
             </div>
             <div class="card">
                 <h3>✨ Stain Removal</h3>
-                <p>Targeted treatment for tough spots while preserving fabric integrity.</p>
+                <p style="font-size: 0.85rem; color: #666;">Targeted treatment for tough spots while preserving fabric integrity.</p>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Pratiksha Dry Cleaners | Ambabari, Jaipur</p>
+        <p>&copy; 2026 Pratiksha Dry Cleaners | Managed by Sonu Bhai</p>
     </footer>
 
     <script>
