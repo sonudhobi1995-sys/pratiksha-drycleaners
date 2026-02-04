@@ -24,7 +24,7 @@
         
         nav.custom-nav { 
             background: var(--sun-orange); 
-            padding: 12px 20px; 
+            padding: 12px 15px; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
@@ -34,30 +34,33 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
         }
 
-        .nav-icon-left { cursor: pointer; flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .nav-icon-left div { width: 28px; height: 3px; background: white; border-radius: 2px; }
+        .nav-left-section { display: flex; align-items: center; gap: 10px; flex: 2; }
+        .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
         
-        .nav-center-brand { flex: 3; text-align: center; }
-        .nav-center-brand span {
+        .nav-brand-area { display: flex; align-items: center; gap: 8px; }
+        .nav-brand-area img { height: 35px; width: auto; border-radius: 4px; border: 1px solid white; }
+        .nav-brand-area span {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: 1.5px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
             color: white;
             text-transform: uppercase;
-            display: inline-block;
+            white-space: nowrap;
         }
 
-        .logo-right { flex: 1; text-align: right; }
-        .logo-right img { height: 45px; width: auto; border-radius: 4px; border: 1px solid white; }
+        .nav-right-actions { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
         
+        .app-action-icon { cursor: pointer; font-size: 1.1rem; color: white; transition: transform 0.2s; }
+        .install-text-btn { background: rgba(255,255,255,0.2); padding: 4px 6px; border-radius: 5px; font-size: 0.65rem; font-weight: bold; color: white; border: 1px solid white; display: flex; align-items: center; gap: 3px; cursor: pointer; }
+
         .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
         .nav-dropdown-menu li { border-bottom: 1px solid #1a3a5a; }
         .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
 
         .top-bar { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; letter-spacing: 1px; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); }
 
-        /* Service Links Style */
         .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
         .service-link:hover { transform: scale(1.1); }
 
@@ -68,16 +71,27 @@
         }
 
         @media (max-width: 600px) {
-            .nav-center-brand span { font-size: 0.85rem; letter-spacing: 0.5px; }
+            .nav-brand-area span { font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
     <nav class="custom-nav">
-        <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
-        <div class="nav-center-brand"><span>PRATIKSHA DRY CLEANERS</span></div>
-        <div class="logo-right"><img src="logo.png" alt="Logo"></div>
+        <div class="nav-left-section">
+            <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
+            <div class="nav-brand-area">
+                <img src="logo.png" alt="Logo">
+                <span>PRATIKSHA DRY CLEANERS</span>
+            </div>
+        </div>
+
+        <div class="nav-right-actions">
+            <div class="install-text-btn" onclick="triggerInstall()">📲 <span>APP</span></div>
+            <div class="app-action-icon" onclick="shareApp()">📤</div>
+            <div class="app-action-icon" onclick="refreshApp()">🔄</div>
+        </div>
+
         <ul class="nav-dropdown-menu" id="dropdownMenu">
             <li><a href="./index.html">Home</a></li>
             <li><a href="./services.html">Services</a></li>
@@ -112,17 +126,11 @@
                     <h4 style="margin: 0; color: white; font-size: 0.65rem; font-weight: 900; line-height: 1.1;">RAPID<br>SERVICE<br>(9AM-9PM)</h4>
                 </div>
             </a>
-            
             <a href="services.html#dryclean" class="service-link" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🧺<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Dry Clean</p></a>
-            
             <a href="services.html#steamiron" class="service-link" style="position: absolute; top: 45px; right: -15px; text-align: center; width: 80px;">👔<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Steam Iron</p></a>
-            
             <a href="services.html#wedding" class="service-link" style="position: absolute; bottom: 45px; right: -15px; text-align: center; width: 80px;">💃<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Wedding</p></a>
-            
             <a href="services.html#household" class="service-link" style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🏠<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Home Decor</p></a>
-            
             <a href="services.html#leather" class="service-link" style="position: absolute; bottom: 45px; left: -15px; text-align: center; width: 80px;">🧥<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Leather</p></a>
-            
             <a href="services.html#woolens" class="service-link" style="position: absolute; top: 45px; left: -15px; text-align: center; width: 80px;">🧶<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Woolens</p></a>
         </div>
     </section>
@@ -160,15 +168,48 @@
     </a>
 
     <script>
-        // सर्विस वर्कर का रजिस्ट्रेशन (App Engine Activation)
+        // PWA इंजन और फंक्शन्स
+        let deferredPrompt;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('Pratiksha App Linked!'))
-                    .catch(err => console.log('Error', err));
+                navigator.serviceWorker.register('sw.js').then(reg => console.log('App Active'));
             });
         }
 
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function triggerInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => { deferredPrompt = null; });
+            } else {
+                alert("ऐप डालें:\nक्रोम ब्राउज़र में ऊपर दाईं ओर 3 बिंदुओं (⋮) पर क्लिक करके 'Install App' चुनें।");
+            }
+        }
+
+        function refreshApp() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.update()));
+            }
+            window.location.reload(true);
+        }
+
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'PRATIKSHA DRY CLEANERS',
+                    text: 'अंबाबाड़ी की प्रीमियम सर्विस! ऐप इंस्टॉल करें।',
+                    url: window.location.href
+                });
+            } else {
+                prompt("लिंक कॉपी करें:", window.location.href);
+            }
+        }
+
+        // पुरानी स्क्रिप्ट्स (गैलरी, वीडियो, मेनू)
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.addEventListener('click', (e) => {
@@ -177,7 +218,6 @@
         });
         document.addEventListener('click', () => { menuList.style.display = 'none'; });
 
-        // Gallery Control Logic with Smart Pause
         let pIdx = 0;
         let isPaused = false;
         const track = document.getElementById('photo-track');
@@ -195,18 +235,8 @@
         }
 
         let galleryTimer = startGallery();
-
-        container.addEventListener('mousedown', pauseGallery);
-        container.addEventListener('touchstart', pauseGallery);
-
-        function pauseGallery() {
-            isPaused = true;
-            pauseMsg.style.display = 'block';
-            setTimeout(() => {
-                isPaused = false;
-                pauseMsg.style.display = 'none';
-            }, 10000); 
-        }
+        container.addEventListener('mousedown', () => { isPaused = true; pauseMsg.style.display = 'block'; setTimeout(() => { isPaused = false; pauseMsg.style.display = 'none'; }, 10000); });
+        container.addEventListener('touchstart', () => { isPaused = true; pauseMsg.style.display = 'block'; setTimeout(() => { isPaused = false; pauseMsg.style.display = 'none'; }, 10000); });
 
         let vIdx = 0;
         setInterval(() => {
@@ -221,7 +251,7 @@
         function sendFeedback() {
             const name = document.getElementById('custName').value;
             const msg = document.getElementById('custMsg').value;
-            if(!name || !msg) return alert("Please fill name and message.");
+            if(!name || !msg) return alert("नाम और संदेश भरें।");
             window.open(`https://wa.me/917740870095?text=Feedback from *${name}*: ${msg}`, '_blank');
         }
     </script>
