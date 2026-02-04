@@ -22,38 +22,66 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
+        /* रिफाइंड नेविगेशन - डार्क बटन्स के साथ */
         nav.custom-nav { 
             background: var(--sun-orange); 
-            padding: 12px 15px; 
+            padding: 10px 15px; 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
         }
 
         .nav-left-section { display: flex; align-items: center; gap: 10px; flex: 2; }
         .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
-        .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-icon-left div { width: 25px; height: 3px; background: var(--saturn-blue); border-radius: 2px; }
         
         .nav-brand-area { display: flex; align-items: center; gap: 8px; }
-        .nav-brand-area img { height: 35px; width: auto; border-radius: 4px; border: 1px solid white; }
+        .nav-brand-area img { height: 38px; width: auto; border-radius: 4px; border: 2.5px solid var(--saturn-blue); }
         .nav-brand-area span {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            color: white;
+            font-size: 0.9rem;
+            color: var(--saturn-blue); 
             text-transform: uppercase;
             white-space: nowrap;
         }
 
-        .nav-right-actions { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
+        .nav-right-actions { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: flex-end; }
         
-        .app-action-icon { cursor: pointer; font-size: 1.1rem; color: white; transition: transform 0.2s; }
-        .install-text-btn { background: rgba(255,255,255,0.2); padding: 4px 6px; border-radius: 5px; font-size: 0.65rem; font-weight: bold; color: white; border: 1px solid white; display: flex; align-items: center; gap: 3px; cursor: pointer; }
+        /* ऐप डाउनलोड बटन - एकदम स्पष्ट डार्क ब्लू */
+        .install-text-btn { 
+            background: var(--saturn-blue); 
+            color: white; 
+            padding: 6px 10px; 
+            border-radius: 8px; 
+            font-size: 0.7rem; 
+            font-weight: bold; 
+            border: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* शेयर और रिफ्रेश आइकन - डार्क ब्लू */
+        .app-action-icon { 
+            background: white; 
+            color: var(--saturn-blue);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid var(--saturn-blue);
+        }
 
         .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
         .nav-dropdown-menu li { border-bottom: 1px solid #1a3a5a; }
@@ -63,12 +91,6 @@
 
         .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
         .service-link:hover { transform: scale(1.1); }
-
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 30px rgba(46,139,87,0.5); }
-            100% { transform: translate(-50%, -50%) scale(1); }
-        }
 
         @media (max-width: 600px) {
             .nav-brand-area span { font-size: 0.75rem; }
@@ -82,7 +104,7 @@
             <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
             <div class="nav-brand-area">
                 <img src="logo.png" alt="Logo">
-                <span>PRATIKSHA DRY CLEANERS</span>
+                <span>PRATIKSHA</span>
             </div>
         </div>
 
@@ -135,44 +157,16 @@
         </div>
     </section>
 
-    <section style="padding: 40px 0; background: var(--cream-bg);">
-        <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 20px;">Watch Us In Action</h2>
-        <div style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); background: #000; border: 3px solid var(--saturn-blue);">
-            <div id="video-track" style="display: flex; transition: transform 0.5s ease-in-out;">
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="wedding.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="steam.mp4" type="video/mp4"></video></div>
-            </div>
-        </div>
-    </section>
-
-    <section style="padding: 50px 0; background: #fff;">
-        <div style="max-width: 500px; margin: auto; text-align: center;">
-            <h2 style="color: var(--saturn-blue);">Share Your Thoughts</h2>
-            <div style="background: var(--cream-bg); padding: 25px; border-radius: 15px; border: 2px solid var(--mercury-green);">
-                <input type="text" id="custName" placeholder="Your Name" style="width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                <textarea id="custMsg" placeholder="Share your suggestions..." rows="4" style="width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;"></textarea>
-                <button onclick="sendFeedback()" style="width: 95%; background: var(--saturn-blue); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send via WhatsApp</button>
-            </div>
-        </div>
-    </section>
-
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #fff; background: var(--saturn-blue);">
         <p>© 2026 PRATIKSHA DRY CLEANERS | Managed by SONU NEEL</p>
-        <p><a href="./privacy.html" style="color:#FFFDD0; text-decoration:none;">Privacy Policy</a> | <a href="./terms.html" style="color:#FFFDD0; text-decoration:none;">Terms & Conditions</a></p>
     </footer>
-
-    <a href="https://wa.me/917740870095" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="55" alt="WA">
-    </a>
 
     <script>
         // PWA इंजन और फंक्शन्स
         let deferredPrompt;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(reg => console.log('App Active'));
+                navigator.serviceWorker.register('sw.js');
             });
         }
 
@@ -184,7 +178,7 @@
         function triggerInstall() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choice) => { deferredPrompt = null; });
+                deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
             } else {
                 alert("ऐप डालें:\nक्रोम ब्राउज़र में ऊपर दाईं ओर 3 बिंदुओं (⋮) पर क्लिक करके 'Install App' चुनें।");
             }
@@ -204,12 +198,9 @@
                     text: 'अंबाबाड़ी की प्रीमियम सर्विस! ऐप इंस्टॉल करें।',
                     url: window.location.href
                 });
-            } else {
-                prompt("लिंक कॉपी करें:", window.location.href);
             }
         }
 
-        // पुरानी स्क्रिप्ट्स (गैलरी, वीडियो, मेनू)
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.addEventListener('click', (e) => {
@@ -237,16 +228,6 @@
         let galleryTimer = startGallery();
         container.addEventListener('mousedown', () => { isPaused = true; pauseMsg.style.display = 'block'; setTimeout(() => { isPaused = false; pauseMsg.style.display = 'none'; }, 10000); });
         container.addEventListener('touchstart', () => { isPaused = true; pauseMsg.style.display = 'block'; setTimeout(() => { isPaused = false; pauseMsg.style.display = 'none'; }, 10000); });
-
-        let vIdx = 0;
-        setInterval(() => {
-            const vTrack = document.getElementById('video-track');
-            const vSlides = document.querySelectorAll('#video-track video');
-            if (vSlides[vIdx].paused) {
-                vIdx = (vIdx + 1) % vSlides.length;
-                vTrack.style.transform = `translateX(-${vIdx * 100}%)`;
-            }
-        }, 5000);
 
         function sendFeedback() {
             const name = document.getElementById('custName').value;
