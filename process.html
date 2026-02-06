@@ -58,15 +58,51 @@
             margin-bottom: 30px; font-size: 0.9rem;
         }
 
-        .process-image-box { text-align: center; margin-bottom: 50px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--sun-orange); }
-        .process-image-box img { width: 100%; max-width: 700px; border-radius: 10px; border: 2px solid var(--mercury-green); }
+        .process-header { text-align: center; margin-bottom: 50px; }
+        .process-header h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
         
-        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .process-card { background: white; padding: 30px; border-radius: 12px; border-top: 5px solid var(--mercury-green); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .process-card h3 { color: var(--saturn-blue); margin-top: 0; font-family: 'Playfair Display', serif; }
-        .step-number { font-size: 0.8rem; color: var(--sun-orange); font-weight: bold; text-transform: uppercase; }
+        /* New 6-Step Layout */
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
         
-        /* Premium Saturn Blue Footer */
+        .process-card { 
+            background: white; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+            border-bottom: 4px solid var(--sun-orange);
+            transition: transform 0.3s ease;
+        }
+        .process-card:hover { transform: translateY(-10px); }
+        
+        .process-card img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid #eee; }
+        
+        .card-content { padding: 25px; }
+        .step-number { 
+            background: var(--sun-orange); 
+            color: white; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            font-weight: bold; 
+            display: inline-block; 
+            margin-bottom: 15px;
+        }
+        
+        .process-card h3 { 
+            color: var(--saturn-blue); 
+            margin: 0 0 15px 0; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.4rem;
+        }
+        
+        .process-card p { 
+            font-size: 0.95rem; 
+            color: #555; 
+            margin: 0; 
+            text-align: justify;
+        }
+
+        /* Footer */
         footer { 
             background: var(--saturn-blue); 
             color: white; 
@@ -78,7 +114,10 @@
         .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--sun-orange); margin-bottom: 10px; display: block; }
         .footer-info { font-size: 0.85rem; color: #cbd5e0; margin-bottom: 20px; }
 
-        @media (max-width: 600px) { .nav-center-brand span { font-size: 0.85rem; } }
+        @media (max-width: 600px) { 
+            .nav-center-brand span { font-size: 0.85rem; }
+            .process-header h2 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -100,22 +139,67 @@
             🚚 FREE PICKUP & DELIVERY: Minimum Order of ₹250 required for Ambabari Regions.
         </div>
 
-        <div class="process-image-box">
-            <img src="process.jpg" alt="Quality Process">
-            <h2 style="color: var(--saturn-blue); margin-top: 25px; font-family: 'Playfair Display', serif;">Purity in Every Fiber</h2>
-            <p>Our 5-step restoration process ensures the highest level of 'Shuchita' and care.</p>
+        <div class="process-header">
+            <h2>Purity in Every Fiber</h2>
+            <p>हमारी 6-चरणीय प्रक्रिया जो सुनिश्चित करती है 'शुचिता' और बेमिसाल सफाई।</p>
         </div>
 
         <div class="process-grid">
-            <div class="process-card"><span class="step-number">Step 01</span><h3>Inspection</h3><p>Every garment is checked for stains and delicate areas by our experts before we begin.</p></div>
-            <div class="process-card"><span class="step-number">Step 02</span><h3>Stain Treatment</h3><p>Fabric-safe, eco-friendly solutions target specific spots like ink, oil, or grease.</p></div>
-            <div class="process-card"><span class="step-number">Step 03</span><h3>Gentle Purification</h3><p>Advanced cleaning technology preserves the color and natural texture of your fabric.</p></div>
-            <div class="process-card"><span class="step-number">Step 04</span><h3>Steam Finishing</h3><p>Professional high-pressure steam press gives your clothes a fresh, crisp, and new-like look.</p></div>
-            <div class="process-card"><span class="step-number">Step 05</span><h3>Quality Check</h3><p>Final inspection ensures your clothes meet our 1987 legacy standards of purity.</p></div>
+            <div class="process-card">
+                <img src="step1.png" alt="Pickup Process">
+                <div class="card-content">
+                    <span class="step-number">STEP 01</span>
+                    <h3>Pickup Cloth</h3>
+                    <p>हमारा प्रतिनिधि आपके द्वार पर सम्मान के साथ उपस्थित होता है। वह मोबाइल ऐप के माध्यम से कपड़ों का डिजिटल रिकॉर्ड बनाता है और सावधानी से आपके कीमती परिधानों को सुरक्षित बैग में एकत्रित करता है।</p>
+                </div>
+            </div>
+
+            <div class="process-card">
+                <img src="step2.png" alt="Inspection">
+                <div class="card-content">
+                    <span class="step-number">STEP 02</span>
+                    <h3>Cloth Inspection</h3>
+                    <p>कार्यशाला में विशेषज्ञ एक-एक धागे और दाग का सूक्ष्मता से निरीक्षण करते हैं। कपड़े के फैब्रिक के आधार पर उसे अलग किया जाता है ताकि धुलाई के दौरान कोई नुकसान न पहुँचे।</p>
+                </div>
+            </div>
+
+            <div class="process-card">
+                <img src="step3.png" alt="Washing">
+                <div class="card-content">
+                    <span class="step-number">STEP 03</span>
+                    <h3>Washing Process</h3>
+                    <p>हम उन्नत तकनीक और सुरक्षित सॉल्वेंट्स का उपयोग करते हैं। हर कपड़े के लिए सही तापमान और क्लीनिंग एजेंट का चुनाव किया जाता है ताकि कपड़े के रेशे और चमक बरकरार रहे।</p>
+                </div>
+            </div>
+
+            <div class="process-card">
+                <img src="step4.png" alt="Steam Press">
+                <div class="card-content">
+                    <span class="step-number">STEP 04</span>
+                    <h3>Steam Pressing</h3>
+                    <p>उच्च दबाव वाली भाप (Steam) का उपयोग करके कपड़े की सिलवटों को जड़ से खत्म किया जाता है। यह प्रक्रिया कपड़े को एक ऐसी फिनिश देती है जो उसे बिल्कुल नए जैसा महसूस कराती है।</p>
+                </div>
+            </div>
+
+            <div class="process-card">
+                <img src="step5.png" alt="Packaging">
+                <div class="card-content">
+                    <span class="step-number">STEP 05</span>
+                    <h3>Cloth Packaging</h3>
+                    <p>तैयार कपड़ों को 'प्रतीक्षा' की ब्रांडेड पैकेजिंग में रखा जाता है। हम विशेष कवर और हैंगर्स का उपयोग करते हैं ताकि डिलीवरी तक कपड़े धूल और नमी से पूरी तरह सुरक्षित रहें।</p>
+                </div>
+            </div>
+
+            <div class="process-card">
+                <img src="step6.png" alt="Delivery">
+                <div class="card-content">
+                    <span class="step-number">STEP 06</span>
+                    <h3>Product Delivery</h3>
+                    <p>सुरक्षित और साफ कपड़ों को आपके द्वार पर समय पर पहुँचाना हमारी प्राथमिकता है। आपकी संतुष्टि ही हमारी सेवा का असली समापन और भरोसे की नींव है।</p>
+                </div>
+            </div>
         </div>
     </div>
-
-    
 
     <footer>
         <span class="footer-logo">PRATIKSHA DRY CLEANERS</span>
