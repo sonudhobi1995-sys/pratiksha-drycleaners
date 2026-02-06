@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pratiksha Dry Cleaners</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --sun-orange: #FF8C00; --saturn-blue: #001F3F; --cream-bg: #FFFDD0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--cream-bg); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; border-top: 8px solid var(--sun-orange); }
+        h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); margin-bottom: 10px; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid #eee; border-radius: 8px; box-sizing: border-box; font-size: 1rem; text-align: center; }
+        button { width: 100%; padding: 15px; background: var(--saturn-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        #message { margin-top: 15px; font-size: 0.9rem; color: #d9534f; font-weight: 600; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--sun-orange); margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <span class="logo">प्रतीक्षा</span>
+        <h2>नमस्ते!</h2>
+        <p>अपना मोबाइल नंबर डालकर लॉगिन करें</p>
+        
+        <form id="loginForm">
+            <input type="tel" id="userMobile" placeholder="10 अंकों का मोबाइल नंबर" pattern="[0-9]{10}" required>
+            <button type="submit" id="submitBtn">प्रवेश करें</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyL1uKg-uKx9kLWTIJ0qa5CDT6lNRZq-KZ1GwRyR2lAaR72SgEeyNXCr5N93HOXtmPN4w/exec';
+
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const message = document.getElementById('message');
+            const mobile = document.getElementById('userMobile').value;
+
+            message.innerText = "जांच की जा रही है, कृपया प्रतीक्षा करें...";
+            submitBtn.disabled = true;
+
+            fetch(`${scriptURL}?action=login&mobile=${mobile}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === "success") {
+                    // डेटा को सुरक्षित करना
+                    localStorage.setItem('userName', data.name);
+                    localStorage.setItem('userStatus', data.status);
+                    localStorage.setItem('userAmount', data.amount);
+                    localStorage.setItem('isLoggedIn', 'true');
+                    
+                    alert("स्वागत है " + data.name + " जी!");
+                    window.location.href = "index.html"; 
+                } else {
+                    message.innerText = "क्षमा करें! यह नंबर हमारे रिकॉर्ड में नहीं है।";
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "प्रवेश करें";
+                }
+            })
+            .catch(error => {
+                message.innerText = "नेटवर्क त्रुटि! कृपया इंटरनेट चेक करें।";
+                submitBtn.disabled = false;
+                submitBtn.innerText = "प्रवेश करें";
+            });
+        };
+    </script>
+</body>
+</html>
