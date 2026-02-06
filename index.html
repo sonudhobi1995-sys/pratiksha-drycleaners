@@ -28,7 +28,7 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* ग्राहक स्वागत पट्टी - जो हमने नई जोड़ी है */
+        /* लाइव स्टेटस बार */
         .user-status-bar {
             background: white;
             padding: 10px 15px;
@@ -37,11 +37,14 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.85rem;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
         }
         .status-pill {
             background: var(--mercury-green);
             color: white;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 15px;
             font-weight: bold;
             font-size: 0.75rem;
@@ -51,7 +54,7 @@
             background: var(--sun-orange); 
             padding: 5px 15px; 
             position: sticky; 
-            top: 0; 
+            top: 38px; /* स्टेटस बार के नीचे */
             z-index: 1000; 
             display: flex; 
             align-items: center; 
@@ -101,6 +104,18 @@
         .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
         .service-link:hover { transform: scale(1.1); }
 
+        /* रेटिंग कार्ड स्टाइल */
+        .rating-card {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px dashed var(--sun-orange);
+        }
+        .stars { color: #FFD700; font-size: 1.5rem; margin: 10px 0; }
+
         @keyframes pulse {
             0% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 30px rgba(46,139,87,0.5); }
@@ -116,7 +131,7 @@
 
     <div class="user-status-bar">
         <div>🏠 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
-        <div>स्टेटस: <span id="userStatusDisp" class="status-pill">Welcome</span></div>
+        <div>स्टेटस: <span id="userStatusDisp" class="status-pill">Loading...</span></div>
     </div>
 
     <nav class="custom-nav">
@@ -156,6 +171,7 @@
                 <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
             </div>
+            <div id="pause-msg" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; display: none;">Paused (10s)</div>
         </div>
     </section>
 
@@ -189,6 +205,15 @@
         </div>
     </section>
 
+    <section class="rating-card">
+        <h3 style="margin: 0; color: var(--saturn-blue);">Pratiksha Dry Cleaners</h3>
+        <p style="font-size: 0.8rem; margin: 5px 0;">अंबाबाड़ी की भरोसेमंद सर्विस</p>
+        <div class="stars">★★★★★</div>
+        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" style="text-decoration: none;">
+            <button style="background: var(--sun-orange); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">हमें गूगल पर रेट करें</button>
+        </a>
+    </section>
+
     <section style="padding: 50px 0; background: #fff;">
         <div style="max-width: 500px; margin: auto; text-align: center;">
             <h2 style="color: var(--saturn-blue);">Share Your Thoughts</h2>
@@ -210,15 +235,40 @@
     </a>
 
     <script>
-        // यूजर डेटा लोड करना
+        // 2. लाइव स्टेटस खींचने का इंजन
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyIihXyD8ngn3LoZGhHWqu-jVI9ftTz5I0yjJun6kcysrstWYxnaqDOaiRxaMbOnLjZoA/exec';
+
         window.onload = function() {
-            document.getElementById('userHouseDisp').innerText = localStorage.getItem('userHouse') || 'N/A';
-            document.getElementById('userNameDisp').innerText = localStorage.getItem('userName') || 'ग्राहक';
+            const house = localStorage.getItem('userHouse');
+            const name = localStorage.getItem('userName');
+            const mobile = localStorage.getItem('userMobile');
+
+            document.getElementById('userHouseDisp').innerText = house || '...';
+            document.getElementById('userNameDisp').innerText = name || 'ग्राहक';
+
+            if (mobile) {
+                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+                .then(response => response.json())
+                .then(data => {
+                    const statusDisp = document.getElementById('userStatusDisp');
+                    statusDisp.innerText = data.status || 'Welcome';
+                    if(data.status === "रेडी टू डिलीवरी") {
+                        statusDisp.style.background = "#2E8B57";
+                    }
+                })
+                .catch(error => { document.getElementById('userStatusDisp').innerText = 'Welcome'; });
+            }
         };
 
         function logoutApp() {
             localStorage.clear();
             window.location.href = "login.html";
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => console.log('App Active'));
+            });
         }
 
         const menuBtn = document.getElementById('menuToggleBtn');
@@ -236,7 +286,6 @@
             }
         }
 
-        // गैलरी स्लाइडर
         let pIdx = 0;
         const track = document.getElementById('photo-track');
         const slides = document.querySelectorAll('#photo-track img');
@@ -245,7 +294,6 @@
             track.style.transform = `translateX(-${pIdx * 100}%)`;
         }, 3000);
 
-        // वीडियो स्लाइडर
         let vIdx = 0;
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
