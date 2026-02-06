@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRATIKSHA DRY CLEANERS | Premium Fabric Care</title>
     
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = "login.html";
+        }
+    </script>
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FF8C00">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,7 +28,25 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* मास्टर नेविगेशन: Menu | Logo + Name (Center) | Buttons */
+        /* स्वागत पट्टी (Welcome Bar) */
+        .user-welcome-bar {
+            background: #fff;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--sun-orange);
+            font-size: 0.9rem;
+        }
+        .status-badge {
+            background: var(--mercury-green);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
         nav.custom-nav { 
             background: var(--sun-orange); 
             padding: 5px 15px; 
@@ -90,6 +114,11 @@
 </head>
 <body>
 
+    <div class="user-welcome-bar">
+        <div>नमस्ते, <b id="displayUserName">ग्राहक</b> जी!</div>
+        <div>स्टेटस: <span id="displayStatus" class="status-badge">Check...</span></div>
+    </div>
+
     <nav class="custom-nav">
         <div class="nav-left">
             <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
@@ -101,6 +130,7 @@
         </div>
 
         <div class="nav-right">
+            <button class="nav-btn" onclick="logout()" title="Logout">🚪</button>
             <button class="nav-btn" onclick="refreshApp()" title="Refresh">🔄</button>
             <button class="nav-btn" onclick="shareApp()" title="Share">📤</button>
         </div>
@@ -126,11 +156,10 @@
                 <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
             </div>
-            <div id="pause-msg" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; display: none;">Paused (10s)</div>
         </div>
     </section>
 
-    <section style="padding: 60px 0; background: #fffdf2; overflow: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
+    <section style="padding: 60px 0; background: #fffdf2; overflow: hidden;">
         <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 50px;">Our Premium Services</h2>
         <div style="position: relative; width: 300px; height: 300px; margin: 0 auto;">
             <a href="services.html#rapid" style="text-decoration: none;">
@@ -148,29 +177,6 @@
         </div>
     </section>
 
-    <section style="padding: 40px 0; background: var(--cream-bg);">
-        <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 20px;">Watch Us In Action</h2>
-        <div style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); background: #000; border: 3px solid var(--saturn-blue);">
-            <div id="video-track" style="display: flex; transition: transform 0.5s ease-in-out;">
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="wedding.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="steam.mp4" type="video/mp4"></video></div>
-            </div>
-        </div>
-    </section>
-
-    <section style="padding: 50px 0; background: #fff;">
-        <div style="max-width: 500px; margin: auto; text-align: center;">
-            <h2 style="color: var(--saturn-blue);">Share Your Thoughts</h2>
-            <div style="background: var(--cream-bg); padding: 25px; border-radius: 15px; border: 2px solid var(--mercury-green);">
-                <input type="text" id="custName" placeholder="Your Name" style="width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                <textarea id="custMsg" placeholder="Share your suggestions..." rows="4" style="width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;"></textarea>
-                <button onclick="sendFeedback()" style="width: 95%; background: var(--saturn-blue); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send via WhatsApp</button>
-            </div>
-        </div>
-    </section>
-
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #fff; background: var(--saturn-blue);">
         <p>© 2026 PRATIKSHA DRY CLEANERS | Managed by SONU NEEL</p>
         <p><a href="./privacy.html" style="color:#FFFDD0; text-decoration:none;">Privacy Policy</a> | <a href="./terms.html" style="color:#FFFDD0; text-decoration:none;">Terms</a></p>
@@ -181,6 +187,19 @@
     </a>
 
     <script>
+        // यूजर डेटा डिस्प्ले करना
+        window.onload = function() {
+            const name = localStorage.getItem('userName');
+            const status = localStorage.getItem('userStatus');
+            if(name) document.getElementById('displayUserName').innerText = name;
+            if(status) document.getElementById('displayStatus').innerText = status;
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').then(reg => console.log('App Active'));
@@ -202,26 +221,14 @@
             }
         }
 
+        // गैलरी स्क्रिप्ट
         let pIdx = 0;
-        let isPaused = false;
         const track = document.getElementById('photo-track');
         const slides = document.querySelectorAll('#photo-track img');
         setInterval(() => {
-            if (!isPaused) {
-                pIdx = (pIdx + 1) % slides.length;
-                track.style.transform = `translateX(-${pIdx * 100}%)`;
-            }
+            pIdx = (pIdx + 1) % slides.length;
+            track.style.transform = `translateX(-${pIdx * 100}%)`;
         }, 3000);
-
-        let vIdx = 0;
-        setInterval(() => {
-            const vTrack = document.getElementById('video-track');
-            const vSlides = document.querySelectorAll('#video-track video');
-            if (vSlides[vIdx].paused) {
-                vIdx = (vIdx + 1) % vSlides.length;
-                vTrack.style.transform = `translateX(-${vIdx * 100}%)`;
-            }
-        }, 5000);
 
         function sendFeedback() {
             const name = document.getElementById('custName').value;
