@@ -3,174 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Control | PRATIKSHA DRY CLEANERS</title>
+    <title>Admin App | PRATIKSHA</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --sun-orange: #FF8C00; 
-            --saturn-blue: #001F3F; 
-            --mercury-green: #2E8B57; 
-            --cream-bg: #FFFDD0;
-        }
-        body { font-family: 'Inter', sans-serif; background: #f0f2f5; padding: 15px; margin: 0; color: #333; }
+        :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f0f2f5; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; }
         
-        .admin-box { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            margin-bottom: 20px; 
-            border-top: 5px solid var(--sun-orange); 
+        /* प्रीमियम हेडर */
+        .app-header { 
+            background: linear-gradient(135deg, var(--dark) 0%, #003366 100%); 
+            color: white; padding: 25px 15px; text-align: center; 
+            border-radius: 0 0 30px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+        .app-logo {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: white; padding: 5px; margin-bottom: 10px;
+            border: 3px solid var(--sun); box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            object-fit: contain;
         }
 
-        h3 { color: var(--saturn-blue); margin: 0 0 15px 0; text-align: center; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; border: 1px solid #e0e0e0; }
         
-        label { font-size: 0.8rem; font-weight: bold; color: #666; display: block; margin-bottom: 5px; }
+        h3 { color: var(--dark); margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
+        label { font-size: 0.85rem; font-weight: 600; color: #555; margin-left: 5px; }
+
+        input, select { width: 100%; padding: 14px; margin: 8px 0 18px 0; border-radius: 12px; border: 1.5px solid #ddd; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
+        input:focus { border-color: var(--sun); outline: none; box-shadow: 0 0 8px rgba(255,140,0,0.2); }
         
-        input, select { 
-            width: 100%; padding: 12px; margin-bottom: 15px; 
-            border-radius: 8px; border: 1px solid #ddd; 
-            box-sizing: border-box; font-size: 0.95rem;
-        }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-status { background: var(--dark); color: white; }
+        .btn-pickup { background: var(--green); color: white; }
+        .btn:active { transform: scale(0.98); }
 
-        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .cat-btn { 
-            background: white; border: 2px solid #eee; padding: 12px 5px; 
-            border-radius: 10px; font-size: 0.75rem; cursor: pointer; 
-            font-weight: bold; transition: 0.3s;
-        }
-        .cat-btn:active, .cat-btn.active { background: var(--saturn-blue); color: white; border-color: var(--saturn-blue); }
-
-        .add-btn { 
-            background: var(--saturn-blue); color: white; border: none; 
-            padding: 12px; border-radius: 8px; width: 100%; 
-            font-weight: bold; cursor: pointer; margin-top: 5px;
-        }
-
-        #liveList { 
-            background: var(--cream-bg); padding: 12px; border-radius: 10px; 
-            margin-top: 15px; font-size: 0.85rem; border: 1px dashed var(--sun-orange); 
-            min-height: 40px; line-height: 1.6;
-        }
-
-        .submit-btn { 
-            background: var(--mercury-green); color: white; border: none; 
-            padding: 16px; border-radius: 10px; width: 100%; 
-            font-weight: bold; font-size: 1rem; margin-top: 20px; 
-            cursor: pointer; box-shadow: 0 4px 10px rgba(46,139,87,0.3);
-        }
-
-        .status-btn {
-            background: var(--sun-orange); color: white; border: none;
-            padding: 12px; border-radius: 8px; width: 100%; font-weight: bold;
-        }
+        .badge { background: var(--sun); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <div class="admin-box">
-        <h3>🔍 ग्राहक एवं स्टेटस अपडेट</h3>
-        <label>ग्राहक का मोबाइल नंबर:</label>
-        <input type="tel" id="custMobile" placeholder="नंबर दर्ज करें">
-        
-        <label>नया स्टेटस चुनें:</label>
-        <select id="newStatus">
-            <option value="Picked Up">पिकअप पूर्ण (Picked Up)</option>
-            <option value="प्रक्रिया में">प्रक्रिया में (In Process)</option>
-            <option value="धुलाई">धुलाई (Washing)</option>
-            <option value="आयरनिंग">आयरनिंग (Ironing)</option>
-            <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
-        </select>
-        <button class="status-btn" onclick="updateStatusOnly()">सिर्फ स्टेटस बदलें ⚡</button>
+    <div class="app-header">
+        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
+        <h2 style="margin:0; letter-spacing: 1px;">प्रतीक्षा एडमिन पैनल</h2>
+        <span class="badge">मुख्य मैनेजर</span>
     </div>
 
-    <div class="admin-box">
-        <h3>📦 डिजिटल पिकअप रिकॉर्ड</h3>
-        <label>कैटेगरी चुनें:</label>
-        <div class="cat-grid">
-            <button class="cat-btn" onclick="loadItems('men', this)">MEN</button>
-            <button class="cat-btn" onclick="loadItems('women', this)">WOMEN</button>
-            <button class="cat-btn" onclick="loadItems('child', this)">CHILD</button>
-            <button class="cat-btn" onclick="loadItems('home', this)">HOME</button>
-            <button class="cat-btn" onclick="loadItems('winter', this)">WINTER</button>
+    <div class="container">
+        
+        <div class="card">
+            <h3>📱 ग्राहक की पहचान</h3>
+            <label>मोबाइल नंबर दर्ज करें:</label>
+            <input type="tel" id="adminMobile" placeholder="98XXXXXXXX">
         </div>
 
-        <select id="itemSelect"><option value="">पहले कैटेगरी चुनें</option></select>
-        
-        <div style="display:flex; gap:10px;">
-            <div style="flex:1;">
-                <label>संख्या:</label>
-                <input type="number" id="itemQty" placeholder="Q">
-            </div>
-            <div style="flex:1;">
-                <label>कंडीशन:</label>
-                <select id="itemNote">
-                    <option value="OK">OK</option>
-                    <option value="दाग है">दाग है</option>
-                    <option value="कटा है">कटा है</option>
-                    <option value="पुराना/फीका">पुराना/फीका</option>
-                </select>
-            </div>
+        <div class="card">
+            <h3>⚡ स्टेटस अपडेट (क्विक एक्शन)</h3>
+            <label>वर्तमान स्थिति चुनें:</label>
+            <select id="adminStatus">
+                <option value="प्रक्रिया में">प्रक्रिया में (In Process)</option>
+                <option value="धुलाई">धुलाई (Washing)</option>
+                <option value="आयरनिंग">आयरनिंग (Ironing)</option>
+                <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
+            </select>
+            <button class="btn btn-status" onclick="updateStatusOnly()">
+                <span>🔄</span> स्टेटस बदलें
+            </button>
         </div>
-        
-        <button class="add-btn" onclick="addToInventory()">+ लिस्ट में जोड़ें</button>
-        <div id="liveList"><b>पिकअप लिस्ट (Current):</b></div>
-        <button class="submit-btn" onclick="finalSubmit()">कन्फर्म पिकअप और रसीद भेजें 🚀</button>
+
+        <div class="card" style="border-left: 5px solid var(--green);">
+            <h3>📦 नया ऑर्डर दर्ज करें</h3>
+            <p style="font-size: 0.8rem; color: #666;">अगर आप दुकान पर नया ऑर्डर ले रहे हैं, तो ड्राइवर ऐप वाला 'पिकअप' टैब इस्तेमाल करें या यहाँ से स्विच करें।</p>
+            <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
+                <span>➕</span> इन्वेंटरी लिस्ट भरें
+            </button>
+        </div>
+
     </div>
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycby2EfvsLymHc5Y8KlVourvSENF-XYy4swRMVzTiZqnlJSLkPP7zS2bMnijUIyVWYBCZFA/exec';
 
-    const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "कुर्ता-पायजामा", "कोट/ब्लेजर", "सूट"],
-        women: ["साड़ी", "सूट-सलवार", "गाउन", "लहंगा", "टॉप/कुर्ती", "जींस/पेंट"],
-        child: ["बाबा सूट", "फ्रॉक", "टी-शर्ट", "निक्कर", "हाफ/फुल पेंट", "यूनिफॉर्म"],
-        home: ["बेडशीट", "पर्दे", "सोफा कवर", "तौलिया", "टेबल क्लॉथ", "बुजुर्ग धोती/कुर्ता"],
-        winter: ["स्वेटर", "जैकेट", "कंबल", "लोई/शाल", "कार्डिगन", "कोट"]
-    };
-
-    let selectedItems = [];
-
-    function loadItems(cat, btn) {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const sel = document.getElementById('itemSelect');
-        sel.innerHTML = '';
-        inventory[cat].forEach(i => {
-            sel.innerHTML += `<option value="${cat.toUpperCase()}: ${i}">${i}</option>`;
-        });
-    }
-
-    function addToInventory() {
-        const item = document.getElementById('itemSelect').value;
-        const qty = document.getElementById('itemQty').value;
-        const note = document.getElementById('itemNote').value;
-        if(!item || !qty) return alert("संख्या भरें");
-        const entry = `${item} [${qty}] (${note})`;
-        selectedItems.push(entry);
-        document.getElementById('liveList').innerHTML += `<div>• ${entry}</div>`;
-        document.getElementById('itemQty').value = "";
-    }
-
     function updateStatusOnly() {
-        const mobile = document.getElementById('custMobile').value;
-        const status = document.getElementById('newStatus').value;
-        if(!mobile) return alert("नंबर डालें");
+        const mobile = document.getElementById('adminMobile').value;
+        const status = document.getElementById('adminStatus').value;
+        
+        if(!mobile || mobile.length < 10) {
+            alert("कृपया सही मोबाइल नंबर डालें");
+            return;
+        }
+
+        // बटन को डिसेबल करना ताकि डबल क्लिक न हो
+        const btn = document.querySelector('.btn-status');
+        btn.innerText = "अपडेट हो रहा है...";
+        btn.disabled = true;
+
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${status}`)
-        .then(() => alert("स्टेटस अपडेट हो गया! ✅"));
-    }
-
-    function finalSubmit() {
-        const mobile = document.getElementById('custMobile').value;
-        if(!mobile || selectedItems.length === 0) return alert("नंबर और आइटम जोड़ें");
-        const dbString = selectedItems.join(", ");
-        const waText = `*प्रतीक्षा ड्राई क्लीनर्स*\n*पिकअप रसीद*\n\n${selectedItems.map(i => "✅ " + i).join("\n")}\n\nधन्यवाद!`;
-
-        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbString)}`)
-        .then(() => {
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waText)}`, '_blank');
-            alert("डेटा सुरक्षित!");
+        .then(response => {
+            alert("सफलता! ग्राहक का स्टेटस अब '" + status + "' है।");
             location.reload();
+        })
+        .catch(error => {
+            alert("नेटवर्क एरर! कृपया दोबारा कोशिश करें।");
+            btn.innerText = "स्टेटस बदलें";
+            btn.disabled = false;
         });
     }
 </script>
