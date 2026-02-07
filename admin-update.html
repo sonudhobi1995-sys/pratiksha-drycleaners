@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control | PRATIKSHA</title>
+    <style>
+        :root { --sun-orange: #FF8C00; --saturn-blue: #001F3F; }
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .admin-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        select, input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd; }
+        button { width: 100%; padding: 15px; background: var(--saturn-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        button:active { background: var(--sun-orange); }
+    </style>
+</head>
+<body>
+
+<div class="admin-box">
+    <h2 style="color: var(--saturn-blue); text-align: center;">वर्क स्टेटस अपडेट</h2>
+    
+    <input type="tel" id="custMobile" placeholder="ग्राहक का मोबाइल नंबर दर्ज करें">
+    
+    <label>नया स्टेटस चुनें:</label>
+    <select id="newStatus">
+        <option value="Picked Up">पिकअप पूर्ण (Picked Up)</option>
+        <option value="प्रक्रिया में">प्रक्रिया में (In Process)</option>
+        <option value="धुलाई">धुलाई (Washing)</option>
+        <option value="आयरनिंग">आयरनिंग (Ironing)</option>
+        <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
+    </select>
+
+    <button onclick="updateData()">अपडेट करें 🚀</button>
+    <p id="msg" style="text-align: center; font-weight: bold; margin-top: 15px;"></p>
+</div>
+
+<script>
+    const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+    function updateData() {
+        const mobile = document.getElementById('custMobile').value;
+        const status = document.getElementById('newStatus').value;
+        const msgDisp = document.getElementById('msg');
+
+        if(!mobile) return alert("कृपया मोबाइल नंबर डालें");
+
+        msgDisp.innerText = "अपडेट हो रहा है...";
+        
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${status}`)
+        .then(res => res.json())
+                .then(data => {
+            msgDisp.style.color = "green";
+            msgDisp.innerText = "सफलतापूर्वक अपडेट हो गया! ✅";
+        })
+        .catch(err => {
+            msgDisp.style.color = "red";
+            msgDisp.innerText = "त्रुटि! दोबारा प्रयास करें।";
+        });
+    }
+</script>
+
+</body>
+</html>
