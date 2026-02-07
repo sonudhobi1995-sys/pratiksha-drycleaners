@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order | PRATIKSHA DRY CLEANERS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sun-orange: #FF8C00;
+            --saturn-blue: #001F3F;
+            --mercury-green: #2E8B57;
+            --cream-bg: #FFFDD0;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--cream-bg); margin: 0; padding: 20px; color: var(--saturn-blue); }
+        .track-container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--sun-orange); }
+        
+        /* प्रोग्रेस बार स्टाइल */
+        .step-container { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; position: relative; }
+        .step { display: flex; align-items: center; gap: 15px; opacity: 0.3; transition: 0.3s; }
+        .step.active { opacity: 1; font-weight: bold; }
+        .circle { width: 30px; height: 30px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; }
+        .active .circle { background: var(--mercury-green); box-shadow: 0 0 10px var(--mercury-green); }
+        
+        .line { position: absolute; left: 14px; top: 0; width: 2px; height: 100%; background: #ddd; z-index: -1; }
+        
+        .status-header { text-align: center; margin-bottom: 20px; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--sun-orange); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="track-container">
+        <a href="index.html" class="back-btn">← वापस होम पर</a>
+        <div class="status-header">
+            <h2 style="margin:0;">ऑर्डर ट्रैकिंग</h2>
+            <p id="orderIdDisp" style="font-size: 0.9rem; color: #666;">मोबाइल: <span id="mobileNum">...</span></p>
+        </div>
+
+        <div class="step-container">
+            <div class="line"></div>
+            <div class="step" id="step-picked">
+                <div class="circle">1</div>
+                <div>पिकअप पूर्ण (Picked Up)</div>
+            </div>
+            <div class="step" id="step-process">
+                <div class="circle">2</div>
+                <div>प्रक्रिया में (In Process)</div>
+            </div>
+            <div class="step" id="step-wash">
+                <div class="circle">3</div>
+                <div>धुलाई/ड्राई क्लीनिंग (Washing)</div>
+            </div>
+            <div class="step" id="step-iron">
+                <div class="circle">4</div>
+                <div>प्रेस और फिनिशिंग (Ironing)</div>
+            </div>
+            <div class="step" id="step-ready">
+                <div class="circle">5</div>
+                <div>तैयार है (Ready to Deliver)</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // आपका पुराना URL यहाँ डालें
+
+        window.onload = function() {
+            const mobile = localStorage.getItem('userMobile');
+            document.getElementById('mobileNum').innerText = mobile || 'Not Found';
+
+            if (mobile) {
+                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateVisualStatus(data.status);
+                });
+            }
+        };
+
+        function updateVisualStatus(status) {
+            // स्टेटस के आधार पर क्लास जोड़ना
+            const stages = {
+                "Picked Up": "step-picked",
+                "प्रक्रिया में": "step-process",
+                "धुलाई": "step-wash",
+                "आयरनिंग": "step-iron",
+                "रेडी टू डिलीवरी": "step-ready"
+            };
+
+            // साफ़ सफाई (Reset)
+            Object.values(stages).forEach(id => document.getElementById(id).classList.remove('active'));
+
+            // सक्रिय करना (Activate)
+            if(stages[status]) {
+                document.getElementById(stages[status]).classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
