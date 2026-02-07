@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin App | PRATIKSHA</title>
+    
+    <link rel="manifest" href="manifest-admin.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#001F3F">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f0f2f5; }
@@ -48,7 +54,6 @@
     </div>
 
     <div class="container">
-        
         <div class="card">
             <h3>📱 ग्राहक की पहचान</h3>
             <label>मोबाइल नंबर दर्ज करें:</label>
@@ -71,12 +76,11 @@
 
         <div class="card" style="border-left: 5px solid var(--green);">
             <h3>📦 नया ऑर्डर दर्ज करें</h3>
-            <p style="font-size: 0.8rem; color: #666;">अगर आप दुकान पर नया ऑर्डर ले रहे हैं, तो ड्राइवर ऐप वाला 'पिकअप' टैब इस्तेमाल करें या यहाँ से स्विच करें।</p>
+            <p style="font-size: 0.8rem; color: #666;">ड्राइवर ऐप वाला 'पिकअप' मोड यहाँ से खोलें:</p>
             <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
                 <span>➕</span> इन्वेंटरी लिस्ट भरें
             </button>
         </div>
-
     </div>
 
 <script>
@@ -91,7 +95,6 @@
             return;
         }
 
-        // बटन को डिसेबल करना ताकि डबल क्लिक न हो
         const btn = document.querySelector('.btn-status');
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
@@ -102,8 +105,8 @@
             location.reload();
         })
         .catch(error => {
-            alert("नेटवर्क एरर! कृपया दोबारा कोशिश करें।");
-            btn.innerText = "स्टेटस बदलें";
+            alert("नेटवर्क एरर! दोबारा कोशिश करें।");
+            btn.innerText = "STATUS UPDATE";
             btn.disabled = false;
         });
     }
