@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRATIKSHA DRY CLEANERS | Premium Fabric Care</title>
     
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = "login.html";
+        }
+    </script>
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FF8C00">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,7 +28,6 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* लाइव स्टेटस बार */
         .user-status-bar {
             background: white;
             padding: 10px 15px;
@@ -49,7 +54,7 @@
             background: var(--sun-orange); 
             padding: 5px 15px; 
             position: sticky; 
-            top: 38px;
+            top: 38px; 
             z-index: 1000; 
             display: flex; 
             align-items: center; 
@@ -62,34 +67,12 @@
         .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
         .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
 
-        .nav-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1;
-            text-align: center;
-        }
+        .nav-center { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; text-align: center; }
         .nav-center img { height: 40px; width: auto; border-radius: 5px; border: 1.5px solid white; }
-        .nav-center span {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 0.9rem;
-            color: white;
-            text-transform: uppercase;
-        }
+        .nav-center span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 0.9rem; color: white; text-transform: uppercase; }
 
         .nav-right { display: flex; align-items: center; gap: 8px; }
-        .nav-btn { 
-            background: white; 
-            color: var(--sun-orange); 
-            border: none; 
-            padding: 6px 8px; 
-            border-radius: 6px; 
-            font-size: 0.9rem; 
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        .nav-btn { background: white; color: var(--sun-orange); border: none; padding: 6px 8px; border-radius: 6px; font-size: 0.9rem; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); z-index: 1001; }
         .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #1a3a5a; }
@@ -99,15 +82,7 @@
         .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
         .service-link:hover { transform: scale(1.1); }
 
-        .rating-card {
-            background: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 2px dashed var(--sun-orange);
-        }
+        .rating-card { background: white; margin: 20px; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px dashed var(--sun-orange); }
         .stars { color: #FFD700; font-size: 1.5rem; margin: 10px 0; }
 
         @keyframes pulse {
@@ -115,17 +90,13 @@
             50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 30px rgba(46,139,87,0.5); }
             100% { transform: translate(-50%, -50%) scale(1); }
         }
-
-        @media (max-width: 600px) {
-            .nav-center span { font-size: 0.75rem; }
-        }
     </style>
 </head>
 <body>
 
     <div class="user-status-bar">
         <div>🏠 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
-        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
+        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;" title="ट्रैकिंग देखें">
             स्टेटस: <span id="userStatusDisp" class="status-pill">Loading...</span> 🔍
         </div>
     </div>
@@ -154,39 +125,33 @@
     <div class="top-bar">★ AMBABARI: दुर्गा पार्क (E82-124) | हनुमान पार्क (D97-160) ★</div>
 
     <section style="padding: 10px 0; background: var(--cream-bg);">
-        <div id="gallery-container" style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange); position: relative;">
+        <div id="gallery-container" style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange); position: relative; cursor: pointer;">
             <div id="photo-track" style="display: flex; transition: transform 0.5s ease-in-out;">
                 <img src="1.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="2.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="3.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="4.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
+                <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
             </div>
         </div>
     </section>
 
-    <section style="padding: 60px 0; background: #fffdf2; overflow: hidden;">
+    <section style="padding: 60px 0; background: #fffdf2; overflow: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
         <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 50px;">Our Premium Services</h2>
         <div style="position: relative; width: 300px; height: 300px; margin: 0 auto;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: var(--mercury-green); border: 4px solid var(--sun-orange); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; text-align: center; animation: pulse 2s infinite;">
-                <div style="font-size: 1.5rem; color: white;">⚡</div>
-                <h4 style="margin: 0; color: white; font-size: 0.65rem; font-weight: 900;">RAPID SERVICE</h4>
-            </div>
-            <a href="services.html#dryclean" class="service-link" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🧺<p style="font-size: 0.7rem; font-weight: bold; color: var(--mercury-green);">Dry Clean</p></a>
-            <a href="services.html#steamiron" class="service-link" style="position: absolute; top: 45px; right: -15px; text-align: center; width: 80px;">👔<p style="font-size: 0.7rem; font-weight: bold; color: var(--mercury-green);">Steam Iron</p></a>
-            <a href="services.html#wedding" class="service-link" style="position: absolute; bottom: 45px; right: -15px; text-align: center; width: 80px;">💃<p style="font-size: 0.7rem; font-weight: bold; color: var(--mercury-green);">Wedding</p></a>
-            <a href="services.html#household" class="service-link" style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🏠<p style="font-size: 0.7rem; font-weight: bold; color: var(--mercury-green);">Home Decor</p></a>
-            <a href="services.html#woolens" class="service-link" style="position: absolute; top: 45px; left: -15px; text-align: center; width: 80px;">🧶<p style="font-size: 0.7rem; font-weight: bold; color: var(--mercury-green);">Woolens</p></a>
-        </div>
-    </section>
-
-    <section style="padding: 40px 0; background: var(--cream-bg);">
-        <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 20px;">Watch Us In Action</h2>
-        <div style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); background: #000; border: 3px solid var(--saturn-blue);">
-            <div id="video-track" style="display: flex; transition: transform 0.5s ease-in-out;">
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
-            </div>
+            <a href="services.html#rapid" style="text-decoration: none;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: var(--mercury-green); border: 4px solid var(--sun-orange); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; text-align: center; animation: pulse 2s infinite;">
+                    <div style="font-size: 1.5rem; color: white;">⚡</div>
+                    <h4 style="margin: 0; color: white; font-size: 0.65rem; font-weight: 900; line-height: 1.1;">RAPID<br>SERVICE</h4>
+                </div>
+            </a>
+            <a href="services.html#dryclean" class="service-link" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🧺<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Dry Clean</p></a>
+            <a href="services.html#steamiron" class="service-link" style="position: absolute; top: 45px; right: -15px; text-align: center; width: 80px;">👔<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Steam Iron</p></a>
+            <a href="services.html#wedding" class="service-link" style="position: absolute; bottom: 45px; right: -15px; text-align: center; width: 80px;">💃<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Wedding</p></a>
+            <a href="services.html#household" class="service-link" style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); text-align: center; width: 80px;">🏠<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Home Decor</p></a>
+            <a href="services.html#leather" class="service-link" style="position: absolute; bottom: 45px; left: -15px; text-align: center; width: 80px;">🧥<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Leather</p></a>
+            <a href="services.html#woolens" class="service-link" style="position: absolute; top: 45px; left: -15px; text-align: center; width: 80px;">🧶<p style="font-size: 0.7rem; font-weight: bold; margin: 0; color: var(--mercury-green);">Woolens</p></a>
         </div>
     </section>
 
@@ -194,20 +159,9 @@
         <h3 style="margin: 0; color: var(--saturn-blue);">Pratiksha Dry Cleaners</h3>
         <p style="font-size: 0.8rem; margin: 5px 0;">अंबाबाड़ी की भरोसेमंद सर्विस</p>
         <div class="stars">★★★★★</div>
-        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" style="text-decoration: none;">
-            <button style="background: var(--sun-orange); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">हमें गूगल पर रेट करें</button>
+        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank">
+            <button style="background: var(--sun-orange); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">हमें गूगल पर रेट करें</button>
         </a>
-    </section>
-
-    <section style="padding: 50px 0; background: #fff;">
-        <div style="max-width: 500px; margin: auto; text-align: center;">
-            <h2 style="color: var(--saturn-blue);">Share Your Thoughts</h2>
-            <div style="background: var(--cream-bg); padding: 25px; border-radius: 15px; border: 2px solid var(--mercury-green);">
-                <input type="text" id="custName" placeholder="आपका नाम" style="width: 90%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ddd;">
-                <textarea id="custMsg" placeholder="अपने सुझाव साझा करें..." rows="4" style="width: 90%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px;"></textarea>
-                <button onclick="sendFeedback()" style="width: 95%; background: var(--saturn-blue); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold;">WhatsApp पर भेजें</button>
-            </div>
-        </div>
     </section>
 
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #fff; background: var(--saturn-blue);">
@@ -219,50 +173,61 @@
     </a>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzbilExhNUUSdZw_FrDjY-4OKb7cVY-TD24YhlO49EN0H5MBdV7ISbgzOeDd_PE4obm6A/exec';
+        // 1. आपका नया Script URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbbilExhNUUSdZw_FrDjY-4OKb7cVY-TD24YhlO49EN0H5MBdV7ISbgzOeDd_PE4obm6A/exec';
 
         window.onload = function() {
-            // लॉगिन चेक
-            if (localStorage.getItem('isLoggedIn') !== 'true') {
+            const mobile = localStorage.getItem('userMobile');
+            const house = localStorage.getItem('userHouse');
+            const name = localStorage.getItem('userName');
+
+            // सुरक्षा जांच: अगर लोकल डेटा नहीं है तो बाहर भेजें
+            if (!mobile || !house || !name) {
                 window.location.href = "login.html";
                 return;
             }
 
-            const house = localStorage.getItem('userHouse');
-            const name = localStorage.getItem('userName');
-            const mobile = localStorage.getItem('userMobile');
+            document.getElementById('userHouseDisp').innerText = house;
+            document.getElementById('userNameDisp').innerText = name;
 
-            document.getElementById('userHouseDisp').innerText = house || '...';
-            document.getElementById('userNameDisp').innerText = name || 'ग्राहक';
-
-            // लाइव स्टेटस खींचना
-            if (mobile) {
-                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
-                .then(response => response.text())
-                .then(statusText => {
-                    const statusDisp = document.getElementById('userStatusDisp');
-                    if(statusText && statusText !== "Not Found" && statusText !== "Welcome") {
-                        statusDisp.innerText = statusText;
-                        if(statusText.includes("रेडी") || statusText.includes("डिलीवरी")) {
-                            statusDisp.style.background = "#2E8B57"; // Green
-                        }
+            // लाइव स्टेटस चेक और 'सख्त लॉगिन पहरेदारी'
+            fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+            .then(response => response.text())
+            .then(statusText => {
+                const statusDisp = document.getElementById('userStatusDisp');
+                
+                // अगर डेटा शीट से हटा दिया गया है (यानी 'Welcome' या खाली मिले)
+                if (statusText === "Welcome" || statusText === "Not Found" || !statusText) {
+                    localStorage.clear(); // लोकल डेटा साफ़ करें
+                    window.location.href = "login.html"; // वापस लॉगिन पर भेजें
+                } else {
+                    statusDisp.innerText = statusText;
+                    if(statusText.includes("रेडी") || statusText.includes("डिलीवरी")) {
+                        statusDisp.style.background = "#2E8B57"; // ग्रीन
                     } else {
-                        statusDisp.innerText = 'प्रक्रिया में';
+                        statusDisp.style.background = "#FF8C00"; // ऑरेंज
                     }
-                })
-                .catch(() => { document.getElementById('userStatusDisp').innerText = 'Online'; });
-            }
+                }
+            })
+            .catch(error => {
+                document.getElementById('userStatusDisp').innerText = 'Online';
+            });
         };
 
-        function logoutApp() { localStorage.clear(); window.location.href = "login.html"; }
+        function logoutApp() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
         function refreshApp() { window.location.reload(true); }
+
         function shareApp() {
             if (navigator.share) {
                 navigator.share({ title: 'PRATIKSHA DRY CLEANERS', text: 'अंबाबाड़ी की प्रीमियम सेवा!', url: window.location.href });
             }
         }
 
-        // गैलरी और मेनू लॉजिक
+        // मेनू और गैलरी लॉजिक
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.onclick = (e) => {
@@ -275,8 +240,10 @@
         const pTrack = document.getElementById('photo-track');
         const pSlides = document.querySelectorAll('#photo-track img');
         setInterval(() => {
-            pIdx = (pIdx + 1) % pSlides.length;
-            pTrack.style.transform = `translateX(-${pIdx * 100}%)`;
+            if(pSlides.length > 0) {
+                pIdx = (pIdx + 1) % pSlides.length;
+                pTrack.style.transform = `translateX(-${pIdx * 100}%)`;
+            }
         }, 3000);
 
         function sendFeedback() {
