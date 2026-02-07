@@ -1,0 +1,22 @@
+{
+  "name": "Pratiksha Driver",
+  "short_name": "P-Driver",
+  "description": "Pratiksha Dry Cleaners - Field Delivery & Pickup",
+  "start_url": "driver-app.html",
+  "display": "standalone",
+  "background_color": "#FF8C00",
+  "theme_color": "#FF8C00",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
