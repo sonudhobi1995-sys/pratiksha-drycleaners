@@ -15,7 +15,6 @@
         :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f0f2f5; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; }
         
-        /* प्रीमियम हेडर */
         .app-header { 
             background: linear-gradient(135deg, var(--dark) 0%, #003366 100%); 
             color: white; padding: 25px 15px; text-align: center; 
@@ -70,7 +69,7 @@
                 <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
             </select>
             <button class="btn btn-status" onclick="updateStatusOnly()">
-                <span>🔄</span> स्टेटस बदलें
+                <span>🔄</span> स्टेटस बदलें और मैसेज भेजें
             </button>
         </div>
 
@@ -99,14 +98,23 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${status}`)
-        .then(response => {
-            alert("सफलता! ग्राहक का स्टेटस अब '" + status + "' है।");
+        // Fetch with no-cors mode for reliable operation
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`, {
+            method: 'GET',
+            mode: 'no-cors'
+        })
+        .then(() => {
+            alert("सफलता! स्टेटस अब '" + status + "' है। ✅");
+            
+            // व्हाट्सएप पर स्टेटस अपडेट का मैसेज भेजना
+            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अपडेट कर दिया गया है।\n\n*वर्तमान स्थिति:* ${status}\n\nजल्द ही आपके कपड़े तैयार मिलेंगे। धन्यवाद! 🙏`;
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+            
             location.reload();
         })
         .catch(error => {
             alert("नेटवर्क एरर! दोबारा कोशिश करें।");
-            btn.innerText = "STATUS UPDATE";
+            btn.innerText = "स्टेटस बदलें";
             btn.disabled = false;
         });
     }
