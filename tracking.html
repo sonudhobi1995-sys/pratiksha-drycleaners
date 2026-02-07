@@ -15,17 +15,32 @@
         body { font-family: 'Inter', sans-serif; background: var(--cream-bg); margin: 0; padding: 20px; color: var(--saturn-blue); }
         .track-container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--sun-orange); }
         
-        /* प्रोग्रेस बार स्टाइल */
-        .step-container { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; position: relative; }
-        .step { display: flex; align-items: center; gap: 15px; opacity: 0.3; transition: 0.3s; }
+        .status-header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--sun-orange); text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+
+        /* प्रोग्रेस स्टेप्स स्टाइल */
+        .step-container { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; position: relative; }
+        .step { display: flex; align-items: center; gap: 15px; opacity: 0.2; transition: 0.5s; }
         .step.active { opacity: 1; font-weight: bold; }
-        .circle { width: 30px; height: 30px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; }
+        .circle { width: 30px; height: 30px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; z-index: 1; }
         .active .circle { background: var(--mercury-green); box-shadow: 0 0 10px var(--mercury-green); }
         
-        .line { position: absolute; left: 14px; top: 0; width: 2px; height: 100%; background: #ddd; z-index: -1; }
+        .line { position: absolute; left: 14px; top: 0; width: 2px; height: 100%; background: #ddd; z-index: 0; }
         
-        .status-header { text-align: center; margin-bottom: 20px; }
-        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--sun-orange); text-decoration: none; font-weight: bold; }
+        /* इन्वेंटरी डिटेल्स डिब्बा */
+        .inventory-card { 
+            background: #fffde7; border: 1px dashed var(--sun-orange); 
+            border-radius: 12px; padding: 15px; margin-top: 30px; 
+            text-align: left; font-size: 0.9rem; color: #444;
+        }
+        .inventory-title { 
+            font-weight: bold; color: var(--saturn-blue); 
+            border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 10px; 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        #inventoryList div { margin-bottom: 6px; padding-left: 10px; border-left: 3px solid var(--sun-orange); }
+
+        .refresh-btn { display: block; width: 100%; margin-top: 25px; background: none; border: 1px solid #ddd; padding: 10px; border-radius: 8px; color: #888; cursor: pointer; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -34,7 +49,8 @@
         <a href="index.html" class="back-btn">← वापस होम पर</a>
         <div class="status-header">
             <h2 style="margin:0;">ऑर्डर ट्रैकिंग</h2>
-            <p id="orderIdDisp" style="font-size: 0.9rem; color: #666;">मोबाइल: <span id="mobileNum">...</span></p>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">नमस्ते, <span id="userNameDisp">...</span></p>
+            <p id="orderIdDisp" style="font-size: 0.8rem; color: #999; margin: 0;">मोबाइल: <span id="mobileNum">...</span></p>
         </div>
 
         <div class="step-container">
@@ -60,40 +76,72 @@
                 <div>तैयार है (Ready to Deliver)</div>
             </div>
         </div>
+
+        <div class="inventory-card" id="inventoryBox" style="display: none;">
+            <div class="inventory-title">
+                <span>आपके कपड़ों का विवरण</span>
+                <span style="font-size: 1.2rem;">📋</span>
+            </div>
+            <div id="inventoryList">
+                </div>
+        </div>
+
+        <button class="refresh-btn" onclick="location.reload()">जानकारी अपडेट करें ↻</button>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbygef2d2UKF98opSNkqFI4mrN-OfUbVR6uK_Yh0oA2zr7-sSO9PYseYXHbiArWsE3Fc-A/exec'; // आपका पुराना URL यहाँ डालें
+        // आपका नया 100% वर्किंग URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby2EfvsLymHc5Y8KlVourvSENF-XYy4swRMVzTiZqnlJSLkPP7zS2bMnijUIyVWYBCZFA/exec';
 
         window.onload = function() {
             const mobile = localStorage.getItem('userMobile');
-            document.getElementById('mobileNum').innerText = mobile || 'Not Found';
+            const name = localStorage.getItem('userName');
+            
+            document.getElementById('mobileNum').innerText = mobile || 'नंबर नहीं मिला';
+            document.getElementById('userNameDisp').innerText = name || 'ग्राहक';
 
             if (mobile) {
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
                 .then(response => response.json())
                 .then(data => {
                     updateVisualStatus(data.status);
-                });
+                    displayInventory(data.details);
+                })
+                .catch(error => console.error('Error!', error.message));
             }
         };
 
         function updateVisualStatus(status) {
-            // स्टेटस के आधार पर क्लास जोड़ना
             const stages = {
-                "Picked Up": "step-picked",
-                "प्रक्रिया में": "step-process",
-                "धुलाई": "step-wash",
-                "आयरनिंग": "step-iron",
-                "रेडी टू डिलीवरी": "step-ready"
+                "Picked Up": ["step-picked"],
+                "प्रक्रिया में": ["step-picked", "step-process"],
+                "धुलाई": ["step-picked", "step-process", "step-wash"],
+                "आयरनिंग": ["step-picked", "step-process", "step-wash", "step-iron"],
+                "रेडी टू डिलीवरी": ["step-picked", "step-process", "step-wash", "step-iron", "step-ready"]
             };
 
-            // साफ़ सफाई (Reset)
-            Object.values(stages).forEach(id => document.getElementById(id).classList.remove('active'));
+            // रिसेट करें
+            const allSteps = ["step-picked", "step-process", "step-wash", "step-iron", "step-ready"];
+            allSteps.forEach(id => document.getElementById(id).classList.remove('active'));
 
-            // सक्रिय करना (Activate)
+            // वर्तमान स्टेटस तक के सभी स्टेप्स को चमकाएं (Active करें)
             if(stages[status]) {
-                document.getElementById(stages[status]).classList.add('active');
+                stages[status].forEach(id => {
+                    document.getElementById(id).classList.add('active');
+                });
+            }
+        }
+
+        function displayInventory(details) {
+            const inventoryBox = document.getElementById('inventoryBox');
+            const inventoryList = document.getElementById('inventoryList');
+
+            if (details && details !== "कोई लिस्ट उपलब्ध नहीं" && details.trim() !== "") {
+                inventoryBox.style.display = 'block';
+                const items = details.split(', ');
+                inventoryList.innerHTML = items.map(item => `<div>• ${item}</div>`).join('');
+            } else {
+                inventoryBox.style.display = 'none';
             }
         }
     </script>
