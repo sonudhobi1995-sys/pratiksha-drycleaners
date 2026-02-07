@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver App | PRATIKSHA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f8f9fa; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding-bottom: 70px; }
+        
+        /* ऊपर का हेडर */
+        .app-header { background: var(--dark); color: white; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        .container { padding: 15px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
+        
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+        .btn-primary { background: var(--sun); color: white; }
+        .btn-success { background: var(--green); color: white; }
+        
+        /* नीचे का नेविगेशन बार */
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border-top: 1px solid #eee; }
+        .nav-item { border: none; background: none; color: #888; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+        .nav-item.active { color: var(--sun); font-weight: bold; }
+        .nav-icon { font-size: 1.4rem; margin-bottom: 3px; }
+
+        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+        .cat-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; }
+        .cat-btn.active { background: var(--dark); color: white; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <h2 style="margin:0;">प्रतीक्षा ड्राइवर ऐप</h2>
+        <small>अंबाबाड़ी, जयपुर</small>
+    </div>
+
+    <div class="container">
+        
+        <div id="pickup-sec" class="app-sec">
+            <div class="card">
+                <h3>🧺 नया पिकअप दर्ज करें</h3>
+                <input type="tel" id="pickMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                
+                <div class="cat-grid">
+                    <button class="cat-btn" onclick="loadItems('men')">MEN</button>
+                    <button class="cat-btn" onclick="loadItems('women')">WOMEN</button>
+                    <button class="cat-btn" onclick="loadItems('home')">HOME</button>
+                </div>
+                
+                <select id="itemSelect"><option value="">कैटेगरी चुनें</option></select>
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="itemQty" placeholder="संख्या" style="flex:1;">
+                    <select id="itemNote" style="flex:1;">
+                        <option value="OK">OK</option>
+                        <option value="दाग">दाग</option>
+                        <option value="कटा">कटा</option>
+                    </select>
+                </div>
+                <button onclick="addToInv()" style="background:#eee; border:1px solid #ccc; width:100%; padding:10px; border-radius:8px;">+ लिस्ट में जोड़ें</button>
+                
+                <div id="liveList" style="margin-top:15px; font-size:0.85rem; color:#555; background:#fffde7; padding:10px; border-radius:8px;"><b>लिस्ट:</b></div>
+                
+                <button class="btn btn-primary" style="margin-top:15px;" onclick="submitPickup()">पिकअप कन्फर्म करें</button>
+            </div>
+        </div>
+
+        <div id="delivery-sec" class="app-sec hidden">
+            <div class="card">
+                <h3>🚚 डिलीवरी और पेमेंट</h3>
+                <input type="tel" id="delMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                
+                <label>पेमेंट स्टेटस:</label>
+                <select id="payStatus">
+                    <option value="Paid">भुगतान प्राप्त (Paid)</option>
+                    <option value="Pending">बाकी है (Pending)</option>
+                </select>
+                
+                <input type="number" id="amount" placeholder="कुल राशि (₹)">
+                
+                <button class="btn btn-success" onclick="confirmDelivery()">डिलीवरी पूर्ण करें</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="showSec('pickup-sec', this)">
+            <span class="nav-icon">🧺</span><span>पिकअप</span>
+        </button>
+        <button class="nav-item" onclick="showSec('delivery-sec', this)">
+            <span class="nav-icon">🚚</span><span>डिलीवरी</span>
+        </button>
+    </div>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby2EfvsLymHc5Y8KlVourvSENF-XYy4swRMVzTiZqnlJSLkPP7zS2bMnijUIyVWYBCZFA/exec';
+    let selectedItems = [];
+
+    function showSec(id, btn) {
+        document.querySelectorAll('.app-sec').forEach(s => s.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    const inventory = {
+        men: ["शर्ट", "पेंट", "सूट", "कुर्ता-पायजामा"],
+        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा"],
+        home: ["बेडशीट", "पर्दे", "कंबल", "धोती"]
+    };
+
+    function loadItems(cat) {
+        const sel = document.getElementById('itemSelect');
+        sel.innerHTML = '';
+        inventory[cat].forEach(i => { sel.innerHTML += `<option value="${cat.toUpperCase()}: ${i}">${i}</option>`; });
+    }
+
+    function addToInv() {
+        const item = document.getElementById('itemSelect').value;
+        const qty = document.getElementById('itemQty').value;
+        const note = document.getElementById('itemNote').value;
+        if(!item || !qty) return alert("जानकारी भरें");
+        const entry = `${item} [${qty}] (${note})`;
+        selectedItems.push(entry);
+        document.getElementById('liveList').innerHTML += `<div>• ${entry}</div>`;
+        document.getElementById('itemQty').value = "";
+    }
+
+    function submitPickup() {
+        const mobile = document.getElementById('pickMobile').value;
+        const dbStr = selectedItems.join(", ");
+        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbStr)}`)
+        .then(() => {
+            alert("पिकअप सुरक्षित! रसीद भेजी जा रही है।");
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent('पिकअप रसीद: ' + dbStr)}`, '_blank');
+            location.reload();
+        });
+    }
+
+    function confirmDelivery() {
+        const mobile = document.getElementById('delMobile').value;
+        const amt = document.getElementById('amount').value;
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`)
+        .then(() => { alert("डिलीवरी सफल! ✅"); location.reload(); });
+    }
+</script>
+</body>
+</html>
