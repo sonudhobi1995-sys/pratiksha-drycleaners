@@ -3,60 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Control | PRATIKSHA</title>
+    <title>Admin Control | PRATIKSHA DRY CLEANERS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --sun-orange: #FF8C00; --saturn-blue: #001F3F; }
-        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-        .admin-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        select, input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ddd; }
-        button { width: 100%; padding: 15px; background: var(--saturn-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        button:active { background: var(--sun-orange); }
+        :root { 
+            --sun-orange: #FF8C00; 
+            --saturn-blue: #001F3F; 
+            --mercury-green: #2E8B57; 
+            --cream-bg: #FFFDD0;
+        }
+        body { font-family: 'Inter', sans-serif; background: #f0f2f5; padding: 15px; margin: 0; color: #333; }
+        
+        .admin-box { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            margin-bottom: 20px; 
+            border-top: 5px solid var(--sun-orange); 
+        }
+
+        h3 { color: var(--saturn-blue); margin: 0 0 15px 0; text-align: center; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        
+        label { font-size: 0.8rem; font-weight: bold; color: #666; display: block; margin-bottom: 5px; }
+        
+        input, select { 
+            width: 100%; padding: 12px; margin-bottom: 15px; 
+            border-radius: 8px; border: 1px solid #ddd; 
+            box-sizing: border-box; font-size: 0.95rem;
+        }
+
+        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .cat-btn { 
+            background: white; border: 2px solid #eee; padding: 12px 5px; 
+            border-radius: 10px; font-size: 0.75rem; cursor: pointer; 
+            font-weight: bold; transition: 0.3s;
+        }
+        .cat-btn:active, .cat-btn.active { background: var(--saturn-blue); color: white; border-color: var(--saturn-blue); }
+
+        .add-btn { 
+            background: var(--saturn-blue); color: white; border: none; 
+            padding: 12px; border-radius: 8px; width: 100%; 
+            font-weight: bold; cursor: pointer; margin-top: 5px;
+        }
+
+        #liveList { 
+            background: var(--cream-bg); padding: 12px; border-radius: 10px; 
+            margin-top: 15px; font-size: 0.85rem; border: 1px dashed var(--sun-orange); 
+            min-height: 40px; line-height: 1.6;
+        }
+
+        .submit-btn { 
+            background: var(--mercury-green); color: white; border: none; 
+            padding: 16px; border-radius: 10px; width: 100%; 
+            font-weight: bold; font-size: 1rem; margin-top: 20px; 
+            cursor: pointer; box-shadow: 0 4px 10px rgba(46,139,87,0.3);
+        }
+
+        .status-btn {
+            background: var(--sun-orange); color: white; border: none;
+            padding: 12px; border-radius: 8px; width: 100%; font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-<div class="admin-box">
-    <h2 style="color: var(--saturn-blue); text-align: center;">वर्क स्टेटस अपडेट</h2>
-    
-    <input type="tel" id="custMobile" placeholder="ग्राहक का मोबाइल नंबर दर्ज करें">
-    
-    <label>नया स्टेटस चुनें:</label>
-    <select id="newStatus">
-        <option value="Picked Up">पिकअप पूर्ण (Picked Up)</option>
-        <option value="प्रक्रिया में">प्रक्रिया में (In Process)</option>
-        <option value="धुलाई">धुलाई (Washing)</option>
-        <option value="आयरनिंग">आयरनिंग (Ironing)</option>
-        <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
-    </select>
+    <div class="admin-box">
+        <h3>🔍 ग्राहक एवं स्टेटस अपडेट</h3>
+        <label>ग्राहक का मोबाइल नंबर:</label>
+        <input type="tel" id="custMobile" placeholder="नंबर दर्ज करें">
+        
+        <label>नया स्टेटस चुनें:</label>
+        <select id="newStatus">
+            <option value="Picked Up">पिकअप पूर्ण (Picked Up)</option>
+            <option value="प्रक्रिया में">प्रक्रिया में (In Process)</option>
+            <option value="धुलाई">धुलाई (Washing)</option>
+            <option value="आयरनिंग">आयरनिंग (Ironing)</option>
+            <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
+        </select>
+        <button class="status-btn" onclick="updateStatusOnly()">सिर्फ स्टेटस बदलें ⚡</button>
+    </div>
 
-    <button onclick="updateData()">अपडेट करें 🚀</button>
-    <p id="msg" style="text-align: center; font-weight: bold; margin-top: 15px;"></p>
-</div>
+    <div class="admin-box">
+        <h3>📦 डिजिटल पिकअप रिकॉर्ड</h3>
+        <label>कैटेगरी चुनें:</label>
+        <div class="cat-grid">
+            <button class="cat-btn" onclick="loadItems('men', this)">MEN</button>
+            <button class="cat-btn" onclick="loadItems('women', this)">WOMEN</button>
+            <button class="cat-btn" onclick="loadItems('child', this)">CHILD</button>
+            <button class="cat-btn" onclick="loadItems('home', this)">HOME</button>
+            <button class="cat-btn" onclick="loadItems('winter', this)">WINTER</button>
+        </div>
+
+        <select id="itemSelect"><option value="">पहले कैटेगरी चुनें</option></select>
+        
+        <div style="display:flex; gap:10px;">
+            <div style="flex:1;">
+                <label>संख्या:</label>
+                <input type="number" id="itemQty" placeholder="Q">
+            </div>
+            <div style="flex:1;">
+                <label>कंडीशन:</label>
+                <select id="itemNote">
+                    <option value="OK">OK</option>
+                    <option value="दाग है">दाग है</option>
+                    <option value="कटा है">कटा है</option>
+                    <option value="पुराना/फीका">पुराना/फीका</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="add-btn" onclick="addToInventory()">+ लिस्ट में जोड़ें</button>
+        <div id="liveList"><b>पिकअप लिस्ट (Current):</b></div>
+        <button class="submit-btn" onclick="finalSubmit()">कन्फर्म पिकअप और रसीद भेजें 🚀</button>
+    </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbygef2d2UKF98opSNkqFI4mrN-OfUbVR6uK_Yh0oA2zr7-sSO9PYseYXHbiArWsE3Fc-A/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby2EfvsLymHc5Y8KlVourvSENF-XYy4swRMVzTiZqnlJSLkPP7zS2bMnijUIyVWYBCZFA/exec';
 
-    function updateData() {
+    const inventory = {
+        men: ["शर्ट", "पेंट", "जींस", "कुर्ता-पायजामा", "कोट/ब्लेजर", "सूट"],
+        women: ["साड़ी", "सूट-सलवार", "गाउन", "लहंगा", "टॉप/कुर्ती", "जींस/पेंट"],
+        child: ["बाबा सूट", "फ्रॉक", "टी-शर्ट", "निक्कर", "हाफ/फुल पेंट", "यूनिफॉर्म"],
+        home: ["बेडशीट", "पर्दे", "सोफा कवर", "तौलिया", "टेबल क्लॉथ", "बुजुर्ग धोती/कुर्ता"],
+        winter: ["स्वेटर", "जैकेट", "कंबल", "लोई/शाल", "कार्डिगन", "कोट"]
+    };
+
+    let selectedItems = [];
+
+    function loadItems(cat, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const sel = document.getElementById('itemSelect');
+        sel.innerHTML = '';
+        inventory[cat].forEach(i => {
+            sel.innerHTML += `<option value="${cat.toUpperCase()}: ${i}">${i}</option>`;
+        });
+    }
+
+    function addToInventory() {
+        const item = document.getElementById('itemSelect').value;
+        const qty = document.getElementById('itemQty').value;
+        const note = document.getElementById('itemNote').value;
+        if(!item || !qty) return alert("संख्या भरें");
+        const entry = `${item} [${qty}] (${note})`;
+        selectedItems.push(entry);
+        document.getElementById('liveList').innerHTML += `<div>• ${entry}</div>`;
+        document.getElementById('itemQty').value = "";
+    }
+
+    function updateStatusOnly() {
         const mobile = document.getElementById('custMobile').value;
         const status = document.getElementById('newStatus').value;
-        const msgDisp = document.getElementById('msg');
-
-        if(!mobile) return alert("कृपया मोबाइल नंबर डालें");
-
-        msgDisp.innerText = "अपडेट हो रहा है...";
-        
+        if(!mobile) return alert("नंबर डालें");
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${status}`)
-        .then(res => res.json())
-                .then(data => {
-            msgDisp.style.color = "green";
-            msgDisp.innerText = "सफलतापूर्वक अपडेट हो गया! ✅";
-        })
-        .catch(err => {
-            msgDisp.style.color = "red";
-            msgDisp.innerText = "त्रुटि! दोबारा प्रयास करें।";
+        .then(() => alert("स्टेटस अपडेट हो गया! ✅"));
+    }
+
+    function finalSubmit() {
+        const mobile = document.getElementById('custMobile').value;
+        if(!mobile || selectedItems.length === 0) return alert("नंबर और आइटम जोड़ें");
+        const dbString = selectedItems.join(", ");
+        const waText = `*प्रतीक्षा ड्राई क्लीनर्स*\n*पिकअप रसीद*\n\n${selectedItems.map(i => "✅ " + i).join("\n")}\n\nधन्यवाद!`;
+
+        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbString)}`)
+        .then(() => {
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waText)}`, '_blank');
+            alert("डेटा सुरक्षित!");
+            location.reload();
         });
     }
 </script>
-
 </body>
 </html>
