@@ -83,7 +83,8 @@
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyrmBsAnX4TZ-hLW1co-tqlp2r-vV9N9DlADLVUrSesu7GtMZa7YC7S0QU8cDPeaxza/exec';
+    // आपका नया और फाइनल scriptURL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
 
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
@@ -98,22 +99,26 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // Fetch with no-cors mode for reliable operation
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`, {
-            method: 'GET',
-            mode: 'no-cors'
-        })
-        .then(() => {
-            alert("सफलता! स्टेटस अब '" + status + "' है। ✅");
-            
-            // व्हाट्सएप पर स्टेटस अपडेट का मैसेज भेजना
-            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अपडेट कर दिया गया है।\n\n*वर्तमान स्थिति:* ${status}\n\nजल्द ही आपके कपड़े तैयार मिलेंगे। धन्यवाद! 🙏`;
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
-            
-            location.reload();
+        // mode: 'no-cors' हटा दिया गया है ताकि रिस्पॉन्स मिल सके
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`)
+        .then(response => response.text())
+        .then(data => {
+            if(data === "Success") {
+                alert("सफलता! स्टेटस अब '" + status + "' है। ✅");
+                
+                // व्हाट्सएप पर स्टेटस अपडेट का मैसेज भेजना
+                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अपडेट कर दिया गया है।\n\n*वर्तमान स्थिति:* ${status}\n\nजल्द ही आपके कपड़े तैयार मिलेंगे। धन्यवाद! 🙏`;
+                window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+                
+                location.reload();
+            } else {
+                alert("गड़बड़: मोबाइल नंबर नहीं मिला या सर्वर एरर।");
+                btn.innerText = "स्टेटस बदलें";
+                btn.disabled = false;
+            }
         })
         .catch(error => {
-            alert("नेटवर्क एरर! दोबारा कोशिश करें।");
+            alert("नेटवर्क एरर! चेक करें कि आपका इंटरनेट और Apps Script सही है।");
             btn.innerText = "स्टेटस बदलें";
             btn.disabled = false;
         });
