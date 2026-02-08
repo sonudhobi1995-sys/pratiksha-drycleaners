@@ -1,0 +1,21 @@
+{
+  "name": "Pratiksha Billing App",
+  "short_name": "P-Billing",
+  "description": "प्रतीक्षा ड्राई क्लीनर्स बिलिंग एवं इन्वेंटरी सिस्टम",
+  "start_url": "billing.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF8C00",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
