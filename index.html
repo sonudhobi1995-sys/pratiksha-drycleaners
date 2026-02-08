@@ -234,8 +234,8 @@
     </a>
 
     <script>
-        // लाइव स्टेटस और सुरक्षा का सुधरा हुआ सिंक
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyrmBsAnX4TZ-hLW1co-tqlp2r-vV9N9DlADLVUrSesu7GtMZa7YC7S0QU8cDPeaxza/exec';
+        // आपका नया और फाइनल scriptURL (Pratiksha_Digital_Core)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
 
         window.onload = function() {
             const house = localStorage.getItem('userHouse');
@@ -250,19 +250,18 @@
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // बदलाव यहाँ किया गया है: .json() का उपयोग ताकि डेटा सही से पढ़ा जा सके
+            // डेटा सिंक
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
                 const statusDisp = document.getElementById('userStatusDisp');
                 
-                // अगर मोबाइल नंबर डेटाबेस में नहीं मिला
                 if (data.status === "Not Found") {
                     localStorage.clear();
                     window.location.href = "login.html";
                 } else {
-                    // स्टेटस बार अपडेट करना
                     statusDisp.innerText = data.status;
+                    // रेडी या डिलीवरी स्टेटस होने पर हरा रंग, बाकी पर संतरी
                     if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("डिलीवरी")) {
                         statusDisp.style.background = "#2E8B57";
                     } else {
