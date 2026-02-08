@@ -18,10 +18,10 @@
         .btn-primary { background: var(--sun); color: white; }
         .btn-success { background: var(--green); color: white; }
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border-top: 1px solid #eee; }
-        .nav-item { border: none; background: none; color: #888; font-size: 0.8rem; cursor: display: flex; flex-direction: column; align-items: center; }
+        .nav-item { border: none; background: none; color: #888; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
         .nav-item.active { color: var(--sun); font-weight: bold; }
         .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
-        .cat-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; }
+        .cat-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
         .cat-btn.active { background: var(--dark); color: white; }
         .hidden { display: none; }
     </style>
@@ -74,12 +74,13 @@
     </div>
 
     <div class="nav-bar">
-        <button class="nav-item active" onclick="showSec('pickup-sec', this)">🧺<span>पिकअप</span></button>
-        <button class="nav-item" onclick="showSec('delivery-sec', this)">🚚<span>डिलीवरी</span></button>
+        <div class="nav-item active" onclick="showSec('pickup-sec', this)">🧺<span>पिकअप</span></div>
+        <div class="nav-item" onclick="showSec('delivery-sec', this)">🚚<span>डिलीवरी</span></div>
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyrmBsAnX4TZ-hLW1co-tqlp2r-vV9N9DlADLVUrSesu7GtMZa7YC7S0QU8cDPeaxza/exec';
+    // आपका नया और फाइनल scriptURL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
     let selectedItems = [];
 
     function showSec(id, btn) {
@@ -123,22 +124,55 @@
         btn.innerText = "सुरक्षित हो रहा है...";
         btn.disabled = true;
 
-        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbStr)}`, {mode: 'no-cors'})
-        .then(() => {
-            alert("पिकअप सुरक्षित! ✅");
-            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपका पिकअप सफल रहा।\n\n*विवरण:* ${dbStr}\n\nधन्यवाद!`;
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
-            location.reload(); // यहाँ फॉर्म पूरी तरह रिसेट हो जाएगा
+        // Fetch के साथ response handling
+        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbStr)}`)
+        .then(response => response.text())
+        .then(data => {
+            if(data === "Success") {
+                alert("पिकअप सुरक्षित! ✅");
+                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपका पिकअप सफल रहा।\n\n*विवरण:* ${dbStr}\n\nधन्यवाद! 🙏`;
+                window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+                location.reload();
+            } else {
+                alert("सर्वर से कोई जवाब नहीं मिला, कृपया पुनः प्रयास करें।");
+                btn.innerText = "पिकअप कन्फर्म करें";
+                btn.disabled = false;
+            }
+        })
+        .catch(error => {
+            alert("नेटवर्क एरर! चेक करें।");
+            btn.innerText = "पिकअप कन्फर्म करें";
+            btn.disabled = false;
         });
     }
 
     function confirmDelivery() {
         const mobile = document.getElementById('delMobile').value;
         const amt = document.getElementById('amount').value;
+        const status = document.getElementById('payStatus').value;
         if(!mobile || !amt) return alert("पूरी जानकारी भरें");
 
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`, {mode: 'no-cors'})
-        .then(() => { alert("डिलीवरी सफल! ✅"); location.reload(); });
+        const btn = document.querySelector('button[onclick="confirmDelivery()"]');
+        btn.innerText = "अपडेट हो रहा है...";
+        btn.disabled = true;
+
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`)
+        .then(response => response.text())
+        .then(data => {
+            if(data === "Success") {
+                alert("डिलीवरी सफल! ✅");
+                location.reload();
+            } else {
+                alert("अपडेट करने में विफल।");
+                btn.innerText = "डिलीवरी पूर्ण करें";
+                btn.disabled = false;
+            }
+        })
+        .catch(() => {
+            alert("नेटवर्क समस्या।");
+            btn.innerText = "डिलीवरी पूर्ण करें";
+            btn.disabled = false;
+        });
     }
 </script>
 </body>
