@@ -234,14 +234,15 @@
     </a>
 
     <script>
-        // आपका नया और फाइनल scriptURL (Pratiksha_Digital_Core)
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
+        // आपका नया scriptURL (Web App लिंक)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
 
         window.onload = function() {
             const house = localStorage.getItem('userHouse');
             const name = localStorage.getItem('userName');
             const mobile = localStorage.getItem('userMobile');
 
+            // सुरक्षा जांच
             if (!mobile || !house || !name) {
                 window.location.href = "login.html";
                 return;
@@ -250,13 +251,15 @@
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // डेटा सिंक
+            // डेटा सिंक और रिमूवल चेक
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
                 const statusDisp = document.getElementById('userStatusDisp');
                 
+                // यदि ग्राहक शीट से डिलीट हो गया है (Not Found)
                 if (data.status === "Not Found") {
+                    alert("खाता नहीं मिला। कृपया पुनः लॉगिन करें।");
                     localStorage.clear();
                     window.location.href = "login.html";
                 } else {
