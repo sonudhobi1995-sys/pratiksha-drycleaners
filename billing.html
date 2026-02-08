@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratiksha Drycleaners</title>
+    
+    <link rel="manifest" href="manifest-billing.json">
+    <meta name="theme-color" content="#FF8C00">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sun-orange: #FF8C00;
+            --saturn-blue: #001F3F;
+            --moon-white: #FFFFFF;
+            --jupiter-yellow: #FFF9C4;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--moon-white); margin: 0; padding: 0; }
+        
+        /* लोगो के लिए स्पेशल सॉकेट */
+        .billing-header { 
+            background: var(--saturn-blue); 
+            color: white; 
+            padding: 20px; 
+            text-align: center; 
+            border-radius: 0 0 30px 30px; 
+        }
+        .app-logo { 
+            width: 80px; 
+            height: 80px; 
+            background: white; 
+            border-radius: 50%; 
+            padding: 5px; 
+            margin-bottom: 10px; 
+            border: 3px solid var(--sun-orange);
+            object-fit: contain;
+        }
+
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; border: 1px solid #eee; }
+        
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+        
+        .btn-add { background: var(--saturn-blue); color: white; width: 100%; border: none; padding: 12px; border-radius: 10px; cursor: pointer; }
+        .total-box { background: var(--jupiter-yellow); padding: 15px; border-radius: 15px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; }
+        
+        .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        table { width: 100%; margin-top: 15px; border-collapse: collapse; }
+        th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; }
+        td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="billing-header">
+    <img src="logo.png" alt="PRATIKSHA" class="app-logo">
+    <h1 style="margin:0; font-size: 1.4rem;">प्रतीक्षा बिलिंग ऐप</h1>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h3>🧺 बिल बनाएं</h3>
+        <input type="text" id="custName" placeholder="ग्राहक का नाम">
+        <input type="tel" id="custMobile" placeholder="मोबाइल नंबर">
+        <hr>
+        <select id="itemSelect">
+            <option value="">कपड़ा चुनें</option>
+            <option value="शर्ट">शर्ट</option>
+            <option value="पेंट">पेंट</option>
+            <option value="साड़ी">साड़ी</option>
+            <option value="रेगुलर">रेगुलर कपड़े</option>
+            <option value="अन्य">अन्य (Other)</option>
+        </select>
+        <div style="display:flex; gap:10px;">
+            <input type="number" id="qty" placeholder="संख्या">
+            <input type="number" id="rate" placeholder="रेट">
+        </div>
+        <button class="btn-add" onclick="addItem()">+ लिस्ट में जोड़ें</button>
+    </div>
+
+    <div class="card" id="printArea">
+        <table id="billTable">
+            <thead><tr><th>कपड़ा</th><th>संख्या</th><th>कुल</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        <div class="total-box">
+            <h2 id="gTotal">Total: ₹ 0</h2>
+        </div>
+        <button class="btn-wa" onclick="sendWA()">
+            व्हाट्सएप पर बिल भेजें
+        </button>
+    </div>
+</div>
+
+<script>
+    // आपका पुराना लॉजिक यहाँ काम करेगा
+    let items = [];
+    function addItem() {
+        const name = document.getElementById('itemSelect').value;
+        const q = document.getElementById('qty').value;
+        const r = document.getElementById('rate').value;
+        if(!name || !q || !r) return;
+        
+        const total = q * r;
+        items.push({name, q, r, total});
+        render();
+    }
+
+    function render() {
+        const body = document.querySelector('#billTable tbody');
+        body.innerHTML = '';
+        let grand = 0;
+        items.forEach(i => {
+            grand += i.total;
+            body.innerHTML += `<tr><td>${i.name}</td><td>${i.q}</td><td>₹${i.total}</td></tr>`;
+        });
+        document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
+    }
+
+    function sendWA() {
+        const mob = document.getElementById('custMobile').value;
+        if(!mob) return alert("नंबर डालें");
+        let msg = "*प्रतीक्षा बिलिंग*\n\n";
+        items.forEach(i => msg += `• ${i.name}: ${i.q} x ${i.r} = ${i.total}\n`);
+        msg += `\n*कुल राशि: ₹${document.getElementById('gTotal').innerText.split(' ')[2]}*`;
+        window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`);
+    }
+
+    // सर्विस वर्कर पंजीकरण (सॉकेट)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+
+</body>
+</html>
