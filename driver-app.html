@@ -79,8 +79,8 @@
     </div>
 
 <script>
-    // आपका नया और फाइनल scriptURL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
+    // आपका नया और अपडेटेड scriptURL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
     let selectedItems = [];
 
     function showSec(id, btn) {
@@ -91,9 +91,9 @@
     }
 
     const inventory = {
-        men: ["शर्ट", "पेंट", "सूट", "कुर्ता-पायजामा"],
-        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा"],
-        home: ["बेडशीट", "पर्दे", "कंबल", "धोती"]
+        men: ["शर्ट", "पेंट", "सूट", "कुर्ता-पायजामा", "कोट"],
+        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा"],
+        home: ["बेडशीट", "पर्दे", "कंबल", "धोती", "गलीचा"]
     };
 
     function loadItems(cat, btn) {
@@ -118,29 +118,28 @@
     function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
         const dbStr = selectedItems.join(", ");
-        if(!mobile || selectedItems.length === 0) return alert("विवरण भरें");
+        if(!mobile || selectedItems.length === 0) return alert("मोबाइल और लिस्ट भरें");
 
         const btn = document.querySelector('button[onclick="submitPickup()"]');
         btn.innerText = "सुरक्षित हो रहा है...";
         btn.disabled = true;
 
-        // Fetch के साथ response handling
         fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbStr)}`)
         .then(response => response.text())
         .then(data => {
             if(data === "Success") {
-                alert("पिकअप सुरक्षित! ✅");
+                alert("पिकअप सुरक्षित! डैशबोर्ड अपडेट हो गया। ✅");
                 const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपका पिकअप सफल रहा।\n\n*विवरण:* ${dbStr}\n\nधन्यवाद! 🙏`;
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 location.reload();
             } else {
-                alert("सर्वर से कोई जवाब नहीं मिला, कृपया पुनः प्रयास करें।");
+                alert("सर्वर ने जवाब नहीं दिया, पुनः प्रयास करें।");
                 btn.innerText = "पिकअप कन्फर्म करें";
                 btn.disabled = false;
             }
         })
-        .catch(error => {
-            alert("नेटवर्क एरर! चेक करें।");
+        .catch(() => {
+            alert("नेटवर्क एरर!");
             btn.innerText = "पिकअप कन्फर्म करें";
             btn.disabled = false;
         });
@@ -156,14 +155,15 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
+        // action: updateStatus का उपयोग डिलीवरी पूर्ण करने के लिए
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`)
         .then(response => response.text())
         .then(data => {
             if(data === "Success") {
-                alert("डिलीवरी सफल! ✅");
+                alert("डिलीवरी और पेमेंट सफल! ✅");
                 location.reload();
             } else {
-                alert("अपडेट करने में विफल।");
+                alert("शीट में नंबर नहीं मिला।");
                 btn.innerText = "डिलीवरी पूर्ण करें";
                 btn.disabled = false;
             }
