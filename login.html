@@ -34,7 +34,7 @@
 
     <script>
         // आपका नया और फाइनल Web App URL (Pratiksha_Digital_Core)
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
 
         document.getElementById('regForm').onsubmit = function(e) {
             e.preventDefault();
@@ -43,24 +43,32 @@
             const mobile = document.getElementById('userMobile').value;
             const btn = document.getElementById('btn');
 
-            btn.innerText = "जाँच हो रही है...";
+            btn.innerText = "पंजीकरण हो रहा है...";
             btn.disabled = true;
 
-            // पहले डेटाबेस में चेक करेंगे और लॉगिन सुनिश्चित करेंगे
-            fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
-            .then(response => response.json())
+            // डेटा को Google Sheet (Master Sheet) में भेजना
+            fetch(`${scriptURL}?action=register&house=${encodeURIComponent(house)}&name=${encodeURIComponent(name)}&mobile=${mobile}`)
+            .then(response => response.text())
             .then(data => {
-                // फोन की लोकल मेमोरी में डेटा सेव करना
+                // फोन की लोकल मेमोरी में डेटा सेव करना ताकि बार-बार लॉगिन न करना पड़े
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
                 localStorage.setItem('isLoggedIn', 'true');
                 
-                // मुख्य पेज पर भेजें
+                // मुख्य पेज (Index.html) पर भेजें
                 window.location.href = "index.html";
             })
             .catch(error => {
-                // अगर नेटवर्क की समस्या है फिर भी हम लॉगिन कर देंगे ताकि ऑफलाइन मोड काम कर सके (PWA)
+                // नेटवर्क एरर होने पर भी लॉगिन कर दें ताकि ग्राहक अटके नहीं
+                console.error('Error!', error.message);
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
-                localStorage.setItem('userMobile',
+                localStorage.setItem('userMobile', mobile);
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = "index.html";
+            });
+        };
+    </script>
+</body>
+</html>
