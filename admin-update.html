@@ -34,13 +34,16 @@
         label { font-size: 0.85rem; font-weight: 600; color: #555; margin-left: 5px; }
 
         input, select { width: 100%; padding: 14px; margin: 8px 0 18px 0; border-radius: 12px; border: 1.5px solid #ddd; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
-        input:focus { border-color: var(--sun); outline: none; box-shadow: 0 0 8px rgba(255,140,0,0.2); }
         
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; }
+        
         .btn-status { background: var(--dark); color: white; }
+        
+        /* ड्राइवर और बिलिंग बटन के लिए विशेष स्टाइल */
         .btn-pickup { background: var(--green); color: white; }
+        .btn-billing { background: var(--sun); color: white; box-shadow: 0 4px 10px rgba(255,140,0,0.3); }
+        
         .btn:active { transform: scale(0.98); }
-
         .badge { background: var(--sun); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
     </style>
 </head>
@@ -54,82 +57,71 @@
 
     <div class="container">
         <div class="card">
-            <h3>📱 ग्राहक की पहचान</h3>
-            <label>मोबाइल नंबर दर्ज करें:</label>
+            <h3>🔄 क्विक अपडेट</h3>
+            <label>मोबाइल नंबर:</label>
             <input type="tel" id="adminMobile" placeholder="98XXXXXXXX">
-        </div>
-
-        <div class="card">
-            <h3>⚡ स्टेटस अपडेट (क्विक एक्शन)</h3>
-            <label>वर्तमान स्थिति चुनें:</label>
+            <label>ऑर्डर स्थिति:</label>
             <select id="adminStatus">
-                <option value="प्रक्रिया में">प्रक्रिया में (In Process)</option>
-                <option value="धुलाई">धुलाई (Washing)</option>
-                <option value="आयरनिंग">आयरनिंग (Ironing)</option>
-                <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी (Ready)</option>
-                <option value="Delivered">डिलीवर कर दिया (Delivered)</option>
+                <option value="प्रक्रिया में">प्रक्रिया में</option>
+                <option value="धुलाई">धुलाई</option>
+                <option value="आयरनिंग">आयरनिंग</option>
+                <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी</option>
+                <option value="Delivered">डिलीवर कर दिया</option>
             </select>
             <button class="btn btn-status" onclick="updateStatusOnly()">
-                <span>🔄</span> स्टेटस बदलें और मैसेज भेजें
+                अपडेट करें और मैसेज भेजें
             </button>
         </div>
 
-        <div class="card" style="border-left: 5px solid var(--green);">
-            <h3>📦 नया ऑर्डर दर्ज करें</h3>
+        <div class="card" style="border-left: 5px solid var(--sun);">
+            <h3>🚀 क्विक नेविगेशन</h3>
+            
             <p style="font-size: 0.8rem; color: #666;">ड्राइवर ऐप वाला 'पिकअप' मोड यहाँ से खोलें:</p>
             <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
-                <span>➕</span> इन्वेंटरी लिस्ट भरें
+                🚚 ड्राइवर ऐप (Pickup)
+            </button>
+
+            <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">पक्का बिल और रसीद यहाँ से जनरेट करें:</p>
+            <button class="btn btn-billing" onclick="window.location.href='billing.html'">
+                🧾 बिलिंग ऐप (Billing)
             </button>
         </div>
     </div>
 
 <script>
-    // आपका नया और अपडेटेड scriptURL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
 
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
         
-        if(!mobile || mobile.length < 10) {
-            alert("कृपया सही मोबाइल नंबर डालें");
-            return;
-        }
+        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
 
         const btn = document.querySelector('.btn-status');
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // Apps Script इंजन को सूचना भेजना
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`)
         .then(response => response.text())
         .then(data => {
             if(data === "Success") {
-                alert("सफलता! स्टेटस अपडेट हो गया और डैशबोर्ड रिफ्रेश हो गया। ✅");
-                
-                // व्हाट्सएप नोटिफिकेशन भेजना
-                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अपडेट कर दिया गया है।\n\n*वर्तमान स्थिति:* ${status}\n\nधन्यवाद! 🙏`;
+                alert("स्टेटस अपडेट हो गया! ✅");
+                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अब *${status}* है।\n\nधन्यवाद! 🙏`;
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
-                
                 location.reload();
             } else {
-                alert("गड़बड़: मोबाइल नंबर 'Orders' शीट में नहीं मिला।");
-                btn.innerText = "स्टेटस बदलें";
+                alert("नंबर नहीं मिला।");
+                btn.innerText = "अपडेट करें";
                 btn.disabled = false;
             }
         })
         .catch(error => {
-            alert("नेटवर्क एरर! कृपया इंटरनेट चेक करें।");
-            btn.innerText = "स्टेटस बदलें";
+            alert("नेटवर्क समस्या।");
+            btn.innerText = "अपडेट करें";
             btn.disabled = false;
         });
     }
 </script>
-<div class="admin-nav">
-    <a href="billing.html" class="nav-btn btn-to-billing">
-        🧾 बिलिंग ऐप
-    </a>
-</div>
 
 </body>
 </html>
