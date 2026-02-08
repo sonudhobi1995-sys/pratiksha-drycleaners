@@ -3,189 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Billing App | PRATIKSHA</title>
+    <title>Driver App | PRATIKSHA</title>
+    <link rel="manifest" href="manifest-driver.json">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* नवग्रह रंग स्थापना */
-            --sun-orange: #FF8C00;    /* सूर्य देव - Header */
-            --jupiter-yellow: #FFF9C4; /* गुरु बृहस्पति - Total Box */
-            --mars-red: #D32F2F;      /* मंगल/हनुमान जी - Action Buttons */
-            --mercury-green: #2E7D32;  /* बुध देव - WhatsApp Button */
-            --saturn-blue: #001F3F;    /* शनि देव - Text/Footer */
-            --moon-white: #FFFFFF;     /* चंद्र देव - Background */
-            --venus-silver: #E0E0E0;   /* शुक्र देव - Borders */
-            --grey: #757575;           /* राहु-केतु - Shadows/Lines */
-        }
-
-        body { font-family: 'Inter', sans-serif; background: var(--moon-white); margin: 0; padding: 0; color: var(--saturn-blue); }
-        .billing-header { background: var(--sun-orange); color: white; padding: 20px; text-align: center; border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        
-        .container { padding: 20px; max-width: 600px; margin: auto; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 20px var(--venus-silver); margin-bottom: 20px; border: 1px solid var(--venus-silver); }
-        
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 12px; border: 1px solid var(--venus-silver); box-sizing: border-box; font-size: 1rem; }
-        
-        .total-box { background: var(--jupiter-yellow); padding: 15px; border-radius: 15px; text-align: center; border: 2px dashed var(--sun-orange); margin: 20px 0; }
-        .total-box h2 { margin: 0; color: var(--saturn-blue); }
-
-        .btn-bill { background: var(--mars-red); color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3); }
-        .btn-wa { background: var(--mercury-green); color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
-        th { background: var(--saturn-blue); color: white; padding: 10px; text-align: left; }
-        td { border-bottom: 1px solid var(--venus-silver); padding: 10px; }
+        :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f8f9fa; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding-bottom: 70px; }
+        .app-header { background: var(--dark); color: white; padding: 15px; text-align: center; border-radius: 0 0 20px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .app-logo { width: 70px; height: 70px; border-radius: 50%; background: white; padding: 5px; margin-bottom: 8px; border: 2px solid var(--sun); object-fit: contain; }
+        .container { padding: 15px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+        .btn-primary { background: var(--sun); color: white; }
+        .btn-success { background: var(--green); color: white; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border-top: 1px solid #eee; }
+        .nav-item { border: none; background: none; color: #888; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+        .nav-item.active { color: var(--sun); font-weight: bold; }
+        .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 10px; }
+        .cat-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+        .cat-btn.active { background: var(--dark); color: white; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="billing-header">
-    <h1 style="margin:0;">प्रतीक्षा बिलिंग ऐप</h1>
-    <p style="margin:5px 0 0; font-size: 0.9rem; opacity: 0.9;">✨ शुचिता और रूहानी सेवा ✨</p>
-</div>
-
-<div class="container">
-    <div class="card">
-        <h3>👤 ग्राहक विवरण</h3>
-        <input type="text" id="custName" placeholder="ग्राहक का नाम">
-        <input type="tel" id="custMobile" placeholder="मोबाइल नंबर">
+    <div class="app-header">
+        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
+        <h2 style="margin:0; font-size: 1.2rem;">प्रतीक्षा ड्राइवर ऐप</h2>
     </div>
 
-    <div class="card">
-        <h3>🧺 बिलिंग इन्वेंटरी</h3>
-        <select id="itemCat" onchange="loadBillingItems()">
-            <option value="">कैटेगरी चुनें</option>
-            <option value="men">MEN (पुरुष)</option>
-            <option value="women">WOMEN (महिला)</option>
-            <option value="winter">WINTER (गर्म कपड़े)</option>
-            <option value="home">HOME (घर/चादर/रुमाल)</option>
-        </select>
-        
-        <select id="itemSelect"><option value="">कपड़ा चुनें</option></select>
-        
-        <select id="serviceType">
-            <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
-            <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
-            <option value="साधारण प्रेस">👔 साधारण प्रेस</option>
-            <option value="धुलाई">🧼 धुलाई</option>
-        </select>
+    <div class="container">
+        <div id="pickup-sec" class="app-sec">
+            <div class="card">
+                <h3>🧺 नया पिकअप</h3>
+                <input type="tel" id="pickMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                
+                <div class="cat-grid">
+                    <button class="cat-btn" onclick="loadItems('men', this)">MEN</button>
+                    <button class="cat-btn" onclick="loadItems('women', this)">WOMEN</button>
+                    <button class="cat-btn" onclick="loadItems('winter', this)">WINTER (गर्म कपड़े)</button>
+                    <button class="cat-btn" onclick="loadItems('home', this)">HOME (घर/अन्य)</button>
+                </div>
 
-        <div style="display:flex; gap:10px;">
-            <input type="number" id="qty" placeholder="संख्या" style="flex:1;">
-            <input type="number" id="rate" placeholder="रेट (₹)" style="flex:1;">
+                <select id="itemSelect"><option value="">कैटेगरी चुनें</option></select>
+
+                <label style="font-size: 0.8rem; font-weight: bold;">सेवा चुनें:</label>
+                <select id="serviceType">
+                    <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
+                    <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
+                    <option value="साधारण प्रेस">👔 साधारण प्रेस</option>
+                    <option value="धुलाई">🧼 धुलाई</option>
+                </select>
+
+                <div style="display:flex; gap:10px;">
+                    <input type="number" id="itemQty" placeholder="संख्या" style="flex:1;">
+                    <select id="itemNote" style="flex:1;">
+                        <option value="OK">OK</option>
+                        <option value="दाग">दाग</option>
+                        <option value="कटा">कटा</option>
+                    </select>
+                </div>
+
+                <button onclick="addToInv()" style="background:#eee; border:1px solid #ccc; width:100%; padding:10px; border-radius:8px; cursor:pointer;">+ लिस्ट में जोड़ें</button>
+                <div id="liveList" style="margin-top:15px; font-size:0.85rem; color:#555; background:#fffde7; padding:10px; border-radius:8px;"><b>लिस्ट:</b></div>
+                <button class="btn btn-primary" style="margin-top:15px;" onclick="submitPickup()">पिकअप कन्फर्म करें</button>
+            </div>
         </div>
 
-        <button onclick="addItemToBill()" style="background: var(--saturn-blue); color: white; width:100%; padding:10px; border-radius:10px; border:none; cursor:pointer;">+ आइटम जोड़ें</button>
-    </div>
-
-    <div class="card" id="billArea">
-        <h3>🧾 कच्चा बिल (Draft)</h3>
-        <table id="billTable">
-            <thead>
-                <tr>
-                    <th>कपड़ा</th>
-                    <th>Qty</th>
-                    <th>रेट</th>
-                    <th>कुल</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-        <div class="total-box">
-            <p style="margin:0; font-weight:bold;">कुल देय राशि:</p>
-            <h2 id="grandTotal">₹ 0</h2>
+        <div id="delivery-sec" class="app-sec hidden">
+            <div class="card">
+                <h3>🚚 डिलीवरी और पेमेंट</h3>
+                <input type="tel" id="delMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                <label>पेमेंट स्टेटस:</label>
+                <select id="payStatus">
+                    <option value="Paid">भुगतान प्राप्त (Paid)</option>
+                    <option value="Pending">बाकी है (Pending)</option>
+                </select>
+                <input type="number" id="amount" placeholder="कुल राशि (₹)">
+                <button class="btn btn-success" onclick="confirmDelivery()">डिलीवरी पूर्ण करें</button>
+            </div>
         </div>
-
-        <button class="btn-bill" onclick="generateFinalBill()">पक्का बिल तैयार करें</button>
-        <button id="waButton" class="btn-wa" style="display:none;" onclick="shareOnWhatsApp()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> व्हाट्सएप पर भेजें
-        </button>
     </div>
-</div>
+
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="showSec('pickup-sec', this)">🧺<span>पिकअप</span></div>
+        <div class="nav-item" onclick="showSec('delivery-sec', this)">🚚<span>डिलीवरी</span></div>
+    </div>
 
 <script>
+    // आपका असली scriptURL सुरक्षित रखा गया है
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
+    let selectedItems = [];
+
+    function showSec(id, btn) {
+        document.querySelectorAll('.app-sec').forEach(s => s.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    // आपकी पूरी क्रांतिकारी इन्वेंटरी लिस्ट (सभी नए आइटम के साथ)
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "रेगुलर कपड़े", "अन्य"],
         women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन", "रेगुलर कपड़े", "अन्य"],
         winter: ["जैकेट", "कोट (Heavy)", "स्वेटर", "कार्डिगन", "शॉल", "ब्लेजर", "इनरवेयर", "अन्य गर्म कपड़े"],
-        home: ["चादर (Bed Sheet)", "पिलो कवर", "कंबल (Blanket)", "बड़ा तौलिया", "छोटा तौलिया", "रुमाल/नैपकिन", "पर्दे", "धोती", "गलीचा", "अन्य"]
+        home: ["चादर", "पिलो कवर", "कंबल", "बड़ा तौलिया", "छोटा तौलिया", "रुमाल/नैपकिन", "पर्दे", "धोती", "गलीचा", "अन्य"]
     };
 
-    let billItems = [];
-
-    function loadBillingItems() {
-        const cat = document.getElementById('itemCat').value;
+    function loadItems(cat, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         const sel = document.getElementById('itemSelect');
-        sel.innerHTML = '<option value="">कपड़ा चुनें</option>';
-        if(cat) {
-            inventory[cat].forEach(i => {
-                sel.innerHTML += `<option value="${i}">${i}</option>`;
-            });
-        }
+        sel.innerHTML = '';
+        inventory[cat].forEach(i => { sel.innerHTML += `<option value="${cat.toUpperCase()}: ${i}">${i}</option>`; });
     }
 
-    function addItemToBill() {
+    function addToInv() {
         const item = document.getElementById('itemSelect').value;
+        const qty = document.getElementById('itemQty').value;
+        const note = document.getElementById('itemNote').value;
         const service = document.getElementById('serviceType').value;
-        const qty = parseInt(document.getElementById('qty').value);
-        const rate = parseFloat(document.getElementById('rate').value);
-
-        if(!item || !qty || !rate) return alert("कृपया सभी जानकारी भरें");
-
-        const total = qty * rate;
-        billItems.push({ item, service, qty, rate, total });
-        updateTable();
         
-        // फॉर्म साफ़ करें
-        document.getElementById('qty').value = '';
-        document.getElementById('rate').value = '';
+        if(!item || !qty) return alert("जानकारी भरें");
+        
+        // अब विवरण में 'सेवा' भी जुड़ गई है
+        const entry = `${item} [${qty}] - ${service} (${note})`;
+        selectedItems.push(entry);
+        document.getElementById('liveList').innerHTML += `<div>• ${entry}</div>`;
+        document.getElementById('itemQty').value = "";
     }
 
-    function updateTable() {
-        const tbody = document.querySelector('#billTable tbody');
-        tbody.innerHTML = '';
-        let grandTotal = 0;
+    function submitPickup() {
+        const mobile = document.getElementById('pickMobile').value;
+        const dbStr = selectedItems.join(", ");
+        if(!mobile || selectedItems.length === 0) return alert("मोबाइल और लिस्ट भरें");
 
-        billItems.forEach((item, index) => {
-            grandTotal += item.total;
-            tbody.innerHTML += `
-                <tr>
-                    <td>${item.item}<br><small>${item.service}</small></td>
-                    <td>${item.qty}</td>
-                    <td>${item.rate}</td>
-                    <td>₹${item.total}</td>
-                </tr>`;
+        const btn = document.querySelector('button[onclick="submitPickup()"]');
+        btn.innerText = "सुरक्षित हो रहा है...";
+        btn.disabled = true;
+
+        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbStr)}`)
+        .then(response => response.text())
+        .then(data => {
+            if(data === "Success") {
+                alert("पिकअप सुरक्षित! ✅");
+                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपका पिकअप सफल रहा।\n\n*विवरण:* ${dbStr}\n\nधन्यवाद! 🙏`;
+                window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+                location.reload();
+            } else {
+                alert("सर्वर एरर, पुनः प्रयास करें।");
+                btn.innerText = "पिकअप कन्फर्म करें";
+                btn.disabled = false;
+            }
+        })
+        .catch(() => {
+            alert("नेटवर्क एरर!");
+            btn.innerText = "पिकअप कन्फर्म करें";
+            btn.disabled = false;
         });
-
-        document.getElementById('grandTotal').innerText = `₹ ${grandTotal}`;
     }
 
-    function generateFinalBill() {
-        if(billItems.length === 0) return alert("बिल खाली है!");
-        document.getElementById('waButton').style.display = 'flex';
-        alert("बिल तैयार है! अब आप इसे व्हाट्सएप पर साझा कर सकते हैं। ✅");
-    }
+    function confirmDelivery() {
+        const mobile = document.getElementById('delMobile').value;
+        const amt = document.getElementById('amount').value;
+        const status = document.getElementById('payStatus').value;
+        if(!mobile || !amt) return alert("पूरी जानकारी भरें");
 
-    function shareOnWhatsApp() {
-        const name = document.getElementById('custName').value || "ग्राहक";
-        const mobile = document.getElementById('custMobile').value;
-        if(!mobile) return alert("मोबाइल नंबर भरें");
+        const btn = document.querySelector('button[onclick="confirmDelivery()"]');
+        btn.innerText = "अपडेट हो रहा है...";
+        btn.disabled = true;
 
-        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नमस्ते ${name},*\nआपका डिजिटल बिल तैयार है:\n\n`;
-        let grandTotal = 0;
-
-        billItems.forEach(i => {
-            msg += `• ${i.item} (${i.service})\n  ${i.qty} x ${i.rate} = *₹${i.total}*\n`;
-            grandTotal += i.total;
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`)
+        .then(response => response.text())
+        .then(data => {
+            if(data === "Success") {
+                alert("डिलीवरी और पेमेंट सफल! ✅");
+                location.reload();
+            } else {
+                alert("नंबर नहीं मिला।");
+                btn.innerText = "डिलीवरी पूर्ण करें";
+                btn.disabled = false;
+            }
+        })
+        .catch(() => {
+            alert("नेटवर्क समस्या।");
+            btn.innerText = "डिलीवरी पूर्ण करें";
+            btn.disabled = false;
         });
-
-        msg += `\n----------------------\n*कुल राशि: ₹${grandTotal}*\n----------------------\n\nधन्यवाद! आपका दिन शुभ हो। 🙏✨`;
-
-        const waURL = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
-        window.open(waURL, '_blank');
     }
 </script>
-
 </body>
 </html>
