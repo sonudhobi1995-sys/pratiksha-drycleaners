@@ -6,6 +6,7 @@
     <title>PRATIKSHA DRY CLEANERS | Premium Fabric Care</title>
     
     <script>
+        // सुरक्षा जांच: अगर लॉगिन नहीं है तो बाहर भेजें
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
         }
@@ -28,7 +29,6 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
-        /* लाइव स्टेटस बार */
         .user-status-bar {
             background: white;
             padding: 10px 15px;
@@ -234,7 +234,7 @@
     </a>
 
     <script>
-        // 1. लाइव स्टेटस और सुरक्षा का सिंक
+        // लाइव स्टेटस और सुरक्षा का सुधरा हुआ सिंक
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyrmBsAnX4TZ-hLW1co-tqlp2r-vV9N9DlADLVUrSesu7GtMZa7YC7S0QU8cDPeaxza/exec';
 
         window.onload = function() {
@@ -242,7 +242,6 @@
             const name = localStorage.getItem('userName');
             const mobile = localStorage.getItem('userMobile');
 
-            // सुरक्षा पहरेदारी
             if (!mobile || !house || !name) {
                 window.location.href = "login.html";
                 return;
@@ -251,24 +250,29 @@
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // लाइव चेक: क्या नंबर शीट में है?
+            // बदलाव यहाँ किया गया है: .json() का उपयोग ताकि डेटा सही से पढ़ा जा सके
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
-            .then(response => response.text())
-            .then(statusText => {
+            .then(response => response.json())
+            .then(data => {
                 const statusDisp = document.getElementById('userStatusDisp');
-                if (statusText === "Welcome" || statusText === "Not Found" || !statusText) {
+                
+                // अगर मोबाइल नंबर डेटाबेस में नहीं मिला
+                if (data.status === "Not Found") {
                     localStorage.clear();
                     window.location.href = "login.html";
                 } else {
-                    statusDisp.innerText = statusText;
-                    if(statusText.includes("रेडी") || statusText.includes("डिलीवरी")) {
+                    // स्टेटस बार अपडेट करना
+                    statusDisp.innerText = data.status;
+                    if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("डिलीवरी")) {
                         statusDisp.style.background = "#2E8B57";
                     } else {
                         statusDisp.style.background = "#FF8C00";
                     }
                 }
             })
-            .catch(() => { document.getElementById('userStatusDisp').innerText = 'Online'; });
+            .catch(() => { 
+                document.getElementById('userStatusDisp').innerText = 'Online'; 
+            });
         };
 
         function logoutApp() {
@@ -284,7 +288,6 @@
             }
         }
 
-        // मेनू और गैलरी लॉजिक
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.onclick = (e) => {
@@ -293,7 +296,6 @@
         };
         document.onclick = () => { menuList.style.display = 'none'; };
 
-        // फोटो गैलरी ऑटोप्ले
         let pIdx = 0;
         const pTrack = document.getElementById('photo-track');
         const pSlides = document.querySelectorAll('#photo-track img');
@@ -304,7 +306,6 @@
             }
         }, 3000);
 
-        // वीडियो ऑटोप्ले लॉजिक
         let vIdx = 0;
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
