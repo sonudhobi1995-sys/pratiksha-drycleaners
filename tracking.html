@@ -18,16 +18,14 @@
         .status-header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .back-btn { display: inline-block; margin-bottom: 20px; color: var(--sun-orange); text-decoration: none; font-weight: bold; font-size: 0.9rem; }
 
-        /* प्रोग्रेस स्टेप्स स्टाइल */
         .step-container { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; position: relative; }
-        .step { display: flex; align-items: center; gap: 15px; opacity: 0.2; transition: 0.5s; }
+        .step { display: flex; align-items: center; gap: 15px; opacity: 0.3; transition: 0.5s; }
         .step.active { opacity: 1; font-weight: bold; }
         .circle { width: 30px; height: 30px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; z-index: 1; }
         .active .circle { background: var(--mercury-green); box-shadow: 0 0 10px var(--mercury-green); }
         
         .line { position: absolute; left: 14px; top: 0; width: 2px; height: 100%; background: #ddd; z-index: 0; }
         
-        /* इन्वेंटरी डिटेल्स डिब्बा */
         .inventory-card { 
             background: #fffde7; border: 1px dashed var(--sun-orange); 
             border-radius: 12px; padding: 15px; margin-top: 30px; 
@@ -49,4 +47,74 @@
         <a href="index.html" class="back-btn">← वापस होम पर</a>
         <div class="status-header">
             <h2 style="margin:0;">ऑर्डर ट्रैकिंग</h2>
-            <p style="font-size: 0.9rem; color: #666; margin-top
+            <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">मोबाइल: <span id="dispMobile">...</span></p>
+        </div>
+
+        <div class="step-container">
+            <div class="line"></div>
+            <div class="step" id="step1"><div class="circle">1</div> 🧺 प्रक्रिया में (In Process)</div>
+            <div class="step" id="step2"><div class="circle">2</div> 🧼 धुलाई (Washing)</div>
+            <div class="step" id="step3"><div class="circle">3</div> 👔 आयरनिंग (Ironing)</div>
+            <div class="step" id="step4"><div class="circle">4</div> ✅ रेडी टू डिलीवरी (Ready)</div>
+            <div class="step" id="step5"><div class="circle">5</div> 🚚 डिलीवर कर दिया (Delivered)</div>
+        </div>
+
+        <div class="inventory-card">
+            <div class="inventory-title">🧺 कपड़ों की सूची (Inventory) <span>✨</span></div>
+            <div id="inventoryList">विवरण लोड हो रहा है...</div>
+        </div>
+
+        <button class="refresh-btn" onclick="location.reload()">🔄 स्टेटस रिफ्रेश करें</button>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
+        
+        window.onload = function() {
+            const mobile = localStorage.getItem('userMobile');
+            if (!mobile) { window.location.href = "login.html"; return; }
+            document.getElementById('dispMobile').innerText = mobile;
+
+            fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+            .then(response => response.json())
+            .then(data => {
+                const status = data.status;
+                const details = data.details || "कोई विवरण उपलब्ध नहीं";
+
+                // 1. कपड़ों की लिस्ट दिखाना
+                const invList = document.getElementById('inventoryList');
+                invList.innerHTML = '';
+                details.split(',').forEach(item => {
+                    if(item.trim()) invList.innerHTML += `<div>${item.trim()}</div>`;
+                });
+
+                // 2. स्टेप्स को एक्टिवेट करना
+                updateSteps(status);
+            })
+            .catch(err => {
+                document.getElementById('inventoryList').innerText = "डेटा लोड करने में समस्या।";
+            });
+        };
+
+        function updateSteps(currentStatus) {
+            // सभी स्टेप्स को रिसेट करें
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+
+            if (currentStatus === "प्रक्रिया में") {
+                document.getElementById('step1').classList.add('active');
+            } else if (currentStatus === "धुलाई") {
+                document.getElementById('step1').classList.add('active');
+                document.getElementById('step2').classList.add('active');
+            } else if (currentStatus === "आयरनिंग") {
+                document.getElementById('step1').classList.add('active');
+                document.getElementById('step2').classList.add('active');
+                document.getElementById('step3').classList.add('active');
+            } else if (currentStatus === "रेडी टू डिलीवरी") {
+                document.querySelectorAll('.step').forEach((s, idx) => { if(idx < 4) s.classList.add('active'); });
+            } else if (currentStatus === "Delivered") {
+                document.querySelectorAll('.step').forEach(s => s.classList.add('active'));
+            }
+        }
+    </script>
+</body>
+</html>
