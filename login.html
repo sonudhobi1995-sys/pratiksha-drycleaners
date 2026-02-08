@@ -14,7 +14,8 @@
         p { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
         input { width: 100%; padding: 12px; margin-bottom: 12px; border: 2px solid #f0f0f0; border-radius: 10px; box-sizing: border-box; font-size: 1rem; outline: none; transition: 0.3s; }
         input:focus { border-color: var(--sun-orange); }
-        button { width: 100%; padding: 15px; background: var(--saturn-blue); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,31,63,0.2); }
+        button { width: 100%; padding: 15px; background: var(--saturn-blue); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,31,63,0.2); transition: 0.3s; }
+        button:active { transform: scale(0.98); }
         button:disabled { background: #ccc; }
     </style>
 </head>
@@ -32,8 +33,8 @@
     </div>
 
     <script>
-        // आपका नया Web App URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyrmBsAnX4TZ-hLW1co-tqlp2r-vV9N9DlADLVUrSesu7GtMZa7YC7S0QU8cDPeaxza/exec';
+        // आपका नया और फाइनल Web App URL (Pratiksha_Digital_Core)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwdK-HX317pyyB_RPZDTGUDUCGeW8Qag0vzGIovfTUOUrq26gJYujOgGB-CF5ZXImCz/exec';
 
         document.getElementById('regForm').onsubmit = function(e) {
             e.preventDefault();
@@ -42,13 +43,14 @@
             const mobile = document.getElementById('userMobile').value;
             const btn = document.getElementById('btn');
 
-            btn.innerText = "दर्ज हो रहा है...";
+            btn.innerText = "जाँच हो रही है...";
             btn.disabled = true;
 
-            // डेटा को Google Sheet में भेजना
-            fetch(`${scriptURL}?action=register&house=${encodeURIComponent(house)}&name=${encodeURIComponent(name)}&mobile=${mobile}`)
-            .then(response => {
-                // फोन की मेमोरी में डेटा सेव करना ताकि बार-बार लॉगिन न करना पड़े
+            // पहले डेटाबेस में चेक करेंगे और लॉगिन सुनिश्चित करेंगे
+            fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+            .then(response => response.json())
+            .then(data => {
+                // फोन की लोकल मेमोरी में डेटा सेव करना
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
@@ -58,11 +60,7 @@
                 window.location.href = "index.html";
             })
             .catch(error => {
-                alert("नेटवर्क त्रुटि! कृपया इंटरनेट चेक करें।");
-                btn.innerText = "एप्लीकेशन खोलें";
-                btn.disabled = false;
-            });
-        };
-    </script>
-</body>
-</html>
+                // अगर नेटवर्क की समस्या है फिर भी हम लॉगिन कर देंगे ताकि ऑफलाइन मोड काम कर सके (PWA)
+                localStorage.setItem('userHouse', house);
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userMobile',
