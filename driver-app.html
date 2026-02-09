@@ -13,6 +13,13 @@
         .app-logo { width: 70px; height: 70px; border-radius: 50%; background: white; padding: 5px; margin-bottom: 8px; border: 2px solid var(--sun); object-fit: contain; }
         .container { padding: 15px; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        
+        /* इनपुट और कॉन्टैक्ट बटन का तालमेल */
+        .input-group { display: flex; gap: 8px; margin: 10px 0; }
+        .input-group input { margin: 0; flex: 1; }
+        .btn-contact { padding: 0 15px; border-radius: 10px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; transition: 0.3s; display: flex; align-items: center; }
+        .btn-contact:active { background: #f0f0f0; transform: scale(0.95); }
+
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
         .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; }
         .btn-primary { background: var(--sun); color: white; }
@@ -37,7 +44,10 @@
         <div id="pickup-sec" class="app-sec">
             <div class="card">
                 <h3>🧺 नया पिकअप</h3>
-                <input type="tel" id="pickMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                <div class="input-group">
+                    <input type="tel" id="pickMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                    <button type="button" class="btn-contact" onclick="getContact('pickMobile')" title="कॉन्टैक्ट चुनें">👤</button>
+                </div>
                 
                 <div class="cat-grid">
                     <button class="cat-btn" onclick="loadItems('men', this)">MEN</button>
@@ -74,7 +84,10 @@
         <div id="delivery-sec" class="app-sec hidden">
             <div class="card">
                 <h3>🚚 डिलीवरी और पेमेंट</h3>
-                <input type="tel" id="delMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                <div class="input-group">
+                    <input type="tel" id="delMobile" placeholder="ग्राहक का मोबाइल नंबर">
+                    <button type="button" class="btn-contact" onclick="getContact('delMobile')" title="कॉन्टैक्ट चुनें">👤</button>
+                </div>
                 <label>पेमेंट स्टेटस:</label>
                 <select id="payStatus">
                     <option value="Paid">भुगतान प्राप्त (Paid)</option>
@@ -92,9 +105,26 @@
     </div>
 
 <script>
-    // आपका असली scriptURL सुरक्षित रखा गया है
     const scriptURL = 'https://script.google.com/macros/s/AKfycbz_TcYXlB7aoesGZ64PBeY9ODUto39_ph-PdUoKPY6TKBGVTUvleb2mUVlutAC2z56g/exec';
     let selectedItems = [];
+
+    // --- कॉन्टैक्ट पिकर जादुई फंक्शन ---
+    async function getContact(mobileId) {
+        if (!('contacts' in navigator && 'ContactsManager' in window)) {
+            return alert("यह फीचर केवल Android Chrome और HTTPS लिंक पर काम करता है।");
+        }
+        try {
+            const props = ['tel'];
+            const contacts = await navigator.contacts.select(props, {multiple: false});
+            if (contacts.length > 0 && contacts[0].tel.length > 0) {
+                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
+                let cleanNum = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
+                document.getElementById(mobileId).value = cleanNum;
+            }
+        } catch (err) {
+            console.log("Error: " + err.message);
+        }
+    }
 
     function showSec(id, btn) {
         document.querySelectorAll('.app-sec').forEach(s => s.classList.add('hidden'));
@@ -103,7 +133,6 @@
         btn.classList.add('active');
     }
 
-    // आपकी पूरी क्रांतिकारी इन्वेंटरी लिस्ट (सभी नए आइटम के साथ)
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "रेगुलर कपड़े", "अन्य"],
         women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन", "रेगुलर कपड़े", "अन्य"],
@@ -127,7 +156,6 @@
         
         if(!item || !qty) return alert("जानकारी भरें");
         
-        // अब विवरण में 'सेवा' भी जुड़ गई है
         const entry = `${item} [${qty}] - ${service} (${note})`;
         selectedItems.push(entry);
         document.getElementById('liveList').innerHTML += `<div>• ${entry}</div>`;
@@ -147,12 +175,12 @@
         .then(response => response.text())
         .then(data => {
             if(data === "Success") {
-                alert("पिकअप सुरक्षित! ✅");
+                alert("पिकअप सफल! ✅");
                 const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपका पिकअप सफल रहा।\n\n*विवरण:* ${dbStr}\n\nधन्यवाद! 🙏`;
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 location.reload();
             } else {
-                alert("सर्वर एरर, पुनः प्रयास करें।");
+                alert("सर्वर एरर।");
                 btn.innerText = "पिकअप कन्फर्म करें";
                 btn.disabled = false;
             }
