@@ -43,6 +43,13 @@
         .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; border: 1px solid #eee; }
         
         h3 { margin-top: 0; color: var(--saturn-blue); border-bottom: 2px solid var(--sun-orange); display: inline-block; }
+        
+        /* कॉन्टैक्ट बटन और इनपुट का स्टाइल */
+        .input-group { display: flex; gap: 8px; margin: 10px 0; }
+        .input-group input { margin: 0; flex: 1; }
+        .btn-contact { padding: 0 15px; border-radius: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; transition: 0.3s; }
+        .btn-contact:active { background: #f0f0f0; transform: scale(0.95); }
+
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
         
         .btn-add { background: var(--saturn-blue); color: white; width: 100%; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; }
@@ -58,58 +65,14 @@
         td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
         small { color: #666; font-size: 0.8rem; } 
 
-        /* 🖨️ नवग्रह प्रिंट विधान (Logo Enabled) */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
-            
-            #printArea { 
-                position: absolute; left: 0; top: 0; width: 100%; 
-                background-color: #fdfdfd !important; 
-                padding: 30px;
-                -webkit-print-color-adjust: exact;
-            }
-
-            /* प्रिंट के समय दिखने वाला लोगो */
-            .print-logo {
-                display: block !important;
-                width: 70px;
-                height: 70px;
-                margin: 0 auto 10px;
-                border-radius: 50%;
-                border: 2px solid #FF8C00;
-                visibility: visible !important;
-            }
-
-            #printArea::before {
-                content: "प्रतीक्षा ड्राई क्लीनर्स 🧺";
-                display: block; text-align: center; font-size: 26px; font-weight: bold;
-                color: #FF4500 !important;
-                margin-bottom: 5px;
-            }
-
-            #printArea::after {
-                content: "अंबाबाड़ी, जयपुर | रूहानी सेवा और शुचिता ✨";
-                display: block; text-align: center; font-size: 12px;
-                color: #696969 !important;
-                margin-top: 30px;
-                border-top: 2px dotted #4B0082;
-                padding-top: 10px;
-            }
-
-            table { width: 100%; border: 2px solid #2F4F4F !important; }
-            th { background-color: #2E7D32 !important; color: white !important; padding: 12px; }
-            td { border: 1px solid #2F4F4F; background-color: #FFFFFF !important; }
-            .total-box { 
-                background-color: #FFD700 !important; 
-                border: 2px solid #FF8C00 !important;
-                box-shadow: 5px 5px 0px #808080 !important;
-                -webkit-print-color-adjust: exact;
-            }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; background-color: #fdfdfd !important; padding: 30px; }
+            .print-logo { display: block !important; width: 70px; height: 70px; margin: 0 auto 10px; border-radius: 50%; border: 2px solid #FF8C00; visibility: visible !important; }
+            #printArea::before { content: "प्रतीक्षा ड्राई क्लीनर्स 🧺"; display: block; text-align: center; font-size: 26px; font-weight: bold; color: #FF4500 !important; }
             .no-print { display: none !important; }
         }
-
-        /* सामान्य अवस्था में प्रिंट लोगो छुपा रहेगा */
         .print-logo { display: none; }
     </style>
 </head>
@@ -124,9 +87,13 @@
 
 <div class="container">
     <div class="card no-print">
-        <h3>👤 ग्राहक</h3>
+        <h3>👤 ग्राहक विवरण</h3>
+        <label>संपर्क चुनें:</label>
+        <div class="input-group">
+            <input type="tel" id="custMobile" placeholder="मोबाइल नंबर चुनें">
+            <button type="button" class="btn-contact" onclick="getContact('custMobile', 'custName')" title="कॉन्टैक्ट चुनें">👤</button>
+        </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
-        <input type="tel" id="custMobile" placeholder="मोबाइल नंबर (98XXXXXXXX)">
     </div>
 
     <div class="card no-print">
@@ -170,7 +137,6 @@
 
     <div class="card" id="printArea">
         <img src="logo.png" class="print-logo" alt="PRATIKSHA LOGO">
-        
         <h3 class="no-print">📋 कच्चा बिल</h3>
         <table id="billTable">
             <thead><tr><th>आइटम</th><th>संख्या</th><th>कुल</th></tr></thead>
@@ -187,6 +153,30 @@
 
 <script>
     let billItems = [];
+
+    // --- कॉन्टैक्ट पिकर जादुई फंक्शन (नाम और नंबर के लिए) ---
+    async function getContact(mobileId, nameId) {
+        if (!('contacts' in navigator && 'ContactsManager' in window)) {
+            return alert("यह फीचर केवल Android Chrome और HTTPS लिंक पर काम करता है।");
+        }
+        try {
+            const props = ['name', 'tel'];
+            const contacts = await navigator.contacts.select(props, {multiple: false});
+            if (contacts.length > 0) {
+                const contact = contacts[0];
+                if (contact.tel && contact.tel.length > 0) {
+                    let rawNum = contact.tel[0].replace(/\D/g, '');
+                    document.getElementById(mobileId).value = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
+                }
+                if (contact.name && contact.name.length > 0) {
+                    document.getElementById(nameId).value = contact.name[0];
+                }
+            }
+        } catch (err) {
+            console.log("Error: " + err.message);
+        }
+    }
+
     function addItem() {
         const name = document.getElementById('itemSelect').value;
         const service = document.getElementById('serviceType').value;
@@ -199,6 +189,7 @@
         document.getElementById('qty').value = "";
         document.getElementById('rate').value = "";
     }
+
     function render() {
         const body = document.querySelector('#billTable tbody');
         body.innerHTML = '';
@@ -209,6 +200,7 @@
         });
         document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
     }
+
     function sendWA() {
         const cName = document.getElementById('custName').value || "ग्राहक";
         const mob = document.getElementById('custMobile').value;
@@ -221,6 +213,11 @@
         });
         msg += `----------------------\n*कुल राशि: ₹${grandTotal}*\n----------------------\n\nधन्यवाद! 🙏✨`;
         window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // PWA रजिस्ट्रेशन
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sww.js');
     }
 </script>
 </body>
