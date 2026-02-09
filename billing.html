@@ -44,59 +44,50 @@
         
         h3 { margin-top: 0; color: var(--saturn-blue); border-bottom: 2px solid var(--sun-orange); display: inline-block; }
         
-        /* कॉन्टैक्ट बटन और इनपुट का स्टाइल */
         .input-group { display: flex; gap: 8px; margin: 10px 0; }
         .input-group input { margin: 0; flex: 1; }
         .btn-contact { padding: 0 15px; border-radius: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; transition: 0.3s; }
-        .btn-contact:active { background: #f0f0f0; transform: scale(0.95); }
 
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
         
         .btn-add { background: var(--saturn-blue); color: white; width: 100%; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-add:active { transform: scale(0.98); }
 
         .total-box { background: var(--jupiter-yellow); padding: 15px; border-radius: 15px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; }
         
-        .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2); }
-        .btn-print { background: #007BFF; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); }
+        .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
         table { width: 100%; margin-top: 15px; border-collapse: collapse; }
         th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; }
         td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
-        small { color: #666; font-size: 0.8rem; } 
 
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
             #printArea { position: absolute; left: 0; top: 0; width: 100%; background-color: #fdfdfd !important; padding: 30px; }
-            .print-logo { display: block !important; width: 70px; height: 70px; margin: 0 auto 10px; border-radius: 50%; border: 2px solid #FF8C00; visibility: visible !important; }
-            #printArea::before { content: "प्रतीक्षा ड्राई क्लीनर्स 🧺"; display: block; text-align: center; font-size: 26px; font-weight: bold; color: #FF4500 !important; }
-            .no-print { display: none !important; }
         }
-        .print-logo { display: none; }
     </style>
 </head>
     
 <body>
 
-<div class="billing-header no-print">
+<div class="billing-header">
     <img src="logo.png" alt="PRATIKSHA" class="app-logo">
     <h1 style="margin:0; font-size: 1.4rem;">प्रतीक्षा बिलिंग ऐप</h1>
     <p style="margin:5px 0 0; font-size: 0.8rem; opacity: 0.8;">शुचिता और रूहानी सेवा</p>
 </div>
 
 <div class="container">
-    <div class="card no-print">
+    <div class="card">
         <h3>👤 ग्राहक विवरण</h3>
         <label>संपर्क चुनें:</label>
         <div class="input-group">
             <input type="tel" id="custMobile" placeholder="मोबाइल नंबर चुनें">
-            <button type="button" class="btn-contact" onclick="getContact('custMobile', 'custName')" title="कॉन्टैक्ट चुनें">👤</button>
+            <button type="button" class="btn-contact" onclick="getContact('custMobile', 'custName')">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
     </div>
 
-    <div class="card no-print">
+    <div class="card">
         <h3>🧺 बिल विवरण</h3>
         <select id="itemSelect">
             <option value="">कपड़ा चुनें</option>
@@ -124,7 +115,6 @@
         <select id="serviceType">
             <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
             <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
-            <option value="साधारण प्रेस">👔 साधारण प्रेस</option>
             <option value="धुलाई">🧼 धुलाई</option>
         </select>
 
@@ -136,8 +126,6 @@
     </div>
 
     <div class="card" id="printArea">
-        <img src="logo.png" class="print-logo" alt="PRATIKSHA LOGO">
-        <h3 class="no-print">📋 कच्चा बिल</h3>
         <table id="billTable">
             <thead><tr><th>आइटम</th><th>संख्या</th><th>कुल</th></tr></thead>
             <tbody></tbody>
@@ -145,16 +133,14 @@
         <div class="total-box">
             <h2 id="gTotal" style="margin:0;">Total: ₹ 0</h2>
         </div>
-        
-        <button class="btn-wa no-print" onclick="sendWA()">📲 व्हाट्सएप पर बिल भेजें</button>
-        <button class="btn-print no-print" onclick="window.print()">📄 पर्ची निकालें (PDF)</button>
+        <button class="btn-wa" onclick="sendWA()">📲 व्हाट्सएप पर बिल भेजें</button>
     </div>
 </div>
 
 <script>
     let billItems = [];
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_-n2prkikRnlqWjK6hK1zEJLFtZyxT41aZKWZXFKvt_m-OoDWm0QAJ70845JmX5UQ3Q/exec";
 
-    // --- कॉन्टैक्ट पिकर जादुई फंक्शन (नाम और नंबर के लिए) ---
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator && 'ContactsManager' in window)) {
             return alert("यह फीचर केवल Android Chrome और HTTPS लिंक पर काम करता है।");
@@ -172,9 +158,7 @@
                     document.getElementById(nameId).value = contact.name[0];
                 }
             }
-        } catch (err) {
-            console.log("Error: " + err.message);
-        }
+        } catch (err) { console.log(err); }
     }
 
     function addItem() {
@@ -182,9 +166,8 @@
         const service = document.getElementById('serviceType').value;
         const q = document.getElementById('qty').value;
         const r = document.getElementById('rate').value;
-        if(!name || !q || !r) return alert("कृपया पूरी जानकारी भरें");
-        const total = q * r;
-        billItems.push({name, service, q, r, total});
+        if(!name || !q || !r) return alert("जानकारी भरें");
+        billItems.push({name, service, q, r, total: q*r});
         render();
         document.getElementById('qty').value = "";
         document.getElementById('rate').value = "";
@@ -192,11 +175,10 @@
 
     function render() {
         const body = document.querySelector('#billTable tbody');
-        body.innerHTML = '';
-        let grand = 0;
+        body.innerHTML = ''; let grand = 0;
         billItems.forEach(i => {
             grand += i.total;
-            body.innerHTML += `<tr><td>${i.name}<br><small>(${i.service})</small></td><td>${i.q}</td><td>₹${i.total}</td></tr>`;
+            body.innerHTML += `<tr><td>${i.name}<br><small>${i.service}</small></td><td>${i.q}</td><td>₹${i.total}</td></tr>`;
         });
         document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
     }
@@ -205,19 +187,20 @@
         const cName = document.getElementById('custName').value || "ग्राहक";
         const mob = document.getElementById('custMobile').value;
         if(!mob || mob.length < 10) return alert("सही मोबाइल नंबर डालें");
-        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नमस्ते ${cName},*\nआपका डिजिटल बिल तैयार है:\n\n`;
+
         let grandTotal = 0;
+        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते ${cName},\nआपका बिल तैयार है:\n\n`;
         billItems.forEach(i => {
-            msg += `• ${i.name} (${i.service})\n  ${i.q} x ${i.r} = *₹${i.total}*\n\n`;
+            msg += `• ${i.name} (${i.service})\n  ${i.q} x ₹${i.r} = *₹${i.total}*\n\n`;
             grandTotal += i.total;
         });
         msg += `----------------------\n*कुल राशि: ₹${grandTotal}*\n----------------------\n\nधन्यवाद! 🙏✨`;
-        window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
 
-    // PWA रजिस्ट्रेशन
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sww.js');
+        // डेटा 'प्रतीक्षा डिजिटल कोर' (Google Sheet) में भेजना
+        fetch(`${SCRIPT_URL}?action=updateStatus&mobile=${mob}&amount=${grandTotal}&status=Delivered&mode=Cash`, { mode: 'no-cors' });
+
+        // व्हाट्सएप खोलना
+        window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
 </body>
