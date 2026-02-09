@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratiksha Billing</title>
+    <title>Pratiksha Billing - Navgrah Edition</title>
     
     <link rel="manifest" href="manifest-billing.json">
     <meta name="theme-color" content="#FF8C00">
@@ -51,8 +51,6 @@
         .total-box { background: var(--jupiter-yellow); padding: 15px; border-radius: 15px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; }
         
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2); }
-        
-        /* नीला प्रिंट बटन - सात्विक और स्पष्ट */
         .btn-print { background: #007BFF; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); }
 
         table { width: 100%; margin-top: 15px; border-collapse: collapse; }
@@ -60,32 +58,78 @@
         td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
         small { color: #666; font-size: 0.8rem; } 
 
-        /* प्रिंट के लिए विशेष निर्देश */
+        /* 🖨️ नवग्रह प्रिंट विधान (Logo Enabled) */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
-            #printArea { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; }
+            
+            #printArea { 
+                position: absolute; left: 0; top: 0; width: 100%; 
+                background-color: #fdfdfd !important; 
+                padding: 30px;
+                -webkit-print-color-adjust: exact;
+            }
+
+            /* प्रिंट के समय दिखने वाला लोगो */
+            .print-logo {
+                display: block !important;
+                width: 70px;
+                height: 70px;
+                margin: 0 auto 10px;
+                border-radius: 50%;
+                border: 2px solid #FF8C00;
+                visibility: visible !important;
+            }
+
+            #printArea::before {
+                content: "प्रतीक्षा ड्राई क्लीनर्स 🧺";
+                display: block; text-align: center; font-size: 26px; font-weight: bold;
+                color: #FF4500 !important;
+                margin-bottom: 5px;
+            }
+
+            #printArea::after {
+                content: "अंबाबाड़ी, जयपुर | रूहानी सेवा और शुचिता ✨";
+                display: block; text-align: center; font-size: 12px;
+                color: #696969 !important;
+                margin-top: 30px;
+                border-top: 2px dotted #4B0082;
+                padding-top: 10px;
+            }
+
+            table { width: 100%; border: 2px solid #2F4F4F !important; }
+            th { background-color: #2E7D32 !important; color: white !important; padding: 12px; }
+            td { border: 1px solid #2F4F4F; background-color: #FFFFFF !important; }
+            .total-box { 
+                background-color: #FFD700 !important; 
+                border: 2px solid #FF8C00 !important;
+                box-shadow: 5px 5px 0px #808080 !important;
+                -webkit-print-color-adjust: exact;
+            }
             .no-print { display: none !important; }
         }
-   </style>
+
+        /* सामान्य अवस्था में प्रिंट लोगो छुपा रहेगा */
+        .print-logo { display: none; }
+    </style>
 </head>
     
 <body>
 
-<div class="billing-header">
+<div class="billing-header no-print">
     <img src="logo.png" alt="PRATIKSHA" class="app-logo">
     <h1 style="margin:0; font-size: 1.4rem;">प्रतीक्षा बिलिंग ऐप</h1>
     <p style="margin:5px 0 0; font-size: 0.8rem; opacity: 0.8;">शुचिता और रूहानी सेवा</p>
 </div>
 
 <div class="container">
-    <div class="card">
+    <div class="card no-print">
         <h3>👤 ग्राहक</h3>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
         <input type="tel" id="custMobile" placeholder="मोबाइल नंबर (98XXXXXXXX)">
     </div>
 
-    <div class="card">
+    <div class="card no-print">
         <h3>🧺 बिल विवरण</h3>
         <select id="itemSelect">
             <option value="">कपड़ा चुनें</option>
@@ -125,6 +169,8 @@
     </div>
 
     <div class="card" id="printArea">
+        <img src="logo.png" class="print-logo" alt="PRATIKSHA LOGO">
+        
         <h3 class="no-print">📋 कच्चा बिल</h3>
         <table id="billTable">
             <thead><tr><th>आइटम</th><th>संख्या</th><th>कुल</th></tr></thead>
@@ -134,35 +180,25 @@
             <h2 id="gTotal" style="margin:0;">Total: ₹ 0</h2>
         </div>
         
-        <button class="btn-wa no-print" onclick="sendWA()">
-            📲 व्हाट्सएप पर बिल भेजें
-        </button>
-        
-        <button class="btn-print no-print" onclick="window.print()">
-            📄 पर्ची निकालें (PDF)
-        </button>
+        <button class="btn-wa no-print" onclick="sendWA()">📲 व्हाट्सएप पर बिल भेजें</button>
+        <button class="btn-print no-print" onclick="window.print()">📄 पर्ची निकालें (PDF)</button>
     </div>
 </div>
 
 <script>
     let billItems = [];
-
     function addItem() {
         const name = document.getElementById('itemSelect').value;
         const service = document.getElementById('serviceType').value;
         const q = document.getElementById('qty').value;
         const r = document.getElementById('rate').value;
-        
         if(!name || !q || !r) return alert("कृपया पूरी जानकारी भरें");
-        
         const total = q * r;
         billItems.push({name, service, q, r, total});
         render();
-
         document.getElementById('qty').value = "";
         document.getElementById('rate').value = "";
     }
-
     function render() {
         const body = document.querySelector('#billTable tbody');
         body.innerHTML = '';
@@ -173,36 +209,19 @@
         });
         document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
     }
-
     function sendWA() {
         const cName = document.getElementById('custName').value || "ग्राहक";
         const mob = document.getElementById('custMobile').value;
         if(!mob || mob.length < 10) return alert("सही मोबाइल नंबर डालें");
-
-        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n`;
-        msg += `*नमस्ते ${cName},*\nआपका डिजिटल बिल तैयार है:\n\n`;
-        
+        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नमस्ते ${cName},*\nआपका डिजिटल बिल तैयार है:\n\n`;
         let grandTotal = 0;
         billItems.forEach(i => {
-            msg += `• ${i.name} (${i.service})\n`;
-            msg += `  ${i.q} x ${i.r} = *₹${i.total}*\n\n`;
+            msg += `• ${i.name} (${i.service})\n  ${i.q} x ${i.r} = *₹${i.total}*\n\n`;
             grandTotal += i.total;
         });
-
-        msg += `----------------------\n`;
-        msg += `*कुल राशि: ₹${grandTotal}*\n`;
-        msg += `----------------------\n\n`;
-        msg += `धन्यवाद! आपका दिन शुभ हो। 🙏✨`;
-
+        msg += `----------------------\n*कुल राशि: ₹${grandTotal}*\n----------------------\n\nधन्यवाद! 🙏✨`;
         window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
     }
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sww.js')
-        .then(() => console.log("प्रहरी sww सक्रिय है!"))
-        .catch(err => console.log("त्रुटि:", err));
-    }
 </script>
-
 </body>
 </html>
