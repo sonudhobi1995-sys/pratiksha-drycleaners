@@ -52,28 +52,21 @@
         
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2); }
         
+        /* नया प्रिंट बटन स्टाइल */
+        .btn-print { background: #007BFF; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); }
+
         table { width: 100%; margin-top: 15px; border-collapse: collapse; }
         th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; }
         td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
         small { color: #666; font-size: 0.8rem; } 
-       /* प्रिंट के लिए विशेष निर्देश */
-@media print {
-    body * {
-        visibility: hidden; /* स्क्रीन की सारी चीज़ें छुपा दें */
-    }
-    #billContainer, #billContainer * {
-        visibility: visible; /* केवल बिल वाला हिस्सा दिखाएँ */
-    }
-    #billContainer {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    .no-print {
-        display: none !important; /* बटन वगैरह छुपाने के लिए */
-    }
-}
+
+        /* प्रिंट के लिए निर्देश */
+        @media print {
+            body * { visibility: hidden; }
+            #printArea, #printArea * { visibility: visible; }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; }
+            .no-print { display: none !important; }
+        }
    </style>
 </head>
     
@@ -132,6 +125,7 @@
     </div>
 
     <div class="card" id="printArea">
+        <h3 class="no-print">📋 कच्चा बिल</h3>
         <table id="billTable">
             <thead><tr><th>आइटम</th><th>संख्या</th><th>कुल</th></tr></thead>
             <tbody></tbody>
@@ -139,12 +133,13 @@
         <div class="total-box">
             <h2 id="gTotal" style="margin:0;">Total: ₹ 0</h2>
         </div>
-        <button class="btn-wa" onclick="sendWA()">
-            व्हाट्सएप पर बिल भेजें
-        <button onclick="window.print()" class="no-print" style="background-color: #2ecc71; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-            पर्ची निकालें (PDF)
-</button>
-
+        
+        <button class="btn-wa no-print" onclick="sendWA()">
+            📲 व्हाट्सएप पर बिल भेजें
+        </button>
+        
+        <button class="btn-print no-print" onclick="window.print()">
+            📄 पर्ची निकालें (PDF)
         </button>
     </div>
 </div>
@@ -164,7 +159,6 @@
         billItems.push({name, service, q, r, total});
         render();
 
-        // फॉर्म रिसेट
         document.getElementById('qty').value = "";
         document.getElementById('rate').value = "";
     }
@@ -185,7 +179,6 @@
         const mob = document.getElementById('custMobile').value;
         if(!mob || mob.length < 10) return alert("सही मोबाइल नंबर डालें");
 
-        // आपका रूहानी और सुंदर व्हाट्सएप फॉर्मेट
         let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n`;
         msg += `*नमस्ते ${cName},*\nआपका डिजिटल बिल तैयार है:\n\n`;
         
@@ -204,7 +197,6 @@
         window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    // सर्विस वर्कर पंजीकरण (अब sww.js के साथ)
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sww.js')
         .then(() => console.log("प्रहरी sww सक्रिय है!"))
