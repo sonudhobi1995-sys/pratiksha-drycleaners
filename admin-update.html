@@ -91,9 +91,10 @@
     </div>
 
 <script>
-    // आपका नया और सही v3.2 Final Link
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+    // आपका Google Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
 
+    // फोन बुक से कॉन्टैक्ट उठाने का फंक्शन
     async function getContact(mobileId) {
         if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
         try {
@@ -106,6 +107,7 @@
         } catch (err) { console.log(err); }
     }
 
+    // स्टेटस अपडेट करने का फंक्शन
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
@@ -116,23 +118,28 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // v3.2 की कोडिंग के अनुसार कॉल
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&amount=0&details=AdminUpdate`)
-        .then(response => response.text())
+        // गूगल स्क्रिप्ट को डेटा भेजना
+        // हमने यहाँ action=updateStatus का इस्तेमाल किया है जैसा आपकी स्क्रिप्ट में है
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`)
+        .then(response => response.json()) // स्क्रिप्ट JSON रिस्पांस भेजती है
         .then(data => {
-            if(data === "Success") {
+            if(data.result === "Success" || data.status === "Updated") {
                 alert("स्टेटस अपडेट हो गया! ✅");
+                
+                // व्हाट्सएप मैसेज भेजने का लॉजिक
                 const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अब *${status}* है।\n\nधन्यवाद! 🙏`;
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+                
                 location.reload();
             } else {
-                alert("नंबर नहीं मिला।");
+                alert("नंबर मास्टर लिस्ट में नहीं मिला। कृपया पहले पंजीकरण करें।");
                 btn.innerText = "अपडेट करें और मैसेज भेजें";
                 btn.disabled = false;
             }
         })
         .catch(error => {
-            alert("नेटवर्क समस्या।");
+            console.error('Error:', error);
+            alert("नेटवर्क समस्या। डेटा सेव नहीं हो सका।");
             btn.innerText = "अपडेट करें और मैसेज भेजें";
             btn.disabled = false;
         });
