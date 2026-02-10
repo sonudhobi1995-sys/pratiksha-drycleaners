@@ -54,16 +54,33 @@
 
         .total-box { background: var(--jupiter-yellow); padding: 15px; border-radius: 15px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; }
         
+        /* बटन स्टाइलिंग */
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-print { background: #333; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
         table { width: 100%; margin-top: 15px; border-collapse: collapse; }
         th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; }
         td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
 
+        /* --- प्रिंटिंग के लिए विशेष सेटिंग्स --- */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
-            #printArea { position: absolute; left: 0; top: 0; width: 100%; background-color: #fdfdfd !important; padding: 30px; }
+            #printArea { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+                padding: 0; 
+                margin: 0;
+                box-shadow: none;
+                border: none;
+            }
+            /* प्रिंट के समय बटनों को छुपाना */
+            .btn-wa, .btn-print, .btn-add, .billing-header, .no-print {
+                display: none !important;
+            }
+            .total-box { border: 2px solid #000; background: white !important; }
         }
     </style>
 </head>
@@ -77,7 +94,7 @@
 </div>
 
 <div class="container">
-    <div class="card">
+    <div class="card no-print">
         <h3>👤 ग्राहक विवरण</h3>
         <label>संपर्क चुनें:</label>
         <div class="input-group">
@@ -87,7 +104,7 @@
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
     </div>
 
-    <div class="card">
+    <div class="card no-print">
         <h3>🧺 बिल विवरण</h3>
         <select id="itemSelect">
             <option value="">कपड़ा चुनें</option>
@@ -113,6 +130,7 @@
         </select>
 
         <select id="serviceType">
+             <option value="प्रेस">💨 प्रेस</option>
             <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
             <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
             <option value="धुलाई">🧼 धुलाई</option>
@@ -126,6 +144,11 @@
     </div>
 
     <div class="card" id="printArea">
+        <div style="text-align:center; display:none;" id="billShopTitle">
+            <h2>प्रतीक्षा ड्राई क्लीनर्स</h2>
+            <p>अंबाबाड़ी, जयपुर | मो: 8440985969</p>
+            <hr>
+        </div>
         <table id="billTable">
             <thead><tr><th>आइटम</th><th>संख्या</th><th>कुल</th></tr></thead>
             <tbody></tbody>
@@ -133,7 +156,10 @@
         <div class="total-box">
             <h2 id="gTotal" style="margin:0;">Total: ₹ 0</h2>
         </div>
-        <button class="btn-wa" onclick="sendWA()">📲 व्हाट्सएप पर बिल भेजें</button>
+        
+        <button class="btn-wa no-print" onclick="sendWA()">📲 व्हाट्सएप पर बिल भेजें</button>
+        
+        <button class="btn-print no-print" onclick="printBill()">🖨️ प्रिंट बिल</button>
     </div>
 </div>
 
@@ -181,6 +207,14 @@
             body.innerHTML += `<tr><td>${i.name}<br><small>${i.service}</small></td><td>${i.q}</td><td>₹${i.total}</td></tr>`;
         });
         document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
+    }
+
+    function printBill() {
+        // प्रिंट करने से पहले दुकान का नाम दिखाएँ (केवल प्रिंट के लिए)
+        const title = document.getElementById('billShopTitle');
+        title.style.display = "block";
+        window.print();
+        title.style.display = "none";
     }
 
     function sendWA() {
