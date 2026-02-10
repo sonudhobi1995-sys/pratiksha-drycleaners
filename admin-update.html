@@ -50,35 +50,38 @@
 <body>
 
     <div class="app-header">
-        <img src="https://i.ibb.co/v6YkY3k/logo.png" alt="PRATIKSHA" class="app-logo">
+        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
         <h2 style="margin:0; letter-spacing: 1px;">प्रतीक्षा एडमिन पैनल</h2>
         <span class="badge">मुख्य मैनेजर</span>
     </div>
 
     <div class="container">
         <div class="card">
-            <h3>🔄 क्विक स्टेटस अपडेट</h3>
-            <label>ग्राहक का मोबाइल नंबर:</label>
+            <h3>🔄 क्विक अपडेट</h3>
+            <label>मोबाइल नंबर:</label>
             <div class="input-group">
-                <input type="tel" id="adminMobile" placeholder="मोबाइल नंबर डालें">
-                <button type="button" class="btn-contact" onclick="getContact('adminMobile')">👤</button>
+                <input type="tel" id="adminMobile" placeholder="98XXXXXXXX">
+                <button type="button" class="btn-contact" onclick="getContact('adminMobile')" title="कॉन्टैक्ट चुनें">
+                    👤
+                </button>
             </div>
             
-            <label>नया स्टेटस चुनें:</label>
+            <label>ऑर्डर स्थिति:</label>
             <select id="adminStatus">
                 <option value="प्रक्रिया में">प्रक्रिया में</option>
                 <option value="धुलाई">धुलाई</option>
+                <option value="आयरनिंग">आयरनिंग</option>
                 <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी</option>
-                <option value="Delivered">डिलीवर कर दिया (Done)</option>
+                <option value="Delivered">डिलीवर कर दिया</option>
             </select>
             <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
-                अपडेट करें और WhatsApp भेजें
+                अपडेट करें और मैसेज भेजें
             </button>
         </div>
 
         <div class="card" style="border-left: 5px solid var(--sun);">
-            <h3>🚀 अन्य विभाग</h3>
-            <button class="btn btn-pickup" onclick="window.location.href='driver.html'">
+            <h3>🚀 क्विक नेविगेशन</h3>
+            <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
                 🚚 ड्राइवर ऐप (Pickup)
             </button>
             <button class="btn btn-billing" onclick="window.location.href='billing.html'">
@@ -88,33 +91,33 @@
     </div>
 
 <script>
-    // आपका नया v3.2 Final Link
+    // आपका नया और सही v3.2 Final Link
     const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
 
-    // कॉन्टैक्ट पिकर
     async function getContact(mobileId) {
-        if (!('contacts' in navigator)) return alert("मोबाइल में कॉन्टैक्ट लिस्ट की अनुमति दें।");
+        if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
         try {
-            const contacts = await navigator.contacts.select(['tel'], {multiple: false});
+            const props = ['tel'];
+            const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
-                let num = contacts[0].tel[0].replace(/\D/g, '');
-                document.getElementById(mobileId).value = num.length > 10 ? num.slice(-10) : num;
+                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
+                document.getElementById(mobileId).value = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
             }
         } catch (err) { console.log(err); }
     }
 
     function updateStatusOnly() {
-        const mobile = document.getElementById('adminMobile').value.trim();
+        const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
         const btn = document.getElementById('updateBtn');
         
-        if(mobile.length < 10) return alert("कृपया सही मोबाइल नंबर डालें");
+        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
 
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // कोडिंग v3.2 के अनुसार action=updateStatus का उपयोग
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&amount=0&details=StatusUpdate`)
+        // v3.2 की कोडिंग के अनुसार कॉल
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&amount=0&details=AdminUpdate`)
         .then(response => response.text())
         .then(data => {
             if(data === "Success") {
@@ -123,14 +126,14 @@
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 location.reload();
             } else {
-                alert("नंबर नहीं मिला। कृपया जांचें।");
-                btn.innerText = "अपडेट करें और WhatsApp भेजें";
+                alert("नंबर नहीं मिला।");
+                btn.innerText = "अपडेट करें और मैसेज भेजें";
                 btn.disabled = false;
             }
         })
         .catch(error => {
-            alert("सर्वर से संपर्क नहीं हो पाया।");
-            btn.innerText = "अपडेट करें और WhatsApp भेजें";
+            alert("नेटवर्क समस्या।");
+            btn.innerText = "अपडेट करें और मैसेज भेजें";
             btn.disabled = false;
         });
     }
