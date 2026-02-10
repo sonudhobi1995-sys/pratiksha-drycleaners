@@ -170,7 +170,6 @@
                 <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
             </div>
-            <div id="pause-msg" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; display: none;">Paused (10s)</div>
         </div>
     </section>
 
@@ -234,8 +233,8 @@
     </a>
 
     <script>
-        // आपका नया scriptURL (Web App लिंक)
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+        // आपका Google Script URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
 
         window.onload = function() {
             const house = localStorage.getItem('userHouse');
@@ -251,20 +250,18 @@
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // डेटा सिंक और रिमूवल चेक
+            // स्टेटस सिंक करने के लिए कॉल
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
                 const statusDisp = document.getElementById('userStatusDisp');
                 
-                // यदि ग्राहक शीट से डिलीट हो गया है (Not Found)
-                if (data.status === "Not Found") {
-                    alert("खाता नहीं मिला। कृपया पुनः लॉगिन करें।");
-                    localStorage.clear();
-                    window.location.href = "login.html";
+                if (data.status === "Not Found" || !data.status) {
+                    statusDisp.innerText = 'Online'; 
+                    statusDisp.style.background = "#FF8C00";
                 } else {
                     statusDisp.innerText = data.status;
-                    // रेडी या डिलीवरी स्टेटस होने पर हरा रंग, बाकी पर संतरी
+                    // रेडी या डिलीवरी स्टेटस होने पर हरा रंग
                     if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("डिलीवरी")) {
                         statusDisp.style.background = "#2E8B57";
                     } else {
@@ -278,8 +275,10 @@
         };
 
         function logoutApp() {
-            localStorage.clear();
-            window.location.href = "login.html";
+            if(confirm("लॉगआउट करना चाहते हैं?")) {
+                localStorage.clear();
+                window.location.href = "login.html";
+            }
         }
 
         function refreshApp() { window.location.reload(true); }
@@ -290,6 +289,7 @@
             }
         }
 
+        // मेनू टॉगल
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.onclick = (e) => {
@@ -298,6 +298,7 @@
         };
         document.onclick = () => { menuList.style.display = 'none'; };
 
+        // फोटो गैलरी ऑटो-प्ले
         let pIdx = 0;
         const pTrack = document.getElementById('photo-track');
         const pSlides = document.querySelectorAll('#photo-track img');
@@ -308,6 +309,7 @@
             }
         }, 3000);
 
+        // वीडियो ट्रैक ऑटो-प्ले (सिर्फ तभी जब रुका हो)
         let vIdx = 0;
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
