@@ -216,8 +216,8 @@
         <div style="max-width: 500px; margin: auto; text-align: center;">
             <h2 style="color: var(--saturn-blue);">Share Your Thoughts</h2>
             <div style="background: var(--cream-bg); padding: 25px; border-radius: 15px; border: 2px solid var(--mercury-green);">
-                <input type="text" id="custName" placeholder="Your Name" style="width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                <textarea id="custMsg" placeholder="Share your suggestions..." rows="4" style="width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;"></textarea>
+                <input type="text" id="custNameInput" placeholder="Your Name" style="width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
+                <textarea id="custMsgInput" placeholder="Share your suggestions..." rows="4" style="width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;"></textarea>
                 <button onclick="sendFeedback()" style="width: 95%; background: var(--saturn-blue); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send via WhatsApp</button>
             </div>
         </div>
@@ -228,20 +228,19 @@
         <p><a href="./privacy.html" style="color:#FFFDD0; text-decoration:none;">Privacy Policy</a> | <a href="./terms.html" style="color:#FFFDD0; text-decoration:none;">Terms</a></p>
     </footer>
 
-    <a href="https://wa.me/917740870095" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <a href="https://wa.me/918440985969" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="55" alt="WA">
     </a>
 
     <script>
-        // आपका Google Script URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+        // --- आपका अंतिम रामबाण Google Script URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
 
         window.onload = function() {
             const house = localStorage.getItem('userHouse');
             const name = localStorage.getItem('userName');
             const mobile = localStorage.getItem('userMobile');
 
-            // सुरक्षा जांच
             if (!mobile || !house || !name) {
                 window.location.href = "login.html";
                 return;
@@ -250,19 +249,17 @@
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // स्टेटस सिंक करने के लिए कॉल
+            // स्टेटस सिंक (रामबाण लॉजिक)
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
                 const statusDisp = document.getElementById('userStatusDisp');
-                
-                if (data.status === "Not Found" || !data.status) {
+                if (data.status === "Not Found" || data.status === "Online") {
                     statusDisp.innerText = 'Online'; 
                     statusDisp.style.background = "#FF8C00";
                 } else {
                     statusDisp.innerText = data.status;
-                    // रेडी या डिलीवरी स्टेटस होने पर हरा रंग
-                    if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("डिलीवरी")) {
+                    if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("Delivered")) {
                         statusDisp.style.background = "#2E8B57";
                     } else {
                         statusDisp.style.background = "#FF8C00";
@@ -309,7 +306,7 @@
             }
         }, 3000);
 
-        // वीडियो ट्रैक ऑटो-प्ले (सिर्फ तभी जब रुका हो)
+        // वीडियो ऑटो-प्ले लॉजिक
         let vIdx = 0;
         setInterval(() => {
             const vTrack = document.getElementById('video-track');
@@ -321,10 +318,10 @@
         }, 5000);
 
         function sendFeedback() {
-            const name = document.getElementById('custName').value;
-            const msg = document.getElementById('custMsg').value;
+            const name = document.getElementById('custNameInput').value;
+            const msg = document.getElementById('custMsgInput').value;
             if(!name || !msg) return alert("विवरण भरें");
-            window.open(`https://wa.me/917740870095?text=Feedback from *${name}*: ${msg}`, '_blank');
+            window.open(`https://wa.me/918440985969?text=Feedback from *${name}*: ${msg}`, '_blank');
         }
     </script>
 </body>
