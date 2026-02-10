@@ -40,7 +40,6 @@
 
         .refresh-btn { display: block; width: 100%; margin-top: 25px; background: none; border: 1px solid #ddd; padding: 10px; border-radius: 8px; color: #888; cursor: pointer; font-size: 0.8rem; }
         
-        /* व्हाट्सएप बटन की नई स्टाइल */
         .wa-btn { width: 100%; margin-top: 20px; background: #25D366; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
@@ -75,70 +74,79 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+        // आपका Google Script URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
         
-        // डेटा को सुरक्षित रखने के लिए वेरिएबल्स
-        let globalStatus = "";
-        let globalDetails = "";
+        let globalStatus = "Loading...";
+        let globalDetails = "Loading...";
 
         window.onload = function() {
             const mobile = localStorage.getItem('userMobile');
             if (!mobile) { window.location.href = "login.html"; return; }
             document.getElementById('dispMobile').innerText = mobile;
 
+            // Google Sheet से स्टेटस और विवरण लाना
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
-                globalStatus = data.status || "प्रक्रिया में";
-                globalDetails = data.details || "कोई विवरण उपलब्ध नहीं";
+                if(data.status === "Not Found") {
+                    document.getElementById('inventoryList').innerText = "कोई सक्रिय ऑर्डर नहीं मिला।";
+                    return;
+                }
 
+                globalStatus = data.status || "प्रक्रिया में";
+                globalDetails = data.details || "विवरण उपलब्ध नहीं है";
+
+                // सूची को अपडेट करना
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
-                globalDetails.split(',').forEach(item => {
+                const items = globalDetails.split(',');
+                items.forEach(item => {
                     if(item.trim()) invList.innerHTML += `<div>${item.trim()}</div>`;
                 });
 
+                // ट्रैकिंग स्टेप्स को अपडेट करना
                 updateSteps(globalStatus);
             })
             .catch(err => {
-                document.getElementById('inventoryList').innerText = "डेटा लोड करने में समस्या।";
+                console.error("Error fetching status:", err);
+                document.getElementById('inventoryList').innerText = "सर्वर से संपर्क नहीं हो पाया।";
             });
         };
 
-        // व्हाट्सएप भेजने का सुरक्षित फंक्शन (यही 404 एरर को हटाएगा)
-        function sendToWhatsApp() {
-            const mobile = localStorage.getItem('userMobile');
-            if(!mobile) return;
+        function updateSteps(status) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            
+            // स्टेटस के आधार पर स्टेप्स को हाईलाइट करना
+            const steps = {
+                "प्रक्रिया में": 1,
+                "In Process": 1,
+                "धुलाई": 2,
+                "Washing": 2,
+                "आयरनिंग": 3,
+                "Ironing": 3,
+                "रेडी टू डिलीवरी": 4,
+                "Ready": 4,
+                "Delivered": 5,
+                "डिलीवर कर दिया": 5
+            };
 
-            const name = localStorage.getItem('userName') || "ग्राहक";
-            
-            // संदेश को साफ़ तरीके से तैयार करना
-            const msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नाम:* ${name}\n*स्टेटस:* ${globalStatus}\n\n*कपड़ों की सूची:*\n${globalDetails.split(',').join('\n')}\n\nधन्यवाद! 🙏`;
-            
-            // 404 से बचने के लिए सटीक URL निर्माण
-            const waURL = "https://wa.me/91" + mobile.trim() + "?text=" + encodeURIComponent(msg);
-            
-            // व्हाट्सएप खोलना
-            window.open(waURL, '_blank');
+            const currentLevel = steps[status] || 1;
+            for(let i=1; i<=currentLevel; i++) {
+                const stepElement = document.getElementById('step' + i);
+                if(stepElement) stepElement.classList.add('active');
+            }
         }
 
-        function updateSteps(currentStatus) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        function sendToWhatsApp() {
+            const mobile = localStorage.getItem('userMobile');
+            const name = localStorage.getItem('userName') || "ग्राहक";
+            
+            if(!mobile) return;
 
-            if (currentStatus === "प्रक्रिया में") {
-                document.getElementById('step1').classList.add('active');
-            } else if (currentStatus === "धुलाई") {
-                document.getElementById('step1').classList.add('active');
-                document.getElementById('step2').classList.add('active');
-            } else if (currentStatus === "आयरनिंग") {
-                document.getElementById('step1').classList.add('active');
-                document.getElementById('step2').classList.add('active');
-                document.getElementById('step3').classList.add('active');
-            } else if (currentStatus === "रेडी टू डिलीवरी") {
-                document.querySelectorAll('.step').forEach((s, idx) => { if(idx < 4) s.classList.add('active'); });
-            } else if (currentStatus === "Delivered" || currentStatus === "डिलीवर कर दिया") {
-                document.querySelectorAll('.step').forEach(s => s.classList.add('active'));
-            }
+            const msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नमस्ते ${name},*\nआपका ऑर्डर स्टेटस: *${globalStatus}*\n\n*कपड़ों की सूची:*\n${globalDetails.split(',').join('\n')}\n\nधन्यवाद! 🙏`;
+            
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
 </body>
