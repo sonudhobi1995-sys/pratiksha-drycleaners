@@ -35,11 +35,9 @@
 
         input, select { width: 100%; padding: 14px; margin: 8px 0 18px 0; border-radius: 12px; border: 1.5px solid #ddd; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
         
-        /* कॉन्टैक्ट बटन के साथ इनपुट का तालमेल */
         .input-group { display: flex; gap: 8px; margin: 8px 0 18px 0; }
         .input-group input { margin: 0; flex: 1; }
         .btn-contact { padding: 0 15px; border-radius: 12px; border: 1.5px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; transition: 0.3s; display: flex; align-items: center; }
-        .btn-contact:active { background: #f0f0f0; transform: scale(0.95); }
 
         .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; }
         .btn-status { background: var(--dark); color: white; }
@@ -52,42 +50,37 @@
 <body>
 
     <div class="app-header">
-        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
+        <img src="https://i.ibb.co/v6YkY3k/logo.png" alt="PRATIKSHA" class="app-logo">
         <h2 style="margin:0; letter-spacing: 1px;">प्रतीक्षा एडमिन पैनल</h2>
         <span class="badge">मुख्य मैनेजर</span>
     </div>
 
     <div class="container">
         <div class="card">
-            <h3>🔄 क्विक अपडेट</h3>
-            <label>मोबाइल नंबर:</label>
+            <h3>🔄 क्विक स्टेटस अपडेट</h3>
+            <label>ग्राहक का मोबाइल नंबर:</label>
             <div class="input-group">
-                <input type="tel" id="adminMobile" placeholder="98XXXXXXXX">
-                <button type="button" class="btn-contact" onclick="getContact('adminMobile')" title="कॉन्टैक्ट चुनें">
-                    👤
-                </button>
+                <input type="tel" id="adminMobile" placeholder="मोबाइल नंबर डालें">
+                <button type="button" class="btn-contact" onclick="getContact('adminMobile')">👤</button>
             </div>
             
-            <label>ऑर्डर स्थिति:</label>
+            <label>नया स्टेटस चुनें:</label>
             <select id="adminStatus">
                 <option value="प्रक्रिया में">प्रक्रिया में</option>
                 <option value="धुलाई">धुलाई</option>
-                <option value="आयरनिंग">आयरनिंग</option>
                 <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी</option>
-                <option value="Delivered">डिलीवर कर दिया</option>
+                <option value="Delivered">डिलीवर कर दिया (Done)</option>
             </select>
-            <button class="btn btn-status" onclick="updateStatusOnly()">
-                अपडेट करें और मैसेज भेजें
+            <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
+                अपडेट करें और WhatsApp भेजें
             </button>
         </div>
 
         <div class="card" style="border-left: 5px solid var(--sun);">
-            <h3>🚀 क्विक नेविगेशन</h3>
-            <p style="font-size: 0.8rem; color: #666;">ड्राइवर ऐप वाला 'पिकअप' मोड यहाँ से खोलें:</p>
-            <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
+            <h3>🚀 अन्य विभाग</h3>
+            <button class="btn btn-pickup" onclick="window.location.href='driver.html'">
                 🚚 ड्राइवर ऐप (Pickup)
             </button>
-            <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">पक्का बिल और रसीद यहाँ से जनरेट करें:</p>
             <button class="btn btn-billing" onclick="window.location.href='billing.html'">
                 🧾 बिलिंग ऐप (Billing)
             </button>
@@ -95,37 +88,33 @@
     </div>
 
 <script>
-    const scriptURL = 'Https://script.google.com/macros/s/AKfycbyYLYSVbxSYfthZUd9Qsiz9v7xdioppy4fcFUNqsSvbRm6m-apx2mC0tPq050SAplzFSQ/exec';
+    // आपका नया v3.2 Final Link
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
 
-    // --- कॉन्टैक्ट पिकर जादुई फंक्शन ---
+    // कॉन्टैक्ट पिकर
     async function getContact(mobileId) {
-        if (!('contacts' in navigator && 'ContactsManager' in window)) {
-            return alert("क्षमा करें, यह फीचर केवल Android Chrome और HTTPS लिंक पर काम करता है।");
-        }
+        if (!('contacts' in navigator)) return alert("मोबाइल में कॉन्टैक्ट लिस्ट की अनुमति दें।");
         try {
-            const props = ['tel'];
-            const contacts = await navigator.contacts.select(props, {multiple: false});
-            if (contacts.length > 0 && contacts[0].tel.length > 0) {
-                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
-                let cleanNum = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
-                document.getElementById(mobileId).value = cleanNum;
+            const contacts = await navigator.contacts.select(['tel'], {multiple: false});
+            if (contacts.length > 0) {
+                let num = contacts[0].tel[0].replace(/\D/g, '');
+                document.getElementById(mobileId).value = num.length > 10 ? num.slice(-10) : num;
             }
-        } catch (err) {
-            console.log("Error: " + err.message);
-        }
+        } catch (err) { console.log(err); }
     }
 
     function updateStatusOnly() {
-        const mobile = document.getElementById('adminMobile').value;
+        const mobile = document.getElementById('adminMobile').value.trim();
         const status = document.getElementById('adminStatus').value;
+        const btn = document.getElementById('updateBtn');
         
-        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
+        if(mobile.length < 10) return alert("कृपया सही मोबाइल नंबर डालें");
 
-        const btn = document.querySelector('.btn-status');
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`)
+        // कोडिंग v3.2 के अनुसार action=updateStatus का उपयोग
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&amount=0&details=StatusUpdate`)
         .then(response => response.text())
         .then(data => {
             if(data === "Success") {
@@ -134,14 +123,14 @@
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 location.reload();
             } else {
-                alert("नंबर नहीं मिला।");
-                btn.innerText = "अपडेट करें";
+                alert("नंबर नहीं मिला। कृपया जांचें।");
+                btn.innerText = "अपडेट करें और WhatsApp भेजें";
                 btn.disabled = false;
             }
         })
         .catch(error => {
-            alert("नेटवर्क समस्या।");
-            btn.innerText = "अपडेट करें";
+            alert("सर्वर से संपर्क नहीं हो पाया।");
+            btn.innerText = "अपडेट करें और WhatsApp भेजें";
             btn.disabled = false;
         });
     }
