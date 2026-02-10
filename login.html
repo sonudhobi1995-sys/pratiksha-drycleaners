@@ -33,7 +33,7 @@
     </div>
 
     <script>
-        // आपका नया और फाइनल Web App URL (Pratiksha_Digital_Core)
+        // आपका Google Script URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
 
         document.getElementById('regForm').onsubmit = function(e) {
@@ -46,22 +46,23 @@
             btn.innerText = "पंजीकरण हो रहा है...";
             btn.disabled = true;
 
-            // डेटा को Google Sheet (Master Sheet) में भेजना
-            fetch(`${scriptURL}?action=register&house=${encodeURIComponent(house)}&name=${encodeURIComponent(name)}&mobile=${mobile}`)
-            .then(response => response.text())
-            .then(data => {
-                // फोन की लोकल मेमोरी में डेटा सेव करना ताकि बार-बार लॉगिन न करना पड़े
+            // --- सुधार: action=addCustomer और houseNo पैरामीटर का उपयोग किया गया है ---
+            const finalURL = `${scriptURL}?action=addCustomer&houseNo=${encodeURIComponent(house)}&name=${encodeURIComponent(name)}&mobile=${mobile}`;
+
+            fetch(finalURL)
+            .then(response => {
+                // डेटा को स्थानीय रूप से सहेजना
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
                 localStorage.setItem('isLoggedIn', 'true');
                 
-                // मुख्य पेज (Index.html) पर भेजें
+                // मुख्य पेज पर भेजें
                 window.location.href = "index.html";
             })
             .catch(error => {
-                // नेटवर्क एरर होने पर भी लॉगिन कर दें ताकि ग्राहक अटके नहीं
-                console.error('Error!', error.message);
+                console.error('Network error, but proceeding to app:', error);
+                // नेटवर्क एरर होने पर भी लॉगिन कर दें ताकि ग्राहक का अनुभव न बिगड़े
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
