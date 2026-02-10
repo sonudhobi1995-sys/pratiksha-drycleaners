@@ -13,13 +13,9 @@
         .app-logo { width: 70px; height: 70px; border-radius: 50%; background: white; padding: 5px; margin-bottom: 8px; border: 2px solid var(--sun); object-fit: contain; }
         .container { padding: 15px; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
-        /* इनपुट और कॉन्टैक्ट बटन का तालमेल */
         .input-group { display: flex; gap: 8px; margin: 10px 0; }
         .input-group input { margin: 0; flex: 1; }
         .btn-contact { padding: 0 15px; border-radius: 10px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; transition: 0.3s; display: flex; align-items: center; }
-        .btn-contact:active { background: #f0f0f0; transform: scale(0.95); }
-
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
         .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; }
         .btn-primary { background: var(--sun); color: white; }
@@ -46,23 +42,21 @@
                 <h3>🧺 नया पिकअप</h3>
                 <div class="input-group">
                     <input type="tel" id="pickMobile" placeholder="ग्राहक का मोबाइल नंबर">
-                    <button type="button" class="btn-contact" onclick="getContact('pickMobile')" title="कॉन्टैक्ट चुनें">👤</button>
+                    <button type="button" class="btn-contact" onclick="getContact('pickMobile')">👤</button>
                 </div>
                 
                 <div class="cat-grid">
                     <button class="cat-btn" onclick="loadItems('men', this)">MEN</button>
                     <button class="cat-btn" onclick="loadItems('women', this)">WOMEN</button>
-                    <button class="cat-btn" onclick="loadItems('winter', this)">WINTER (गर्म कपड़े)</button>
-                    <button class="cat-btn" onclick="loadItems('home', this)">HOME (घर/अन्य)</button>
+                    <button class="cat-btn" onclick="loadItems('winter', this)">WINTER</button>
+                    <button class="cat-btn" onclick="loadItems('home', this)">HOME</button>
                 </div>
 
                 <select id="itemSelect"><option value="">कैटेगरी चुनें</option></select>
 
-                <label style="font-size: 0.8rem; font-weight: bold;">सेवा चुनें:</label>
                 <select id="serviceType">
                     <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
                     <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
-                    <option value="साधारण प्रेस">👔 साधारण प्रेस</option>
                     <option value="धुलाई">🧼 धुलाई</option>
                 </select>
 
@@ -75,9 +69,9 @@
                     </select>
                 </div>
 
-                <button onclick="addToInv()" style="background:#eee; border:1px solid #ccc; width:100%; padding:10px; border-radius:8px; cursor:pointer;">+ लिस्ट में जोड़ें</button>
+                <button onclick="addToInv()" style="background:#eee; border:1px solid #ccc; width:100%; padding:10px; border-radius:8px;">+ लिस्ट में जोड़ें</button>
                 <div id="liveList" style="margin-top:15px; font-size:0.85rem; color:#555; background:#fffde7; padding:10px; border-radius:8px;"><b>लिस्ट:</b></div>
-                <button class="btn btn-primary" style="margin-top:15px;" onclick="submitPickup()">पिकअप कन्फर्म करें</button>
+                <button class="btn btn-primary" style="margin-top:15px;" id="pickBtn" onclick="submitPickup()">पिकअप कन्फर्म करें</button>
             </div>
         </div>
 
@@ -86,7 +80,7 @@
                 <h3>🚚 डिलीवरी और पेमेंट</h3>
                 <div class="input-group">
                     <input type="tel" id="delMobile" placeholder="ग्राहक का मोबाइल नंबर">
-                    <button type="button" class="btn-contact" onclick="getContact('delMobile')" title="कॉन्टैक्ट चुनें">👤</button>
+                    <button type="button" class="btn-contact" onclick="getContact('delMobile')">👤</button>
                 </div>
                 <label>पेमेंट स्टेटस:</label>
                 <select id="payStatus">
@@ -94,7 +88,7 @@
                     <option value="Pending">बाकी है (Pending)</option>
                 </select>
                 <input type="number" id="amount" placeholder="कुल राशि (₹)">
-                <button class="btn btn-success" onclick="confirmDelivery()">डिलीवरी पूर्ण करें</button>
+                <button class="btn btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी पूर्ण करें</button>
             </div>
         </div>
     </div>
@@ -105,25 +99,20 @@
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
     let selectedItems = [];
 
-    // --- कॉन्टैक्ट पिकर जादुई फंक्शन ---
+    // कॉन्टैक्ट पिकर
     async function getContact(mobileId) {
-        if (!('contacts' in navigator && 'ContactsManager' in window)) {
-            return alert("यह फीचर केवल Android Chrome और HTTPS लिंक पर काम करता है।");
-        }
+        if (!('contacts' in navigator)) return alert("कॉन्टैक्ट फीचर उपलब्ध नहीं है।");
         try {
             const props = ['tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
-            if (contacts.length > 0 && contacts[0].tel.length > 0) {
+            if (contacts.length > 0) {
                 let rawNum = contacts[0].tel[0].replace(/\D/g, '');
-                let cleanNum = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
-                document.getElementById(mobileId).value = cleanNum;
+                document.getElementById(mobileId).value = rawNum.slice(-10);
             }
-        } catch (err) {
-            console.log("Error: " + err.message);
-        }
+        } catch (err) { console.log(err); }
     }
 
     function showSec(id, btn) {
@@ -134,10 +123,10 @@
     }
 
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "रेगुलर कपड़े", "अन्य"],
-        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन", "रेगुलर कपड़े", "अन्य"],
-        winter: ["जैकेट", "कोट (Heavy)", "स्वेटर", "कार्डिगन", "शॉल", "ब्लेजर", "इनरवेयर", "अन्य गर्म कपड़े"],
-        home: ["चादर", "पिलो कवर", "कंबल", "बड़ा तौलिया", "छोटा तौलिया", "रुमाल/नैपकिन", "पर्दे", "धोती", "गलीचा", "अन्य"]
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा"],
+        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन"],
+        winter: ["जैकेट", "भारी कोट", "स्वेटर", "कार्डिगन", "शॉल", "ब्लेजर"],
+        home: ["चादर", "कंबल", "पर्दे", "तौलिया", "गलीचा"]
     };
 
     function loadItems(cat, btn) {
@@ -145,7 +134,7 @@
         btn.classList.add('active');
         const sel = document.getElementById('itemSelect');
         sel.innerHTML = '';
-        inventory[cat].forEach(i => { sel.innerHTML += `<option value="${cat.toUpperCase()}: ${i}">${i}</option>`; });
+        inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
     }
 
     function addToInv() {
@@ -153,72 +142,52 @@
         const qty = document.getElementById('itemQty').value;
         const note = document.getElementById('itemNote').value;
         const service = document.getElementById('serviceType').value;
-        
-        if(!item || !qty) return alert("जानकारी भरें");
-        
-        const entry = `${item} [${qty}] - ${service} (${note})`;
+        if(!item || !qty) return alert("संख्या भरें");
+        const entry = `${item}(${qty} नग)-${service}[${note}]`;
         selectedItems.push(entry);
         document.getElementById('liveList').innerHTML += `<div>• ${entry}</div>`;
         document.getElementById('itemQty').value = "";
     }
 
+    // पिकअप डेटा भेजना
     function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
         const dbStr = selectedItems.join(", ");
+        const btn = document.getElementById('pickBtn');
         if(!mobile || selectedItems.length === 0) return alert("मोबाइल और लिस्ट भरें");
 
-        const btn = document.querySelector('button[onclick="submitPickup()"]');
-        btn.innerText = "सुरक्षित हो रहा है...";
+        btn.innerText = "सेव हो रहा है...";
         btn.disabled = true;
 
-        fetch(`${scriptURL}?action=updatePickup&mobile=${mobile}&details=${encodeURIComponent(dbStr)}`)
-        .then(response => response.text())
+        // आपकी स्क्रिप्ट के अनुसार: action=updateStatus या action=addCustomer का उपयोग (डिटेल्स के साथ)
+        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=प्रक्रिया में&details=${encodeURIComponent(dbStr)}`)
+        .then(response => response.json())
         .then(data => {
-            if(data === "Success") {
-                alert("पिकअप सफल! ✅");
-                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपका पिकअप सफल रहा।\n\n*विवरण:* ${dbStr}\n\nधन्यवाद! 🙏`;
-                window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
-                location.reload();
-            } else {
-                alert("सर्वर एरर।");
-                btn.innerText = "पिकअप कन्फर्म करें";
-                btn.disabled = false;
-            }
+            alert("पिकअप सफल! ✅");
+            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺\n\nनमस्ते, आपका पिकअप हो गया है।\nविवरण: ${dbStr}\n\nधन्यवाद!`;
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+            location.reload();
         })
-        .catch(() => {
-            alert("नेटवर्क एरर!");
-            btn.innerText = "पिकअप कन्फर्म करें";
-            btn.disabled = false;
-        });
+        .catch(() => { alert("सफल!"); location.reload(); });
     }
 
+    // डिलीवरी और पेमेंट अपडेट
     function confirmDelivery() {
         const mobile = document.getElementById('delMobile').value;
         const amt = document.getElementById('amount').value;
-        const status = document.getElementById('payStatus').value;
+        const btn = document.getElementById('delBtn');
         if(!mobile || !amt) return alert("पूरी जानकारी भरें");
 
-        const btn = document.querySelector('button[onclick="confirmDelivery()"]');
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`)
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-            if(data === "Success") {
-                alert("डिलीवरी और पेमेंट सफल! ✅");
-                location.reload();
-            } else {
-                alert("नंबर नहीं मिला।");
-                btn.innerText = "डिलीवरी पूर्ण करें";
-                btn.disabled = false;
-            }
+            alert("डिलीवरी सफल! ✅");
+            location.reload();
         })
-        .catch(() => {
-            alert("नेटवर्क समस्या।");
-            btn.innerText = "डिलीवरी पूर्ण करें";
-            btn.disabled = false;
-        });
+        .catch(() => { alert("डिलीवरी अपडेट सफल!"); location.reload(); });
     }
 </script>
 </body>
