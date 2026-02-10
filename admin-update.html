@@ -43,6 +43,7 @@
         .btn-status { background: var(--dark); color: white; }
         .btn-pickup { background: var(--green); color: white; }
         .btn-billing { background: var(--sun); color: white; box-shadow: 0 4px 10px rgba(255,140,0,0.3); }
+        .btn-dashboard { background: #34495e; color: white; border: 2px solid var(--sun); }
         .btn:active { transform: scale(0.98); }
         .badge { background: var(--sun); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
     </style>
@@ -56,6 +57,13 @@
     </div>
 
     <div class="container">
+        <div class="card" style="border-bottom: 4px solid var(--sun);">
+            <h3>📊 व्यापार की स्थिति</h3>
+            <button class="btn btn-dashboard" onclick="window.location.href='Dashboard.html'">
+                📈 आज की रिपोर्ट (Dashboard) देखें
+            </button>
+        </div>
+
         <div class="card">
             <h3>🔄 क्विक अपडेट</h3>
             <label>मोबाइल नंबर:</label>
@@ -91,10 +99,9 @@
     </div>
 
 <script>
-    // आपका Google Script URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+    // आपका अपडेटेड Google Script URL (रामबाण लिंक)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
 
-    // फोन बुक से कॉन्टैक्ट उठाने का फंक्शन
     async function getContact(mobileId) {
         if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
         try {
@@ -107,7 +114,6 @@
         } catch (err) { console.log(err); }
     }
 
-    // स्टेटस अपडेट करने का फंक्शन
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
@@ -118,21 +124,19 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // गूगल स्क्रिप्ट को डेटा भेजना
-        // हमने यहाँ action=updateStatus का इस्तेमाल किया है जैसा आपकी स्क्रिप्ट में है
+        // आपकी रामबाण स्क्रिप्ट को कॉल
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`)
-        .then(response => response.json()) // स्क्रिप्ट JSON रिस्पांस भेजती है
+        .then(response => response.json())
         .then(data => {
-            if(data.result === "Success" || data.status === "Updated") {
-                alert("स्टेटस अपडेट हो गया! ✅");
+            if(data.result === "Success") {
+                alert("स्टेटस सफलतापूर्वक अपडेट हो गया! ✅");
                 
-                // व्हाट्सएप मैसेज भेजने का लॉजिक
                 const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अब *${status}* है।\n\nधन्यवाद! 🙏`;
                 window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
                 
                 location.reload();
             } else {
-                alert("नंबर मास्टर लिस्ट में नहीं मिला। कृपया पहले पंजीकरण करें।");
+                alert("नंबर मास्टर लिस्ट में नहीं मिला या कोई तकनीकी समस्या है।");
                 btn.innerText = "अपडेट करें और मैसेज भेजें";
                 btn.disabled = false;
             }
