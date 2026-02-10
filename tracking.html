@@ -74,8 +74,8 @@
     </div>
 
     <script>
-        // आपका Google Script URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw3DDCp3zNLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec';
+        // --- आपका अंतिम रामबाण Google Script URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
         
         let globalStatus = "Loading...";
         let globalDetails = "Loading...";
@@ -89,8 +89,9 @@
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
-                if(data.status === "Not Found") {
+                if(data.status === "Not Found" || !data.details) {
                     document.getElementById('inventoryList').innerText = "कोई सक्रिय ऑर्डर नहीं मिला।";
+                    updateSteps("None");
                     return;
                 }
 
@@ -117,13 +118,14 @@
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             
-            // स्टेटस के आधार पर स्टेप्स को हाईलाइट करना
             const steps = {
                 "प्रक्रिया में": 1,
                 "In Process": 1,
                 "धुलाई": 2,
                 "Washing": 2,
                 "आयरनिंग": 3,
+                "आयरन": 3,
+                "प्रेस": 3,
                 "Ironing": 3,
                 "रेडी टू डिलीवरी": 4,
                 "Ready": 4,
@@ -131,7 +133,7 @@
                 "डिलीवर कर दिया": 5
             };
 
-            const currentLevel = steps[status] || 1;
+            const currentLevel = steps[status] || 0;
             for(let i=1; i<=currentLevel; i++) {
                 const stepElement = document.getElementById('step' + i);
                 if(stepElement) stepElement.classList.add('active');
@@ -141,11 +143,9 @@
         function sendToWhatsApp() {
             const mobile = localStorage.getItem('userMobile');
             const name = localStorage.getItem('userName') || "ग्राहक";
-            
             if(!mobile) return;
 
             const msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नमस्ते ${name},*\nआपका ऑर्डर स्टेटस: *${globalStatus}*\n\n*कपड़ों की सूची:*\n${globalDetails.split(',').join('\n')}\n\nधन्यवाद! 🙏`;
-            
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
