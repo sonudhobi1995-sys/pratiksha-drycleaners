@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratiksha Billing - Navgrah Edition</title>
+    <title>Pratiksha Billing | प्रतीक्षा बिलिंग</title>
     
     <link rel="manifest" href="manifest-billing.json">
     <meta name="theme-color" content="#FF8C00">
@@ -22,22 +22,10 @@
         
         .billing-header { 
             background: var(--saturn-blue); 
-            color: white; 
-            padding: 20px; 
-            text-align: center; 
-            border-radius: 0 0 30px 30px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: white; padding: 20px; text-align: center; 
+            border-radius: 0 0 30px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .app-logo { 
-            width: 80px; 
-            height: 80px; 
-            background: white; 
-            border-radius: 50%; 
-            padding: 5px; 
-            margin-bottom: 10px; 
-            border: 3px solid var(--sun-orange);
-            object-fit: contain;
-        }
+        .app-logo { width: 70px; height: 70px; background: white; border-radius: 50%; padding: 5px; border: 2px solid var(--sun-orange); object-fit: contain; }
 
         .container { padding: 20px; max-width: 500px; margin: auto; }
         .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; border: 1px solid #eee; }
@@ -46,66 +34,59 @@
         
         .input-group { display: flex; gap: 8px; margin: 10px 0; }
         .input-group input { margin: 0; flex: 1; }
-        .btn-contact { padding: 0 15px; border-radius: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; transition: 0.3s; }
+        .btn-contact { padding: 0 15px; border-radius: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; }
 
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; font-size: 1rem; }
         
-        .btn-add { background: var(--saturn-blue); color: white; width: 100%; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-
+        .btn-add { background: var(--saturn-blue); color: white; width: 100%; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: bold; }
         .total-box { background: var(--jupiter-yellow); padding: 15px; border-radius: 15px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; }
         
-        /* बटन स्टाइलिंग */
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-print { background: #333; color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        table { width: 100%; margin-top: 15px; border-collapse: collapse; }
-        th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; }
-        td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; border: 1px solid #eee; }
+        td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; border: 1px solid #eee; }
 
-        /* --- प्रिंटिंग के लिए विशेष सेटिंग्स --- */
+        /* --- प्रिंटिंग सेटिंग्स (Navgrah & Logo Edition) --- */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
             #printArea { 
-                position: absolute; 
-                left: 0; 
-                top: 0; 
-                width: 100%; 
-                padding: 0; 
-                margin: 0;
-                box-shadow: none;
-                border: none;
+                position: absolute; left: 0; top: 0; width: 100%; 
+                padding: 25px; box-sizing: border-box; border: 1px solid #000;
             }
-            /* प्रिंट के समय बटनों को छुपाना */
-            .btn-wa, .btn-print, .btn-add, .billing-header, .no-print {
-                display: none !important;
-            }
-            .total-box { border: 2px solid #000; background: white !important; }
+            .no-print { display: none !important; }
+            .total-box { border: 2px solid #000; background: none !important; margin-top: 20px; }
+            table, th, td { border: 1px solid #000 !important; }
+            
+            #navgrahTop { display: block !important; text-align: center; font-size: 10px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #000; padding-bottom: 5px; }
+            #billShopTitle { display: block !important; text-align: center; margin-bottom: 15px; }
+            .print-logo { width: 70px; height: auto; margin-bottom: 5px; }
+            #printFooter { display: block !important; text-align: center; margin-top: 20px; font-style: italic; font-size: 12px; }
         }
     </style>
 </head>
-    
 <body>
 
-<div class="billing-header">
+<div class="billing-header no-print">
     <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-    <h1 style="margin:0; font-size: 1.4rem;">प्रतीक्षा बिलिंग ऐप</h1>
+    <h1 style="margin:0; font-size: 1.3rem;">प्रतीक्षा बिलिंग ऐप</h1>
     <p style="margin:5px 0 0; font-size: 0.8rem; opacity: 0.8;">शुचिता और रूहानी सेवा</p>
 </div>
 
 <div class="container">
     <div class="card no-print">
         <h3>👤 ग्राहक विवरण</h3>
-        <label>संपर्क चुनें:</label>
         <div class="input-group">
-            <input type="tel" id="custMobile" placeholder="मोबाइल नंबर चुनें">
+            <input type="tel" id="custMobile" placeholder="मोबाइल नंबर">
             <button type="button" class="btn-contact" onclick="getContact('custMobile', 'custName')">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
     </div>
 
     <div class="card no-print">
-        <h3>🧺 बिल विवरण</h3>
+        <h3>🧺 आइटम जोड़ें</h3>
         <select id="itemSelect">
             <option value="">कपड़ा चुनें</option>
             <optgroup label="पुरुष/महिला">
@@ -113,87 +94,84 @@
                 <option value="पेंट/जींस">पेंट/जींस</option>
                 <option value="साड़ी">साड़ी</option>
                 <option value="सूट/कुर्ता">सूट/कुर्ता</option>
-                <option value="रेगुलर कपड़े">रेगुलर कपड़े</option>
             </optgroup>
-            <optgroup label="विंटर (Garm)">
-                <option value="जैकेट/कोट">जैकेट/कोट</option>
-                <option value="स्वेटर">स्वेटर</option>
-                <option value="शॉल/कार्डिगन">शॉल/कार्डिगन</option>
+            <optgroup label="घर/अन्य">
+                <option value="चादर">चादर</option>
+                <option value="कंबल">कंबल</option>
+                <option value="पर्दे">पर्दे</option>
             </optgroup>
-            <optgroup label="घर (Home)">
-                <option value="चादर (Bedsheet)">चादर</option>
-                <option value="पिलो कवर">पिलो कवर</option>
-                <option value="रुमाल/नैपकिन">रुमाल/नैपकिन</option>
-                <option value="कंबल (Blanket)">कंबल</option>
-            </optgroup>
-            <option value="अन्य (Other)">अन्य</option>
         </select>
-
         <select id="serviceType">
-             <option value="प्रेस">💨 प्रेस</option>
+            <option value="प्रेस">💨 प्रेस</option>
             <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
-            <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
             <option value="धुलाई">🧼 धुलाई</option>
         </select>
-
         <div style="display:flex; gap:10px;">
             <input type="number" id="qty" placeholder="संख्या">
-            <input type="number" id="rate" placeholder="रेट (₹)">
+            <input type="number" id="rate" placeholder="रेट ₹">
         </div>
         <button class="btn-add" onclick="addItem()">+ लिस्ट में जोड़ें</button>
     </div>
 
     <div class="card" id="printArea">
-        <div style="text-align:center; display:none;" id="billShopTitle">
-            <h2>प्रतीक्षा ड्राई क्लीनर्स</h2>
-            <p>अंबाबाड़ी, जयपुर | मो: 8440985969</p>
-            <hr>
+        <div id="navgrahTop" style="display:none;">
+            ☀️ सूर्य 🌙 चंद्र 🔥 मंगल 🌿 बुध 🌟 गुरु ✨ शुक्र 🪐 शनि 🌑 राहु ☄️ केतु
         </div>
+
+        <div id="billShopTitle" style="display:none; text-align:center;">
+            <img src="logo.png" class="print-logo">
+            <h1 style="margin:0; font-size: 24px;">PRATIKSHA DRYCLEANERS</h1>
+            <p style="margin:3px 0; font-size: 13px;">अंबाबाड़ी, जयपुर | मोबाइल: 8440985969</p>
+            <p style="font-size: 11px;">दिनांक: <span id="pDate"></span></p>
+            <hr style="border: 0.5px solid #000;">
+        </div>
+
         <table id="billTable">
-            <thead><tr><th>आइटम</th><th>संख्या</th><th>कुल</th></tr></thead>
+            <thead><tr><th>आइटम विवरण</th><th>संख्या</th><th>कुल</th></tr></thead>
             <tbody></tbody>
         </table>
+
         <div class="total-box">
             <h2 id="gTotal" style="margin:0;">Total: ₹ 0</h2>
         </div>
+
+        <div id="printFooter" style="display:none;">
+            ।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।
+        </div>
         
-        <button class="btn-wa no-print" onclick="sendWA()">📲 व्हाट्सएप पर बिल भेजें</button>
-        
-        <button class="btn-print no-print" onclick="printBill()">🖨️ प्रिंट बिल</button>
+        <button class="btn-wa no-print" id="waBtn" onclick="sendWA()">📲 व्हाट्सएप और सेव करें</button>
+        <button class="btn-print no-print" onclick="printBill()">🖨️ प्रिंट रसीद</button>
     </div>
 </div>
 
 <script>
     let billItems = [];
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3DDCp3zN0TLllZvO0UEJXkmDjDUnXnycCPdfFYaCAohtoIcQ6VYhRLjgMhERr9Kbfxg/exec";
+    // आपका ताज़ा रामबाण लिंक
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec";
 
     async function getContact(mobileId, nameId) {
-        if (!('contacts' in navigator && 'ContactsManager' in window)) {
-            return alert("यह फीचर केवल Android Chrome और HTTPS लिंक पर काम करता है।");
-        }
+        if (!('contacts' in navigator)) return alert("Android Chrome पर ही काम करेगा।");
         try {
             const props = ['name', 'tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
                 const contact = contacts[0];
-                if (contact.tel && contact.tel.length > 0) {
+                if (contact.tel) {
                     let rawNum = contact.tel[0].replace(/\D/g, '');
-                    document.getElementById(mobileId).value = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
+                    document.getElementById(mobileId).value = rawNum.slice(-10);
                 }
-                if (contact.name && contact.name.length > 0) {
-                    document.getElementById(nameId).value = contact.name[0];
-                }
+                if (contact.name) document.getElementById(nameId).value = contact.name[0];
             }
         } catch (err) { console.log(err); }
     }
 
     function addItem() {
-        const name = document.getElementById('itemSelect').value;
+        const item = document.getElementById('itemSelect').value;
         const service = document.getElementById('serviceType').value;
         const q = document.getElementById('qty').value;
         const r = document.getElementById('rate').value;
-        if(!name || !q || !r) return alert("जानकारी भरें");
-        billItems.push({name, service, q, r, total: q*r});
+        if(!item || !q || !r) return alert("संख्या और रेट भरें");
+        billItems.push({name: `${item} (${service})`, q, r, total: q*r});
         render();
         document.getElementById('qty').value = "";
         document.getElementById('rate').value = "";
@@ -204,37 +182,49 @@
         body.innerHTML = ''; let grand = 0;
         billItems.forEach(i => {
             grand += i.total;
-            body.innerHTML += `<tr><td>${i.name}<br><small>${i.service}</small></td><td>${i.q}</td><td>₹${i.total}</td></tr>`;
+            body.innerHTML += `<tr><td>${i.name}</td><td>${i.q}</td><td>₹${i.total}</td></tr>`;
         });
         document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
     }
 
     function printBill() {
-        // प्रिंट करने से पहले दुकान का नाम दिखाएँ (केवल प्रिंट के लिए)
-        const title = document.getElementById('billShopTitle');
-        title.style.display = "block";
+        document.getElementById('pDate').innerText = new Date().toLocaleDateString('hi-IN');
         window.print();
-        title.style.display = "none";
     }
 
     function sendWA() {
-        const cName = document.getElementById('custName').value || "ग्राहक";
         const mob = document.getElementById('custMobile').value;
+        const btn = document.getElementById('waBtn');
         if(!mob || mob.length < 10) return alert("सही मोबाइल नंबर डालें");
 
         let grandTotal = 0;
-        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते ${cName},\nआपका बिल तैयार है:\n\n`;
+        let msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nआपका बिल तैयार है:\n`;
         billItems.forEach(i => {
-            msg += `• ${i.name} (${i.service})\n  ${i.q} x ₹${i.r} = *₹${i.total}*\n\n`;
+            msg += `• ${i.name}: ${i.q} x ₹${i.r} = *₹${i.total}*\n`;
             grandTotal += i.total;
         });
-        msg += `----------------------\n*कुल राशि: ₹${grandTotal}*\n----------------------\n\nधन्यवाद! 🙏✨`;
+        msg += `\n*कुल राशि: ₹${grandTotal}*\n\nधन्यवाद! 🙏`;
 
-        // डेटा 'प्रतीक्षा डिजिटल कोर' (Google Sheet) में भेजना
-        fetch(`${SCRIPT_URL}?action=updateStatus&mobile=${mob}&amount=${grandTotal}&status=Delivered&mode=Cash`, { mode: 'no-cors' });
+        btn.innerText = "सेव हो रहा है...";
+        btn.disabled = true;
 
-        // व्हाट्सएप खोलना
-        window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+        fetch(`${SCRIPT_URL}?action=updateStatus&mobile=${mob}&amount=${grandTotal}&status=Delivered`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.result === "Success") {
+                window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+                alert("बिल सेव हो गया! ✅");
+                location.reload();
+            } else {
+                alert("पंजीकरण नहीं मिला। पहले एडमिन पैनल से जोड़ें।");
+                btn.disabled = false;
+                btn.innerText = "📲 व्हाट्सएप और सेव करें";
+            }
+        }).catch(err => {
+            alert("नेटवर्क एरर।");
+            btn.disabled = false;
+            btn.innerText = "📲 व्हाट्सएप और सेव करें";
+        });
     }
 </script>
 </body>
