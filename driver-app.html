@@ -18,8 +18,8 @@
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; }
         .nav-item { border: none; background: none; color: #888; font-size: 0.8rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
         .nav-item.active { color: var(--sun); font-weight: bold; }
-        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
-        .cat-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 10px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; }
+        .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
+        .cat-btn { background: #f0f0f0; border: 1px solid #ddd; padding: 12px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
         .cat-btn.active { background: var(--dark); color: white; }
         .hidden { display: none; }
     </style>
@@ -42,11 +42,10 @@
                     <button class="cat-btn" onclick="loadItems('women', this)">WOMEN</button>
                     <button class="cat-btn" onclick="loadItems('winter', this)">WINTER</button>
                     <button class="cat-btn" onclick="loadItems('home', this)">HOME</button>
-                    <button class="cat-btn" onclick="loadItems('regular', this)">REGULAR</button>
-                    <button class="cat-btn" onclick="loadItems('other', this)">OTHERS</button>
                 </div>
 
                 <select id="itemSelect"><option value="">कैटेगरी चुनें</option></select>
+                
                 <select id="serviceType">
                     <option value="प्रेस">💨 प्रेस</option>
                     <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
@@ -60,7 +59,6 @@
                         <option value="OK">OK</option>
                         <option value="दाग">दाग</option>
                         <option value="कटा">कटा</option>
-                        <option value="रंग उड़ा">रंग उड़ा</option>
                     </select>
                 </div>
 
@@ -98,12 +96,10 @@
     }
 
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "सदरी"],
-        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन", "ब्लाउज"],
-        winter: ["जैकेट", "भारी कोट", "स्वेटर", "कार्डिगन", "शॉल", "ब्लेजर", "इनर"],
-        home: ["चादर", "कंबल", "पर्दे", "तौलिया", "गलीचा", "पिलो कवर"],
-        regular: ["रुमाल", "जुराबें", "बनियान", "अंडरवियर", "गमछा", "पगड़ी"],
-        other: ["अन्य (मिश्रित)", "वीआईपी आइटम", "प्रेस का सामान", "नामहीन कपड़ा"]
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "सदरी", "रेगुलर कपड़े", "अन्य (Other)"],
+        women: ["साड़ी", "सूट-सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन", "ब्लाउज", "रेगुलर कपड़े", "अन्य (Other)"],
+        winter: ["जैकेट", "भारी कोट", "स्वेटर", "कार्डिगन", "शॉल", "ब्लेजर", "रेगुलर कपड़े", "अन्य (Other)"],
+        home: ["चादर", "कंबल", "पर्दे", "तौलिया", "गलीचा", "पिलो कवर", "रेगुलर कपड़े", "अन्य (Other)"]
     };
 
     function loadItems(cat, btn) {
@@ -135,11 +131,10 @@
         btn.innerText = "सेव हो रहा है...";
         btn.disabled = true;
         
-        // रामबाण फायर मोड - सीधा डेटा फेंकना
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=प्रक्रिया में&details=${encodeURIComponent(dbStr)}`, { mode: 'no-cors' });
 
         setTimeout(() => {
-            alert("पिकअप डेटा भेजा गया! ✅");
+            alert("पिकअप सफल! ✅");
             const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nपिकअप विवरण: ${dbStr}\n\nधन्यवाद! 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
