@@ -10,7 +10,7 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
         
         .header { text-align: center; margin-bottom: 30px; }
-        .logo { width: 80px; margin-bottom: 10px; border-radius: 50%; border: 2px solid var(--sun); }
+        .logo { width: 80px; margin-bottom: 10px; border-radius: 50%; border: 2px solid var(--sun); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
         .stat-card { 
@@ -29,8 +29,9 @@
         .refresh-btn { 
             width: 100%; padding: 15px; background: var(--sun); color: white; 
             border: none; border-radius: 12px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255,140,0,0.3);
+            box-shadow: 0 4px 10px rgba(255,140,0,0.3); transition: 0.3s;
         }
+        .refresh-btn:active { transform: scale(0.98); }
         .nav-back { margin-top: 15px; text-align: center; }
         .nav-back a { color: var(--dark); text-decoration: none; font-size: 0.9rem; font-weight: bold; }
     </style>
@@ -74,12 +75,14 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
+        // --- आपका ताज़ा रामबाण V4 Google Script URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxKL8J5jScfPtNxQgx_ED1bkR1Jxiii-KjmmGfuSjira8HttBXpR0mgRlNxrN0iULVD/exec';
 
         function loadStats() {
             const btn = document.querySelector('.refresh-btn');
             btn.innerText = "डेटा लोड हो रहा है...";
             
+            // डैशबोर्ड के लिए हम JSON डेटा मंगाते हैं
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
@@ -93,6 +96,7 @@
             .catch(err => {
                 console.error(err);
                 btn.innerText = "रिफ्रेश विफल (पुनः प्रयास करें)";
+                // अगर डेटा नहीं मिल रहा, तो शायद नया डिप्लॉयमेंट लिंक अपडेट करना होगा
             });
         }
 
