@@ -33,8 +33,8 @@
     </div>
 
     <script>
-        // --- आपका रामबाण Google Script URL ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
+        // --- आपका ताज़ा रामबाण V4 Google Script URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxKL8J5jScfPtNxQgx_ED1bkR1Jxiii-KjmmGfuSjira8HttBXpR0mgRlNxrN0iULVD/exec';
 
         document.getElementById('regForm').onsubmit = function(e) {
             e.preventDefault();
@@ -49,26 +49,20 @@
             // डेटा को 'प्रतीक्षा डिजिटल कोर' (Master_sheet) में भेजना
             const finalURL = `${scriptURL}?action=addCustomer&houseNo=${encodeURIComponent(house)}&name=${encodeURIComponent(name)}&mobile=${mobile}`;
 
-            fetch(finalURL, { mode: 'no-cors' }) // सुरक्षा के लिए no-cors का उपयोग
-            .then(() => {
-                // डेटा को स्थानीय रूप से सुरक्षित करना
+            // "Fire & Forget" लॉजिक: डेटा फेंको और आगे बढ़ो
+            fetch(finalURL, { mode: 'no-cors' });
+
+            // 1.5 सेकंड का इंतज़ार ताकि डेटा शीट की तरफ उड़ सके
+            setTimeout(() => {
+                // डेटा को ग्राहक के फोन में सुरक्षित करना
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
                 localStorage.setItem('isLoggedIn', 'true');
                 
-                // मुख्य पेज पर भेजना
+                // मुख्य द्वार (Index.html) खोलना
                 window.location.href = "index.html";
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // नेटवर्क समस्या होने पर भी लॉगिन कर दें ताकि ग्राहक अटके नहीं
-                localStorage.setItem('userHouse', house);
-                localStorage.setItem('userName', name);
-                localStorage.setItem('userMobile', mobile);
-                localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = "index.html";
-            });
+            }, 1500);
         };
     </script>
 </body>
