@@ -39,7 +39,7 @@
         .input-group input { margin: 0; flex: 1; }
         .btn-contact { padding: 0 15px; border-radius: 12px; border: 1.5px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; transition: 0.3s; display: flex; align-items: center; }
 
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; text-decoration: none;}
         .btn-status { background: var(--dark); color: white; }
         .btn-pickup { background: var(--green); color: white; }
         .btn-billing { background: var(--sun); color: white; box-shadow: 0 4px 10px rgba(255,140,0,0.3); }
@@ -76,11 +76,11 @@
             
             <label>ऑर्डर स्थिति:</label>
             <select id="adminStatus">
-                <option value="प्रक्रिया में">प्रक्रिया में</option>
-                <option value="धुलाई">धुलाई</option>
-                <option value="आयरनिंग">आयरनिंग</option>
-                <option value="रेडी टू डिलीवरी">रेडी टू डिलीवरी</option>
-                <option value="Delivered">डिलीवर कर दिया</option>
+                <option value="प्रक्रिया में">🧺 प्रक्रिया में</option>
+                <option value="धुलाई">🧼 धुलाई</option>
+                <option value="आयरनिंग">👔 आयरनिंग</option>
+                <option value="रेडी टू डिलीवरी">✅ रेडी टू डिलीवरी</option>
+                <option value="Delivered">🚚 डिलीवर कर दिया</option>
             </select>
             <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
                 अपडेट करें और मैसेज भेजें
@@ -99,8 +99,8 @@
     </div>
 
 <script>
-    // आपका अपडेटेड Google Script URL (रामबाण लिंक)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
+    // आपका ताज़ा रामबाण URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxKL8J5jScfPtNxQgx_ED1bkR1Jxiii-KjmmGfuSjira8HttBXpR0mgRlNxrN0iULVD/exec';
 
     async function getContact(mobileId) {
         if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
@@ -124,29 +124,23 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // आपकी रामबाण स्क्रिप्ट को कॉल
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`)
-        .then(response => response.json())
-        .then(data => {
-            if(data.result === "Success") {
-                alert("स्टेटस सफलतापूर्वक अपडेट हो गया! ✅");
-                
-                const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अब *${status}* है।\n\nधन्यवाद! 🙏`;
-                window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
-                
-                location.reload();
-            } else {
-                alert("नंबर मास्टर लिस्ट में नहीं मिला या कोई तकनीकी समस्या है।");
-                btn.innerText = "अपडेट करें और मैसेज भेजें";
-                btn.disabled = false;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert("नेटवर्क समस्या। डेटा सेव नहीं हो सका।");
-            btn.innerText = "अपडेट करें और मैसेज भेजें";
-            btn.disabled = false;
+        // "Fire & Forget" रामबाण तरीका (no-cors)
+        const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`;
+        
+        fetch(finalURL, { 
+            method: 'GET',
+            mode: 'no-cors' 
         });
+
+        // जवाब का इंतज़ार किए बिना व्हाट्सएप खोलना और सफलता दिखाना
+        setTimeout(() => {
+            alert("स्टेटस अपडेट डेटा भेज दिया गया है! ✅");
+            
+            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अब *${status}* है।\n\nधन्यवाद! 🙏`;
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+            
+            location.reload();
+        }, 1500);
     }
 </script>
 
