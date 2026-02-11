@@ -48,21 +48,15 @@
         th { background: #f4f4f4; padding: 10px; text-align: left; font-size: 0.8rem; border: 1px solid #eee; }
         td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; border: 1px solid #eee; }
 
-        /* --- प्रिंटिंग सेटिंग्स (Navgrah & Logo Edition) --- */
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
-            #printArea { 
-                position: absolute; left: 0; top: 0; width: 100%; 
-                padding: 25px; box-sizing: border-box; border: 1px solid #000;
-            }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; padding: 25px; box-sizing: border-box; }
             .no-print { display: none !important; }
             .total-box { border: 2px solid #000; background: none !important; margin-top: 20px; }
             table, th, td { border: 1px solid #000 !important; }
-            
             #navgrahTop { display: block !important; text-align: center; font-size: 10px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #000; padding-bottom: 5px; }
             #billShopTitle { display: block !important; text-align: center; margin-bottom: 15px; }
-            .print-logo { width: 70px; height: auto; margin-bottom: 5px; }
             #printFooter { display: block !important; text-align: center; margin-top: 20px; font-style: italic; font-size: 12px; }
         }
     </style>
@@ -89,22 +83,20 @@
         <h3>🧺 आइटम जोड़ें</h3>
         <select id="itemSelect">
             <option value="">कपड़ा चुनें</option>
-            <optgroup label="पुरुष/महिला">
-                <option value="शर्ट">शर्ट</option>
-                <option value="पेंट/जींस">पेंट/जींस</option>
-                <option value="साड़ी">साड़ी</option>
-                <option value="सूट/कुर्ता">सूट/कुर्ता</option>
-            </optgroup>
-            <optgroup label="घर/अन्य">
-                <option value="चादर">चादर</option>
-                <option value="कंबल">कंबल</option>
-                <option value="पर्दे">पर्दे</option>
-            </optgroup>
+            <option value="शर्ट">शर्ट</option>
+            <option value="पेंट/जींस">पेंट/जींस</option>
+            <option value="साड़ी">साड़ी</option>
+            <option value="सूट/कुर्ता">सूट/कुर्ता</option>
+            <option value="चादर">चादर</option>
+            <option value="कंबल">कंबल</option>
+            <option value="पर्दे">पर्दे</option>
+            <option value="अन्य">अन्य</option>
         </select>
         <select id="serviceType">
             <option value="प्रेस">💨 प्रेस</option>
-            <option value="ड्राई क्लीन">✨ ड्राई क्लीन</option>
-            <option value="धुलाई">🧼 धुलाई</option>
+            <option value="स्टीम प्रेस">💨 स्टीम प्रेस</option>
+            <option value="धुलाई प्रेस">🧼 धुलाई प्रेस</option>
+            <option value="ड्राई क्लीनिंग">✨ ड्राई क्लीनिंग</option>
         </select>
         <div style="display:flex; gap:10px;">
             <input type="number" id="qty" placeholder="संख्या">
@@ -119,7 +111,6 @@
         </div>
 
         <div id="billShopTitle" style="display:none; text-align:center;">
-            <img src="logo.png" class="print-logo">
             <h1 style="margin:0; font-size: 24px;">PRATIKSHA DRYCLEANERS</h1>
             <p style="margin:3px 0; font-size: 13px;">अंबाबाड़ी, जयपुर | मोबाइल: 8440985969</p>
             <p style="font-size: 11px;">दिनांक: <span id="pDate"></span></p>
@@ -146,8 +137,8 @@
 
 <script>
     let billItems = [];
-    // आपका ताज़ा रामबाण लिंक
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec";
+    // आपका ताज़ा रामबाण लिंक (V4 Fix)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKL8J5jScfPtNxQgx_ED1bkR1Jxiii-KjmmGfuSjira8HttBXpR0mgRlNxrN0iULVD/exec";
 
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator)) return alert("Android Chrome पर ही काम करेगा।");
@@ -208,23 +199,20 @@
         btn.innerText = "सेव हो रहा है...";
         btn.disabled = true;
 
-        fetch(`${SCRIPT_URL}?action=updateStatus&mobile=${mob}&amount=${grandTotal}&status=Delivered`)
-        .then(res => res.json())
-        .then(data => {
-            if(data.result === "Success") {
-                window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
-                alert("बिल सेव हो गया! ✅");
-                location.reload();
-            } else {
-                alert("पंजीकरण नहीं मिला। पहले एडमिन पैनल से जोड़ें।");
-                btn.disabled = false;
-                btn.innerText = "📲 व्हाट्सएप और सेव करें";
-            }
-        }).catch(err => {
-            alert("नेटवर्क एरर।");
-            btn.disabled = false;
-            btn.innerText = "📲 व्हाट्सएप और सेव करें";
+        // "Fire & Forget" रामबाण तरीका (no-cors)
+        const finalURL = `${SCRIPT_URL}?action=updateStatus&mobile=${mob}&amount=${grandTotal}&status=Delivered`;
+        
+        fetch(finalURL, { 
+            method: 'GET',
+            mode: 'no-cors' 
         });
+
+        // जवाब का इंतज़ार किए बिना व्हाट्सएप खोलें
+        setTimeout(() => {
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+            alert("बिल डेटा भेज दिया गया है! ✅");
+            location.reload();
+        }, 1500);
     }
 </script>
 </body>
