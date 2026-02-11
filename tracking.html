@@ -74,8 +74,8 @@
     </div>
 
     <script>
-        // --- आपका अंतिम रामबाण Google Script URL ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
+        // --- आपका अंतिम रामबाण V4 Google Script URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxKL8J5jScfPtNxQgx_ED1bkR1Jxiii-KjmmGfuSjira8HttBXpR0mgRlNxrN0iULVD/exec';
         
         let globalStatus = "Loading...";
         let globalDetails = "Loading...";
@@ -101,6 +101,7 @@
                 // सूची को अपडेट करना
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
+                // कोमा से अलग कर के लिस्ट दिखाना
                 const items = globalDetails.split(',');
                 items.forEach(item => {
                     if(item.trim()) invList.innerHTML += `<div>${item.trim()}</div>`;
