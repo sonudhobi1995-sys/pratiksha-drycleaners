@@ -132,7 +132,7 @@
     <div class="user-status-bar">
         <div>🏠 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
         <div onclick="window.location.href='tracking.html'" style="cursor:pointer;" title="ट्रैकिंग देखें">
-            स्टेटस: <span id="userStatusDisp" class="status-pill">Loading...</span> 🔍
+            स्टेटस: <span id="userStatusDisp" class="status-pill">Online</span> 🔍
         </div>
     </div>
 
@@ -191,41 +191,15 @@
         </div>
     </section>
 
-    <section style="padding: 40px 0; background: var(--cream-bg);">
-        <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 20px;">Watch Us In Action</h2>
-        <div style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); background: #000; border: 3px solid var(--saturn-blue);">
-            <div id="video-track" style="display: flex; transition: transform 0.5s ease-in-out;">
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="winter.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="packaging.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="wedding.mp4" type="video/mp4"></video></div>
-                <div style="min-width: 100%;"><video controls style="width: 100%;"><source src="steam.mp4" type="video/mp4"></video></div>
-            </div>
-        </div>
-    </section>
-
     <section class="rating-card">
         <h3 style="margin: 0; color: var(--saturn-blue);">Pratiksha Dry Cleaners</h3>
         <p style="font-size: 0.8rem; margin: 5px 0;">अंबाबाड़ी की भरोसेमंद सर्विस</p>
         <div class="stars">★★★★★</div>
-        <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" style="text-decoration: none;">
-            <button style="background: var(--sun-orange); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">हमें गूगल पर रेट करें</button>
-        </a>
-    </section>
-
-    <section style="padding: 50px 0; background: #fff;">
-        <div style="max-width: 500px; margin: auto; text-align: center;">
-            <h2 style="color: var(--saturn-blue);">Share Your Thoughts</h2>
-            <div style="background: var(--cream-bg); padding: 25px; border-radius: 15px; border: 2px solid var(--mercury-green);">
-                <input type="text" id="custNameInput" placeholder="Your Name" style="width: 90%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                <textarea id="custMsgInput" placeholder="Share your suggestions..." rows="4" style="width: 90%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;"></textarea>
-                <button onclick="sendFeedback()" style="width: 95%; background: var(--saturn-blue); color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Send via WhatsApp</button>
-            </div>
-        </div>
+        <button onclick="shareApp()" style="background: var(--sun-orange); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">दोस्तों को शेयर करें</button>
     </section>
 
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #fff; background: var(--saturn-blue);">
         <p>© 2026 PRATIKSHA DRY CLEANERS | Managed by SONU NEEL</p>
-        <p><a href="./privacy.html" style="color:#FFFDD0; text-decoration:none;">Privacy Policy</a> | <a href="./terms.html" style="color:#FFFDD0; text-decoration:none;">Terms</a></p>
     </footer>
 
     <a href="https://wa.me/918440985969" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
@@ -233,10 +207,11 @@
     </a>
 
     <script>
-        // --- आपका अंतिम रामबाण Google Script URL ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyB1TT6ytuBZKpt_HwyXX_1bi6bqyZ9JB1_GMMvKEgjIAVi1rZ50rldR-0uvi31PDzO/exec';
+        // --- आपका ताज़ा V4 रामबाण Google Script URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxKL8J5jScfPtNxQgx_ED1bkR1Jxiii-KjmmGfuSjira8HttBXpR0mgRlNxrN0iULVD/exec';
 
         window.onload = function() {
+            // LocalStorage से ग्राहक का डेटा उठाना
             const house = localStorage.getItem('userHouse');
             const name = localStorage.getItem('userName');
             const mobile = localStorage.getItem('userMobile');
@@ -246,19 +221,21 @@
                 return;
             }
 
+            // स्क्रीन पर नाम और मकान नंबर दिखाना
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // स्टेटस सिंक (रामबाण लॉजिक)
+            // --- लाइव स्टेटस सिंक (रामबाण लॉजिक) ---
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
                 const statusDisp = document.getElementById('userStatusDisp');
-                if (data.status === "Not Found" || data.status === "Online") {
+                if (data.status === "Not Found" || !data.status) {
                     statusDisp.innerText = 'Online'; 
                     statusDisp.style.background = "#FF8C00";
                 } else {
                     statusDisp.innerText = data.status;
+                    // अगर स्टेटस 'रेडी' या 'डिलीवर' है तो हरा करें, वरना नारंगी
                     if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("Delivered")) {
                         statusDisp.style.background = "#2E8B57";
                     } else {
@@ -286,7 +263,7 @@
             }
         }
 
-        // मेनू टॉगल
+        // मेनू टॉगल लॉजिक
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.onclick = (e) => {
@@ -295,33 +272,15 @@
         };
         document.onclick = () => { menuList.style.display = 'none'; };
 
-        // फोटो गैलरी ऑटो-प्ले
+        // ऑटो-प्ले गैलरी
         let pIdx = 0;
         const pTrack = document.getElementById('photo-track');
         const pSlides = document.querySelectorAll('#photo-track img');
-        setInterval(() => {
-            if(pSlides.length > 0) {
+        if(pSlides.length > 0) {
+            setInterval(() => {
                 pIdx = (pIdx + 1) % pSlides.length;
                 pTrack.style.transform = `translateX(-${pIdx * 100}%)`;
-            }
-        }, 3000);
-
-        // वीडियो ऑटो-प्ले लॉजिक
-        let vIdx = 0;
-        setInterval(() => {
-            const vTrack = document.getElementById('video-track');
-            const vSlides = document.querySelectorAll('#video-track video');
-            if (vSlides[vIdx] && vSlides[vIdx].paused) {
-                vIdx = (vIdx + 1) % vSlides.length;
-                vTrack.style.transform = `translateX(-${vIdx * 100}%)`;
-            }
-        }, 5000);
-
-        function sendFeedback() {
-            const name = document.getElementById('custNameInput').value;
-            const msg = document.getElementById('custMsgInput').value;
-            if(!name || !msg) return alert("विवरण भरें");
-            window.open(`https://wa.me/918440985969?text=Feedback from *${name}*: ${msg}`, '_blank');
+            }, 3500);
         }
     </script>
 </body>
