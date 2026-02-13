@@ -8,98 +8,63 @@
     <style>
         :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f4f7f6; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-        
         .header { text-align: center; margin-bottom: 30px; }
-        .logo { width: 80px; margin-bottom: 10px; border-radius: 50%; border: 2px solid var(--sun); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
-        .stat-card { 
-            background: white; padding: 20px; border-radius: 15px; text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 4px solid var(--sun);
-        }
+        .stat-card { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 4px solid var(--sun); }
         .stat-card h4 { margin: 0; font-size: 0.8rem; color: #666; text-transform: uppercase; }
         .stat-card p { margin: 10px 0 0; font-size: 1.5rem; font-weight: 700; color: var(--dark); }
-
-        .full-card { 
-            background: var(--dark); color: white; padding: 25px; border-radius: 15px; 
-            text-align: center; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+        .full-card { background: var(--dark); color: white; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .full-card h2 { margin: 0; font-size: 2rem; color: var(--sun); }
-
-        .refresh-btn { 
-            width: 100%; padding: 15px; background: var(--sun); color: white; 
-            border: none; border-radius: 12px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255,140,0,0.3); transition: 0.3s;
-        }
-        .refresh-btn:active { transform: scale(0.98); }
+        .refresh-btn { width: 100%; padding: 15px; background: var(--sun); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
         .nav-back { margin-top: 15px; text-align: center; }
-        .nav-back a { color: var(--dark); text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+        .nav-back a { color: var(--dark); text-decoration: none; font-size: 0.9rem; font-weight: bold; padding: 10px; border: 1px solid #ccc; border-radius: 8px; display: inline-block; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h2 style="margin:0; color: var(--dark);">प्रतीक्षा बिज़नेस रिपोर्ट</h2>
-        <p style="font-size: 0.8rem; color: #666;">आज की ताज़ा स्थिति</p>
+        <p style="font-size: 0.8rem; color: #666;">ताज़ा स्थिति</p>
     </div>
 
     <div class="full-card">
-        <h4 style="margin:0; opacity: 0.8;">आज का कुल कलेक्शन</h4>
+        <h4 style="margin:0; opacity: 0.8;">कुल कलेक्शन</h4>
         <h2 id="todayCollection">₹ 0</h2>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-card">
-            <h4>कुल ग्राहक</h4>
-            <p id="totalCust">0</p>
-        </div>
-        <div class="stat-card" style="border-color: #e74c3c;">
-            <h4>पेंडिंग ऑर्डर</h4>
-            <p id="pendingOrders">0</p>
-        </div>
-        <div class="stat-card" style="border-color: #3498db;">
-            <h4>धुलाई में</h4>
-            <p id="washingOrders">0</p>
-        </div>
-        <div class="stat-card" style="border-color: var(--green);">
-            <h4>रेडी टू डिलीवर</h4>
-            <p id="readyOrders">0</p>
-        </div>
+        <div class="stat-card"><h4>कुल ग्राहक</h4><p id="totalCust">0</p></div>
+        <div class="stat-card" style="border-color: #e74c3c;"><h4>पेंडिंग</h4><p id="pendingOrders">0</p></div>
+        <div class="stat-card" style="border-color: #3498db;"><h4>धुलाई</h4><p id="washingOrders">0</p></div>
+        <div class="stat-card" style="border-color: var(--green);"><h4>रेडी</h4><p id="readyOrders">0</p></div>
     </div>
 
     <button class="refresh-btn" id="refreshBtn" onclick="loadStats()">🔄 डेटा रिफ्रेश करें</button>
 
     <div class="nav-back">
-        <a href="Admin.html">← वापस एडमिन पैनल पर जाएँ</a>
+        <a href="Admin-update.html">← वापस एडमिन पैनल पर जाएँ</a>
     </div>
 
     <script>
-        // --- आपका ताज़ा V4 Google Script URL ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbx-Cu2CNgnLn6685hq40wxSW1AzK5fXJx91fDUGVEJvhvq8eDxRSZ7fhKDFrCCT2p8/exec';
 
         function loadStats() {
             const btn = document.getElementById('refreshBtn');
-            btn.innerText = "डेटा लोड हो रहा है... ⏳";
-            
+            btn.innerText = "लोड हो रहा है...";
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
-                // यहाँ स्क्रिप्ट के डेटा को HTML के ID के साथ जोड़ दिया है
                 document.getElementById('pendingOrders').innerText = data.pending || 0;
                 document.getElementById('washingOrders').innerText = data.washing || 0;
                 document.getElementById('readyOrders').innerText = data.ready || 0;
                 document.getElementById('todayCollection').innerText = '₹ ' + (data.collection || 0);
                 document.getElementById('totalCust').innerText = data.totalCustomers || 0;
-                
                 btn.innerText = "🔄 डेटा रिफ्रेश करें";
             })
             .catch(err => {
-                console.error('Error fetching data:', err);
-                btn.innerText = "रिफ्रेश विफल (पुनः प्रयास करें)";
+                btn.innerText = "विफल! पुनः प्रयास करें";
             });
         }
-
-        // पेज लोड होते ही डेटा अपने आप आ जाएगा
         window.onload = loadStats;
     </script>
 </body>
