@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratiksha Billing | प्रतीक्षा बिलिंग</title>
+    <title>Pratiksha Billing | स्मार्ट बिलिंग</title>
     
     <link rel="manifest" href="manifest-billing.json">
     <meta name="theme-color" content="#FF8C00">
@@ -11,80 +11,74 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --sun-orange: #FF8C00;
-            --saturn-blue: #001F3F;
-            --jupiter-yellow: #FFF9C4;
-        }
-
-        body { font-family: 'Poppins', sans-serif; background: #f0f4f8; margin: 0; padding: 0; color: #333; }
+        :root { --sun: #FF8C00; --saturn: #001F3F; --jupiter: #FFF9C4; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f9; margin: 0; padding: 0; color: #333; }
         
+        /* हेडर और लोगो */
         .billing-header { 
-            background: var(--saturn-blue); 
-            color: white; padding: 30px 20px; text-align: center; 
-            border-radius: 0 0 30px 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: var(--saturn); color: white; padding: 25px 20px; text-align: center; 
+            border-radius: 0 0 30px 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .app-logo { width: 65px; height: 65px; background: white; border-radius: 50%; padding: 5px; border: 2px solid var(--sun-orange); object-fit: contain; margin-bottom: 10px; }
+        .app-logo { width: 55px; height: 55px; background: white; border-radius: 50%; padding: 5px; border: 2px solid var(--sun); margin-bottom: 8px; }
 
-        .container { padding: 20px; max-width: 550px; margin: -20px auto 50px; }
-        .card { background: white; padding: 22px; border-radius: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.02); }
+        .container { padding: 20px; max-width: 550px; margin: -25px auto 50px; }
+        .card { background: white; padding: 22px; border-radius: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        h3 { margin: 0 0 15px; color: var(--saturn-blue); border-bottom: 2px solid var(--sun-orange); display: inline-block; font-size: 1rem; }
+        h3 { margin: 0 0 12px; color: var(--saturn); border-left: 4px solid var(--sun); padding-left: 10px; font-size: 1rem; }
         
-        .input-group { display: flex; gap: 8px; margin: 10px 0; }
-        .btn-contact { padding: 0 15px; border-radius: 15px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-
-        input, select { width: 100%; padding: 14px; margin: 10px 0; border-radius: 15px; border: 1px solid #eee; box-sizing: border-box; font-size: 1rem; outline: none; background: #f9f9f9; }
-        input:focus { border-color: var(--sun-orange); background: #fff; }
+        input, select { width: 100%; padding: 14px; margin: 8px 0; border-radius: 15px; border: 1px solid #eee; box-sizing: border-box; font-size: 1rem; outline: none; background: #f9f9f9; }
         
-        .btn-add { background: var(--saturn-blue); color: white; width: 100%; border: none; padding: 16px; border-radius: 15px; cursor: pointer; font-weight: 700; transition: 0.3s; margin-top: 10px; }
-        .btn-add:hover { background: var(--sun-orange); transform: translateY(-2px); }
+        /* स्मार्ट बकाया इनपुट */
+        .balance-field { border: 2px solid #feb2b2 !important; background: #fff5f5 !important; color: #c53030; font-weight: bold; }
+        .loader { font-size: 0.7rem; color: #999; margin-left: 10px; display: none; }
 
-        .total-box { background: var(--jupiter-yellow); padding: 20px; border-radius: 20px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 20px; }
+        .btn-add { background: var(--saturn); color: white; width: 100%; border: none; padding: 16px; border-radius: 15px; cursor: pointer; font-weight: 700; margin-top: 10px; }
+        .total-box { background: var(--jupiter); padding: 20px; border-radius: 20px; text-align: center; border: 2px dashed var(--sun); margin-top: 15px; }
         
-        .btn-wa { background: #25D366; color: white; width: 100%; padding: 18px; border: none; border-radius: 20px; font-weight: 700; margin-top: 25px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
-        .btn-print { background: #333; color: white; width: 100%; padding: 12px; border: none; border-radius: 15px; font-weight: 600; margin-top: 10px; cursor: pointer; }
+        .btn-wa { background: #25D366; color: white; width: 100%; padding: 18px; border: none; border-radius: 18px; font-weight: 700; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.1rem; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 12px 8px; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        td { padding: 15px 10px; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
-        .item-name { font-weight: 600; color: var(--saturn-blue); }
-        .item-price { text-align: right; font-weight: 700; color: var(--sun-orange); }
-
+        /* प्रिंट सेटिंग्स (अत्यधिक महत्वपूर्ण) */
         @media print {
             .no-print { display: none !important; }
-            #printArea { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; visibility: visible; }
-            .total-box { border: 2px solid #000; background: none !important; color: #000; }
-            #navgrahTop { display: block !important; text-align: center; font-size: 12px; margin-bottom: 10px; border-bottom: 1px solid #000; padding-bottom: 5px; }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; visibility: visible; }
+            #navgrahTop { display: block !important; text-align: center; font-size: 12px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #000; padding-bottom: 5px; }
             #billShopTitle { display: block !important; text-align: center; }
-            #printFooter { display: block !important; text-align: center; margin-top: 30px; font-weight: bold; }
+            #printFooter { display: block !important; text-align: center; margin-top: 40px; font-weight: bold; font-size: 14px; border-top: 1px solid #000; padding-top: 10px; }
+            .total-box { border: 2px solid #000; background: none !important; color: #000; }
         }
     </style>
 </head>
 <body>
 
 <div class="billing-header no-print">
-    <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-    <h1 style="margin:0; font-size: 1.5rem; letter-spacing: 1px;">PRATIKSHA DIGITAL</h1>
-    <p style="margin:5px 0 0; font-size: 0.8rem; opacity: 0.8;">।। शुचिता और रूहानी सेवा ।।</p>
+    <img src="logo.png" alt="P" class="app-logo">
+    <h1 style="margin:0; font-size: 1.4rem; letter-spacing: 1px;">PRATIKSHA DIGITAL</h1>
+    <p style="margin:4px 0 0; font-size: 0.75rem; opacity: 0.8;">।। शुचिता और रूहानी सेवा ।।</p>
 </div>
 
 <div class="container">
     <div class="card no-print">
-        <h3>👤 ग्राहक का विवरण</h3>
-        <div class="input-group">
-            <input type="tel" id="custMobile" placeholder="मोबाइल नंबर">
-            <button type="button" class="btn-contact" onclick="getContact()">👤</button>
+        <h3>👤 ग्राहक विवरण</h3>
+        <div style="display:flex; gap:8px;">
+            <input type="tel" id="custMobile" placeholder="मोबाइल नंबर" onchange="fetchOldBalance()">
+            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:15px; border:1px solid #ddd; background:white; font-size:1.2rem;">👤</button>
         </div>
+        <div id="loading" class="loader">बकाया चेक हो रहा है...</div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
+        
+        <label style="font-size: 0.75rem; color: #e74c3c; font-weight: bold; margin-left: 5px;">⚠️ पिछला बकाया (Old Balance):</label>
+        <input type="number" id="manualBalance" class="balance-field" placeholder="₹ 0" oninput="render()">
     </div>
 
     <div class="card no-print">
-        <h3>🧺 सेवा का चयन</h3>
+        <h3>🧺 सेवा चयन</h3>
         <select id="itemSelect">
             <option value="">कपड़ा चुनें</option>
             <option value="रेगुलर कपड़े">🧥 रेगुलर कपड़े</option>
             <option value="शर्ट">शर्ट</option>
-            <option value="पेंट/जींस">पेंट/जींस</option>
             <option value="साड़ी">साड़ी</option>
             <option value="सूट/कुर्ता">सूट/कुर्ता</option>
             <option value="कंबल/चादर">कंबल/चादर</option>
@@ -96,7 +90,7 @@
             <option value="धुलाई प्रेस">🧼 धुलाई प्रेस</option>
             <option value="ड्राई क्लीनिंग">✨ ड्राई क्लीनिंग</option>
         </select>
-        <div style="display:flex; gap:12px;">
+        <div style="display:flex; gap:10px;">
             <input type="number" id="qty" placeholder="नग">
             <input type="number" id="rate" placeholder="रेट ₹">
         </div>
@@ -104,32 +98,25 @@
     </div>
 
     <div class="card" id="printArea">
-        <div id="navgrahTop" style="display:none;">
-            ☀️ सूर्य 🌙 चंद्र 🔥 मंगल 🌿 बुध 🌟 गुरु ✨ शुक्र 🪐 शनि 🌑 राहु ☄️ केतु
+        <div id="navgrahTop" style="display:none;">☀️ सूर्य 🌙 चंद्र 🔥 मंगल 🌿 बुध 🌟 गुरु ✨ शुक्र 🪐 शनि 🌑 राहु ☄️ केतु</div>
+        <div id="billShopTitle" style="display:none;">
+            <h1 style="margin:0; font-size: 22px;">PRATIKSHA DRYCLEANERS</h1>
+            <p style="margin:3px 0; font-size: 12px;">अंबाबाड़ी, जयपुर | मो: 8440985969</p>
+            <hr>
         </div>
 
-        <div id="billShopTitle" style="display:none; text-align:center;">
-            <h1 style="margin:0; font-size: 24px;">PRATIKSHA DRYCLEANERS</h1>
-            <p style="margin:3px 0; font-size: 13px;">अंबाबाड़ी, जयपुर | मो: 8440985969</p>
-            <p style="font-size: 11px;">दिनांक: <span id="pDate"></span></p>
-            <hr style="border: 0.5px solid #000;">
-        </div>
-
-        <table id="billTable">
-            <tbody></tbody>
-        </table>
+        <table id="billTable"><tbody></tbody></table>
 
         <div class="total-box">
-            <h2 id="gTotal" style="margin:0; font-size: 1.8rem;">Total: ₹ 0</h2>
+            <h2 id="gTotal" style="margin:0; font-size: 1.6rem;">Total: ₹ 0</h2>
         </div>
 
         <div id="printFooter" style="display:none;">
-            <hr style="border: 0.5px solid #000; margin-bottom:10px;">
             ।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।
         </div>
         
         <button class="btn-wa no-print" id="waBtn" onclick="sendWA()">📲 व्हाट्सएप और सेव करें</button>
-        <button class="btn-print no-print" onclick="printBill()">🖨️ रसीद प्रिंट करें</button>
+        <button class="no-print" onclick="window.print()" style="width:100%; background:none; border:1px solid #ccc; margin-top:10px; padding:10px; border-radius:12px; cursor:pointer;">🖨️ रसीद प्रिंट करें</button>
     </div>
 </div>
 
@@ -137,17 +124,34 @@
     let billItems = [];
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-Cu2CNgnLn6685hq40wxSW1AzK5fXJx91fDUGVEJvhvq8eDxRSZ7fhKDFrCCT2p8/exec";
 
-    async function getContact() {
-        if (!('contacts' in navigator)) return alert("मोबाइल ब्राउज़र पर उपयोग करें।");
+    async function fetchOldBalance() {
+        const mob = document.getElementById('custMobile').value;
+        const loader = document.getElementById('loading');
+        if(mob.length < 10) return;
+        loader.style.display = 'block';
         try {
-            const props = ['name', 'tel'];
-            const contacts = await navigator.contacts.select(props, {multiple: false});
-            if (contacts.length > 0) {
-                const contact = contacts[0];
-                if (contact.tel) document.getElementById('custMobile').value = contact.tel[0].replace(/\D/g, '').slice(-10);
-                if (contact.name) document.getElementById('custName').value = contact.name[0];
+            const res = await fetch(`${SCRIPT_URL}?action=getBalance&mobile=${mob}`);
+            const data = await res.json();
+            if(data.balance) {
+                document.getElementById('manualBalance').value = data.balance;
+                render();
             }
-        } catch (err) { console.log(err); }
+        } catch (e) { console.log("Balance Error"); }
+        loader.style.display = 'none';
+    }
+
+    async function getContact() {
+        if (!('contacts' in navigator)) return alert("Mobile Chrome का उपयोग करें।");
+        try {
+            const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: false});
+            if (contacts.length > 0) {
+                if (contacts[0].tel) {
+                    document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
+                    fetchOldBalance();
+                }
+                if (contacts[0].name) document.getElementById('custName').value = contacts[0].name[0];
+            }
+        } catch (err) {}
     }
 
     function addItem() {
@@ -163,55 +167,53 @@
 
     function render() {
         const body = document.querySelector('#billTable tbody');
-        body.innerHTML = ''; let grand = 0;
+        const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        body.innerHTML = ''; let currentTotal = 0;
         billItems.forEach(i => {
-            grand += i.total;
-            body.innerHTML += `<tr><td class="item-name">${i.name} (${i.q} नग)</td><td class="item-price">₹${i.total}</td></tr>`;
+            currentTotal += i.total;
+            body.innerHTML += `<tr><td>${i.name} (${i.q} नग)</td><td style="text-align:right; font-weight:bold;">₹${i.total}</td></tr>`;
         });
-        document.getElementById('gTotal').innerText = `Total: ₹ ${grand}`;
-    }
-
-    function printBill() {
-        document.getElementById('pDate').innerText = new Date().toLocaleDateString('hi-IN');
-        window.print();
+        if(manualBal > 0) {
+            body.innerHTML += `<tr style="color:red; font-weight:bold;"><td>पिछला बकाया (Old Balance)</td><td style="text-align:right;">+ ₹${manualBal}</td></tr>`;
+        }
+        document.getElementById('gTotal').innerText = `Total: ₹ ${currentTotal + manualBal}`;
     }
 
     function sendWA() {
         const mob = document.getElementById('custMobile').value;
         const name = document.getElementById('custName').value;
+        const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
         const btn = document.getElementById('waBtn');
-        if(!mob || mob.length < 10) return alert("सही मोबाइल नंबर डालें");
+        if(!mob || mob.length < 10) return alert("नंबर सही करें");
 
-        let grandTotal = 0;
+        let currentTotal = 0;
         let itemDetails = "";
-        
-        // --- रूहानी और सुंदर संदेश ---
         let msg = `*प्रतीक्षा ड्राई क्लीनर्स* ✨🧺\n`;
-        msg += `_शुचिता और रूहानी सेवा का संगम_\n\n`;
-        msg += `*🙏 "वस्त्र केवल तन नहीं ढकते, वे व्यक्तित्व का दर्पण होते हैं। आपकी इसी गरिमा को शुचिता से निखारना ही हमारा 'ऋणानुबंध' है।" 🙏*\n\n`;
-        msg += `*ग्राहक:* ${name}\n`;
-        msg += `--------------------------\n`;
+        msg += `_अंबाबाड़ी, जयपुर | 8440985969_\n\n`;
+        msg += `*🙏 "वस्त्र व्यक्तित्व का दर्पण हैं, इन्हें शुचिता से निखारना हमारा 'ऋणानुबंध' है।" 🙏*\n\n`;
+        msg += `*ग्राहक:* ${name}\n--------------------------\n`;
         
         billItems.forEach(i => {
             msg += `• ${i.name}: ${i.q} नग = *₹${i.total}*\n`;
             itemDetails += `${i.name} (${i.q}), `;
-            grandTotal += i.total;
+            currentTotal += i.total;
         });
-        msg += `--------------------------\n`;
-        msg += `*कुल देय राशि: ₹${grandTotal}*\n\n`;
-        msg += `।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।\n`;
-        msg += `_अंबाबाड़ी, जयपुर | 8440985969_`;
+
+        if(manualBal > 0) {
+            msg += `--------------------------\nनया बिल: ₹${currentTotal}\nपिछला बकाया: *₹${manualBal}*\n`;
+        }
+        const finalAmount = currentTotal + manualBal;
+        msg += `--------------------------\n*कुल देय राशि: ₹${finalAmount}*\n\n।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।`;
 
         btn.innerText = "सुरक्षित सेव हो रहा है... ⏳";
         btn.disabled = true;
 
-        const finalURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${grandTotal}&details=${encodeURIComponent(itemDetails)}&mode=Cash`;
-        
+        const finalURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmount}&details=${encodeURIComponent(itemDetails)}&mode=Cash`;
         fetch(finalURL, { method: 'GET', mode: 'no-cors' });
 
         setTimeout(() => {
             window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
-            alert("बिल सुरक्षित सेव हो गया है! ✅");
+            alert("डेटा सुरक्षित सेव हो गया है! ✅");
             location.reload();
         }, 1500);
     }
