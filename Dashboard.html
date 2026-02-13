@@ -39,7 +39,6 @@
 <body>
 
     <div class="header">
-        <img src="logo.png" alt="Logo" class="logo">
         <h2 style="margin:0; color: var(--dark);">प्रतीक्षा बिज़नेस रिपोर्ट</h2>
         <p style="font-size: 0.8rem; color: #666;">आज की ताज़ा स्थिति</p>
     </div>
@@ -68,39 +67,39 @@
         </div>
     </div>
 
-    <button class="refresh-btn" onclick="loadStats()">🔄 डेटा रिफ्रेश करें</button>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadStats()">🔄 डेटा रिफ्रेश करें</button>
 
     <div class="nav-back">
         <a href="Admin.html">← वापस एडमिन पैनल पर जाएँ</a>
     </div>
 
     <script>
-        // --- आपका ताज़ा रामबाण V4 Google Script URL ---
+        // --- आपका ताज़ा V4 Google Script URL ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbx-Cu2CNgnLn6685hq40wxSW1AzK5fXJx91fDUGVEJvhvq8eDxRSZ7fhKDFrCCT2p8/exec';
 
         function loadStats() {
-            const btn = document.querySelector('.refresh-btn');
-            btn.innerText = "डेटा लोड हो रहा है...";
+            const btn = document.getElementById('refreshBtn');
+            btn.innerText = "डेटा लोड हो रहा है... ⏳";
             
-            // डैशबोर्ड के लिए हम JSON डेटा मंगाते हैं
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
+                // यहाँ स्क्रिप्ट के डेटा को HTML के ID के साथ जोड़ दिया है
                 document.getElementById('pendingOrders').innerText = data.pending || 0;
                 document.getElementById('washingOrders').innerText = data.washing || 0;
                 document.getElementById('readyOrders').innerText = data.ready || 0;
                 document.getElementById('todayCollection').innerText = '₹ ' + (data.collection || 0);
-                document.getElementById('totalCust').innerText = data.total || 0;
+                document.getElementById('totalCust').innerText = data.totalCustomers || 0;
+                
                 btn.innerText = "🔄 डेटा रिफ्रेश करें";
             })
             .catch(err => {
-                console.error(err);
+                console.error('Error fetching data:', err);
                 btn.innerText = "रिफ्रेश विफल (पुनः प्रयास करें)";
-                // अगर डेटा नहीं मिल रहा, तो शायद नया डिप्लॉयमेंट लिंक अपडेट करना होगा
             });
         }
 
-        // पेज खुलते ही डेटा लोड करें
+        // पेज लोड होते ही डेटा अपने आप आ जाएगा
         window.onload = loadStats;
     </script>
 </body>
