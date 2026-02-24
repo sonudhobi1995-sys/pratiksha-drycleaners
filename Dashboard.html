@@ -3,66 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | PRATIKSHA DIGITAL</title>
+    <title>Titu 5G Dashboard | Pratiksha Drycleaners</title>
     <style>
-        :root { --sun: #FF8C00; --dark: #001F3F; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-        .header { text-align: center; margin-bottom: 25px; }
-        .full-card { background: var(--dark); color: white; padding: 30px; border-radius: 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .full-card h2 { margin: 10px 0; font-size: 2.5rem; color: var(--sun); }
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .stat-card { background: white; padding: 20px; border-radius: 15px; text-align: center; border-bottom: 4px solid var(--sun); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .stat-card p { margin: 10px 0 0; font-size: 1.5rem; font-weight: 700; color: var(--dark); }
-        .refresh-btn { width: 100%; padding: 18px; background: var(--sun); color: white; border: none; border-radius: 15px; font-weight: 700; margin-top: 20px; cursor: pointer; }
+        :root { --main: #FF8C00; --dark: #001F3F; --light: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--light); margin: 0; padding: 15px; }
+        .header { text-align: center; padding: 20px 0; color: var(--dark); }
+        .card-main { background: var(--dark); color: white; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 20px; border-bottom: 5px solid var(--main); }
+        .card-main h2 { font-size: 2.8rem; margin: 10px 0; color: var(--main); }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .stat-box { background: white; padding: 15px; border-radius: 15px; text-align: center; border-left: 5px solid var(--main); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .stat-box h4 { margin: 0; color: #666; font-size: 0.85rem; text-transform: uppercase; }
+        .stat-box p { margin: 8px 0 0; font-size: 1.5rem; font-weight: bold; color: var(--dark); }
+        .refresh-btn { width: 100%; padding: 18px; background: var(--main); color: white; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; margin-top: 25px; cursor: pointer; transition: 0.3s; }
+        .refresh-btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h2 style="color: var(--dark); margin:0;">प्रतीक्षा डिजिटल डैशबोर्ड</h2>
-        <p style="color: #666; font-size: 0.9rem;">Titu 5G Engine Enabled</p>
+        <h2 style="margin:0;">प्रतीक्षा डिजिटल डैशबोर्ड</h2>
+        <p style="margin:5px 0; color: #555;">अम्बाबाड़ी, जयपुर | Titu 5G सिस्टम</p>
     </div>
 
-    <div class="full-card">
-        <h4>आज की कमाई (Today)</h4>
-        <h2 id="todayCollection">₹ 0</h2>
-        <p id="lifeTimeColl" style="opacity: 0.7; font-size: 0.9rem;">कुल संचित कमाई: ₹ 0</p>
+    <div class="card-main">
+        <span>आज की कुल कमाई (Collection)</span>
+        <h2 id="todayColl">₹ 0</h2>
+        <small id="totalColl">कुल संचित कमाई: ₹ 0</small>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-card"><h4>आज के ऑर्डर्स</h4><p id="todayOrders">0</p></div>
-        <div class="stat-card"><h4>पेंडिंग काम</h4><p id="totalPending">0</p></div>
-        <div class="stat-card"><h4>धुलाई में</h4><p id="washingOrders">0</p></div>
-        <div class="stat-card"><h4>कुल ग्राहक</h4><p id="totalCust">0</p></div>
+    <div class="grid">
+        <div class="stat-box"><h4>पेंडिंग आर्डर</h4><p id="pending">0</p></div>
+        <div class="stat-box"><h4>धुलाई में</h4><p id="washing">0</p></div>
+        <div class="stat-box"><h4>रेडी कपड़े</h4><p id="ready">0</p></div>
+        <div class="stat-box"><h4>कुल ग्राहक</h4><p id="customers">0</p></div>
     </div>
 
-    <button class="refresh-btn" onclick="loadStats()">🔄 डेटा अपडेट करें</button>
+    <button class="refresh-btn" onclick="fetchData()">🔄 डेटा अपडेट करें</button>
 
     <script>
-        // आपका नया Titu 5G URL यहाँ अपडेट कर दिया गया है
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyujqlO4tdoEkqgjTRcoFFtBmfMO0wuBege2HpGXsvn49CfLViQECdJ4DmCiKilfA0G/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzjxuEKlq41GrTwymM1Ywb1AjHhZ-qd6e865F65zf02Eiw4ZkVFnWNw_IwLPGVVv7yH6A/exec';
 
-        function loadStats() {
+        function fetchData() {
             const btn = document.querySelector('.refresh-btn');
+            btn.style.opacity = "0.5";
             btn.innerText = "हिसाब मिल रहा है...";
-
+            
             fetch(`${scriptURL}?action=getDashboardData`)
-            .then(res => res.json())
+            .then(response => response.json())
             .then(data => {
-                document.getElementById('todayCollection').innerText = '₹ ' + (data.todayCollection || 0);
-                document.getElementById('todayOrders').innerText = data.todayOrders || 0;
-                document.getElementById('lifeTimeColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
-                document.getElementById('totalPending').innerText = data.pending || 0;
-                document.getElementById('washingOrders').innerText = data.washing || 0;
-                document.getElementById('totalCust').innerText = data.totalCustomers || 0;
+                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
+                document.getElementById('totalColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
+                document.getElementById('pending').innerText = data.pending || 0;
+                document.getElementById('washing').innerText = data.washing || 0;
+                document.getElementById('ready').innerText = data.ready || 0;
+                document.getElementById('customers').innerText = data.totalCustomers || 0;
+                
+                btn.style.opacity = "1";
                 btn.innerText = "🔄 डेटा अपडेट करें";
             })
-            .catch(err => {
-                alert("नेटवर्क एरर: कृपया Google Sheet में 'Share' सेटिंग चेक करें।");
+            .catch(error => {
+                alert("डेटा नहीं मिल सका। कृपया चेक करें कि गूगल शीट 'Editor' मोड पर शेयर है या नहीं।");
+                btn.style.opacity = "1";
                 btn.innerText = "🔄 डेटा अपडेट करें";
             });
         }
-        window.onload = loadStats;
+
+        // पेज खुलते ही डेटा लोड करें
+        window.onload = fetchData;
     </script>
 </body>
 </html>
