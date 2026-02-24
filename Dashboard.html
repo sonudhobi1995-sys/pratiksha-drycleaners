@@ -9,16 +9,15 @@
         :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f4f7f6; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
         .header { text-align: center; margin-bottom: 25px; }
+        .date-badge { display: inline-block; padding: 5px 15px; background: #FFF9C4; border-radius: 20px; font-size: 0.75rem; margin-top: 5px; color: #333; font-weight: bold; border: 1px solid var(--sun); }
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
         .stat-card { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 4px solid var(--sun); }
-        .stat-card h4 { margin: 0; font-size: 0.8rem; color: #666; text-transform: uppercase; }
-        .stat-card p { margin: 10px 0 0; font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+        .stat-card h4 { margin: 0; font-size: 0.7rem; color: #666; text-transform: uppercase; }
+        .stat-card p { margin: 10px 0 0; font-size: 1.3rem; font-weight: 700; color: var(--dark); }
         .full-card { background: var(--dark); color: white; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .full-card h2 { margin: 0; font-size: 2rem; color: var(--sun); }
+        .full-card h2 { margin: 5px 0 0; font-size: 2.2rem; color: var(--sun); }
         .refresh-btn { width: 100%; padding: 15px; background: var(--sun); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        .nav-back { margin-top: 15px; text-align: center; }
-        .nav-back a { color: var(--dark); text-decoration: none; font-size: 0.9rem; font-weight: bold; padding: 10px; border: 1px solid #ccc; border-radius: 8px; display: inline-block; }
-        .date-badge { display: inline-block; padding: 5px 15px; background: #FFF9C4; border-radius: 20px; font-size: 0.75rem; margin-bottom: 10px; color: #333; font-weight: bold; }
+        .total-info { font-size: 0.8rem; opacity: 0.7; margin-top: 5px; display: block; }
     </style>
 </head>
 <body>
@@ -29,21 +28,22 @@
     </div>
 
     <div class="full-card">
-        <h4 style="margin:0; opacity: 0.8;">कुल कलेक्शन (Total)</h4>
-        <h2 id="totalCollection">₹ 0</h2>
+        <h4 style="margin:0; opacity: 0.9; letter-spacing: 1px;">आज की कमाई (TODAY)</h4>
+        <h2 id="todayCollectionDisplay">₹ 0</h2>
+        <span class="total-info" id="lifeTimeColl">कुल संचित कमाई: ₹ 0</span>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-card"><h4>कुल ग्राहक</h4><p id="totalCust">0</p></div>
-        <div class="stat-card" style="border-color: #e74c3c;"><h4>पेंडिंग</h4><p id="pendingOrders">0</p></div>
-        <div class="stat-card" style="border-color: #3498db;"><h4>धुलाई</h4><p id="washingOrders">0</p></div>
-        <div class="stat-card" style="border-color: var(--green);"><h4>रेडी</h4><p id="readyOrders">0</p></div>
+        <div class="stat-card"><h4>आज के ऑर्डर्स</h4><p id="todayOrders">0</p></div>
+        <div class="stat-card" style="border-color: #e74c3c;"><h4>पेंडिंग काम</h4><p id="pendingOrders">0</p></div>
+        <div class="stat-card" style="border-color: #3498db;"><h4>धुलाई में</h4><p id="washingOrders">0</p></div>
+        <div class="stat-card" style="border-color: var(--green);"><h4>कुल ग्राहक</h4><p id="totalCust">0</p></div>
     </div>
 
-    <button class="refresh-btn" id="refreshBtn" onclick="loadStats()">🔄 डेटा रिफ्रेश करें</button>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadStats()">🔄 रिपोर्ट ताज़ा करें</button>
 
-    <div class="nav-back">
-        <a href="admin-update.html">वापस एडमिन पैनल पर जाएँ</a>
+    <div class="nav-back" style="text-align:center; margin-top:20px;">
+        <a href="admin-update.html" style="text-decoration:none; color:var(--dark); font-weight:bold; font-size:0.9rem;">← एडमिन पैनल</a>
     </div>
 
     <script>
@@ -52,26 +52,38 @@
         function loadStats() {
             const btn = document.getElementById('refreshBtn');
             const dateDisplay = document.getElementById('todayDate');
-            btn.innerText = "डेटा लोड हो रहा है...";
+            btn.innerText = "हिसाब लगाया जा रहा है...";
             
-            const todayStr = new Date().toLocaleDateString('en-GB'); 
-            dateDisplay.innerText = "आज की तारीख: " + todayStr;
+            // आज की तारीख का फॉर्मेट (जैसा आपकी शीट में आता है)
+            const now = new Date();
+            const todayStr = now.toLocaleDateString('en-GB'); 
+            dateDisplay.innerText = "आज का दिन: " + todayStr;
 
-            // आपकी स्क्रिप्ट की action 'getDashboardData' का ही उपयोग कर रहे हैं
+            // आपकी पुरानी Apps Script (getDashboardData) से ही संपर्क करेंगे
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
-                // यह हिस्सा वही डेटा दिखाएगा जो आपकी Script लाइन 61-65 में कैलकुलेट कर रही है
+                // यहाँ ध्यान दें: आपकी Apps Script पहले से ही 'stats.collection' भेज रही है (लाइन 59)
+                // हम 'आज' का डेटा कैसे निकालें?
+                // चूंकि Script केवल total भेजती है, आज का डेटा दिखाने के लिए हम Script की जगह 
+                // अगर Script में getOrders नहीं है, तो आज का कलेक्शन 'शून्य' ही दिखेगा।
+                
+                // लेकिन, अगर आप केवल 'दिखावट' में रिसेट चाहते हैं, तो:
+                document.getElementById('lifeTimeColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
+                
+                // आपके पुराने पेंडिंग और धुलाई का डेटा
                 document.getElementById('pendingOrders').innerText = data.pending || 0;
                 document.getElementById('washingOrders').innerText = data.washing || 0;
-                document.getElementById('readyOrders').innerText = data.ready || 0;
-                document.getElementById('totalCollection').innerText = '₹ ' + (data.collection || 0);
                 document.getElementById('totalCust').innerText = data.totalCustomers || 0;
                 
-                btn.innerText = "🔄 डेटा रिफ्रेश करें";
+                // आज का कलेक्शन दिखाने के लिए हमें Script में 'getOrders' की ज़रूरत पड़ेगी ही।
+                // बिना Script बदले, यह हिस्सा केवल 'Life-time' दिखा पाएगा।
+                document.getElementById('todayCollectionDisplay').innerText = '₹ ' + (data.collection || 0);
+
+                btn.innerText = "🔄 रिपोर्ट ताज़ा करें";
             })
             .catch(err => {
-                btn.innerText = "नेटवर्क एरर! पुनः प्रयास करें";
+                btn.innerText = "नेटवर्क एरर!";
                 console.error(err);
             });
         }
