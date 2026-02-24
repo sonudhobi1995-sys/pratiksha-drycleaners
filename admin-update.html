@@ -3,145 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ग्राहक पंजीकरण | प्रतीक्षा ड्राई क्लीनर्स</title>
+    <title>एडमिन पैनल | प्रतीक्षा ड्राई क्लीनर्स</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest-admin.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#001F3F">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --sun: #FF8C00; 
-            --dark: #001F3F; 
-            --bg: #f8fafd; 
-            --card-bg: #ffffff;
-        }
-
-        body { 
-            font-family: 'Inter', 'Mukta', sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            color: #333;
-        }
-
+        :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f0f2f5; }
+        body { font-family: 'Inter', 'Mukta', sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; }
+        
         .app-header { 
             background: linear-gradient(135deg, var(--dark) 0%, #003366 100%); 
-            color: white; 
-            padding: 30px 15px; 
-            text-align: center; 
-            border-radius: 0 0 35px 35px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            color: white; padding: 25px 15px; text-align: center; 
+            border-radius: 0 0 30px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+        .app-logo {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: white; padding: 5px; margin-bottom: 10px;
+            border: 3px solid var(--sun); box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            object-fit: contain;
         }
 
-        .container { padding: 25px 15px; max-width: 500px; margin: auto; }
-
-        .card { 
-            background: white; 
-            padding: 25px; 
-            border-radius: 24px; 
-            box-shadow: 0 10px 25px rgba(0,31,63,0.05); 
-            margin-bottom: 25px; 
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-
-        h3 { color: var(--dark); margin: 0 0 20px 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
-        label { font-size: 0.85rem; font-weight: 600; color: #666; margin-bottom: 8px; display: block; padding-left: 5px; }
-
-        input { 
-            width: 100%; padding: 16px; margin-bottom: 20px; 
-            border-radius: 15px; border: 2px solid #edf2f7; 
-            font-size: 1rem; box-sizing: border-box;
-            background: #fcfcfc; transition: 0.3s;
-        }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; border: 1px solid #e0e0e0; }
         
-        input:focus { border-color: var(--sun); outline: none; background: white; }
+        h3 { color: var(--dark); margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
+        label { font-size: 0.85rem; font-weight: 600; color: #555; margin-left: 5px; }
 
-        .btn-submit { 
-            width: 100%; padding: 18px; 
-            background: var(--sun); 
-            color: white; 
-            border: none; 
-            border-radius: 18px; 
-            font-weight: 700; 
-            font-size: 1.1rem; 
-            cursor: pointer; 
-            box-shadow: 0 8px 20px rgba(255,140,0,0.3);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        input, select { width: 100%; padding: 14px; margin: 8px 0 18px 0; border-radius: 12px; border: 1.5px solid #ddd; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
+        
+        .input-group { display: flex; gap: 8px; margin: 8px 0 18px 0; }
+        .input-group input { margin: 0; flex: 1; }
+        .btn-contact { padding: 0 15px; border-radius: 12px; border: 1.5px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; transition: 0.3s; display: flex; align-items: center; }
 
-        .btn-submit:active { transform: scale(0.96); }
-
-        .back-link {
-            display: block; text-align: center; margin-top: 20px;
-            color: var(--dark); text-decoration: none; font-weight: 600; font-size: 0.9rem;
-        }
-
-        .system-tag { text-align: center; margin-top: 30px; font-size: 12px; color: #aaa; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; text-decoration: none;}
+        .btn-status { background: var(--dark); color: white; }
+        .btn-pickup { background: var(--green); color: white; }
+        .btn-billing { background: var(--sun); color: white; box-shadow: 0 4px 10px rgba(255,140,0,0.3); }
+        .btn-dashboard { background: #34495e; color: white; border: 2px solid var(--sun); }
+        .btn:active { transform: scale(0.98); }
+        .badge { background: var(--sun); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
+        
+        .footer-info { text-align: center; font-size: 11px; color: #888; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="app-header">
-        <h2 style="margin:0; font-weight: 700;">प्रतीक्षा ड्राई क्लीनर्स</h2>
-        <p style="margin:5px 0 0 0; opacity: 0.8; font-size: 14px;">ग्राहक पंजीकरण पोर्टल</p>
+        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
+        <h2 style="margin:0; letter-spacing: 1px;">प्रतीक्षा एडमिन पैनल</h2>
+        <span class="badge">मुख्य मैनेजर</span>
     </div>
 
     <div class="container">
-        <div class="card">
-            <h3>👤 नए ग्राहक की जानकारी</h3>
-            
-            <label>ग्राहक का नाम</label>
-            <input type="text" id="custName" placeholder="पूरा नाम लिखें">
-
-            <label>मोबाइल नंबर</label>
-            <input type="tel" id="custMobile" placeholder="10 अंकों का नंबर">
-
-            <label>घर/मकान नंबर (Address)</label>
-            <input type="text" id="houseNo" placeholder="जैसे: 45, अम्बाबाड़ी">
-
-            <button class="btn-submit" id="regBtn" onclick="registerCustomer()">
-                सिस्टम में दर्ज करें ✨
+        <div class="card" style="border-bottom: 4px solid var(--sun);">
+            <h3>📊 व्यापार की स्थिति</h3>
+            <button class="btn btn-dashboard" onclick="window.location.href='Dashboard.html'">
+                📈 आज की रिपोर्ट (Dashboard) देखें
             </button>
         </div>
 
-        <a href="admin.html" class="back-link">← एडमिन पैनल पर वापस जाएं</a>
-
-        <div class="system-tag">
-            प्रतीक्षा एवं नीति के उज्जवल भविष्य हेतु | Titu 5G संचालित
+        <div class="card">
+            <h3>🔄 क्विक अपडेट</h3>
+            <label>मोबाइल नंबर:</label>
+            <div class="input-group">
+                <input type="tel" id="adminMobile" placeholder="98XXXXXXXX">
+                <button type="button" class="btn-contact" onclick="getContact('adminMobile')" title="कॉन्टैक्ट चुनें">
+                    👤
+                </button>
+            </div>
+            
+            <label>ऑर्डर स्थिति:</label>
+            <select id="adminStatus">
+                <option value="प्रक्रिया में">🧺 प्रक्रिया में</option>
+                <option value="धुलाई">🧼 धुलाई जारी</option>
+                <option value="आयरनिंग">👔 आयरनिंग/प्रेस</option>
+                <option value="रेडी टू डिलीवरी">✅ रेडी टू डिलीवरी</option>
+                <option value="Delivered">🚚 डिलीवर कर दिया</option>
+            </select>
+            <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
+                अपडेट करें और मैसेज भेजें
+            </button>
         </div>
+
+        <div class="card" style="border-left: 5px solid var(--sun);">
+            <h3>🚀 क्विक नेविगेशन</h3>
+            <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
+                🚚 ड्राइवर ऐप (Pickup)
+            </button>
+            <button class="btn btn-billing" onclick="window.location.href='billing.html'">
+                🧾 बिलिंग ऐप (Billing)
+            </button>
+        </div>
+        
+        <div class="footer-info">प्रतीक्षा एवं नीति के उज्जवल भविष्य हेतु | Titu 5G संचालित</div>
     </div>
 
-    <script>
-        // आपका लेटेस्ट 5G इंजन URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzjxuEKlq41GrTwymM1Ywb1AjHhZ-qd6e865F65zf02Eiw4ZkVFnWNw_IwLPGVVv7yH6A/exec';
+<script>
+    // आपका ताज़ा 5G URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzjxuEKlq41GrTwymM1Ywb1AjHhZ-qd6e865F65zf02Eiw4ZkVFnWNw_IwLPGVVv7yH6A/exec';
 
-        function registerCustomer() {
-            const name = document.getElementById('custName').value;
-            const mobile = document.getElementById('custMobile').value;
-            const house = document.getElementById('houseNo').value;
-            const btn = document.getElementById('regBtn');
-
-            if(!name || mobile.length < 10) {
-                alert("कृपया नाम और सही मोबाइल नंबर भरें।");
-                return;
+    // कॉन्टैक्ट पिकर (Original Logic सुरक्षित है)
+    async function getContact(mobileId) {
+        if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
+        try {
+            const props = ['tel'];
+            const contacts = await navigator.contacts.select(props, {multiple: false});
+            if (contacts.length > 0) {
+                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
+                document.getElementById(mobileId).value = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
             }
+        } catch (err) { console.log(err); }
+    }
 
-            btn.innerText = "दर्ज किया जा रहा है...";
-            btn.disabled = true;
+    function updateStatusOnly() {
+        const mobile = document.getElementById('adminMobile').value;
+        const status = document.getElementById('adminStatus').value;
+        const btn = document.getElementById('updateBtn');
+        
+        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
 
-            // गूगल शीट में एक्शन: addCustomer
-            const finalURL = `${scriptURL}?action=addCustomer&name=${encodeURIComponent(name)}&mobile=${mobile}&houseNo=${encodeURIComponent(house)}`;
+        btn.innerText = "अपडेट हो रहा है...";
+        btn.disabled = true;
 
-            fetch(finalURL, { method: 'GET', mode: 'no-cors' });
+        // "Fire & Forget" (no-cors) रामबाण तरीका
+        const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`;
+        
+        fetch(finalURL, { 
+            method: 'GET',
+            mode: 'no-cors' 
+        });
 
-            setTimeout(() => {
-                alert("बधाई हो! ग्राहक का विवरण सिस्टम में दर्ज कर लिया गया है। ✅");
-                
-                // ग्राहक को स्वागत मैसेज भेजने का विकल्प
-                const welcomeMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n--------------------------------\nनमस्ते *${name}* जी,\n\nहमें खुशी है कि आप हमारी 'अनुभव शाला' से जुड़े। अब आप घर बैठे अपने कपड़ों का स्टेटस चेक कर सकते हैं।\n\nधन्यवाद! 🙏`;
-                window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(welcomeMsg)}`, '_blank');
+        setTimeout(() => {
+            alert("स्टेटस अपडेट डेटा भेज दिया गया है! ✅");
+            
+            // प्रोफेशनल व्हाट्सएप मैसेज टेम्पलेट
+            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स एवं अनुभव शाला* 🧺✨\n--------------------------------\nनमस्ते,\nआपके कपड़ों का स्टेटस अब: *${status}* है।\n\nअपना बिल और रीयल-टाइम स्टेटस यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/track.html\n\nधन्यवाद! 🙏`;
+            
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
+            
+            location.reload();
+        }, 1500);
+    }
+</script>
 
-                location.reload();
-            }, 1500);
-        }
-    </script>
 </body>
 </html>
