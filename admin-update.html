@@ -3,107 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin App | PRATIKSHA</title>
+    <title>एडमिन पैनल | प्रतीक्षा ड्राईक्लीनर्स</title>
     
-    <link rel="manifest" href="manifest-admin.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#001F3F">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --sun: #FF8C00; --dark: #001F3F; --green: #2E8B57; --bg: #f0f2f5; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding-bottom: 20px; }
+        :root { 
+            --sun: #FF8C00; 
+            --dark: #001F3F; 
+            --green: #128C7E; 
+            --bg: #f8fafd; 
+            --shadow: 0 10px 25px rgba(0,31,63,0.1);
+        }
+
+        body { 
+            font-family: 'Inter', 'Mukta', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            color: #333;
+            -webkit-tap-highlight-color: transparent;
+        }
         
+        /* प्रीमियम हेडर */
         .app-header { 
             background: linear-gradient(135deg, var(--dark) 0%, #003366 100%); 
-            color: white; padding: 25px 15px; text-align: center; 
-            border-radius: 0 0 30px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-radius: 0 0 40px 40px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
+
         .app-logo {
-            width: 80px; height: 80px; border-radius: 50%;
-            background: white; padding: 5px; margin-bottom: 10px;
-            border: 3px solid var(--sun); box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            object-fit: contain;
+            width: 70px; height: 70px; border-radius: 50%;
+            background: white; padding: 5px; margin-bottom: 12px;
+            border: 3px solid var(--sun);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .container { padding: 20px; max-width: 500px; margin: auto; }
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; border: 1px solid #e0e0e0; }
-        
-        h3 { color: var(--dark); margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
-        label { font-size: 0.85rem; font-weight: 600; color: #555; margin-left: 5px; }
+        .container { padding: 25px 15px; max-width: 500px; margin: auto; }
 
-        input, select { width: 100%; padding: 14px; margin: 8px 0 18px 0; border-radius: 12px; border: 1.5px solid #ddd; box-sizing: border-box; font-size: 1rem; transition: 0.3s; }
-        
-        .input-group { display: flex; gap: 8px; margin: 8px 0 18px 0; }
-        .input-group input { margin: 0; flex: 1; }
-        .btn-contact { padding: 0 15px; border-radius: 12px; border: 1.5px solid #ddd; background: #fff; cursor: pointer; font-size: 1.2rem; transition: 0.3s; display: flex; align-items: center; }
+        .card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 24px; 
+            box-shadow: var(--shadow); 
+            margin-bottom: 25px; 
+            border: 1px solid rgba(0,0,0,0.03);
+        }
 
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; text-decoration: none;}
-        .btn-status { background: var(--dark); color: white; }
-        .btn-pickup { background: var(--green); color: white; }
-        .btn-billing { background: var(--sun); color: white; box-shadow: 0 4px 10px rgba(255,140,0,0.3); }
-        .btn-dashboard { background: #34495e; color: white; border: 2px solid var(--sun); }
-        .btn:active { transform: scale(0.98); }
-        .badge { background: var(--sun); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
+        h3 { color: var(--dark); margin: 0 0 15px 0; font-size: 1.1rem; border-left: 4px solid var(--sun); padding-left: 10px; }
+        label { font-size: 0.85rem; font-weight: 600; color: #666; margin-bottom: 8px; display: block; }
+
+        input, select { 
+            width: 100%; padding: 16px; margin-bottom: 15px; 
+            border-radius: 15px; border: 2px solid #edf2f7; 
+            font-size: 1rem; box-sizing: border-box;
+            background: #fcfcfc;
+        }
+        
+        input:focus, select:focus { border-color: var(--sun); outline: none; background: white; }
+
+        .input-group { display: flex; gap: 10px; }
+        .btn-contact { 
+            padding: 0 18px; border-radius: 15px; border: 2px solid #edf2f7; 
+            background: white; cursor: pointer; font-size: 1.4rem; height: 55px;
+        }
+
+        .btn { 
+            width: 100%; padding: 18px; border: none; border-radius: 16px; 
+            font-weight: 700; font-size: 1rem; cursor: pointer; 
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: flex; justify-content: center; align-items: center; gap: 10px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .btn-status { background: var(--dark); color: white; margin-top: 10px; }
+        .btn-dashboard { background: #fff; color: var(--dark); border: 2.5px solid var(--dark); margin-bottom: 10px; }
+        .btn-billing { background: var(--sun); color: white; }
+        .btn-pickup { background: #2E8B57; color: white; margin-bottom: 15px;}
+        
+        .btn:active { transform: scale(0.95); }
+
+        .system-status {
+            text-align: center; font-size: 12px; color: #888; margin-top: 20px;
+        }
+        .status-dot { height: 8px; width: 8px; background: #2ecc71; border-radius: 50%; display: inline-block; margin-right: 5px; }
     </style>
 </head>
 <body>
 
     <div class="app-header">
-        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-        <h2 style="margin:0; letter-spacing: 1px;">प्रतीक्षा एडमिन पैनल</h2>
-        <span class="badge">मुख्य मैनेजर</span>
+        <img src="logo.png" alt="P" class="app-logo">
+        <h2 style="margin:0; font-weight: 700; letter-spacing: 0.5px;">प्रतीक्षा ड्राई क्लीनर्स</h2>
+        <p style="margin:5px 0 0 0; opacity: 0.8; font-size: 14px;">डिजिटल एडमिन कंट्रोल | अनुभव शाला</p>
     </div>
 
     <div class="container">
-        <div class="card" style="border-bottom: 4px solid var(--sun);">
-            <h3>📊 व्यापार की स्थिति</h3>
-            <button class="btn btn-dashboard" onclick="window.location.href='Dashboard.html'">
-                📈 आज की रिपोर्ट (Dashboard) देखें
+        
+        <div class="card">
+            <h3>📈 व्यापार की स्थिति</h3>
+            <button class="btn btn-dashboard" onclick="window.location.href='dashboard.html'">
+                रिपोर्ट (Dashboard) देखें 📊
             </button>
         </div>
 
         <div class="card">
-            <h3>🔄 क्विक अपडेट</h3>
-            <label>मोबाइल नंबर:</label>
+            <h3>⚡ क्विक ऑर्डर अपडेट</h3>
+            <label>ग्राहक का मोबाइल नंबर</label>
             <div class="input-group">
-                <input type="tel" id="adminMobile" placeholder="98XXXXXXXX">
-                <button type="button" class="btn-contact" onclick="getContact('adminMobile')" title="कॉन्टैक्ट चुनें">
-                    👤
-                </button>
+                <input type="tel" id="adminMobile" placeholder="नंबर दर्ज करें या चुनें">
+                <button type="button" class="btn-contact" onclick="getContact('adminMobile')">👤</button>
             </div>
             
-            <label>ऑर्डर स्थिति:</label>
+            <label>कपड़ों की वर्तमान स्थिति</label>
             <select id="adminStatus">
-                <option value="प्रक्रिया में">🧺 प्रक्रिया में</option>
-                <option value="धुलाई">🧼 धुलाई</option>
-                <option value="आयरनिंग">👔 आयरनिंग</option>
-                <option value="रेडी टू डिलीवरी">✅ रेडी टू डिलीवरी</option>
-                <option value="Delivered">🚚 डिलीवर कर दिया</option>
+                <option value="प्रक्रिया में">🧺 ऑर्डर स्वीकार किया गया</option>
+                <option value="धुलाई जारी">🧼 धुलाई की जा रही है</option>
+                <option value="प्रेस/आयरनिंग">👔 आयरनिंग जारी है</option>
+                <option value="रेडी टू डिलीवरी">✅ तैयार है (Ready)</option>
+                <option value="Delivered">🚚 डिलीवर हो चुका है</option>
             </select>
-            <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
-                अपडेट करें और मैसेज भेजें
+
+            <button class="btn btn-status" id="updateBtn" onclick="updateStatusWithProfessionalWA()">
+                अपडेट करें और सूचना भेजें 🚀
             </button>
         </div>
 
-        <div class="card" style="border-left: 5px solid var(--sun);">
-            <h3>🚀 क्विक नेविगेशन</h3>
+        <div class="card">
+            <h3>🛠️ अन्य मैनेजमेंट टूल्स</h3>
             <button class="btn btn-pickup" onclick="window.location.href='driver-app.html'">
                 🚚 ड्राइवर ऐप (Pickup)
             </button>
             <button class="btn btn-billing" onclick="window.location.href='billing.html'">
-                🧾 बिलिंग ऐप (Billing)
+                🧾 बिलिंग काउंटर खोलें
             </button>
+        </div>
+
+        <div class="system-status">
+            <span class="status-dot"></span> टीटू 5G इंजन द्वारा संचालित | सुरक्षित कनेक्शन
         </div>
     </div>
 
 <script>
-    // आपका ताज़ा रामबाण URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbx-Cu2CNgnLn6685hq40wxSW1AzK5fXJx91fDUGVEJvhvq8eDxRSZ7fhKDFrCCT2p8/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzjxuEKlq41GrTwymM1Ywb1AjHhZ-qd6e865F65zf02Eiw4ZkVFnWNw_IwLPGVVv7yH6A/exec';
 
     async function getContact(mobileId) {
-        if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
+        if (!('contacts' in navigator)) return alert("संपर्क चुनने के लिए Android Chrome का उपयोग करें।");
         try {
             const props = ['tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
@@ -114,31 +161,25 @@
         } catch (err) { console.log(err); }
     }
 
-    function updateStatusOnly() {
+    function updateStatusWithProfessionalWA() {
         const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
         const btn = document.getElementById('updateBtn');
         
-        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
+        if(!mobile || mobile.length < 10) return alert("कृपया सही 10 अंकों का नंबर डालें।");
 
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // "Fire & Forget" रामबाण तरीका (no-cors)
         const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`;
-        
-        fetch(finalURL, { 
-            method: 'GET',
-            mode: 'no-cors' 
-        });
+        fetch(finalURL, { method: 'GET', mode: 'no-cors' });
 
-        // जवाब का इंतज़ार किए बिना व्हाट्सएप खोलना और सफलता दिखाना
         setTimeout(() => {
-            alert("स्टेटस अपडेट डेटा भेज दिया गया है! ✅");
+            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स एवं अनुभव शाला* 🧺✨\n--------------------------------\n*ऑर्डर अपडेट सूचना*\n\nनमस्ते,\nआपके कपड़ों की स्थिति अब: *${status}* है।\n\nआप नीचे दिए गए लिंक पर क्लिक करके अपना बिल और रीयल-टाइम स्टेटस देख सकते हैं:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/track.html\n\n*प्रतीक्षा ड्राई क्लीनर्स, अम्बाबाड़ी, जयपुर*\n_गुणवत्ता हमारी पहचान_ 🙏`;
             
-            const waMsg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\nनमस्ते,\nआपके ऑर्डर का स्टेटस अब *${status}* है।\n\nधन्यवाद! 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             
+            alert("सफलतापूर्वक अपडेट किया गया! ✅");
             location.reload();
         }, 1500);
     }
