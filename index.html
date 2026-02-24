@@ -18,7 +18,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="logo.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --sun-orange: #FF8C00;
@@ -27,12 +27,12 @@
             --cream-bg: #FFFDD0;
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
+        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
         
         .user-status-bar {
             background: white;
-            padding: 10px 15px;
-            border-bottom: 2px solid var(--sun-orange);
+            padding: 12px 15px;
+            border-bottom: 3px solid var(--sun-orange);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,22 +40,24 @@
             position: sticky;
             top: 0;
             z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .status-pill {
-            background: var(--mercury-green);
+            background: #888;
             color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
+            padding: 5px 14px;
+            border-radius: 20px;
             font-weight: bold;
             font-size: 0.75rem;
-            transition: 0.5s;
+            transition: 0.4s;
+            text-transform: uppercase;
         }
 
         nav.custom-nav { 
             background: var(--sun-orange); 
             padding: 5px 15px; 
             position: sticky; 
-            top: 38px; 
+            top: 45px; 
             z-index: 1000; 
             display: flex; 
             align-items: center; 
@@ -68,52 +70,24 @@
         .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
         .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
 
-        .nav-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1;
-            text-align: center;
-        }
-        .nav-center img { height: 40px; width: auto; border-radius: 5px; border: 1.5px solid white; }
-        .nav-center span {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 0.9rem;
-            color: white;
-            text-transform: uppercase;
-        }
+        .nav-center { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; text-align: center; }
+        .nav-center img { height: 42px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
+        .nav-center span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 1px; }
 
         .nav-right { display: flex; align-items: center; gap: 8px; }
         .nav-btn { 
-            background: white; 
-            color: var(--sun-orange); 
-            border: none; 
-            padding: 6px 8px; 
-            border-radius: 6px; 
-            font-size: 0.9rem; 
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.2); color: white; border: 1px solid white; 
+            padding: 8px; border-radius: 8px; font-size: 1rem; cursor: pointer;
+            transition: 0.3s;
         }
+        .nav-btn:active { background: white; color: var(--sun-orange); }
 
         .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); z-index: 1001; }
         .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #1a3a5a; }
 
         .top-bar { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px; }
         
-        .service-link { text-decoration: none; color: inherit; display: block; cursor: pointer; transition: transform 0.2s; }
-        .service-link:hover { transform: scale(1.1); }
-
-        .rating-card {
-            background: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 2px dashed var(--sun-orange);
-        }
+        .rating-card { background: white; margin: 25px 20px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 2px solid #eee; }
         .stars { color: #FFD700; font-size: 1.5rem; margin: 10px 0; }
 
         @keyframes pulse {
@@ -121,18 +95,14 @@
             50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 30px rgba(46,139,87,0.5); }
             100% { transform: translate(-50%, -50%) scale(1); }
         }
-
-        @media (max-width: 600px) {
-            .nav-center span { font-size: 0.75rem; }
-        }
     </style>
 </head>
 <body>
 
     <div class="user-status-bar">
         <div>🏠 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
-        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;" title="ट्रैकिंग देखें">
-            स्टेटस: <span id="userStatusDisp" class="status-pill">Online</span> 🔍
+        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
+            स्टेटस: <span id="userStatusDisp" class="status-pill">लोड हो रहा है...</span>
         </div>
     </div>
 
@@ -145,36 +115,33 @@
             <span>PRATIKSHA</span>
         </div>
         <div class="nav-right">
-            <button class="nav-btn" onclick="logoutApp()" title="Logout">🚪</button>
-            <button class="nav-btn" onclick="refreshApp()" title="Refresh">🔄</button>
-            <button class="nav-btn" onclick="shareApp()" title="Share">📤</button>
+            <button class="nav-btn" onclick="logoutApp()">🚪</button>
+            <button class="nav-btn" onclick="refreshApp()">🔄</button>
         </div>
         <ul class="nav-dropdown-menu" id="dropdownMenu">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./services.html">Services</a></li>
-            <li><a href="./about.html">About Us</a></li>
-            <li><a href="./process.html">Process</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="index.html">होम</a></li>
+            <li><a href="services.html">हमारी सेवाएं</a></li>
+            <li><a href="tracking.html">ऑर्डर ट्रैक करें</a></li>
+            <li><a href="contact.html">संपर्क करें</a></li>
         </ul>
     </nav>
 
     <div class="top-bar">★ AMBABARI: दुर्गा पार्क (E82-124) | हनुमान पार्क (D97-160) ★</div>
 
-    <section style="padding: 10px 0; background: var(--cream-bg);">
-        <div id="gallery-container" style="width: 100%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange); position: relative; cursor: pointer;">
-            <div id="photo-track" style="display: flex; transition: transform 0.5s ease-in-out;">
+    <section style="padding: 15px 0; background: var(--cream-bg);">
+        <div id="gallery-container" style="width: 92%; max-width: 600px; margin: auto; overflow: hidden; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: 3px solid white; position: relative;">
+            <div id="photo-track" style="display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
                 <img src="1.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="2.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="3.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="4.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
                 <img src="5.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
-                <img src="6.jpg" style="min-width: 100%; height: 350px; object-fit: cover;">
             </div>
         </div>
     </section>
 
-    <section style="padding: 60px 0; background: #fffdf2; overflow: hidden; border-top: 1px solid #eee; border-bottom: 1px solid #eee;">
-        <h2 style="text-align: center; color: var(--saturn-blue); margin-bottom: 50px;">Our Premium Services</h2>
+    <section style="padding: 50px 0; background: #fffdf2; overflow: hidden; border-top: 1px solid #eee;">
+        <h2 style="text-align: center; color: var(--saturn-blue); font-family: 'Playfair Display';">Our Premium Services</h2>
         <div style="position: relative; width: 300px; height: 300px; margin: 0 auto;">
             <a href="services.html#rapid" style="text-decoration: none;">
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: var(--mercury-green); border: 4px solid var(--sun-orange); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; text-align: center; animation: pulse 2s infinite;">
@@ -191,15 +158,8 @@
         </div>
     </section>
 
-    <section class="rating-card">
-        <h3 style="margin: 0; color: var(--saturn-blue);">Pratiksha Dry Cleaners</h3>
-        <p style="font-size: 0.8rem; margin: 5px 0;">अंबाबाड़ी की भरोसेमंद सर्विस</p>
-        <div class="stars">★★★★★</div>
-        <button onclick="shareApp()" style="background: var(--sun-orange); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">दोस्तों को शेयर करें</button>
-    </section>
-
     <footer style="text-align: center; padding: 30px; font-size: 0.8rem; color: #fff; background: var(--saturn-blue);">
-        <p>© 2026 PRATIKSHA DRY CLEANERS | Managed by SONU NEEL</p>
+        <p>© 2026 PRATIKSHA DRY CLEANERS | Titu 5G संचालित</p>
     </footer>
 
     <a href="https://wa.me/918440985969" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
@@ -207,11 +167,10 @@
     </a>
 
     <script>
-        // --- आपका ताज़ा V4 रामबाण Google Script URL ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx-Cu2CNgnLn6685hq40wxSW1AzK5fXJx91fDUGVEJvhvq8eDxRSZ7fhKDFrCCT2p8/exec';
+        // --- नया 5G रामबाण URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzjxuEKlq41GrTwymM1Ywb1AjHhZ-qd6e865F65zf02Eiw4ZkVFnWNw_IwLPGVVv7yH6A/exec';
 
         window.onload = function() {
-            // LocalStorage से ग्राहक का डेटा उठाना
             const house = localStorage.getItem('userHouse');
             const name = localStorage.getItem('userName');
             const mobile = localStorage.getItem('userMobile');
@@ -221,11 +180,10 @@
                 return;
             }
 
-            // स्क्रीन पर नाम और मकान नंबर दिखाना
             document.getElementById('userHouseDisp').innerText = house;
             document.getElementById('userNameDisp').innerText = name;
 
-            // --- लाइव स्टेटस सिंक (रामबाण लॉजिक) ---
+            // लाइव स्टेटस अपडेट लॉजिक
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
@@ -235,7 +193,7 @@
                     statusDisp.style.background = "#FF8C00";
                 } else {
                     statusDisp.innerText = data.status;
-                    // अगर स्टेटस 'रेडी' या 'डिलीवर' है तो हरा करें, वरना नारंगी
+                    // स्टेटस के हिसाब से कलर (रेडी/डिलीवर = हरा)
                     if(data.status.includes("रेडी") || data.status.includes("Ready") || data.status.includes("Delivered")) {
                         statusDisp.style.background = "#2E8B57";
                     } else {
@@ -257,13 +215,7 @@
 
         function refreshApp() { window.location.reload(true); }
 
-        function shareApp() {
-            if (navigator.share) {
-                navigator.share({ title: 'PRATIKSHA DRY CLEANERS', text: 'अंबाबाड़ी की प्रीमियम सेवा!', url: window.location.href });
-            }
-        }
-
-        // मेनू टॉगल लॉजिक
+        // मेनू कंट्रोल
         const menuBtn = document.getElementById('menuToggleBtn');
         const menuList = document.getElementById('dropdownMenu');
         menuBtn.onclick = (e) => {
@@ -272,7 +224,7 @@
         };
         document.onclick = () => { menuList.style.display = 'none'; };
 
-        // ऑटो-प्ले गैलरी
+        // ऑटो-स्लाइडर
         let pIdx = 0;
         const pTrack = document.getElementById('photo-track');
         const pSlides = document.querySelectorAll('#photo-track img');
