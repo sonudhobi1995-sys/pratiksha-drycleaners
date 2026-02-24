@@ -14,7 +14,6 @@
         :root { --sun: #FF8C00; --saturn: #001F3F; --jupiter: #FFF9C4; }
         body { font-family: 'Poppins', sans-serif; background: #f4f7f9; margin: 0; padding: 0; color: #333; }
         
-        /* हेडर और लोगो */
         .billing-header { 
             background: var(--saturn); color: white; padding: 25px 20px; text-align: center; 
             border-radius: 0 0 30px 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
@@ -28,8 +27,8 @@
         
         input, select { width: 100%; padding: 14px; margin: 8px 0; border-radius: 15px; border: 1px solid #eee; box-sizing: border-box; font-size: 1rem; outline: none; background: #f9f9f9; }
         
-        /* स्मार्ट बकाया इनपुट */
         .balance-field { border: 2px solid #feb2b2 !important; background: #fff5f5 !important; color: #c53030; font-weight: bold; }
+        .discount-field { border: 2px solid #9ae6b4 !important; background: #f0fff4 !important; color: #276749; font-weight: bold; }
         .loader { font-size: 0.7rem; color: #999; margin-left: 10px; display: none; }
 
         .btn-add { background: var(--saturn); color: white; width: 100%; border: none; padding: 16px; border-radius: 15px; cursor: pointer; font-weight: 700; margin-top: 10px; }
@@ -40,7 +39,6 @@
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         td { padding: 12px 8px; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
 
-        /* प्रिंट सेटिंग्स (अत्यधिक महत्वपूर्ण) */
         @media print {
             .no-print { display: none !important; }
             #printArea { position: absolute; left: 0; top: 0; width: 100%; visibility: visible; }
@@ -69,8 +67,16 @@
         <div id="loading" class="loader">बकाया चेक हो रहा है...</div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
         
-        <label style="font-size: 0.75rem; color: #e74c3c; font-weight: bold; margin-left: 5px;">⚠️ पिछला बकाया (Old Balance):</label>
-        <input type="number" id="manualBalance" class="balance-field" placeholder="₹ 0" oninput="render()">
+        <div style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label style="font-size: 0.7rem; color: #e74c3c; font-weight: bold;">⚠️ पिछला बकाया:</label>
+                <input type="number" id="manualBalance" class="balance-field" placeholder="₹ 0" oninput="render()">
+            </div>
+            <div style="flex: 1;">
+                <label style="font-size: 0.7rem; color: #276749; font-weight: bold;">🎁 डिस्काउंट (छूट):</label>
+                <input type="number" id="discountAmt" class="discount-field" placeholder="₹ 0" oninput="render()">
+            </div>
+        </div>
     </div>
 
     <div class="card no-print">
@@ -119,14 +125,15 @@
         <button class="no-print" onclick="window.print()" style="width:100%; background:none; border:1px solid #ccc; margin-top:10px; padding:10px; border-radius:12px; cursor:pointer;">🖨️ रसीद प्रिंट करें</button>
     </div>
 </div>
-    <div class="nav-back">
-        <a href="admin-update.html"class="back-link">वापस एडमिन पैनल पर जाएँ</a>
+    <div class="nav-back no-print" style="text-align: center; margin-bottom: 30px;">
+        <a href="admin-update.html" style="text-decoration: none; color: var(--saturn); font-weight: bold;">← वापस एडमिन पैनल पर जाएँ</a>
     </div>
 
 <script>
     let billItems = [];
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-Cu2CNgnLn6685hq40wxSW1AzK5fXJx91fDUGVEJvhvq8eDxRSZ7fhKDFrCCT2p8/exec";
 
+    // 1. पिछला बकाया चेक करने का फंक्शन (RE-ADDED)
     async function fetchOldBalance() {
         const mob = document.getElementById('custMobile').value;
         const loader = document.getElementById('loading');
@@ -143,6 +150,7 @@
         loader.style.display = 'none';
     }
 
+    // 2. कॉन्टैक्ट चुनने का फंक्शन (RE-ADDED)
     async function getContact() {
         if (!('contacts' in navigator)) return alert("Mobile Chrome का उपयोग करें।");
         try {
@@ -171,21 +179,26 @@
     function render() {
         const body = document.querySelector('#billTable tbody');
         const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
+        
         body.innerHTML = ''; let currentTotal = 0;
         billItems.forEach(i => {
             currentTotal += i.total;
             body.innerHTML += `<tr><td>${i.name} (${i.q} नग)</td><td style="text-align:right; font-weight:bold;">₹${i.total}</td></tr>`;
         });
-        if(manualBal > 0) {
-            body.innerHTML += `<tr style="color:red; font-weight:bold;"><td>पिछला बकाया (Old Balance)</td><td style="text-align:right;">+ ₹${manualBal}</td></tr>`;
-        }
-        document.getElementById('gTotal').innerText = `Total: ₹ ${currentTotal + manualBal}`;
+        
+        if(manualBal > 0) body.innerHTML += `<tr style="color:red; font-weight:bold;"><td>पिछला बकाया</td><td style="text-align:right;">+ ₹${manualBal}</td></tr>`;
+        if(discount > 0) body.innerHTML += `<tr style="color:#276749; font-weight:bold;"><td>विशेष छूट (Discount) 🎁</td><td style="text-align:right;">- ₹${discount}</td></tr>`;
+        
+        const finalAmount = (currentTotal + manualBal) - discount;
+        document.getElementById('gTotal').innerText = `Total: ₹ ${finalAmount > 0 ? finalAmount : 0}`;
     }
 
     function sendWA() {
         const mob = document.getElementById('custMobile').value;
         const name = document.getElementById('custName').value;
         const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
         const btn = document.getElementById('waBtn');
         if(!mob || mob.length < 10) return alert("नंबर सही करें");
 
@@ -194,7 +207,6 @@
         let msg = `*प्रतीक्षा ड्राई क्लीनर्स* ✨🧺\n`;
         msg += `_अंबाबाड़ी, जयपुर | 8947985446/7740870095/7740870098_\n\n`;
         msg += `*🙏नमस्ते🙏*\n\n`;
-        msg += `*🙏 "वस्त्र व्यक्तित्व का दर्पण हैं।" 🙏*\n\n`;
         msg += `*ग्राहक:* ${name}\n--------------------------\n`;
         
         billItems.forEach(i => {
@@ -203,15 +215,18 @@
             currentTotal += i.total;
         });
 
-        if(manualBal > 0) {
-            msg += `--------------------------\nनया बिल: ₹${currentTotal}\nपिछला बकाया: *₹${manualBal}*\n`;
-        }
-        const finalAmount = currentTotal + manualBal;
-        msg += `--------------------------\n*कुल देय राशि: ₹${finalAmount}*\n\n।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।`;
+        msg += `--------------------------\n`;
+        msg += `नया बिल: ₹${currentTotal}\n`;
+        if(manualBal > 0) msg += `पिछला बकाया: ₹${manualBal}\n`;
+        if(discount > 0) msg += `🎁 विशेष छूट: -₹${discount}\n`;
+        
+        const finalAmount = (currentTotal + manualBal) - discount;
+        msg += `--------------------------\n*कुल देय राशि: ₹${finalAmount > 0 ? finalAmount : 0}*\n\n।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।`;
 
         btn.innerText = "सुरक्षित सेव हो रहा है... ⏳";
         btn.disabled = true;
 
+        // Backend को केवल Final Amount भेज रहे हैं
         const finalURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmount}&details=${encodeURIComponent(itemDetails)}&mode=Cash`;
         fetch(finalURL, { method: 'GET', mode: 'no-cors' });
 
