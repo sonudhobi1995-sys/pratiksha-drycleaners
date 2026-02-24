@@ -3,54 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Titu 5G Dashboard | Pratiksha Drycleaners</title>
+    <title>डैशबोर्ड | प्रतीक्षा ड्राई क्लीनर्स</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --main: #FF8C00; --dark: #001F3F; --light: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--light); margin: 0; padding: 15px; }
-        .header { text-align: center; padding: 20px 0; color: var(--dark); }
-        .card-main { background: var(--dark); color: white; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 20px; border-bottom: 5px solid var(--main); }
-        .card-main h2 { font-size: 2.8rem; margin: 10px 0; color: var(--main); }
+        :root { 
+            --sun: #FF8C00; 
+            --dark: #001F3F; 
+            --bg: #f8fafd; 
+            --card-bg: #ffffff;
+        }
+
+        body { 
+            font-family: 'Inter', 'Mukta', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: #333;
+        }
+
+        /* प्रीमियम हेडर */
+        .app-header { 
+            background: linear-gradient(135deg, var(--dark) 0%, #003366 100%); 
+            color: white; 
+            padding: 30px 15px; 
+            text-align: center; 
+            border-radius: 0 0 35px 35px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+
+        /* मुख्य कमाई वाला कार्ड */
+        .card-main { 
+            background: var(--card-bg); 
+            padding: 25px; 
+            border-radius: 25px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,31,63,0.08); 
+            margin-bottom: 25px; 
+            border-top: 5px solid var(--sun);
+        }
+
+        .card-main span { font-size: 0.9rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .card-main h2 { font-size: 2.8rem; margin: 10px 0; color: var(--dark); font-weight: 700; }
+        .total-info { color: var(--sun); font-weight: 600; font-size: 0.95rem; }
+
+        /* ग्रिड सिस्टम */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .stat-box { background: white; padding: 15px; border-radius: 15px; text-align: center; border-left: 5px solid var(--main); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .stat-box h4 { margin: 0; color: #666; font-size: 0.85rem; text-transform: uppercase; }
-        .stat-box p { margin: 8px 0 0; font-size: 1.5rem; font-weight: bold; color: var(--dark); }
-        .refresh-btn { width: 100%; padding: 18px; background: var(--main); color: white; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; margin-top: 25px; cursor: pointer; transition: 0.3s; }
+
+        .stat-box { 
+            background: white; 
+            padding: 20px 10px; 
+            border-radius: 20px; 
+            text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); 
+            border: 1px solid #edf2f7;
+        }
+
+        .stat-box h4 { margin: 0; color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-box p { margin: 10px 0 0; font-size: 1.6rem; font-weight: 700; color: var(--dark); }
+
+        /* रिफ्रेश बटन */
+        .refresh-btn { 
+            width: 100%; padding: 18px; 
+            background: var(--dark); 
+            color: white; 
+            border: none; 
+            border-radius: 18px; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            margin-top: 25px; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(0,31,63,0.2);
+        }
+
         .refresh-btn:active { transform: scale(0.95); }
+
+        .back-link {
+            display: block; text-align: center; margin-top: 20px;
+            color: var(--dark); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+        }
+
+        .footer-tag { text-align: center; margin-top: 30px; font-size: 12px; color: #aaa; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2 style="margin:0;">प्रतीक्षा डिजिटल डैशबोर्ड</h2>
-        <p style="margin:5px 0; color: #555;">अम्बाबाड़ी, जयपुर | Titu 5G सिस्टम</p>
+    <div class="app-header">
+        <h2 style="margin:0; font-weight: 700;">प्रतीक्षा ड्राई क्लीनर्स</h2>
+        <p style="margin:5px 0 0 0; opacity: 0.8; font-size: 14px;">डिजिटल डैशबोर्ड | अनुभव शाला</p>
     </div>
 
-    <div class="card-main">
-        <span>आज की कुल कमाई (Collection)</span>
-        <h2 id="todayColl">₹ 0</h2>
-        <small id="totalColl">कुल संचित कमाई: ₹ 0</small>
-    </div>
+    <div class="container">
+        <div class="card-main">
+            <span>आज की कुल कमाई</span>
+            <h2 id="todayColl">₹ 0</h2>
+            <div id="totalColl" class="total-info">कुल संचित कमाई: ₹ 0</div>
+        </div>
 
-    <div class="grid">
-        <div class="stat-box"><h4>पेंडिंग आर्डर</h4><p id="pending">0</p></div>
-        <div class="stat-box"><h4>धुलाई में</h4><p id="washing">0</p></div>
-        <div class="stat-box"><h4>रेडी कपड़े</h4><p id="ready">0</p></div>
-        <div class="stat-box"><h4>कुल ग्राहक</h4><p id="customers">0</p></div>
-    </div>
+        <div class="grid">
+            <div class="stat-box"><h4>पेंडिंग आर्डर</h4><p id="pending">0</p></div>
+            <div class="stat-box"><h4>धुलाई में</h4><p id="washing">0</p></div>
+            <div class="stat-box"><h4>रेडी कपड़े</h4><p id="ready">0</p></div>
+            <div class="stat-box"><h4>कुल ग्राहक</h4><p id="customers">0</p></div>
+        </div>
 
-    <button class="refresh-btn" onclick="fetchData()">🔄 डेटा अपडेट करें</button>
+        <button class="refresh-btn" onclick="fetchData()" id="refreshBtn">
+            🔄 डेटा अपडेट करें
+        </button>
+
+        <a href="admin.html" class="back-link">← एडमिन कंट्रोल पर वापस जाएं</a>
+
+        <div class="footer-tag">
+            प्रतीक्षा एवं नीति के भविष्य हेतु | Titu 5G संचालित
+        </div>
+    </div>
 
     <script>
+        // आपका लेटेस्ट 5G इंजन URL (Confirmed)
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzjxuEKlq41GrTwymM1Ywb1AjHhZ-qd6e865F65zf02Eiw4ZkVFnWNw_IwLPGVVv7yH6A/exec';
 
         function fetchData() {
-            const btn = document.querySelector('.refresh-btn');
-            btn.style.opacity = "0.5";
+            const btn = document.getElementById('refreshBtn');
             btn.innerText = "हिसाब मिल रहा है...";
+            btn.disabled = true;
             
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(response => response.json())
             .then(data => {
+                // डेटा को स्क्रीन पर अपडेट करना
                 document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
                 document.getElementById('totalColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
                 document.getElementById('pending').innerText = data.pending || 0;
@@ -58,17 +145,18 @@
                 document.getElementById('ready').innerText = data.ready || 0;
                 document.getElementById('customers').innerText = data.totalCustomers || 0;
                 
-                btn.style.opacity = "1";
                 btn.innerText = "🔄 डेटा अपडेट करें";
+                btn.disabled = false;
             })
             .catch(error => {
-                alert("डेटा नहीं मिल सका। कृपया चेक करें कि गूगल शीट 'Editor' मोड पर शेयर है या नहीं।");
-                btn.style.opacity = "1";
+                console.error('Error:', error);
+                alert("नेटवर्क एरर: डेटा अपडेट नहीं हो सका।");
                 btn.innerText = "🔄 डेटा अपडेट करें";
+                btn.disabled = false;
             });
         }
 
-        // पेज खुलते ही डेटा लोड करें
+        // पेज लोड होते ही डेटा लाएं
         window.onload = fetchData;
     </script>
 </body>
