@@ -49,6 +49,9 @@
         .badge { background: var(--sun); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
         
         .footer-info { text-align: center; font-size: 11px; color: #888; margin-top: 10px; }
+
+        /* नया विजुअल सेक्शन */
+        .payment-box { background: #fffcf5; border: 1.5px dashed var(--sun); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -85,6 +88,15 @@
                 <option value="रेडी टू डिलीवरी">✅ रेडी टू डिलीवरी</option>
                 <option value="Delivered">🚚 डिलीवर कर दिया</option>
             </select>
+
+            <div class="payment-box">
+                <label>💰 पेमेंट की स्थिति:</label>
+                <select id="paymentStatus" style="margin-bottom:0;">
+                    <option value="Pending">🔴 Pending (उधारी)</option>
+                    <option value="Paid">🟢 Paid (नकद/ऑनलाइन प्राप्त)</option>
+                </select>
+            </div>
+
             <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
                 अपडेट करें और मैसेज भेजें
             </button>
@@ -104,10 +116,8 @@
     </div>
 
 <script>
-    // आपका ताज़ा 5G URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycby0rlXJGkcIgJtSB34KZn3veB7lGTpEhBJzKBOQ2hrw0fkXkeXp3iTAAEFHPHqHPZXC/exec';
 
-    // कॉन्टैक्ट पिकर (Original Logic सुरक्षित है)
     async function getContact(mobileId) {
         if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
         try {
@@ -123,6 +133,7 @@
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
+        const pStatus = document.getElementById('paymentStatus').value; // नई वैल्यू
         const btn = document.getElementById('updateBtn');
         
         if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
@@ -130,8 +141,8 @@
         btn.innerText = "अपडेट हो रहा है...";
         btn.disabled = true;
 
-        // "Fire & Forget" (no-cors) रामबाण तरीका
-        const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}`;
+        // पेमेंट स्टेटस को भी URL में जोड़ दिया गया है
+        const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&paymentStatus=${encodeURIComponent(pStatus)}`;
         
         fetch(finalURL, { 
             method: 'GET',
@@ -139,10 +150,11 @@
         });
 
         setTimeout(() => {
-            alert("स्टेटस अपडेट डेटा भेज दिया गया है! ✅");
+            alert("स्टेटस और पेमेंट अपडेट भेज दिया गया है! ✅");
             
-            // प्रोफेशनल व्हाट्सएप मैसेज टेम्पलेट
-            const waMsg = `* प्रतीक्षा ड्राईक्लीनर्स * 🧺✨\n--------------------------------\nनमस्ते,\nआपके कपड़ों का स्टेटस अब: *${status}* है।\n\nअपना बिल और रीयल-टाइम स्टेटस यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/tracking.html\n\nधन्यवाद! 🙏`;
+            // व्हाट्सएप मैसेज में भी पेमेंट की स्थिति जोड़ दी
+            const payText = pStatus === "Paid" ? "✅ प्राप्त (Paid)" : "⏳ बकाया (Pending)";
+            const waMsg = `* प्रतीक्षा ड्राईक्लीनर्स * 🧺✨\n--------------------------------\nनमस्ते,\nआपके कपड़ों का स्टेटस: *${status}*\nपेमेंट स्टेटस: *${payText}*\n\nविवरण यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/tracking.html\n\nधन्यवाद! 🙏`;
             
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             
