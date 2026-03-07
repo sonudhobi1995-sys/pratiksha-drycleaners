@@ -6,6 +6,7 @@
     <title>PRATIKSHA DRYCLEANERS | Premium Fabric Care</title>
     
     <script>
+        // आपकी सुरक्षा प्रणाली
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
         }
@@ -52,21 +53,25 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
         .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; transition: 0.3s; }
-        .dropdown-content a:active { background: #f9f9f9; padding-left: 35px; color: var(--sun-orange); }
 
         .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* 3. वीडियो स्लाइडर (6 वीडियो लूप) */
+        /* 3. वीडियो स्लाइडर */
         .video-container { position: relative; width: 100%; height: 42vh; background: #000; overflow: hidden; }
         #heroVid { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
         .vid-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 10; }
         .v-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; }
 
-        /* 4. इमेज पट्टी (नो-कटिंग) */
+        /* 4. इमेज पट्टी (Infinite Loop) */
         .photo-strip { background: white; padding: 25px 0; overflow: hidden; border-bottom: 1px solid #eee; }
-        .strip-track { display: flex; width: calc(180px * 24); animation: scroll-images 45s linear infinite; }
+        .strip-track { display: flex; width: max-content; animation: scroll-images 45s linear infinite; }
         .strip-track img { width: 160px; height: 220px; object-fit: contain; background: #fff; margin: 0 12px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-180px * 12)); } }
+        
+        /* बिना कटिंग लूप के लिए एनीमेशन */
+        @keyframes scroll-images { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
 
         /* 5. सर्विस व्हील */
         .service-hub { padding: 50px 0 100px; background: white; border-radius: 50px 50px 0 0; margin-top: -40px; text-align: center; position: relative; z-index: 5; }
@@ -88,21 +93,10 @@
         .pos6 { top: 60px; left: 8px; }
         .orbit-node p { font-size: 0.68rem; font-weight: 700; margin: 3px 0 0; color: #444; }
 
-        /* 6. प्रीमियम रेटिंग और फुटर */
-        .rating-box { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f0f0f0; }
-        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
-        .rating-info { font-weight: 700; font-size: 1rem; color: var(--saturn-blue); }
-        .rating-avatars { display: flex; justify-content: center; gap: -10px; margin: 20px 0; }
-        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); object-fit: cover; margin-left: -12px; }
-
-        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; position: relative; }
+        /* 6. रेटिंग और फुटर */
+        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; }
         .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-        .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
-        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px; }
-        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
-        
-        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); transition: 0.3s; }
-        .btn-whatsapp:active { transform: scale(0.9) rotate(-10deg); }
+        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
     </style>
 </head>
 <body>
@@ -116,24 +110,21 @@
 
     <nav class="custom-nav">
         <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
-        
         <div class="nav-brand-wrapper">
             <img src="logo.png" alt="Logo">
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
-        
         <div class="nav-right-btns">
             <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="location.reload()">🔄</button>
             <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="logout()">🚪</button>
         </div>
-
         <div class="dropdown-content" id="navMenu">
             <a href="index.html">🏠 होम पेज</a>
             <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="process.html">⚙️ कार्य प्रक्रिया (Process)</a>
-            <a href="about.html">📖 हमारे बारे में (About Us)</a>
-            <a href="contact.html">📞 संपर्क करें (Contact Us)</a>
-            <a href="tracking.html">📦 ट्रैकिंग (Tracking)</a>
+            <a href="process.html">⚙️ कार्य प्रक्रिया</a>
+            <a href="about.html">📖 हमारे बारे में</a>
+            <a href="contact.html">📞 संपर्क करें</a>
+            <a href="tracking.html">📦 ट्रैकिंग</a>
         </div>
     </nav>
 
@@ -152,10 +143,8 @@
 
     <div class="photo-strip">
         <div class="strip-track">
-            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg"> <img src="5.jpg">
-            <img src="6.jpg"> <img src="7.jpg"> <img src="8.jpg"> <img src="9.jpg">
-            
-            
+            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg"> <img src="5.jpg"> <img src="6.jpg"> <img src="7.jpg"> <img src="8.jpg"> <img src="9.jpg">
+            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg"> <img src="5.jpg"> <img src="6.jpg"> <img src="7.jpg"> <img src="8.jpg"> <img src="9.jpg">
         </div>
     </div>
 
@@ -203,7 +192,7 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
         
-        // वीडियो लूप कंट्रोल
+        // आपका वीडियो लॉजिक (यथावत)
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
@@ -221,24 +210,28 @@
 
         function logout() { if(confirm("लॉगआउट करना चाहते हैं?")){ localStorage.clear(); location.href="login.html"; } }
 
+        // टीटू इंजन के साथ लाइव स्टेटस अपडेट
         window.onload = function() {
             const mobile = localStorage.getItem('userMobile');
             document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
             document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
 
             if(mobile) {
+                // टीटू इंजन से लाइव 'प्रहरी' की तरह स्टेटस खींचना
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
                 .then(r => r.json()).then(d => {
-                    if(d.status && d.status !== "Not Found") {
-                        const s = document.getElementById('uStatus');
+                    const s = document.getElementById('uStatus');
+                    // अगर स्टेटस 'Ready' या 'Delivered' है तो हरा रंग करें
+                    if(d.status && d.status !== "No Order") {
                         s.innerText = d.status;
-                        if(d.status.includes("Ready") || d.status.includes("Delivered")) s.style.background = "#2E8B57";
+                        if(d.status.includes("Ready") || d.status.includes("Delivered") || d.status.includes("Paid")) {
+                            s.style.background = "#2E8B57";
+                        }
                     }
-                }).catch(() => {});
+                }).catch(err => console.log("Status check skip..."));
             }
         };
 
-        // बाहर क्लिक करने पर मेनू बंद करें
         document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
     </script>
 </body>
