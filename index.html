@@ -3,83 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PRATIKSHA DRYCLEANERS | मानसरोवर</title>
+    <title>PRATIKSHA DRYCLEANERS | होम</title>
     
     <script>
-        // सुरक्षा जांच
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
         }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --sun-orange: #FF8C00;
-            --saturn-blue: #001F3F;
-            --cream-bg: #FFFDF0;
-        }
-
+        :root { --sun-orange: #FF8C00; --saturn-blue: #001F3F; --cream-bg: #FFFDF0; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); overflow-x: hidden; }
 
-        /* टॉप स्टेटस बार */
+        /* 1. टॉप स्टेटस बार */
         .user-status-bar {
-            background: white; padding: 10px 15px; display: flex;
-            justify-content: space-between; align-items: center;
-            font-size: 0.8rem; position: sticky; top: 0; z-index: 1100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-bottom: 2px solid var(--sun-orange);
+            background: white; padding: 10px 15px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.8rem; position: sticky; top: 0; z-index: 1200;
+            border-bottom: 2px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 3px 10px; border-radius: 50px; font-weight: bold; }
 
-        /* नेविगेशन बार (Menu Button के साथ) */
+        /* 2. मुख्य नेविगेशन मेनू */
         nav.custom-nav { 
-            background: var(--sun-orange); padding: 0 15px; 
-            display: flex; align-items: center; justify-content: space-between; 
-            height: 60px; position: sticky; top: 42px; z-index: 1050; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: var(--saturn-blue); padding: 0 15px; display: flex; 
+            align-items: center; justify-content: space-between; height: 60px;
+            position: sticky; top: 40px; z-index: 1100; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
-        .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
-        
-        .nav-center span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; color: white; letter-spacing: 1px; }
-        
-        /* ड्रॉपडाउन मेनू */
-        .nav-dropdown-menu { 
-            list-style: none; margin: 0; padding: 0; display: none; 
-            position: absolute; top: 60px; left: 0; width: 100%; 
-            background: var(--saturn-blue); z-index: 1060; 
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-logo-text { font-family: 'Playfair Display'; color: white; font-size: 1.1rem; font-weight: 900; letter-spacing: 1px; }
+
+        /* ड्रॉपडाउन स्टाइल */
+        .dropdown-content { 
+            display: none; position: absolute; top: 60px; left: 0; width: 100%;
+            background: white; border-bottom: 4px solid var(--sun-orange); z-index: 1150; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #1a3a5a; }
+        .dropdown-content a { 
+            display: block; padding: 15px 25px; color: var(--saturn-blue); 
+            text-decoration: none; font-weight: 700; border-bottom: 1px solid #eee; font-size: 0.95rem;
+        }
 
-        /* वीडियो हेडर */
-        .hero-section { position: relative; width: 100%; height: 35vh; background: #000; overflow: hidden; }
-        .hero-section video { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; pointer-events: none; }
+        /* 3. वीडियो स्लाइडर सेक्शन */
+        .video-box { position: relative; width: 100%; height: 42vh; background: #000; overflow: hidden; }
+        #heroVid { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .vid-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; pointer-events: none; text-align: center; }
+        
+        .vid-controls { position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 15px; }
+        .v-btn { background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 6px 15px; border-radius: 20px; font-size: 0.7rem; backdrop-filter: blur(5px); }
 
-        /* इमेज पट्टी */
-        .photo-strip { background: white; padding: 15px 0; overflow: hidden; border-bottom: 1px solid #eee; }
-        .strip-track { display: flex; width: calc(160px * 24); animation: scroll-images 30s linear infinite; }
+        /* 4. इमेज स्ट्रिप (A4 और Wide दोनों के लिए) */
+        .photo-strip { background: white; padding: 20px 0; overflow: hidden; }
+        .strip-track { display: flex; width: calc(180px * 24); animation: scroll-images 35s linear infinite; }
         .strip-track:active { animation-play-state: paused; }
-        .strip-track img { width: 150px; height: 105px; object-fit: cover; margin: 0 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #fff; }
+        .strip-track img { 
+            width: 160px; height: 210px; object-fit: contain; /* फोटो कटेगी नहीं */
+            background: #f9f9f9; margin: 0 10px; border-radius: 10px; border: 1px solid #ddd;
+        }
 
-        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-160px * 12)); } }
+        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-180px * 12)); } }
 
-        /* सर्विस व्हील */
+        /* 5. सर्विस व्हील */
         .service-hub { padding: 40px 0 100px; background: white; border-radius: 40px 40px 0 0; margin-top: -30px; text-align: center; }
         .wheel-container { position: relative; width: 310px; height: 310px; margin: 20px auto; }
-        .center-action { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 115px; height: 115px; background: radial-gradient(circle, var(--sun-orange), #ff5e00); border-radius: 50%; color: white; text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 25px rgba(255,140,0,0.5); z-index: 10; border: 4px solid white; animation: pulse 2s infinite; }
+        .center-action { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: var(--sun-orange); border-radius: 50%; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 4px solid white; text-decoration: none; font-weight: bold; animation: pulse 2s infinite; }
         
-        @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } 100% { transform: translate(-50%, -50%) scale(1); } }
+        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } }
 
-        .orbit-node { position: absolute; width: 72px; height: 72px; background: white; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; text-decoration: none; }
+        .orbit-node { position: absolute; width: 70px; height: 70px; background: white; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration: none; border: 1px solid #f0f0f0; }
         .pos1 { top: 0; left: 50%; transform: translateX(-50%); }
         .pos2 { top: 55px; right: 5px; }
         .pos3 { bottom: 55px; right: 5px; }
         .pos4 { bottom: 0; left: 50%; transform: translateX(-50%); }
         .pos5 { bottom: 55px; left: 5px; }
         .pos6 { top: 55px; left: 5px; }
-        .orbit-node span { font-size: 1.4rem; }
         .orbit-node p { font-size: 0.6rem; font-weight: bold; margin: 0; color: #555; }
 
         .btn-whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(37,211,102,0.3); z-index: 2000; }
@@ -89,43 +89,43 @@
 
     <div class="user-status-bar">
         <div>🏠 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
-        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
-            <span id="userStatusDisp" class="status-pill">Online</span>
-        </div>
+        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;"><span id="userStatusDisp" class="status-pill">Online</span></div>
     </div>
 
     <nav class="custom-nav">
-        <div class="nav-left">
-            <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
-        </div>
-        <div class="nav-center">
-            <span>PRATIKSHA DRYCLEANERS</span>
-        </div>
-        <div class="nav-right" onclick="window.location.reload()">🔄</div>
+        <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        <div class="nav-logo-text">PRATIKSHA DRYCLEANERS</div>
+        <div style="color:white; font-size:1.2rem;" onclick="location.reload()">🔄</div>
         
-        <ul class="nav-dropdown-menu" id="dropdownMenu">
-            <li><a href="index.html">होम</a></li>
-            <li><a href="services.html">हमारी सेवाएं</a></li>
-            <li><a href="tracking.html">ऑर्डर ट्रैक करें</a></li>
-            <li><a href="https://wa.me/7740870095">सपोर्ट</a></li>
-        </ul>
+        <div class="dropdown-content" id="navMenu">
+            <a href="index.html">🏠 होम (Home)</a>
+            <a href="services.html">🧺 हमारी सेवाएं (Services)</a>
+            <a href="tracking.html">📦 ऑर्डर ट्रैक करें (Tracking)</a>
+            <a href="about.html">✨ हमारे बारे में (About Us)</a>
+            <a href="contact.html">📞 संपर्क करें (Contact)</a>
+            <a href="https://wa.me/7740870095" style="color: #25D366;">🟢 व्हाट्सएप सपोर्ट</a>
+        </div>
     </nav>
 
-    <section class="hero-section" onclick="toggleVideo()">
-        <video id="heroVid" autoplay loop muted playsinline>
+    <div class="video-box">
+        <video id="heroVid" autoplay muted playsinline onended="nextVideo()">
             <source src="10.mp4" type="video/mp4">
         </video>
-        <div class="hero-overlay">
-            <h1 style="font-family: 'Playfair Display'; font-size: 1.8rem; margin: 0;">PRATIKSHA</h1>
-            <p style="letter-spacing: 4px; font-size: 0.7rem; margin: 0;">DRYCLEANERS</p>
-            <p id="vidStatus" style="font-size: 0.55rem; margin-top: 10px; opacity: 0.8;">(टच करें रोकने के लिए)</p>
+        <div class="vid-overlay">
+            <h2 style="font-family: 'Playfair Display'; margin:0;">Premium Care</h2>
+            <p style="font-size: 0.7rem; letter-spacing: 3px;">EXPERT FABRIC CLEANING</p>
         </div>
-    </section>
+        <div class="vid-controls">
+            <button class="v-btn" onclick="prevVideo()">◀ पिछला</button>
+            <button class="v-btn" id="playBtn" onclick="toggleVideo()">⏸ रोकें</button>
+            <button class="v-btn" onclick="nextVideo()">अगला ▶</button>
+        </div>
+    </div>
 
     <div class="photo-strip">
         <div class="strip-track">
             <img src="1.jpg"> <img src="2.jpg">
-            <img src="1000305533.jpg"> <img src="1000305534.jpg">
+            
             <img src="3.jpg"> <img src="4.jpg">
             <img src="5.jpg"> <img src="6.jpg">
             <img src="7.jpg"> <img src="8.jpg">
@@ -135,60 +135,60 @@
     </div>
 
     <section class="service-hub">
-        <div style="background:#e6f2ff; color:#001F3F; padding:4px 12px; border-radius:20px; font-size:0.7rem; font-weight:bold; display:inline-block; margin-bottom:10px;">📍 मानसरोवर स्पेशल</div>
-        
         <div class="wheel-container">
-            <a href="services.html#rapid" class="center-action">
-                <span style="font-size: 2rem;">⚡</span>
-                <span style="font-weight: 900; line-height: 1; font-size: 0.8rem;">RAPID<br>SERVICE</span>
-            </a>
+            <a href="services.html" class="center-action"><span>⚡</span>RAPID</a>
             <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
             <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
             <a href="services.html#wed" class="orbit-node pos3"><span>💃</span><p>Wedding</p></a>
-            <a href="services.html#home" class="orbit-node pos4"><span>🏠</span><p>Home Care</p></a>
+            <a href="services.html#home" class="orbit-node pos4"><span>🏠</span><p>Home</p></a>
             <a href="services.html#shoe" class="orbit-node pos5"><span>👟</span><p>Shoes</p></a>
             <a href="services.html#leather" class="orbit-node pos6"><span>🧥</span><p>Leather</p></a>
         </div>
     </section>
 
-    <a href="https://wa.me/7740870095" class="btn-whatsapp"><span>Order Now</span> 📲</a>
+    <a href="https://wa.me/7740870095" class="btn-whatsapp">WhatsApp Order 📲</a>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby0rlXJGkcIgJtSB34KZn3veB7lGTpEhBJzKBOQ2hrw0fkXkeXp3iTAAEFHPHqHPZXC/exec';
+        // --- 1. मेनू कंट्रोल ---
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display = 'none';
+        });
 
+        // --- 2. वीडियो स्लाइडर ---
+        const vList = ["10.mp4", "11.mp4", "12.mp4"]; // और वीडियो हों तो यहाँ नाम जोड़ें
+        let vIdx = 0;
+        const player = document.getElementById('heroVid');
+        const pBtn = document.getElementById('playBtn');
+
+        function nextVideo() { vIdx = (vIdx + 1) % vList.length; playNew(); }
+        function prevVideo() { vIdx = (vIdx - 1 + vList.length) % vList.length; playNew(); }
+        function playNew() { player.src = vList[vIdx]; player.play(); pBtn.innerText = "⏸ रोकें"; }
+        function toggleVideo() {
+            if (player.paused) { player.play(); pBtn.innerText = "⏸ रोकें"; }
+            else { player.pause(); pBtn.innerText = "▶ चलाएं"; }
+        }
+
+        // --- 3. स्टेटस अपडेट ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby0rlXJGkcIgJtSB34KZn3veB7lGTpEhBJzKBOQ2hrw0fkXkeXp3iTAAEFHPHqHPZXC/exec';
         window.onload = function() {
             document.getElementById('userHouseDisp').innerText = localStorage.getItem('userHouse') || "...";
-            document.getElementById('userNameDisp').innerText = localStorage.getItem('userName') || "ग्राहक";
-
+            document.getElementById('userNameDisp').innerText = localStorage.getItem('userName') || "Guest";
             const mobile = localStorage.getItem('userMobile');
             if(mobile) {
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
-                .then(res => res.json())
-                .then(data => {
-                    const sDisp = document.getElementById('userStatusDisp');
-                    if (data.status && data.status !== "Not Found") {
-                        sDisp.innerText = data.status;
-                        if(data.status.includes("रेडी") || data.status.includes("Ready")) sDisp.style.background = "#2E8B57";
+                .then(r => r.json()).then(d => {
+                    const s = document.getElementById('userStatusDisp');
+                    if(d.status && d.status !== "Not Found") {
+                        s.innerText = d.status;
+                        if(d.status.includes("Ready")) s.style.background = "#2E8B57";
                     }
                 }).catch(() => {});
             }
         };
-
-        // मेनू टॉगल फंक्शन
-        const menuBtn = document.getElementById('menuToggleBtn');
-        const menuList = document.getElementById('dropdownMenu');
-        menuBtn.onclick = (e) => {
-            e.stopPropagation();
-            menuList.style.display = (menuList.style.display === 'block') ? 'none' : 'block';
-        };
-        document.onclick = () => { menuList.style.display = 'none'; };
-
-        function toggleVideo() {
-            const v = document.getElementById('heroVid');
-            const s = document.getElementById('vidStatus');
-            if (v.paused) { v.play(); s.innerText = "(टच करें रोकने के लिए)"; }
-            else { v.pause(); s.innerText = "(टच करें चलाने के लिए)"; }
-        }
     </script>
 </body>
 </html>
