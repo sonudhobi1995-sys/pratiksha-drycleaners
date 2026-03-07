@@ -1,179 +1,209 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Process | PRATIKSHA DRYCLEANERS</title>
+    <title>Our Cosmic Process | PRATIKSHA DRYCLEANERS</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --sun-orange: #FF8C00;
-            --mercury-green: #2E8B57;
             --saturn-blue: #001F3F;
-            --cream-bg: #FFFDD0;
+            --space-dark: #010103;
+            --diamond-silver: #e0e0e0;
         }
 
-        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--space-dark); color: white; overflow-x: hidden; }
 
-        /* मास्टर टॉप स्टेटस बार */
+        /* सितारों वाला बैकग्राउंड */
+        .stars-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px);
+            background-size: 250px 250px; opacity: 0.3; z-index: -1;
+            animation: move-stars 150s linear infinite;
+        }
+        @keyframes move-stars { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
+
+        /* हेडर स्टेटस बार */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
-            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--sun-orange); color: #333;
         }
+        .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* मास्टर नेविगेशन */
+        /* नेविगेशन बार */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
-            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
+            justify-content: space-between; height: 65px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
-        .nav-left-section { display: flex; align-items: center; gap: 12px; }
-        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
-        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
-
-        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; }
+        .nav-brand-wrapper { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
         .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
-        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; white-space: nowrap; }
 
-        .nav-right-actions { display: flex; align-items: center; gap: 8px; }
-        .icon-btn { background: rgba(255,255,255,0.1); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; z-index: 10; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-right-btns { z-index: 10; display: flex; gap: 10px; }
 
         .dropdown-content { 
             display: none; position: absolute; top: 65px; left: 0; width: 100%;
             background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #eee; }
 
-        /* आपका ओरिजिनल कंटेनर और ग्रिड डिजाइन */
-        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
+        /* कंटेंट एरिया */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1; }
+
         .order-alert {
-            background: #fff3cd; border: 1px solid #ffeeba; color: #856404;
-            padding: 15px; border-radius: 10px; text-align: center; font-weight: bold;
-            margin-bottom: 30px; font-size: 0.9rem;
+            background: rgba(255, 140, 0, 0.1); border: 1px solid var(--sun-orange); color: var(--sun-orange);
+            padding: 15px; border-radius: 12px; text-align: center; font-weight: bold;
+            margin-bottom: 40px; font-size: 0.85rem; letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
-        .process-header { text-align: center; margin-bottom: 50px; }
-        .process-header h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
-        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .process-card { 
-            background: white; border-radius: 15px; overflow: hidden; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-bottom: 4px solid var(--sun-orange);
-            transition: transform 0.3s ease;
-        }
-        .process-card:hover { transform: translateY(-10px); }
-        .process-card img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid #eee; }
-        .card-content { padding: 25px; }
-        .step-number { 
-            background: var(--sun-orange); color: white; padding: 4px 12px; 
-            border-radius: 20px; font-size: 0.75rem; font-weight: bold; 
-            display: inline-block; margin-bottom: 15px;
-        }
-        .process-card h3 { color: var(--saturn-blue); margin: 0 0 15px 0; font-family: 'Playfair Display', serif; font-size: 1.4rem; }
-        .process-card p { font-size: 0.95rem; color: #555; margin: 0; text-align: justify; }
 
-        /* मास्टर बड़ा फुटर */
-        .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px 100px; text-align: center; margin-top: 50px; }
-        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .process-header { text-align: center; margin-bottom: 60px; }
+        .process-header h2 { color: var(--sun-orange); font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .process-header p { opacity: 0.7; letter-spacing: 1px; }
+
+        /* कोस्मिक प्रोसेस कार्ड्स */
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .process-card { 
+            background: rgba(255,255,255,0.06); border-radius: 20px; overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
+            backdrop-filter: blur(10px);
+        }
+        .process-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.1); border-color: var(--sun-orange); }
+        
+        .process-card img { width: 100%; height: 230px; object-fit: cover; filter: grayscale(30%) brightness(0.8); }
+        .card-content { padding: 25px; }
+        
+        .step-tag { 
+            background: var(--sun-orange); color: white; padding: 5px 15px; 
+            border-radius: 20px; font-size: 0.7rem; font-weight: 900; 
+            display: inline-block; margin-bottom: 15px; letter-spacing: 2px;
+        }
+        
+        .process-card h3 { color: white; margin: 0 0 12px 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .process-card p { font-size: 0.9rem; color: #ccc; line-height: 1.6; margin: 0; }
+
+        /* फुटर */
+        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; margin-top: 80px; }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
         .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
 
         @media (max-width: 600px) { 
-            .process-header h2 { font-size: 1.8rem; }
+            .process-header h2 { font-size: 2rem; }
+            .footer-brand { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="stars-overlay"></div>
+
     <div class="user-status-bar">
-        <div>🏠 Ambabari | ⚙️ <b>कार्य प्रक्रिया</b></div>
-        <div>Pratiksha Drycleaners</div>
+        <div>🏠 <span id="uHouse">...</span> | ⚙️ <b>Procedure</b></div>
+        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
+            Status: <span id="uStatus" class="status-pill">Syncing...</span>
+        </div>
     </div>
 
     <nav class="custom-nav">
-        <div class="nav-left-section">
-            <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
-            <div class="nav-brand-wrapper">
-                <img src="logo.png" alt="Logo">
-                <span>PRATIKSHA</span>
-            </div>
+        <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        
+        <div class="nav-brand-wrapper">
+            <img src="logo.png" alt="Logo">
+            <span>PRATIKSHA DRYCLEANERS</span>
         </div>
-        <div class="nav-right-actions">
-            <div class="icon-btn" onclick="location.href='index.html'">🏠</div>
+
+        <div class="nav-right-btns">
+            <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="location.reload()">🔄</button>
+            <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="history.back()">🔙</button>
         </div>
 
         <div class="dropdown-content" id="navMenu">
-            <a href="index.html">🏠 होम पेज</a>
-            <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="about.html">📖 हमारे बारे में</a>
-            <a href="process.html" style="background:#f9f9f9; color:var(--sun-orange);">⚙️ कार्य प्रक्रिया</a>
-            <a href="contact.html">📞 संपर्क करें</a>
+            <a href="index.html">🏠 Home Page</a>
+            <a href="services.html">🧺 Our Services</a>
+            <a href="process.html" style="background:#f9f9f9; color:var(--sun-orange);">⚙️ Work Process</a>
+            <a href="about.html">📖 About Us</a>
+            <a href="contact.html">📞 Contact Us</a>
+            <a href="tracking.html">🚚 Tracking</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="order-alert">
-            🚚 FREE PICKUP & DELIVERY: Minimum Order of ₹250 required for Ambabari Regions.
+            🚀 COSMIC LOGISTICS: FREE PICKUP & DELIVERY FOR AMBABARI REGIONS (Min. Order ₹250)
         </div>
 
         <div class="process-header">
-            <h2>Purity in Every Fiber</h2>
-            <p>हमारी 6-चरणीय प्रक्रिया जो सुनिश्चित करती है 'शुचिता' और बेमिसाल सफाई।</p>
+            <h2>Purity in Every Orbit</h2>
+            <p>Our 6-Step Spiritual Journey to Fabric Perfection</p>
         </div>
+
+        
 
         <div class="process-grid">
             <div class="process-card">
-                <img src="step1.png" alt="Pickup Process">
+                <img src="step1.png" alt="Pickup">
                 <div class="card-content">
-                    <span class="step-number">STEP 01</span>
-                    <h3>Pickup Cloth</h3>
-                    <p>हमारा प्रतिनिधि आपके द्वार पर सम्मान के साथ उपस्थित होता है। वह मोबाइल ऐप के माध्यम से कपड़ों का डिजिटल रिकॉर्ड बनाता है और सावधानी से आपके कीमती परिधानों को सुरक्षित बैग में एकत्रित करता है।</p>
+                    <span class="step-tag">ORBIT 01</span>
+                    <h3>Divine Pickup</h3>
+                    <p>Our representative arrives at your doorstep with respect. Every garment is digitally logged via our app, ensuring a sacred record of your precious attire before they enter our care.</p>
                 </div>
             </div>
 
             <div class="process-card">
                 <img src="step2.png" alt="Inspection">
                 <div class="card-content">
-                    <span class="step-number">STEP 02</span>
-                    <h3>Cloth Inspection</h3>
-                    <p>कार्यशाला में विशेषज्ञ एक-एक धागे और दाग का सूक्ष्मता से निरीक्षण करते हैं। कपड़े के फैब्रिक के आधार पर उसे अलग किया जाता है ताकि धुलाई के दौरान कोई नुकसान न पहुँचे।</p>
+                    <span class="step-tag">ORBIT 02</span>
+                    <h3>Stellar Inspection</h3>
+                    <p>Experts meticulously examine every thread and stain. Fabrics are classified by their planetary nature (material) to ensure no harm comes during the purification process.</p>
                 </div>
             </div>
 
             <div class="process-card">
                 <img src="step3.png" alt="Washing">
                 <div class="card-content">
-                    <span class="step-number">STEP 03</span>
-                    <h3>Washing Process</h3>
-                    <p>हम उन्नत तकनीक और सुरक्षित सॉल्वेंट्स का उपयोग करते हैं। हर कपड़े के लिए सही तापमान और क्लीनिंग एजेंट का चुनाव किया जाता है ताकि कपड़े के रेशे और चमक बरकरार रहे।</p>
+                    <span class="step-tag">ORBIT 03</span>
+                    <h3>Deep Purification</h3>
+                    <p>We use advanced eco-solvents and precise temperature control. Like a celestial bath, our process removes impurities while keeping the 'soul' (fibers) of the cloth alive.</p>
                 </div>
             </div>
 
             <div class="process-card">
                 <img src="step4.png" alt="Steam Press">
                 <div class="card-content">
-                    <span class="step-number">STEP 04</span>
-                    <h3>Steam Pressing</h3>
-                    <p>उच्च दबाव वाली भाप (Steam) का उपयोग करके कपड़े की सिलवटों को जड़ से खत्म किया जाता है। यह प्रक्रिया कपड़े को एक ऐसी फिनिश देती है जो उसे बिल्कुल नए जैसा महसूस कराती है।</p>
+                    <span class="step-tag">ORBIT 04</span>
+                    <h3>Vapor Revitalization</h3>
+                    <p>High-pressure steam infusion eliminates every wrinkle. This stage restores the showroom-like crispness, making the garment feel as though it just descended from the stars.</p>
                 </div>
             </div>
 
             <div class="process-card">
                 <img src="step5.png" alt="Packaging">
                 <div class="card-content">
-                    <span class="step-number">STEP 05</span>
-                    <h3>Cloth Packaging</h3>
-                    <p>तैयार कपड़ों को 'प्रतीक्षा' की ब्रांडेड पैकेजिंग में रखा जाता है। हम विशेष कवर और हैंगर्स का उपयोग करते हैं ताकि डिलीवरी तक कपड़े धूल और नमी से पूरी तरह सुरक्षित रहें।</p>
+                    <span class="step-tag">ORBIT 05</span>
+                    <h3>Cosmic Armor</h3>
+                    <p>Clothes are encased in 'Pratiksha' branded protective layers. Special hangers and moisture-proof covers ensure they remain pristine until they return to you.</p>
                 </div>
             </div>
 
             <div class="process-card">
                 <img src="step6.png" alt="Delivery">
                 <div class="card-content">
-                    <span class="step-number">STEP 06</span>
-                    <h3>Product Delivery</h3>
-                    <p>सुरक्षित और साफ कपड़ों को आपके द्वार पर समय पर पहुँचाना हमारी प्राथमिकता है। आपकी संतुष्टि ही हमारी सेवा का असली समापन और भरोसे की नींव है।</p>
+                    <span class="step-tag">ORBIT 06</span>
+                    <h3>Sacred Delivery</h3>
+                    <p>Timely return of your revitalized garments. Your satisfaction is the foundation of our 'Rinanubandh' (eternal bond). We deliver trust, wrapped in cleanliness.</p>
                 </div>
             </div>
         </div>
@@ -182,14 +212,34 @@
     <div class="big-footer">
         <div class="footer-brand">PRATIKSHA</div>
         <div class="footer-sub">DRYCLEANERS</div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Managed by Sonu Neel</p>
+        <p style="font-size: 0.65rem; opacity: 0.4;">© 2026 PRATIKSHA DRYCLEANERS | Designed with ❤️ by SONU NEEL</p>
     </div>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
+
         function toggleMenu() {
             const m = document.getElementById('navMenu');
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
+
+        window.onload = function() {
+            // डेटा सिंक
+            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
+            
+            const mobile = localStorage.getItem('userMobile');
+            if(mobile) {
+                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+                .then(r => r.json()).then(d => {
+                    if(d.status) {
+                        const s = document.getElementById('uStatus');
+                        s.innerText = d.status;
+                        if(d.status.includes("Ready")) s.style.background = "#2E8B57";
+                    }
+                }).catch(() => {});
+            }
+        };
+
         document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
     </script>
 </body>
