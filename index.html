@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PRATIKSHA DRYCLEANERS | मानसरोवर प्रीमियम सर्विस</title>
+    <title>PRATIKSHA DRYCLEANERS | मानसरोवर</title>
     
     <script>
-        // पुराना सुरक्षा चेक: लॉगिन जरूरी है
+        // सुरक्षा जांच
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
         }
@@ -24,133 +24,123 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
 
-        /* टॉप स्टेटस बार (पुराना लॉजिक) */
+        /* टॉप स्टेटस बार */
         .user-status-bar {
-            background: white; padding: 12px 15px; display: flex;
+            background: white; padding: 10px 15px; display: flex;
             justify-content: space-between; align-items: center;
-            font-size: 0.85rem; position: sticky; top: 0; z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-bottom: 2px solid var(--sun-orange);
+            font-size: 0.8rem; position: sticky; top: 0; z-index: 1100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-bottom: 2px solid var(--sun-orange);
         }
-        
-        .status-pill {
-            background: var(--sun-orange); color: white; padding: 4px 12px;
-            border-radius: 50px; font-weight: bold; font-size: 0.75rem; transition: 0.3s;
-        }
+        .status-pill { background: var(--sun-orange); color: white; padding: 3px 10px; border-radius: 50px; font-weight: bold; }
 
-        /* नया वीडियो हेडर (Play/Pause के साथ) */
-        .hero-section {
-            position: relative; width: 100%; height: 38vh;
-            background: #000; overflow: hidden; cursor: pointer;
+        /* नेविगेशन बार (Menu Button के साथ) */
+        nav.custom-nav { 
+            background: var(--sun-orange); padding: 0 15px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            height: 60px; position: sticky; top: 42px; z-index: 1050; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .nav-icon-left { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .nav-icon-left div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        
+        .nav-center span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; color: white; letter-spacing: 1px; }
+        
+        /* ड्रॉपडाउन मेनू */
+        .nav-dropdown-menu { 
+            list-style: none; margin: 0; padding: 0; display: none; 
+            position: absolute; top: 60px; left: 0; width: 100%; 
+            background: var(--saturn-blue); z-index: 1060; 
+        }
+        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; border-bottom: 1px solid #1a3a5a; }
+
+        /* वीडियो हेडर */
+        .hero-section { position: relative; width: 100%; height: 35vh; background: #000; overflow: hidden; }
         .hero-section video { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; color: white; text-align: center; pointer-events: none;
-        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; pointer-events: none; }
 
-        /* नया इमेज स्लाइडर (दबाने पर रुकने वाला) */
+        /* इमेज पट्टी */
         .photo-strip { background: white; padding: 15px 0; overflow: hidden; border-bottom: 1px solid #eee; }
-        .strip-track { display: flex; width: calc(160px * 22); animation: scroll-images 30s linear infinite; }
-        .strip-track:active { animation-play-state: paused; } /* नया फीचर: टच पर रुकना */
+        .strip-track { display: flex; width: calc(160px * 24); animation: scroll-images 30s linear infinite; }
+        .strip-track:active { animation-play-state: paused; }
+        .strip-track img { width: 150px; height: 105px; object-fit: cover; margin: 0 10px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #fff; }
+
+        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-160px * 12)); } }
+
+        /* सर्विस व्हील */
+        .service-hub { padding: 40px 0 100px; background: white; border-radius: 40px 40px 0 0; margin-top: -30px; text-align: center; }
+        .wheel-container { position: relative; width: 310px; height: 310px; margin: 20px auto; }
+        .center-action { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 115px; height: 115px; background: radial-gradient(circle, var(--sun-orange), #ff5e00); border-radius: 50%; color: white; text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 10px 25px rgba(255,140,0,0.5); z-index: 10; border: 4px solid white; animation: pulse 2s infinite; }
         
-        .strip-track img {
-            width: 150px; height: 105px; object-fit: cover;
-            margin: 0 10px; border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid #fff;
-        }
-
-        @keyframes scroll-images {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-160px * 11)); }
-        }
-
-        /* सर्विस व्हील सेक्शन */
-        .service-hub {
-            padding: 40px 0 100px; background: white;
-            border-radius: 40px 40px 0 0; margin-top: -35px;
-            position: relative; text-align: center;
-        }
-
-        .wheel-container { position: relative; width: 320px; height: 320px; margin: 25px auto; }
-        .center-action {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 120px; height: 120px; background: radial-gradient(circle, var(--sun-orange), #ff5e00);
-            border-radius: 50%; color: white; text-decoration: none;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.5); z-index: 10;
-            border: 4px solid white; animation: pulse 2s infinite;
-        }
-
         @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } 100% { transform: translate(-50%, -50%) scale(1); } }
 
-        .orbit-node {
-            position: absolute; width: 75px; height: 75px; background: white; border-radius: 50%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; text-decoration: none;
-        }
-
+        .orbit-node { position: absolute; width: 72px; height: 72px; background: white; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; text-decoration: none; }
         .pos1 { top: 0; left: 50%; transform: translateX(-50%); }
-        .pos2 { top: 60px; right: 5px; }
-        .pos3 { bottom: 60px; right: 5px; }
+        .pos2 { top: 55px; right: 5px; }
+        .pos3 { bottom: 55px; right: 5px; }
         .pos4 { bottom: 0; left: 50%; transform: translateX(-50%); }
-        .pos5 { bottom: 60px; left: 5px; }
-        .pos6 { top: 60px; left: 5px; }
-
-        .orbit-node span { font-size: 1.5rem; }
+        .pos5 { bottom: 55px; left: 5px; }
+        .pos6 { top: 55px; left: 5px; }
+        .orbit-node span { font-size: 1.4rem; }
         .orbit-node p { font-size: 0.6rem; font-weight: bold; margin: 0; color: #555; }
 
-        /* फ्लोटिंग व्हाट्सएप */
-        .btn-whatsapp {
-            position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white;
-            padding: 14px 22px; border-radius: 50px; text-decoration: none; font-weight: bold;
-            display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 25px rgba(37,211,102,0.4); z-index: 2000;
-        }
+        .btn-whatsapp { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(37,211,102,0.3); z-index: 2000; }
     </style>
 </head>
 <body>
 
     <div class="user-status-bar">
-        <div>📍 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
+        <div>🏠 <span id="userHouseDisp">...</span> | 👤 <b id="userNameDisp">ग्राहक</b></div>
         <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
             <span id="userStatusDisp" class="status-pill">Online</span>
         </div>
     </div>
 
+    <nav class="custom-nav">
+        <div class="nav-left">
+            <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
+        </div>
+        <div class="nav-center">
+            <span>PRATIKSHA DRYCLEANERS</span>
+        </div>
+        <div class="nav-right" onclick="window.location.reload()">🔄</div>
+        
+        <ul class="nav-dropdown-menu" id="dropdownMenu">
+            <li><a href="index.html">होम</a></li>
+            <li><a href="services.html">हमारी सेवाएं</a></li>
+            <li><a href="tracking.html">ऑर्डर ट्रैक करें</a></li>
+            <li><a href="https://wa.me/7740870095">सपोर्ट</a></li>
+        </ul>
+    </nav>
+
     <section class="hero-section" onclick="toggleVideo()">
         <video id="heroVid" autoplay loop muted playsinline>
-            <source src="assets/videos/10.mp4" type="video/mp4">
+            <source src="10.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay">
-            <h1 style="font-family: 'Playfair Display'; font-size: 2.2rem; margin: 0;">PRATIKSHA</h1>
-            <p style="letter-spacing: 5px; font-size: 0.8rem; margin: 0;">DRYCLEANERS</p>
-            <p id="vidStatus" style="font-size: 0.6rem; margin-top: 15px; opacity: 0.8;">(रोकने/चलाने के लिए टच करें)</p>
+            <h1 style="font-family: 'Playfair Display'; font-size: 1.8rem; margin: 0;">PRATIKSHA</h1>
+            <p style="letter-spacing: 4px; font-size: 0.7rem; margin: 0;">DRYCLEANERS</p>
+            <p id="vidStatus" style="font-size: 0.55rem; margin-top: 10px; opacity: 0.8;">(टच करें रोकने के लिए)</p>
         </div>
     </section>
 
     <div class="photo-strip">
         <div class="strip-track">
-            <img src="assets/images/1.jpg"> <img src="assets/images/2.jpg">
-            <img src="assets/images/1000305533.jpg"> <img src="assets/images/1000305534.jpg">
-            <img src="assets/images/3.jpg"> <img src="assets/images/4.jpg">
-            <img src="assets/images/5.jpg"> <img src="assets/images/6.jpg">
-            <img src="assets/images/7.jpg"> <img src="assets/images/8.jpg">
-            <img src="assets/images/9.jpg">
-            <img src="assets/images/1.jpg"> <img src="assets/images/2.jpg">
-            <img src="assets/images/3.jpg"> <img src="assets/images/4.jpg">
-            <img src="assets/images/5.jpg"> <img src="assets/images/6.jpg">
-            <img src="assets/images/7.jpg"> <img src="assets/images/8.jpg">
-            <img src="assets/images/9.jpg">
+            <img src="1.jpg"> <img src="2.jpg">
+            <img src="1000305533.jpg"> <img src="1000305534.jpg">
+            <img src="3.jpg"> <img src="4.jpg">
+            <img src="5.jpg"> <img src="6.jpg">
+            <img src="7.jpg"> <img src="8.jpg">
+            <img src="9.jpg">
+            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
         </div>
     </div>
 
     <section class="service-hub">
-        <div style="background:#e6f2ff; color:#001F3F; padding:5px 15px; border-radius:20px; font-size:0.75rem; font-weight:bold; display:inline-block; margin-bottom:10px;">📍 मानसरोवर स्पेशल सर्विस</div>
+        <div style="background:#e6f2ff; color:#001F3F; padding:4px 12px; border-radius:20px; font-size:0.7rem; font-weight:bold; display:inline-block; margin-bottom:10px;">📍 मानसरोवर स्पेशल</div>
         
         <div class="wheel-container">
             <a href="services.html#rapid" class="center-action">
-                <span style="font-size: 2.2rem;">⚡</span>
-                <span style="font-weight: 900; line-height: 1;">RAPID<br>SERVICE</span>
+                <span style="font-size: 2rem;">⚡</span>
+                <span style="font-weight: 900; line-height: 1; font-size: 0.8rem;">RAPID<br>SERVICE</span>
             </a>
             <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
             <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
@@ -164,17 +154,13 @@
     <a href="https://wa.me/7740870095" class="btn-whatsapp"><span>Order Now</span> 📲</a>
 
     <script>
-        // --- पुराना 5G रामबाण URL (बिल्कुल वही) ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycby0rlXJGkcIgJtSB34KZn3veB7lGTpEhBJzKBOQ2hrw0fkXkeXp3iTAAEFHPHqHPZXC/exec';
 
         window.onload = function() {
-            const house = localStorage.getItem('userHouse');
-            const name = localStorage.getItem('userName');
+            document.getElementById('userHouseDisp').innerText = localStorage.getItem('userHouse') || "...";
+            document.getElementById('userNameDisp').innerText = localStorage.getItem('userName') || "ग्राहक";
+
             const mobile = localStorage.getItem('userMobile');
-
-            document.getElementById('userHouseDisp').innerText = house || "...";
-            document.getElementById('userNameDisp').innerText = name || "ग्राहक";
-
             if(mobile) {
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
                 .then(res => res.json())
@@ -187,6 +173,15 @@
                 }).catch(() => {});
             }
         };
+
+        // मेनू टॉगल फंक्शन
+        const menuBtn = document.getElementById('menuToggleBtn');
+        const menuList = document.getElementById('dropdownMenu');
+        menuBtn.onclick = (e) => {
+            e.stopPropagation();
+            menuList.style.display = (menuList.style.display === 'block') ? 'none' : 'block';
+        };
+        document.onclick = () => { menuList.style.display = 'none'; };
 
         function toggleVideo() {
             const v = document.getElementById('heroVid');
