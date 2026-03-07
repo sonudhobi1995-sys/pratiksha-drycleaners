@@ -17,7 +17,7 @@
 
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
 
-        /* --- होम पेज वाला हेडर सेक्शन (जैसा आपने मांगा) --- */
+        /* --- हेडर स्टेटस बार --- */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
@@ -25,11 +25,14 @@
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
+        /* --- नेविगेशन बार बेस स्टाइल --- */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
             justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
         }
+        
+        /* मूल स्टाइल को रहने दिया, बदलाव HTML में किया है */
         .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; flex: 1; }
         .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
         .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
@@ -46,7 +49,7 @@
 
         .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* --- आपका मूल कंटेंट पोर्शन (बिल्कुल वैसा ही जैसा आपने दिया था) --- */
+        /* --- कंटेंट एरिया --- */
         .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
 
         .featured-card { 
@@ -65,7 +68,7 @@
         .gallery-item { background: white; border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; padding: 8px; }
         .gallery-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
 
-        /* --- होम पेज वाला फुटर --- */
+        /* --- फुटर --- */
         .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; }
         .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
         .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
@@ -86,15 +89,17 @@
         </div>
     </div>
 
-    <nav class="custom-nav" style="position: relative; display: flex; align-items: center; justify-content: space-between;">
-    <div class="nav-brand-wrapper" style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; white-space: nowrap; flex: none;">
+    <nav class="custom-nav" style="position: relative;">
+        <div class="menu-icon" onclick="toggleMenu()" style="position: relative; z-index: 10;">
+            <div></div><div></div><div></div>
+        </div>
         
-        
+        <div class="nav-brand-wrapper" style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; white-space: nowrap; flex: none;">
             <img src="logo.png" alt="Logo">
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
         
-        <div class="nav-right-btns">
+        <div class="nav-right-btns" style="position: relative; z-index: 10; display: flex; gap: 10px;">
             <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="location.reload()">🔄</button>
             <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="history.back()">🔙</button>
         </div>
