@@ -1,204 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cosmic Billing | PRATIKSHA</title>
     
-    <link rel="manifest" href="manifest-billing.json">
-    <meta name="theme-color" content="#001F3F">
-    <link rel="apple-touch-icon" href="logo.png">
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root { 
-            --sun-gold: #FFD700; 
-            --deep-space: #010103; 
-            --saturn-blue: #001F3F; 
+            --midnight: #010409;
+            --pure-moon: #ffffff;
+            --accent-gold: #FFD700;
+            --sun-orange: #FF8C00;
             --nebula-green: #2ecc71;
             --mars-red: #e74c3c;
         }
         
         body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--deep-space); 
+            font-family: 'Inter', 'Mukta', sans-serif; 
+            background: var(--midnight); 
             margin: 0; padding: 0; color: white; 
-            background-image: radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05) 0%, transparent 80%);
+            background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+                              radial-gradient(2px 2px at 150px 150px, #fff, transparent);
+            background-size: 200px 200px;
         }
         
         .billing-header { 
-            background: linear-gradient(180deg, var(--saturn-blue) 0%, #000 100%); 
-            color: white; padding: 35px 20px; text-align: center; 
-            border-bottom: 2px solid var(--sun-gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: linear-gradient(180deg, #001F3F 0%, #000 100%); 
+            padding: 30px 20px; text-align: center; 
+            border-bottom: 3px solid var(--sun-orange);
         }
-        .app-logo { width: 65px; height: 65px; background: white; border-radius: 50%; padding: 5px; border: 2px solid var(--sun-gold); margin-bottom: 10px; }
+        .app-logo { width: 75px; height: 75px; background: white; border-radius: 50%; padding: 5px; border: 2px solid var(--pure-moon); margin-bottom: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
 
-        .container { padding: 20px; max-width: 550px; margin: -20px auto 50px; }
+        .container { padding: 15px; max-width: 550px; margin: auto; }
+        
+        /* चांदनी सफेद कार्ड */
         .card { 
-            background: rgba(255, 255, 255, 0.07); 
-            backdrop-filter: blur(15px);
-            padding: 25px; border-radius: 25px; 
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3); 
-            margin-bottom: 25px; 
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--pure-moon); 
+            padding: 22px; border-radius: 25px; 
+            margin-bottom: 20px; color: #000;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.15);
         }
         
-        h3 { margin: 0 0 15px; color: var(--sun-gold); font-family: 'Playfair Display', serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        h3 { margin: 0 0 15px; color: #000; font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; font-size: 1.1rem; }
         
+        label { font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-top: 10px; }
+
         input, select { 
-            width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; 
-            border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); 
-            color: white; font-size: 1rem; outline: none; transition: 0.3s;
+            width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; 
+            border: 1.5px solid #cbd5e1; background: #f1f5f9; 
+            color: #000; font-size: 1rem; font-weight: 600; box-sizing: border-box;
         }
-        input:focus { border-color: var(--sun-gold); background: rgba(255,255,255,0.1); }
-        option { background: var(--saturn-blue); color: white; }
         
-        .balance-field { border: 2px solid var(--mars-red) !important; color: var(--mars-red); font-weight: bold; }
-        .discount-field { border: 2px solid var(--nebula-green) !important; color: var(--nebula-green); font-weight: bold; }
-        .loader { font-size: 0.7rem; color: var(--sun-gold); margin-left: 10px; display: none; }
+        .balance-field { border: 2px solid var(--mars-red) !important; color: var(--mars-red); }
+        .discount-field { border: 2px solid var(--nebula-green) !important; color: var(--nebula-green); }
 
         .btn-add { 
-            background: linear-gradient(135deg, var(--sun-gold), #FF8C00); 
-            color: black; width: 100%; border: none; padding: 18px; 
-            border-radius: 15px; cursor: pointer; font-weight: 800; 
-            margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;
+            background: #000; color: white; width: 100%; border: none; padding: 16px; 
+            border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px;
         }
         
         .total-box { 
-            background: rgba(255,215,0,0.1); padding: 25px; border-radius: 25px; 
-            text-align: center; border: 2px dashed var(--sun-gold); margin-top: 20px; 
+            background: #f8fafc; padding: 20px; border-radius: 20px; 
+            text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; 
         }
         
         .btn-wa { 
             background: #25D366; color: white; width: 100%; padding: 18px; 
-            border: none; border-radius: 15px; font-weight: 700; margin-top: 25px; 
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 1.1rem; 
+            border: none; border-radius: 15px; font-weight: 800; margin-top: 20px; 
+            cursor: pointer; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; color: #000; }
+        td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; font-weight: 600; }
 
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white; color: black; }
-            .card { background: white; border: 1px solid black; backdrop-filter: none; box-shadow: none; color: black; }
-            h3 { color: black; border-bottom: 1px solid black; }
-            .total-box { border: 2px solid black; color: black; background: none; }
-            #navgrahTop { display: block !important; text-align: center; font-size: 12px; margin-bottom: 15px; }
-        }
+        .no-print { display: block; }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
 <body>
 
 <div class="billing-header no-print">
     <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-    <h1 style="margin:0; font-family:'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--sun-gold);">PRATIKSHA DIGITAL</h1>
-    <p style="margin:4px 0 0; font-size: 0.7rem; letter-spacing: 4px; opacity: 0.8;">।। MISSION 2047 ।।</p>
+    <h1 style="margin:0; font-family:'Playfair Display'; font-size: 1.6rem; color: var(--pure-moon);">PRATIKSHA DIGITAL</h1>
+    <p style="margin:4px 0 0; font-size: 0.6rem; letter-spacing: 3px; color: var(--accent-gold);">।। MISSION 2047 | शुचिता ही संकल्प ।।</p>
 </div>
 
 <div class="container">
     <div class="card no-print">
-        <h3>👤 CLIENT UNIVERSE</h3>
+        <h3>👤 क्लाइंट विवरण</h3>
         <div style="display:flex; gap:10px;">
-            <input type="tel" id="custMobile" placeholder="Enter Mobile" onchange="fetchOldBalance()">
-            <button type="button" onclick="getContact()" style="padding:0 20px; border-radius:15px; border:1px solid var(--sun-gold); background:rgba(255,215,0,0.1); color:var(--sun-gold); font-size:1.4rem; cursor:pointer;">👤</button>
+            <input type="tel" id="custMobile" placeholder="मोबाइल नंबर" onchange="fetchOldBalance()">
+            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:1px solid var(--sun-orange); background:none; font-size:1.3rem; cursor:pointer;">👤</button>
         </div>
-        <div id="loading" class="loader">Scanning celestial records...</div>
-        <input type="text" id="custName" placeholder="Client Name">
+        <input type="text" id="custName" placeholder="ग्राहक का नाम">
         
-        <div style="display: flex; gap: 15px;">
+        <div style="display: flex; gap: 10px;">
             <div style="flex: 1;">
-                <label style="font-size: 0.6rem; color: var(--mars-red); font-weight: bold; letter-spacing: 1px;">PAST DEBT (बकाया):</label>
+                <label>पुराना बकाया (Debt):</label>
                 <input type="number" id="manualBalance" class="balance-field" placeholder="₹ 0" oninput="render()">
             </div>
             <div style="flex: 1;">
-                <label style="font-size: 0.6rem; color: var(--nebula-green); font-weight: bold; letter-spacing: 1px;">BLESSINGS (छूट):</label>
+                <label>विशेष छूट (Discount):</label>
                 <input type="number" id="discountAmt" class="discount-field" placeholder="₹ 0" oninput="render()">
             </div>
         </div>
     </div>
 
     <div class="card no-print">
-        <h3>🧺 SERVICE ORBIT</h3>
-        <select id="itemSelect">
-            <option value="">Choose Garment</option>
-            <option value="Regular Wear">🧥 Regular Wear</option>
-            <option value="Shirt/Pant">Shirt/Pant</option>
-            <option value="Saree">Saree (साड़ी)</option>
-            <option value="Suit/Kurta">Suit/Kurta</option>
-            <option value="Blanket/Sheet">Blanket/Sheet</option>
-            <option value="Other">Other (अन्य)</option>
+        <h3>🧺 सर्विस ऑर्बिट</h3>
+        
+        <label>कपड़ा चुनें</label>
+        <select id="itemCategory" onchange="updateItems()">
+            <option value="">श्रेणी चुनें...</option>
+            <option value="men">पुरुष (Men)</option>
+            <option value="women">महिला (Women)</option>
+            <option value="kids">बच्चे (Kids)</option>
+            <option value="home">होम (Home)</option>
+            <option value="winter">विंटर (Winter)</option>
+            <option value="other">अन्य (Other)</option>
         </select>
+
+        <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
+        
         <select id="serviceType">
-            <option value="Press">💨 Steam Press</option>
+            <option value="Steam Iron">💨 Steam Press</option>
             <option value="Wash & Press">🧼 Wash & Press</option>
             <option value="Dry Clean">✨ Dry Clean</option>
         </select>
-        <div style="display:flex; gap:15px;">
-            <input type="number" id="qty" placeholder="Quantity">
-            <input type="number" id="rate" placeholder="Rate ₹">
+        
+        <div style="display:flex; gap:10px;">
+            <input type="number" id="qty" placeholder="नग (Qty)">
+            <input type="number" id="rate" placeholder="दर (Rate) ₹">
         </div>
-        <button class="btn-add" onclick="addItem()">+ Add to Manifest</button>
+        <button class="btn-add" onclick="addItem()">+ लिस्ट में जोड़ें</button>
     </div>
 
-    <div class="card" id="printArea">
-        <div id="navgrahTop" style="display:none; color:black;">☀️ 🌙 🔥 🌿 🌟 ✨ 🪐 🌑 ☄️</div>
-        <div id="billShopTitle" style="display:none; text-align:center; color:black;">
-            <h1 style="margin:0; font-size: 24px; font-family:'Playfair Display'">PRATIKSHA DRYCLEANERS</h1>
-            <p style="margin:3px 0; font-size: 11px;">Ambabari, Jaipur | 7740870095 | 8947985446</p>
-            <hr style="border:0.5px solid black;">
-        </div>
-
+    <div class="card">
+        <h3>📋 फाइनल मेनिफेस्ट</h3>
         <table id="billTable"><tbody></tbody></table>
 
         <div class="total-box">
-            <h2 id="gTotal" style="margin:0; font-size: 1.8rem; font-family:'Playfair Display'; color: var(--sun-gold);">Grand Total: ₹ 0</h2>
-        </div>
-
-        <div id="printFooter" style="display:none; text-align:center; color:black; font-size: 10px; margin-top:20px;">
-            Dedicated to the bright future of Pratiksha & Niti <br>
-            ।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।
+            <h2 id="gTotal" style="margin:0; font-size: 1.6rem; font-family:'Playfair Display'; color: #000;">कुल राशि: ₹ 0</h2>
         </div>
         
-        <button class="btn-wa no-print" id="waBtn" onclick="sendWA()">📲 SYNC & SEND WHATSAPP</button>
-        <button class="no-print" onclick="window.print()" style="width:100%; background:none; border:1px solid rgba(255,255,255,0.2); color: #aaa; margin-top:15px; padding:12px; border-radius:15px; cursor:pointer; font-size: 0.8rem;">🖨️ Generate Physical Receipt</button>
+        <button class="btn-wa no-print" id="waBtn" onclick="sendWA()">📲 SYNC & WHATSAPP</button>
+        <button class="no-print" onclick="window.print()" style="width:100%; background:none; border:1px solid #ccc; color: #666; margin-top:15px; padding:10px; border-radius:12px; cursor:pointer; font-size: 0.8rem; font-weight:bold;">🖨️ प्रिंट रसीद</button>
     </div>
 </div>
 
-<div class="nav-back no-print" style="text-align: center; margin-bottom: 40px;">
-    <a href="admin-update.html" style="text-decoration: none; color: var(--sun-gold); font-size: 0.9rem; font-weight: bold; letter-spacing: 1px;">← RETURN TO CONTROL STATION</a>
-</div>
-
 <script>
+    const inventory = {
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट (2pc/3pc)", "कोट/ब्लेज़र", "कुर्ता-पायजामा", "धोती", "ट्रैक सूट", "अन्य"],
+        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "ब्लाउज", "गाउन", "अन्य"],
+        kids: ["बाबा सूट", "फ्रॉक", "स्कूल ड्रेस", "निक्कर/शर्ट", "अन्य"],
+        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "कुशन कवर", "अन्य"],
+        winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट", "ऊनी टोपी", "अन्य"],
+        other: ["बैग", "टोपी", "मोजे", "रुमाल", "इंडो-वेस्टर्न", "डिजाइनर वियर"]
+    };
+
+    function updateItems() {
+        const cat = document.getElementById('itemCategory').value;
+        const sel = document.getElementById('itemSelect');
+        sel.innerHTML = '<option value="">कपड़ा चुनें...</option>';
+        if(cat && inventory[cat]) {
+            inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
+        }
+    }
+
     let billItems = [];
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec";
 
-    async function fetchOldBalance() {
-        const mob = document.getElementById('custMobile').value;
-        const loader = document.getElementById('loading');
-        if(mob.length < 10) return;
-        loader.style.display = 'block';
-        try {
-            const res = await fetch(`${SCRIPT_URL}?action=getBalance&mobile=${mob}`);
-            const data = await res.json();
-            if(data.balance) {
-                document.getElementById('manualBalance').value = data.balance;
-                render();
-            }
-        } catch (e) { console.log("Balance Sync Error"); }
-        loader.style.display = 'none';
-    }
-
     async function getContact() {
-        if (!('contacts' in navigator)) return alert("Access Denied: Please use Chrome on Android.");
+        if (!('contacts' in navigator)) return alert("Access Denied: Use Chrome.");
         try {
             const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: false});
             if (contacts.length > 0) {
-                if (contacts[0].tel) {
-                    document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
-                    fetchOldBalance();
-                }
+                if (contacts[0].tel) document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
                 if (contacts[0].name) document.getElementById('custName').value = contacts[0].name[0];
             }
         } catch (err) {}
@@ -209,7 +188,7 @@
         const service = document.getElementById('serviceType').value;
         const q = document.getElementById('qty').value;
         const r = document.getElementById('rate').value;
-        if(!item || !q || !r) return alert("Please fill all details");
+        if(!item || !q || !r) return alert("विवरण पूरा भरें");
         billItems.push({name: `${item} (${service})`, q, r, total: q*r});
         render();
         document.getElementById('qty').value = "";
@@ -221,59 +200,41 @@
         const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
         
         body.innerHTML = ''; let currentTotal = 0;
-        billItems.forEach(i => {
+        billItems.forEach((i, index) => {
             currentTotal += i.total;
-            body.innerHTML += `<tr><td>${i.name} (x${i.q})</td><td style="text-align:right; font-weight:bold; color:var(--sun-gold);">₹${i.total}</td></tr>`;
+            body.innerHTML += `<tr><td>${i.name} (x${i.q})</td><td style="text-align:right;">₹${i.total}</td></tr>`;
         });
         
-        if(manualBal > 0) body.innerHTML += `<tr style="color:var(--mars-red); font-weight:bold;"><td>Past Orbit Debt (बकाया)</td><td style="text-align:right;">+ ₹${manualBal}</td></tr>`;
-        if(discount > 0) body.innerHTML += `<tr style="color:var(--nebula-green); font-weight:bold;"><td>Celestial Blessing (Discount) 🎁</td><td style="text-align:right;">- ₹${discount}</td></tr>`;
+        if(manualBal > 0) body.innerHTML += `<tr style="color:var(--mars-red);"><td>पुराना बकाया (+)</td><td style="text-align:right;">₹${manualBal}</td></tr>`;
+        if(discount > 0) body.innerHTML += `<tr style="color:var(--nebula-green);"><td>विशेष छूट (-)</td><td style="text-align:right;">₹${discount}</td></tr>`;
         
         const finalAmount = (currentTotal + manualBal) - discount;
-        document.getElementById('gTotal').innerText = `Total: ₹ ${finalAmount > 0 ? finalAmount : 0}`;
-        if(window.innerWidth > 600) document.getElementById('gTotal').style.color = "black"; // For print preview
+        document.getElementById('gTotal').innerText = `कुल राशि: ₹ ${finalAmount > 0 ? finalAmount : 0}`;
     }
 
     function sendWA() {
         const mob = document.getElementById('custMobile').value;
-        const name = document.getElementById('custName').value;
-        const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
-        const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
-        const btn = document.getElementById('waBtn');
-        if(!mob || mob.length < 10) return alert("Invalid Number");
+        const name = document.getElementById('custName').value || "ग्राहक";
+        if(!mob || mob.length < 10) return alert("सही मोबाइल नंबर लिखें");
 
         let currentTotal = 0;
-        let itemDetails = "";
-        let msg = `*PRATIKSHA DRYCLEANERS* ✨🧺\n`;
-        msg += `_Ambabari, Jaipur | 7740870095_\n\n`;
-        msg += `*🙏 Greetings 🙏*\n\n`;
-        msg += `*Client:* ${name}\n--------------------------\n`;
+        let msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨🧺\n_अम्बाबाड़ी, जयपुर | 7740870095_\n\n*नमस्ते ${name} जी,*\n\nआपका बिल विवरण:\n`;
         
         billItems.forEach(i => {
-            msg += `• ${i.name}: ${i.q} Nos = *₹${i.total}*\n`;
-            itemDetails += `${i.name} (${i.q}), `;
+            msg += `• ${i.name}: x${i.q} = *₹${i.total}*\n`;
             currentTotal += i.total;
         });
 
-        msg += `--------------------------\n`;
-        msg += `New Manifest: ₹${currentTotal}\n`;
-        if(manualBal > 0) msg += `Past Balance: ₹${manualBal}\n`;
-        if(discount > 0) msg += `🎁 Special Discount: -₹${discount}\n`;
-        
+        const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
         const finalAmount = (currentTotal + manualBal) - discount;
-        msg += `--------------------------\n*Final Amount: ₹${finalAmount > 0 ? finalAmount : 0}*\n\n।। शुचिता और रूहानी सेवा ही हमारा संकल्प है ।।`;
 
-        btn.innerText = "SYNCHRONIZING RECORDS... ⏳";
-        btn.disabled = true;
+        if(manualBal > 0) msg += `पुराना बकाया: ₹${manualBal}\n`;
+        if(discount > 0) msg += `छूट: -₹${discount}\n`;
+        msg += `\n*कुल देय राशि: ₹${finalAmount}*\n\n।। शुचिता ही संकल्प है ।।`;
 
-        const finalURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmount}&details=${encodeURIComponent(itemDetails)}&mode=Cash`;
-        fetch(finalURL, { method: 'GET', mode: 'no-cors' });
-
-        setTimeout(() => {
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
-            alert("Record synced with Cloud! ✅");
-            location.reload();
-        }, 1500);
+        window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+        location.reload();
     }
 </script>
 </body>
