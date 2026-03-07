@@ -1,91 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | PRATIKSHA DRY CLEANERS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Us | PRATIKSHA DRYCLEANERS</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --sun-orange: #FF8C00;   /* सूर्य - ऊर्जा */
-            --mercury-green: #2E8B57; /* बुध - प्रकृति/वृद्धि */
-            --saturn-blue: #001F3F;   /* शनि - स्थिरता/अनुशासन */
-            --cream-bg: #FFFDD0;     /* क्रीम - शुचिता */
+            --sun-orange: #FF8C00;
+            --mercury-green: #2E8B57;
+            --saturn-blue: #001F3F;
+            --cream-bg: #FFFDD0;
         }
 
-        /* Basic Reset */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--cream-bg); color: #333; line-height: 1.6; }
+        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
 
-        /* Navigation Style (As per Index) */
-        nav { 
-            background: var(--sun-orange); 
-            padding: 15px 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
+        /* 1. टॉप स्टेटस बार (Consistency के लिए) */
+        .user-status-bar {
+            background: white; padding: 12px 15px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
+            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        nav .brand-name { font-family: 'Playfair Display', serif; color: white; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; }
-        nav .back-link { color: white; text-decoration: none; font-size: 0.8rem; font-weight: bold; border: 1px solid white; padding: 5px 12px; border-radius: 20px; }
 
-        /* Main Content Wrapper */
-        .wrapper { max-width: 1100px; margin: 40px auto; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--saturn-blue); }
-        
+        /* 2. प्रीमियम नेविगेशन बार (Index जैसा) */
+        nav.custom-nav { 
+            background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
+            top: 48px; z-index: 1100; display: flex; align-items: center; 
+            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
+        }
+        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
+
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+
+        .dropdown-content { 
+            display: none; position: absolute; top: 65px; left: 0; width: 100%;
+            background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
+
+        /* Content Wrapper */
+        .wrapper { max-width: 1100px; margin: 30px auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--sun-orange); }
         .flex-container { display: flex; flex-wrap: wrap; }
         
-        /* Left: Heritage Photo */
-        .photo-part { flex: 1; min-width: 320px; padding: 40px; text-align: center; background: #fafafa; border-right: 1px solid #eee; }
-        .photo-part img { width: 100%; border-radius: 12px; border: 3px solid var(--mercury-green); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .photo-part h3 { margin-top: 20px; color: var(--saturn-blue); letter-spacing: 2px; font-size: 0.9rem; font-weight: 700; }
+        .photo-part { flex: 1; min-width: 300px; padding: 30px; text-align: center; background: #fffaf0; }
+        .photo-part img { width: 100%; border-radius: 15px; border: 4px solid var(--saturn-blue); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .photo-part h3 { margin-top: 20px; color: var(--saturn-blue); font-size: 1rem; font-weight: 900; letter-spacing: 1px; }
 
-        /* Right: Emotional Content */
         .content-part { flex: 1.5; min-width: 320px; padding: 40px; }
-        .content-part h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); font-size: 2.2rem; margin-bottom: 20px; border-bottom: 3px solid var(--mercury-green); display: inline-block; }
-        .content-part p { font-size: 1.05rem; color: #444; margin-bottom: 20px; text-align: justify; }
+        .content-part h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); font-size: 2.5rem; margin-bottom: 20px; position: relative; }
+        .content-part h2::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 60px; height: 4px; background: var(--sun-orange); }
+        .content-part p { font-size: 1.1rem; color: #444; margin-bottom: 20px; line-height: 1.8; text-align: justify; }
 
-        .quote { background: #fffdf2; border-left: 5px solid var(--sun-orange); padding: 25px; margin: 25px 0; font-style: italic; color: #5d4037; font-weight: 500; font-size: 1.1rem; }
+        .quote { background: var(--cream-bg); border-left: 6px solid var(--sun-orange); padding: 30px; margin: 30px 0; font-style: italic; color: #4e342e; font-size: 1.15rem; border-radius: 0 15px 15px 0; }
 
         /* Vision Section */
-        .vision { background: var(--saturn-blue); color: white; padding: 30px; border-radius: 12px; margin-top: 30px; border: 1px solid var(--sun-orange); }
-        .vision h4 { color: var(--sun-orange); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
-        .vision ul { list-style: none; }
-        .vision li { margin-bottom: 12px; font-size: 0.95rem; display: flex; align-items: center; }
-        .vision li::before { content: "✓"; color: var(--sun-orange); margin-right: 12px; font-weight: bold; }
+        .vision { background: var(--saturn-blue); color: white; padding: 35px; border-radius: 20px; margin-top: 35px; border: 2px solid var(--sun-orange); }
+        .vision h4 { color: var(--sun-orange); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px; }
+        .vision ul { list-style: none; padding: 0; }
+        .vision li { margin-bottom: 15px; font-size: 1rem; display: flex; align-items: center; }
+        .vision li::before { content: "✔"; color: var(--sun-orange); margin-right: 15px; font-weight: bold; font-size: 1.2rem; }
 
-        /* Premium Saturn Blue Footer */
-        footer { 
-            background: var(--saturn-blue); 
-            color: white; 
-            padding: 50px 20px; 
-            text-align: center; 
-            margin-top: 40px;
-            border-top: 4px solid var(--sun-orange);
-        }
-        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--sun-orange); margin-bottom: 15px; display: block; }
-        .footer-info { font-size: 0.85rem; color: #cbd5e0; margin-bottom: 20px; line-height: 1.8; }
-        .footer-links { margin-bottom: 20px; }
-        .footer-links a { color: #FFFDD0; text-decoration: none; margin: 0 10px; font-size: 0.8rem; border-bottom: 1px solid transparent; }
-        .footer-links a:hover { border-bottom: 1px solid var(--sun-orange); }
-        .managed-by { font-size: 0.75rem; color: #888; letter-spacing: 1px; }
+        /* प्रीमियम रेटिंग और फुटर (Index जैसा) */
+        .rating-box { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f0f0f0; }
+        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
+        .rating-avatars { display: flex; justify-content: center; gap: -12px; margin: 20px 0; }
+        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); object-fit: cover; }
 
-        /* Mobile Adjustments */
+        .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px 100px; text-align: center; }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
+
         @media (max-width: 768px) {
-            .flex-container { flex-direction: column; }
-            .content-part h2 { font-size: 1.8rem; }
-            .photo-part { padding: 30px 20px; }
-            .content-part { padding: 30px 20px; }
+            .content-part h2 { font-size: 2rem; }
+            .wrapper { margin: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="brand-name">Pratiksha</div>
-        <a href="index.html" class="back-link">HOME</a>
+    <div class="user-status-bar">
+        <div>🏠 <span id="uHouse">Ambabari</span> | 👤 <b>हमारे बारे में</b></div>
+        <div>Pratiksha Drycleaners</div>
+    </div>
+
+    <nav class="custom-nav">
+        <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        <div class="nav-brand-wrapper">
+            <img src="logo.png" alt="Logo">
+            <span>PRATIKSHA DRYCLEANERS</span>
+        </div>
+        <div class="nav-right-btns">
+            <a href="index.html" style="text-decoration:none; font-size:1.4rem;">🏠</a>
+        </div>
+
+        <div class="dropdown-content" id="navMenu">
+            <a href="index.html">🏠 होम पेज</a>
+            <a href="services.html">🧺 हमारी सेवाएं</a>
+            <a href="tracking.html">📦 ट्रैकिंग (Tracking)</a>
+            <a href="about.html" style="background:#f9f9f9; color:var(--sun-orange);">📖 हमारे बारे में (About Us)</a>
+            <a href="process.html">⚙️ कार्य प्रक्रिया (Process)</a>
+            <a href="contact.html">📞 संपर्क करें (Contact Us)</a>
+        </div>
     </nav>
 
     <div class="wrapper">
@@ -97,45 +120,55 @@
 
             <div class="content-part">
                 <h2>Our Journey</h2>
-                <p>The foundation of <strong>Pratiksha Dry Cleaners</strong> was laid in 1987 in the heart of Ambabari, Jaipur. More than just a business, this institution is the living embodiment of the <strong>immense hard work, integrity, and relentless struggle of my parents.</strong></p>
+                <p><strong>प्रतीक्षा ड्राईक्लीनर्स</strong> की नींव 1987 में जयपुर के अंबाबाड़ी के हृदय स्थल में रखी गई थी। यह केवल एक व्यवसाय नहीं है, बल्कि मेरे माता-पिता के <strong>अथक परिश्रम, ईमानदारी और निरंतर संघर्ष</strong> का जीवंत स्वरूप है।</p>
                 
-                <p>Our journey began as 'Bhanwarlal Laundry,' a time when our greatest assets were not machines, but a strong will and honest labor. For nearly four decades, from the lanes of Durga Park to the heart of Hanuman Market, we have served families who have embraced us as their own.</p>
+                <p>हमारी यात्रा 'भंवरलाल लॉन्ड्री' के रूप में शुरू हुई थी, एक ऐसा समय जब हमारी सबसे बड़ी संपत्ति मशीनें नहीं, बल्कि एक दृढ़ इच्छाशक्ति और ईमानदार श्रम था। चार दशकों से, दुर्गा पार्क की गलियों से लेकर हनुमान मार्केट तक, हमने उन परिवारों की सेवा की है जिन्होंने हमें अपने परिवार का हिस्सा माना है।</p>
                 
                 <div class="quote">
-                    "The warmth of my father’s hands and the unwavering patience of my mother still live within the steam that smooths every wrinkle today. We haven't just cleaned clothes; we have earned trust."
+                    "आज भी जब हम कपड़ों की सिलवटें मिटाते हैं, तो उसमें मेरे पिता के हाथों की गरमाहट और मेरी माँ का धैर्य महसूस होता है। हमने केवल कपड़े साफ नहीं किए, हमने विश्वास कमाया है।"
                 </div>
                 
-                <p>Today, as we move forward, we have merged our traditional roots with state-of-the-art technology to transform into 'Pratiksha Dry Cleaners'—a brand built on legacy but driven by innovation.</p>
+                <p>आज, हम अपनी पारंपरिक जड़ों को अत्याधुनिक तकनीक के साथ जोड़कर 'प्रतीक्षा ड्राईक्लीनर्स' के रूप में आगे बढ़ रहे हैं—एक ऐसा ब्रांड जो विरासत पर बना है लेकिन नवाचार (Innovation) से संचालित है।</p>
 
                 <div class="vision">
                     <h4>Our Digital Promise</h4>
                     <ul>
-                        <li>Premium Pickup & Delivery (Free above ₹250)</li>
-                        <li>Real-time Service Updates via WhatsApp</li>
-                        <li>Dedicated Schedule for Ambabari Regions</li>
-                        <li>Commitment to 'Shuchita' (Purity) & Hygiene</li>
+                        <li>प्रीमियम पिकअप और डिलीवरी</li>
+                        <li>WhatsApp के माध्यम से रियल-टाइम अपडेट</li>
+                        <li>अंबाबाड़ी क्षेत्र के लिए समर्पित सेवा शेड्यूल</li>
+                        <li>'शुचिता' (Purity) और स्वच्छता के प्रति हमारी प्रतिबद्धता</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <span class="footer-logo">PRATIKSHA DRY CLEANERS</span>
-        <div class="footer-info">
-            Ambabari, Jaipur, Rajasthan - 302039 <br>
-            Serving Durga Park (E-Series) & Hanuman Park (D-Series)
+    <div class="rating-box">
+        <div class="stars">★★★★★</div>
+        <div class="rating-info">5.0 | 1200+ Trusted Clients</div>
+        <div class="rating-avatars">
+            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
         </div>
+    </div>
+
+    <div class="big-footer">
+        <div class="footer-brand">PRATIKSHA</div>
+        <div class="footer-sub">DRYCLEANERS</div>
         <div class="footer-links">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
-            <a href="terms.html">Terms & Conditions</a>
-            <a href="privacy.html">Privacy Policy</a>
+            <a href="process.html">Process</a>
+            <a href="contact.html">Contact</a>
         </div>
-        <div class="managed-by">
-            © 2026 | MANAGED BY SONU BHAI
-        </div>
-    </footer>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
+    </div>
 
+    <script>
+        function toggleMenu() {
+            const m = document.getElementById('navMenu');
+            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+        }
+        document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
+    </script>
 </body>
 </html>
