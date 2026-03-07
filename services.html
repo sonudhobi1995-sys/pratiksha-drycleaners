@@ -1,116 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Services | PRATIKSHA DRYCLEANERS</title>
+    <title>Our Cosmic Services | PRATIKSHA DRYCLEANERS</title>
     
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = "login.html";
+        }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --sun-orange: #FF8C00;
             --saturn-blue: #001F3F;
+            --space-dark: #010103; /* इंडेक्स पेज वाला गहरा काला */
+            --diamond-silver: #e0e0e0;
             --mercury-green: #2E8B57;
-            --cream-bg: #FFFDD0;
         }
 
-        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--space-dark); color: white; overflow-x: hidden; }
 
-        /* --- हेडर स्टेटस बार --- */
+        /* --- कोस्मिक बैकग्राउंड (Stars) --- */
+        .stars-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px);
+            background-size: 250px 250px; opacity: 0.3; z-index: -1;
+            animation: move-stars 100s linear infinite;
+        }
+        @keyframes move-stars { from { background-position: 0 0; } to { background-position: 500px 500px; } }
+
+        /* --- हेडर स्टेटस बार (Exactly like Index) --- */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
-            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--sun-orange); color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* --- नेविगेशन बार बेस स्टाइल --- */
+        /* --- नेविगेशन बार (Exactly like Index) --- */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
-            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
+            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.3); height: 65px;
         }
-        
-        /* मूल स्टाइल को रहने दिया, बदलाव HTML में किया है */
-        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .nav-brand-wrapper { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
         .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
-        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; white-space: nowrap; }
 
-        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; z-index: 10; }
         .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-right-btns { z-index: 10; display: flex; gap: 10px; }
 
+        /* ड्रॉपडाउन */
         .dropdown-content { 
             display: none; position: absolute; top: 65px; left: 0; width: 100%;
             background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #eee; }
 
         .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
 
         /* --- कंटेंट एरिया --- */
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; position: relative; z-index: 1; }
 
+        /* प्रीमियम फीचर कार्ड */
         .featured-card { 
-            background: white; display: flex; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 45px; border-left: 8px solid var(--sun-orange); padding: 15px;
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; border-radius: 25px; overflow: hidden; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); margin-bottom: 45px; 
+            border: 1px solid rgba(255,255,255,0.1); border-left: 8px solid var(--sun-orange);
         }
-        .image-frame { flex: 1; height: 350px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border-radius: 15px; }
-        .image-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .image-frame { width: 100%; height: 320px; display: flex; align-items: center; justify-content: center; background: #000; }
+        .image-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .service-desc-card { background: white; padding: 30px; border-radius: 20px; border-left: 8px solid var(--mercury-green); box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
-        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; border-bottom: 2px solid var(--sun-orange); display: inline-block; }
+        /* सर्विस ग्रिड */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
+        .service-desc-card { 
+            background: rgba(255,255,255,0.07); padding: 30px; border-radius: 20px; 
+            border-bottom: 4px solid var(--sun-orange); transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .service-desc-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.12); }
+        .service-desc-card h3 { color: var(--sun-orange); font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-top: 0; }
+        .service-desc-card p { font-size: 0.95rem; line-height: 1.6; opacity: 0.8; }
 
-        .work-gallery { margin-top: 50px; background: var(--saturn-blue); padding: 30px 15px; border-radius: 25px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-        .gallery-item { background: white; border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; padding: 8px; }
-        .gallery-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+        /* गैलरी */
+        .work-gallery { margin-top: 60px; background: rgba(0,31,63,0.4); padding: 40px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        .gallery-item { background: #000; border-radius: 12px; height: 180px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- फुटर --- */
-        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; }
+        /* --- फुटर (Exactly like Index) --- */
+        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; margin-top: 80px; }
         .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
         .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
-        
+
         @media (max-width: 768px) {
-            .featured-card { flex-direction: column; }
-            .image-frame { width: 100%; height: 250px; }
             .footer-brand { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="stars-overlay"></div>
+
     <div class="user-status-bar">
-        <div>🏠 <span id="uHouse">Ambabari</span> | 👤 <b id="uName">Guest</b></div>
+        <div>🏠 <span id="uHouse">...</span> | 👤 <b id="uName">ग्राहक</b></div>
         <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
-            Order: <span id="uStatus" class="status-pill">Services</span>
+            ऑर्डर: <span id="uStatus" class="status-pill">Loading...</span>
         </div>
     </div>
 
-    <nav class="custom-nav" style="position: relative;">
-        <div class="menu-icon" onclick="toggleMenu()" style="position: relative; z-index: 10;">
+    <nav class="custom-nav">
+        <div class="menu-icon" onclick="toggleMenu()">
             <div></div><div></div><div></div>
         </div>
         
-        <div class="nav-brand-wrapper" style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; white-space: nowrap; flex: none;">
+        <div class="nav-brand-wrapper">
             <img src="logo.png" alt="Logo">
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
         
-        <div class="nav-right-btns" style="position: relative; z-index: 10; display: flex; gap: 10px;">
-            <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="location.reload()">🔄</button>
-            <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="history.back()">🔙</button>
+        <div class="nav-right-btns">
+            <button style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:white;" onclick="location.reload()">🔄</button>
+            <button style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:white;" onclick="history.back()">🔙</button>
         </div>
 
         <div class="dropdown-content" id="navMenu">
-            <a href="index.html">🏠 Home Page</a>
-            <a href="services.html">🧺 Our Services</a>
-            <a href="process.html">⚙️ Procedure</a>
-            <a href="about.html">📖 About Us</a>
-            <a href="contact.html">📞 Contact Us</a>
-            <a href="tracking.html">🚚 Tracking</a>
+            <a href="index.html">🏠 होम पेज</a>
+            <a href="services.html" style="background:#f9f9f9; color:var(--sun-orange);">🧺 हमारी सेवाएं</a>
+            <a href="process.html">⚙️ कार्य प्रक्रिया</a>
+            <a href="about.html">📖 हमारे बारे में</a>
+            <a href="contact.html">📞 संपर्क करें</a>
+            <a href="tracking.html">🚚 ट्रैकिंग</a>
         </div>
     </nav>
 
@@ -119,26 +146,43 @@
     <div class="container">
         <div class="featured-card">
             <div class="image-frame"><img src="services1.jpg" alt="Wedding Care"></div>
-            <div class="text-side" style="flex: 1.2; padding: 30px;">
-                <span style="color:var(--sun-orange); font-weight:900;">PREMIUM CARE</span>
-                <h2 style="font-family:'Playfair Display'; font-size: 2.1rem; color: var(--saturn-blue); margin: 10px 0;">Wedding & Couture Spa</h2>
-                <p style="font-size: 1.05rem; line-height: 1.6; color: #444;">Your wedding attire is a masterpiece. We specialize in deep cleaning heavy Lehengas and Sherwanis while ensuring every sequin, bead, and zari work remains untouched.</p>
-                <p style="color:var(--mercury-green); font-weight:900; font-size: 0.8rem;">TRUSTED SINCE 1987</p>
+            <div class="text-side" style="padding: 30px;">
+                <span style="color:var(--sun-orange); font-weight:900; letter-spacing: 2px;">COSMIC PREMIUM</span>
+                <h2 style="font-family:'Playfair Display'; font-size: 2.2rem; color: white; margin: 10px 0;">ब्रह्मांडीय शुचिता (Premium Care)</h2>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #ccc;">आपके अनमोल वस्त्रों के लिए एक 'स्पा' जैसा अनुभव। हम भारी लहंगों और शेरवानियों की सफाई में विशेषज्ञ हैं, यह सुनिश्चित करते हुए कि हर एक सितारा और ज़री का काम अपनी जगह बना रहे।</p>
+                <p style="color:var(--mercury-green); font-weight:900; font-size: 0.8rem; letter-spacing: 1px;">शुचिता और विश्वास - १९८७ से</p>
             </div>
         </div>
 
         <div class="grid">
-            <div class="service-desc-card"><h3>Heritage Dry Cleaning</h3><p>Mastering the art of fabric care since 1987. We use eco-friendly solvents to maintain the original shine of your Silk wear.</p></div>
-            <div class="service-desc-card" style="border-left-color: #3498db;"><h3>Professional Steam Press</h3><p>Get that crisp, showroom-like finish without any iron marks. Our steam tables sanitize and rejuvenate every fiber.</p></div>
-            <div class="service-desc-card" style="border-left-color: var(--sun-orange);"><h3>Scientific Stain Removal</h3><p>Whether it's ink or tea, our advanced technology eliminates tough spots without damaging the delicate fabric.</p></div>
-            <div class="service-desc-card" style="border-left-color: #e74c3c;"><h3>Woolen & Winter Care</h3><p>Our 'Cold-Soak' technology prevents shrinking, keeping your woolens soft and looking like new.</p></div>
-            <div class="service-desc-card" style="border-left-color: #5d4037;"><h3>Leather & Shoe Revival</h3><p>From jackets to designer sneakers, we provide specialized conditioning to restore their natural luster.</p></div>
-            <div class="service-desc-card" style="border-left-color: #2c3e50;"><h3>Home Linen Hygiene</h3><p>Deep-cleaning for heavy curtains and bedspreads to ensure your home remains allergen-free.</p></div>
-            <div class="service-desc-card" style="border-left-color: var(--mercury-green);"><h3>Rapid Delivery Service</h3><p>Same-Day and Next-Day priority services ensure your garments reach you exactly when you need them.</p></div>
+            <div class="service-desc-card">
+                <h3>🧺 Heritage Dry Cleaning</h3>
+                <p>३५ वर्षों का अनुभव। हम आपके रेशमी वस्त्रों की मूल चमक बनाए रखने के लिए इको-फ्रेंडली सॉल्वैंट्स का उपयोग करते हैं।</p>
+            </div>
+            <div class="service-desc-card">
+                <h3>👔 Steam Ironing</h3>
+                <p>बिना दाग, बिना सलवट। हमारी 'स्टीम टेबल' कपड़ों के रेशों को नया जैसा जीवन और कड़कपन देती है।</p>
+            </div>
+            <div class="service-desc-card">
+                <h3>✨ Stain Removal</h3>
+                <p>चाय, कॉफी या स्याही—हमारी 'साइंटिफिक स्टेन रिमूवल' तकनीक नाजुक रेशों को बिना नुकसान पहुँचाए दाग हटाती है।</p>
+            </div>
+            <div class="service-desc-card">
+                <h3>🧥 Woolen & Winter</h3>
+                <p>हमारी 'कोल्ड-सोक' तकनीक आपके ऊनी कपड़ों को सिकुड़ने से बचाती है और उन्हें कोमल रखती है।</p>
+            </div>
+            <div class="service-desc-card">
+                <h3>👟 Shoe & Leather</h3>
+                <p>जैकेट से लेकर डिज़ाइनर स्नीकर्स तक, हम उन्हें अपनी प्राकृतिक चमक लौटाने के लिए विशेष पॉलिशिंग देते हैं।</p>
+            </div>
+            <div class="service-desc-card">
+                <h3>⚡ Rapid Delivery</h3>
+                <p>अगले दिन की डिलीवरी सेवा। क्योंकि हम जानते हैं कि आपके समय की कीमत भी 'अनमोल' है।</p>
+            </div>
         </div>
 
         <div class="work-gallery">
-            <h2 style="color:white; text-align:center; font-family:'Playfair Display'; margin-bottom: 25px;">Live Showcase</h2>
+            <h2 style="color:white; text-align:center; font-family:'Playfair Display'; margin-bottom: 30px;">Live Cosmic Showcase</h2>
             <div id="gallery-box" class="gallery-grid"></div>
         </div>
     </div>
@@ -146,31 +190,53 @@
     <div class="big-footer">
         <div class="footer-brand">PRATIKSHA</div>
         <div class="footer-sub">DRYCLEANERS</div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed with ❤️ by SONU NEEL</p>
     </div>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
+
         function toggleMenu() {
             const m = document.getElementById('navMenu');
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
         document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
-        async function loadG() {
+        window.onload = function() {
+            // डेटा सिंक
+            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
+            document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
+            
+            const mobile = localStorage.getItem('userMobile');
+            if(mobile) {
+                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+                .then(r => r.json()).then(d => {
+                    if(d.status) {
+                        const s = document.getElementById('uStatus');
+                        s.innerText = d.status;
+                        if(d.status.includes("Ready")) s.style.background = "#2E8B57";
+                    }
+                }).catch(() => {});
+            }
+            loadGallery();
+        };
+
+        async function loadGallery() {
+            const box = document.getElementById('gallery-box');
             try {
                 const res = await fetch(scriptURL + '?action=getGallery');
                 const data = await res.json();
-                const box = document.getElementById('gallery-box');
+                box.innerHTML = '';
                 data.forEach(file => {
                     const div = document.createElement('div');
                     div.className = 'gallery-item';
                     div.innerHTML = `<img src="https://drive.google.com/uc?export=view&id=${file.id}" loading="lazy">`;
                     box.appendChild(div);
                 });
-            } catch(e) { console.log("Syncing..."); }
+            } catch(e) { 
+                box.innerHTML = '<p style="text-align:center; opacity:0.5;">Loading Gallery Stars...</p>'; 
+            }
         }
-        window.onload = loadG;
     </script>
 </body>
 </html>
