@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Services | PRATIKSHA DRYCLEANERS</title>
+    <title>Our Services | PRATIKSHA DRYCLEANERS</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -17,70 +17,79 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); overflow-x: hidden; }
 
-        /* मास्टर नेविगेशन - सेंटर ब्रांडिंग */
-        nav.custom-nav { 
-            background: var(--saturn-blue); padding: 10px 15px; position: sticky; 
-            top: 0; z-index: 1100; display: flex; align-items: center; 
-            justify-content: space-between; height: 70px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        /* 1. ओरिजिनल टॉप स्टेटस बार (जैसा प्रोसेस फाइल में था) */
+        .user-status-bar {
+            background: white; padding: 12px 15px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
+            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* थ्री लाइन्स मेनू आइकन (Hamburger) */
-        .menu-icon { 
-            cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 10px; z-index: 1200;
+        /* 2. ओरिजिनल नेविगेशन बार (प्रोसेस फाइल के आधार पर) */
+        nav.custom-nav { 
+            background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
+            top: 48px; z-index: 1100; display: flex; align-items: center; 
+            justify-content: space-between; height: 65px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
+
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
         .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
 
-        /* सेंटर ब्रांडिंग (Logo + Full Name) */
         .nav-center-brand { 
             position: absolute; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; gap: 10px; white-space: nowrap;
+            display: flex; align-items: center; gap: 10px;
         }
-        .nav-center-brand img { height: 45px; width: auto; border-radius: 8px; border: 2px solid white; background: white; }
-        .nav-center-brand span { 
-            font-family: 'Playfair Display', serif; font-weight: 900; 
-            font-size: 1.1rem; color: white; letter-spacing: 0.5px;
-        }
+        .nav-center-brand img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
+        .nav-center-brand span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; white-space: nowrap; }
 
-        /* ड्रॉपडाउन मेनू (6 पेजों का सही क्रम) */
+        /* ड्रॉपडाउन मेनू */
         .dropdown-content { 
-            display: none; position: absolute; top: 70px; left: 0; width: 100%;
+            display: none; position: absolute; top: 65px; left: 0; width: 100%;
             background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2); animation: slideDown 0.3s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .dropdown-content a { 
-            display: block; padding: 18px 25px; color: var(--saturn-blue); 
-            text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; 
-            font-size: 1rem;
-        }
-        .dropdown-content a:active { background: #f0f0f0; color: var(--sun-orange); }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
 
-        /* कंटेंट स्टाइल */
+        /* कंटेंट एरिया */
         .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
+
+        /* वेडिंग कार्ड (No-Crop) */
         .featured-card { 
             background: white; display: flex; border-radius: 20px; overflow: hidden; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 45px; border-left: 8px solid var(--sun-orange); padding: 15px;
         }
         .image-frame { flex: 1; height: 350px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border-radius: 15px; }
-        .image-frame img { max-width: 100%; max-height: 100%; object-fit: contain; } /* No-Crop */
+        .image-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
+        /* 7-8 पॉइंट्स का ग्रिड */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
         .service-desc-card { background: white; padding: 30px; border-radius: 20px; border-left: 8px solid var(--mercury-green); box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; border-bottom: 2px solid var(--sun-orange); display: inline-block; }
 
+        /* लाइव गैलरी */
         .work-gallery { margin-top: 50px; background: var(--saturn-blue); padding: 30px 15px; border-radius: 25px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
         .gallery-item { background: white; border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; padding: 8px; }
         .gallery-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
 
+        /* 3. ओरिजिनल बिग फुटर (प्रोसेस फाइल वाला) */
+        .big-footer { background: var(--saturn-blue); color: white; padding: 80px 20px; text-align: center; margin-top: 80px; }
+        .footer-brand { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-sub { letter-spacing: 10px; font-size: 1rem; opacity: 0.8; margin-bottom: 40px; }
+
         @media (max-width: 768px) {
-            .nav-center-brand span { font-size: 0.85rem; }
+            .nav-center-brand span { font-size: 0.8rem; }
+            .footer-brand { font-size: 2.5rem; }
             .featured-card { flex-direction: column; }
             .image-frame { width: 100%; height: 250px; }
         }
     </style>
 </head>
 <body>
+
+    <div class="user-status-bar">
+        <div>🏠 Ambabari, Jaipur | 🧺 <b>Services</b></div>
+        <div>Pratiksha Drycleaners</div>
+    </div>
 
     <nav class="custom-nav">
         <div class="menu-icon" onclick="toggleMenu()">
@@ -92,7 +101,9 @@
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
 
-        <div style="width: 45px;"></div> <div class="dropdown-content" id="navMenu">
+        <div style="width: 30px;"></div>
+
+        <div class="dropdown-content" id="navMenu">
             <a href="index.html">🏠 Home Page</a>
             <a href="services.html" style="background:#f9f9f9; color:var(--sun-orange);">🧺 Services</a>
             <a href="procedure.html">⚙️ Procedure</a>
@@ -106,10 +117,10 @@
         <div class="featured-card">
             <div class="image-frame"><img src="services1.jpg" alt="Wedding Care"></div>
             <div class="text-side" style="flex: 1.2; padding: 30px;">
-                <span style="color:var(--sun-orange); font-weight:900; font-size: 0.8rem;">PREMIUM CARE</span>
+                <span style="color:var(--sun-orange); font-weight:900;">PREMIUM CARE</span>
                 <h2 style="font-family:'Playfair Display'; font-size: 2.1rem; color: var(--saturn-blue); margin: 10px 0;">Wedding & Couture Spa</h2>
                 <p style="font-size: 1.05rem; line-height: 1.6; color: #444;">Your wedding attire is a masterpiece. We specialize in deep cleaning heavy Lehengas and Sherwanis while ensuring every sequin, bead, and zari work remains untouched.</p>
-                <div style="margin-top: 15px; color: var(--mercury-green); font-weight: 700;">★ Hand-Finishing Experts | Ambabari, Jaipur</div>
+                <p style="color:var(--mercury-green); font-weight:900; font-size: 0.8rem;">TRUSTED SINCE 1987</p>
             </div>
         </div>
 
@@ -130,8 +141,9 @@
     </div>
 
     <div class="big-footer">
-        <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 0; color: white; text-align: center;">PRATIKSHA</h2>
-        <p style="text-align: center; color: white; opacity: 0.7; font-size: 0.8rem;">© 2026 PRATIKSHA DRYCLEANERS | Ambabari, Jaipur</p>
+        <div class="footer-brand">PRATIKSHA</div>
+        <div class="footer-sub">DRYCLEANERS</div>
+        <p style="opacity: 0.4; font-size: 0.7rem; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Ambabari, Jaipur<br>Managed by Sonu Neel</p>
     </div>
 
     <script>
@@ -153,7 +165,7 @@
                     div.innerHTML = `<img src="https://drive.google.com/uc?export=view&id=${file.id}" loading="lazy">`;
                     box.appendChild(div);
                 });
-            } catch(e) { console.log("System Syncing..."); }
+            } catch(e) { console.log("Syncing..."); }
         }
         window.onload = loadG;
     </script>
