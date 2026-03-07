@@ -32,7 +32,6 @@
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* 1. नाम सेंटर में लाने के लिए नेविगेशन */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
@@ -63,7 +62,6 @@
         .vid-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 10; }
         .v-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; }
 
-        /* 2. इमेज पट्टी - 1.jpg से 19.jpg तक INFINITY LOOP */
         .photo-strip { background: white; padding: 25px 0; overflow: hidden; border-bottom: 1px solid #eee; }
         .strip-track { 
             display: flex; 
@@ -77,7 +75,6 @@
             100% { transform: translateX(-50%); } 
         }
 
-        /* 3. डायमंड स्टाइल बटन्स */
         .service-hub { padding: 50px 0 100px; background: white; border-radius: 50px 50px 0 0; margin-top: -40px; text-align: center; position: relative; z-index: 5; }
         .wheel-container { position: relative; width: 320px; height: 320px; margin: 0 auto; }
         .center-action { 
@@ -103,7 +100,6 @@
         .pos5 { bottom: 60px; left: 0px; }
         .pos6 { top: 60px; left: 0px; }
 
-        /* आपका शानदार पुराना रेटिंग बॉक्स और फुटर डिजाइन */
         .rating-box { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f0f0f0; }
         .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
         .rating-info { font-weight: 700; font-size: 1rem; color: var(--saturn-blue); }
@@ -160,13 +156,13 @@
         <div class="vid-controls">
             <button class="v-btn" onclick="prevVid()">◀</button>
             <button class="v-btn" id="pBtn" onclick="toggleVid()">⏸</button>
+            <button class="v-btn" id="sBtn" onclick="toggleSound()">🔇</button>
             <button class="v-btn" onclick="nextVid()">▶</button>
         </div>
     </div>
 
     <div class="photo-strip">
-        <div class="strip-track" id="imageTrack">
-            </div>
+        <div class="strip-track" id="imageTrack"></div>
     </div>
 
     <section class="service-hub">
@@ -213,22 +209,41 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
         
-        // वीडियो लूप (6 वीडियो)
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
         const pBtn = document.getElementById('pBtn');
+        const sBtn = document.getElementById('sBtn'); // साउंड बटन का ID
 
         function nextVid() { vIdx = (vIdx + 1) % vList.length; play(); }
         function prevVid() { vIdx = (vIdx - 1 + vList.length) % vList.length; play(); }
-        function play() { player.src = vList[vIdx]; player.load(); player.play(); pBtn.innerText = "⏸"; }
+        
+        function play() { 
+            player.src = vList[vIdx]; 
+            player.load(); 
+            // साउंड का स्टेटस बरकरार रखते हुए वीडियो चलाना
+            const currentMute = player.muted;
+            player.play().then(() => { player.muted = currentMute; }); 
+            pBtn.innerText = "⏸"; 
+        }
+
         function toggleVid() { if(player.paused){ player.play(); pBtn.innerText="⏸"; } else { player.pause(); pBtn.innerText="▶"; } }
 
-        // फोटो लूप (1.jpg से 19.jpg)
+        // साउंड ऑन-ऑफ का फंक्शन
+        function toggleSound() {
+            if (player.muted) {
+                player.muted = false;
+                sBtn.innerText = "🔊";
+            } else {
+                player.muted = true;
+                sBtn.innerText = "🔇";
+            }
+        }
+
         const track = document.getElementById('imageTrack');
         let imgHTML = '';
         for(let i=1; i<=19; i++) { imgHTML += `<img src="${i}.jpg">`; }
-        track.innerHTML = imgHTML + imgHTML; // दो बार ताकि लूप अनंत लगे
+        track.innerHTML = imgHTML + imgHTML;
 
         function toggleMenu() {
             const m = document.getElementById('navMenu');
