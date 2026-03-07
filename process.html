@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Process - Pratiksha Dry Cleaners</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Process | PRATIKSHA DRYCLEANERS</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --sun-orange: #FF8C00;
@@ -13,125 +15,133 @@
             --cream-bg: #FFFDD0;
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; line-height: 1.6; }
-        
-        /* Navigation Style */
+        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+
+        /* 1. टॉप स्टेटस बार */
+        .user-status-bar {
+            background: white; padding: 12px 15px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
+            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 2. मास्टर नेविगेशन बार */
         nav.custom-nav { 
-            background: var(--sun-orange); 
-            padding: 12px 20px; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
+            top: 48px; z-index: 1100; display: flex; align-items: center; 
+            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
         }
+        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
 
-        .nav-icon-left { cursor: pointer; flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .nav-icon-left div { width: 28px; height: 3px; background: white; border-radius: 2px; }
-        
-        .nav-center-brand { flex: 3; text-align: center; }
-        .nav-center-brand span {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: 1.5px;
-            color: white;
-            text-transform: uppercase;
-            display: inline-block;
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+
+        .dropdown-content { 
+            display: none; position: absolute; top: 65px; left: 0; width: 100%;
+            background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
 
-        .logo-right { flex: 1; text-align: right; }
-        .logo-right img { height: 45px; width: auto; border-radius: 4px; border: 1px solid white; }
-        
-        .nav-dropdown-menu { list-style: none; margin: 0; padding: 0; display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--saturn-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001; }
-        .nav-dropdown-menu li { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-dropdown-menu li a { color: white; text-decoration: none; font-weight: bold; display: block; padding: 15px 25px; }
+        /* मुख्य कंटेनर */
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
 
-        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
-
-        /* Minimum Order Alert */
         .order-alert {
             background: #fff3cd; border: 1px solid #ffeeba; color: #856404;
-            padding: 15px; border-radius: 10px; text-align: center; font-weight: bold;
-            margin-bottom: 30px; font-size: 0.9rem;
+            padding: 15px; border-radius: 12px; text-align: center; font-weight: bold;
+            margin-bottom: 40px; font-size: 0.9rem; border-left: 5px solid var(--sun-orange);
         }
 
-        .process-header { text-align: center; margin-bottom: 50px; }
-        .process-header h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
-        
-        /* New 6-Step Layout */
-        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .process-header { text-align: center; margin-bottom: 60px; }
+        .process-header h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 15px; }
+        .process-header p { font-size: 1.1rem; color: #666; font-weight: 600; }
+
+        /* प्रोसेस ग्रिड */
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
         
         .process-card { 
             background: white; 
-            border-radius: 15px; 
+            border-radius: 25px; 
             overflow: hidden; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
-            border-bottom: 4px solid var(--sun-orange);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+            border-bottom: 6px solid var(--sun-orange);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
-        .process-card:hover { transform: translateY(-10px); }
+        .process-card:hover { transform: translateY(-12px); }
         
-        .process-card img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid #eee; }
+        .process-card img { width: 100%; height: 260px; object-fit: cover; border-bottom: 2px solid #f9f9f9; }
         
-        .card-content { padding: 25px; }
+        .card-content { padding: 30px; }
         .step-number { 
-            background: var(--sun-orange); 
-            color: white; 
-            padding: 4px 12px; 
-            border-radius: 20px; 
-            font-size: 0.75rem; 
-            font-weight: bold; 
+            background: var(--saturn-blue); 
+            color: var(--sun-orange); 
+            padding: 6px 16px; 
+            border-radius: 25px; 
+            font-size: 0.8rem; 
+            font-weight: 900; 
             display: inline-block; 
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            border: 1px solid var(--sun-orange);
         }
         
         .process-card h3 { 
             color: var(--saturn-blue); 
             margin: 0 0 15px 0; 
             font-family: 'Playfair Display', serif; 
-            font-size: 1.4rem;
+            font-size: 1.6rem;
         }
         
         .process-card p { 
-            font-size: 0.95rem; 
+            font-size: 1rem; 
             color: #555; 
-            margin: 0; 
+            line-height: 1.7;
             text-align: justify;
         }
 
-        /* Footer */
-        footer { 
-            background: var(--saturn-blue); 
-            color: white; 
-            padding: 50px 20px; 
-            text-align: center; 
-            margin-top: 60px;
-            border-top: 4px solid var(--sun-orange);
-        }
-        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--sun-orange); margin-bottom: 10px; display: block; }
-        .footer-info { font-size: 0.85rem; color: #cbd5e0; margin-bottom: 20px; }
+        /* रेटिंग और फुटर (Consistency) */
+        .rating-box { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f0f0f0; margin-top: 60px; }
+        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
+        .rating-avatars { display: flex; justify-content: center; gap: -12px; margin: 20px 0; }
+        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); object-fit: cover; }
 
-        @media (max-width: 600px) { 
-            .nav-center-brand span { font-size: 0.85rem; }
-            .process-header h2 { font-size: 1.8rem; }
+        .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px 100px; text-align: center; }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
+
+        @media (max-width: 768px) {
+            .process-header h2 { font-size: 2.2rem; }
+            .container { margin-top: 20px; }
         }
     </style>
 </head>
 <body>
+
+    <div class="user-status-bar">
+        <div>🏠 <span id="uHouse">Ambabari</span> | 👤 <b>कार्य प्रक्रिया</b></div>
+        <div>Pratiksha Drycleaners</div>
+    </div>
+
     <nav class="custom-nav">
-        <div class="nav-icon-left" id="menuToggleBtn"><div></div><div></div><div></div></div>
-        <div class="nav-center-brand"><span>PRATIKSHA DRY CLEANERS</span></div>
-        <div class="logo-right"><img src="logo.png" alt="Logo"></div>
-        <ul class="nav-dropdown-menu" id="dropdownMenu">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./services.html">Services</a></li>
-            <li><a href="./about.html">About Us</a></li>
-            <li><a href="./process.html">Process</a></li>
-            <li><a href="./contact.html">Contact</a></li>
-        </ul>
+        <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        <div class="nav-brand-wrapper">
+            <img src="logo.png" alt="Logo">
+            <span>PRATIKSHA DRYCLEANERS</span>
+        </div>
+        <div class="nav-right-btns">
+            <a href="index.html" style="text-decoration:none; font-size:1.4rem;">🏠</a>
+        </div>
+
+        <div class="dropdown-content" id="navMenu">
+            <a href="index.html">🏠 होम पेज</a>
+            <a href="services.html">🧺 हमारी सेवाएं</a>
+            <a href="tracking.html">📦 ट्रैकिंग (Tracking)</a>
+            <a href="about.html">📖 हमारे बारे में (About Us)</a>
+            <a href="process.html" style="background:#f9f9f9; color:var(--sun-orange);">⚙️ कार्य प्रक्रिया (Process)</a>
+            <a href="contact.html">📞 संपर्क करें (Contact Us)</a>
+        </div>
     </nav>
 
     <div class="container">
@@ -146,75 +156,87 @@
 
         <div class="process-grid">
             <div class="process-card">
-                <img src="step1.png" alt="Pickup Process">
+                <img src="1.jpg" alt="Pickup Process">
                 <div class="card-content">
                     <span class="step-number">STEP 01</span>
                     <h3>Pickup Cloth</h3>
-                    <p>हमारा प्रतिनिधि आपके द्वार पर सम्मान के साथ उपस्थित होता है। वह मोबाइल ऐप के माध्यम से कपड़ों का डिजिटल रिकॉर्ड बनाता है और सावधानी से आपके कीमती परिधानों को सुरक्षित बैग में एकत्रित करता है।</p>
+                    <p>हमारा प्रतिनिधि आपके द्वार पर सम्मान के साथ उपस्थित होता है। डिजिटल रिकॉर्ड बनाने के बाद आपके कीमती परिधानों को सुरक्षित बैग में एकत्रित किया जाता है।</p>
                 </div>
             </div>
 
             <div class="process-card">
-                <img src="step2.png" alt="Inspection">
+                <img src="2.jpg" alt="Inspection">
                 <div class="card-content">
                     <span class="step-number">STEP 02</span>
-                    <h3>Cloth Inspection</h3>
-                    <p>कार्यशाला में विशेषज्ञ एक-एक धागे और दाग का सूक्ष्मता से निरीक्षण करते हैं। कपड़े के फैब्रिक के आधार पर उसे अलग किया जाता है ताकि धुलाई के दौरान कोई नुकसान न पहुँचे।</p>
+                    <h3>Inspection</h3>
+                    <p>विशेषज्ञ एक-एक दाग का सूक्ष्मता से निरीक्षण करते हैं। फैब्रिक के आधार पर कपड़ों को अलग किया जाता है ताकि धुलाई पूरी तरह सुरक्षित हो।</p>
                 </div>
             </div>
 
             <div class="process-card">
-                <img src="step3.png" alt="Washing">
+                <img src="3.jpg" alt="Washing">
                 <div class="card-content">
                     <span class="step-number">STEP 03</span>
-                    <h3>Washing Process</h3>
-                    <p>हम उन्नत तकनीक और सुरक्षित सॉल्वेंट्स का उपयोग करते हैं। हर कपड़े के लिए सही तापमान और क्लीनिंग एजेंट का चुनाव किया जाता है ताकि कपड़े के रेशे और चमक बरकरार रहे।</p>
+                    <h3>Washing</h3>
+                    <p>उन्नत तकनीक और इको-फ्रेंडली सॉल्वेंट्स का उपयोग किया जाता है। हर कपड़े की चमक और रेशों की कोमलता बनाए रखना हमारी जिम्मेदारी है।</p>
                 </div>
             </div>
 
             <div class="process-card">
-                <img src="step4.png" alt="Steam Press">
+                <img src="4.jpg" alt="Steam Press">
                 <div class="card-content">
                     <span class="step-number">STEP 04</span>
                     <h3>Steam Pressing</h3>
-                    <p>उच्च दबाव वाली भाप (Steam) का उपयोग करके कपड़े की सिलवटों को जड़ से खत्म किया जाता है। यह प्रक्रिया कपड़े को एक ऐसी फिनिश देती है जो उसे बिल्कुल नए जैसा महसूस कराती है।</p>
+                    <p>उच्च दबाव वाली भाप (Steam) का उपयोग करके सिलवटों को जड़ से खत्म किया जाता है, जिससे कपड़े बिल्कुल नए जैसे दिखने लगते हैं।</p>
                 </div>
             </div>
 
             <div class="process-card">
-                <img src="step5.png" alt="Packaging">
+                <img src="5.jpg" alt="Packaging">
                 <div class="card-content">
                     <span class="step-number">STEP 05</span>
-                    <h3>Cloth Packaging</h3>
-                    <p>तैयार कपड़ों को 'प्रतीक्षा' की ब्रांडेड पैकेजिंग में रखा जाता है। हम विशेष कवर और हैंगर्स का उपयोग करते हैं ताकि डिलीवरी तक कपड़े धूल और नमी से पूरी तरह सुरक्षित रहें।</p>
+                    <h3>Packaging</h3>
+                    <p>'प्रतीक्षा' की ब्रांडेड प्रीमियम पैकेजिंग और विशेष कवर का उपयोग किया जाता है ताकि डिलीवरी तक कपड़े धूल और नमी से सुरक्षित रहें।</p>
                 </div>
             </div>
 
             <div class="process-card">
-                <img src="step6.png" alt="Delivery">
+                <img src="6.jpg" alt="Delivery">
                 <div class="card-content">
                     <span class="step-number">STEP 06</span>
-                    <h3>Product Delivery</h3>
-                    <p>सुरक्षित और साफ कपड़ों को आपके द्वार पर समय पर पहुँचाना हमारी प्राथमिकता है। आपकी संतुष्टि ही हमारी सेवा का असली समापन और भरोसे की नींव है।</p>
+                    <h3>Delivery</h3>
+                    <p>साफ और सुरक्षित कपड़ों को आपके द्वार पर समय पर पहुँचाना हमारी प्राथमिकता है। आपकी संतुष्टि ही हमारे भरोसे की नींव है।</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <span class="footer-logo">PRATIKSHA DRY CLEANERS</span>
-        <div class="footer-info">
-            Ambabari, Jaipur, Rajasthan - 302039 <br>
-            Serving Durga Park (E-Series) & Hanuman Park (D-Series)
+    <div class="rating-box">
+        <div class="stars">★★★★★</div>
+        <div class="rating-info">5.0 | 1200+ Happy Customers</div>
+        <div class="rating-avatars">
+            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
         </div>
-        <p style="font-size: 0.75rem; color: #888;">© 2026 | MANAGED BY SONU BHAI</p>
-    </footer>
+    </div>
+
+    <div class="big-footer">
+        <div class="footer-brand">PRATIKSHA</div>
+        <div class="footer-sub">DRYCLEANERS</div>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
+    </div>
 
     <script>
-        const btn = document.getElementById('menuToggleBtn');
-        const menu = document.getElementById('dropdownMenu');
-        btn.onclick = (e) => { e.stopPropagation(); menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; };
-        document.onclick = () => { menu.style.display = 'none'; };
+        function toggleMenu() {
+            const m = document.getElementById('navMenu');
+            m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+        }
+        document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
     </script>
 </body>
 </html>
