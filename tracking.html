@@ -2,151 +2,248 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Order | PRATIKSHA DRY CLEANERS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Track Journey | PRATIKSHA</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --sun-orange: #FF8C00;
-            --saturn-blue: #001F3F;
-            --mercury-green: #2E8B57;
-            --cream-bg: #FFFDD0;
+            --sun-gold: #FFD700;
+            --deep-space: #010103;
+            --orbit-line: rgba(255, 215, 0, 0.2);
+            --purity-green: #00FF7F;
         }
-        body { font-family: 'Inter', sans-serif; background: var(--cream-bg); margin: 0; padding: 20px; color: var(--saturn-blue); }
-        .track-container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--sun-orange); }
-        
-        .status-header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--sun-orange); text-decoration: none; font-weight: bold; font-size: 0.9rem; }
 
-        .step-container { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; position: relative; }
-        .step { display: flex; align-items: center; gap: 15px; opacity: 0.3; transition: 0.5s; }
-        .step.active { opacity: 1; font-weight: bold; }
-        .circle { width: 30px; height: 30px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; z-index: 1; }
-        .active .circle { background: var(--mercury-green); box-shadow: 0 0 10px var(--mercury-green); }
+        body { 
+            font-family: 'Inter', 'Mukta', sans-serif; 
+            background-color: var(--deep-space); 
+            margin: 0; padding: 20px; color: white;
+            background-image: radial-gradient(circle at top right, rgba(255,140,0,0.1) 0%, transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(0,31,63,0.3) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+
+        .track-container { 
+            max-width: 450px; margin: auto; 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 30px 20px; border-radius: 30px; 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
         
-        .line { position: absolute; left: 14px; top: 0; width: 2px; height: 100%; background: #ddd; z-index: 0; }
+        .status-header { text-align: center; margin-bottom: 30px; }
+        .status-header h2 { 
+            font-family: 'Playfair Display', serif; 
+            color: var(--sun-gold); font-size: 1.8rem; margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .back-btn { 
+            display: inline-block; margin-bottom: 20px; color: rgba(255,255,255,0.5); 
+            text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;
+        }
+
+        /* कोस्मिक प्रोग्रेस स्टेप्स */
+        .step-container { display: flex; flex-direction: column; gap: 25px; margin-top: 10px; position: relative; }
         
+        .step { 
+            display: flex; align-items: center; gap: 20px; 
+            opacity: 0.2; transition: all 0.8s ease;
+            transform: translateX(-10px);
+        }
+        .step.active { opacity: 1; transform: translateX(0); }
+
+        .circle { 
+            width: 35px; height: 35px; border-radius: 50%; 
+            background: rgba(255,255,255,0.1); 
+            display: flex; align-items: center; justify-content: center; 
+            color: white; font-size: 0.9rem; z-index: 1;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.5s;
+        }
+        .active .circle { 
+            background: var(--sun-gold); color: black; 
+            box-shadow: 0 0 20px var(--sun-gold);
+            border-color: var(--sun-gold);
+        }
+        
+        /* धुरी (Line) */
+        .line { 
+            position: absolute; left: 17px; top: 0; width: 1px; height: 100%; 
+            background: var(--orbit-line); z-index: 0; 
+        }
+        .line-progress {
+            position: absolute; left: 17px; top: 0; width: 1px; 
+            background: var(--sun-gold); z-index: 0;
+            transition: height 1s ease;
+            box-shadow: 0 0 10px var(--sun-gold);
+        }
+        
+        /* इन्वेंटरी कार्ड - Center of Gravity */
         .inventory-card { 
-            background: #fffde7; border: 1px dashed var(--sun-orange); 
-            border-radius: 12px; padding: 15px; margin-top: 30px; 
-            text-align: left; font-size: 0.9rem; color: #444;
+            background: rgba(255, 215, 0, 0.03); 
+            border: 1px solid rgba(255, 215, 0, 0.2); 
+            border-radius: 20px; padding: 20px; margin-top: 40px; 
+            position: relative; overflow: hidden;
         }
-        .inventory-title { 
-            font-weight: bold; color: var(--saturn-blue); 
-            border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 10px; 
-            display: flex; justify-content: space-between; align-items: center;
+        .inventory-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
-        #inventoryList div { margin-bottom: 6px; padding-left: 10px; border-left: 3px solid var(--sun-orange); }
 
-        .refresh-btn { display: block; width: 100%; margin-top: 25px; background: none; border: 1px solid #ddd; padding: 10px; border-radius: 8px; color: #888; cursor: pointer; font-size: 0.8rem; }
-        
-        .wa-btn { width: 100%; margin-top: 20px; background: #25D366; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .inventory-title { 
+            font-family: 'Playfair Display', serif;
+            font-weight: bold; color: var(--sun-gold); 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 12px; margin-bottom: 15px; 
+            display: flex; justify-content: space-between; align-items: center;
+            letter-spacing: 1px;
+        }
+
+        #inventoryList div { 
+            margin-bottom: 10px; padding-left: 15px; 
+            border-left: 2px solid var(--sun-gold); 
+            font-size: 0.95rem; opacity: 0.9;
+        }
+
+        /* बटन्स */
+        .wa-btn { 
+            width: 100%; margin-top: 25px; 
+            background: linear-gradient(135deg, #25D366, #128C7E); 
+            color: white; border: none; padding: 16px; 
+            border-radius: 15px; font-weight: bold; cursor: pointer; 
+            display: flex; justify-content: center; align-items: center; gap: 12px; 
+            font-size: 1rem; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+            transition: 0.3s;
+        }
+        .wa-btn:active { transform: scale(0.95); }
+
+        .refresh-btn { 
+            display: block; width: 100%; margin-top: 20px; 
+            background: none; border: 1px solid rgba(255,255,255,0.1); 
+            padding: 12px; border-radius: 12px; color: rgba(255,255,255,0.4); 
+            cursor: pointer; font-size: 0.75rem; letter-spacing: 1px;
+        }
+
+        .footer-blessing {
+            text-align: center; font-size: 0.7rem; color: rgba(255,255,255,0.3);
+            margin-top: 30px; line-height: 1.5;
+        }
     </style>
 </head>
 <body>
 
     <div class="track-container">
-        <a href="index.html" class="back-btn">← वापस होम पर</a>
+        <a href="index.html" class="back-btn">← RETURN HOME</a>
+        
         <div class="status-header">
-            <h2 style="margin:0;">ऑर्डर ट्रैकिंग</h2>
-            <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">मोबाइल: <span id="dispMobile">...</span></p>
+            <h2 id="statusTitle">शुद्धिकरण चक्र</h2>
+            <p style="font-size: 0.7rem; color: var(--sun-gold); margin-top: 8px; letter-spacing: 2px; text-transform: uppercase;">
+                ID: <span id="dispMobile">...</span>
+            </p>
         </div>
 
         <div class="step-container">
             <div class="line"></div>
-            <div class="step" id="step1"><div class="circle">1</div> 🧺 प्रक्रिया में (In Process)</div>
-            <div class="step" id="step2"><div class="circle">2</div> 🧼 धुलाई (Washing)</div>
-            <div class="step" id="step3"><div class="circle">3</div> 👔 आयरनिंग (Ironing)</div>
-            <div class="step" id="step4"><div class="circle">4</div> ✅ रेडी टू डिलीवरी (Ready)</div>
-            <div class="step" id="step5"><div class="circle">5</div> 🚚 डिलीवर कर दिया (Delivered)</div>
+            <div class="line-progress" id="progressLine"></div>
+            
+            <div class="step" id="step1"><div class="circle">1</div> 🧺 चक्रारंभ (In Process)</div>
+            <div class="step" id="step2"><div class="circle">2</div> 🧼 शुचिता (Washing)</div>
+            <div class="step" id="step3"><div class="circle">3</div> 👔 सुसज्जित (Ironing)</div>
+            <div class="step" id="step4"><div class="circle">4</div> ✨ सिद्ध (Ready)</div>
+            <div class="step" id="step5"><div class="circle">5</div> 🚚 गंतव्य (Delivered)</div>
         </div>
 
         <div class="inventory-card">
-            <div class="inventory-title">🧺 कपड़ों की सूची (Inventory) <span>✨</span></div>
-            <div id="inventoryList">विवरण लोड हो रहा है...</div>
+            <div class="inventory-title"> Manifest / सूची <span>✨</span></div>
+            <div id="inventoryList">विवरण ब्रह्मांड से आ रहा है...</div>
         </div>
 
         <button class="wa-btn" onclick="sendToWhatsApp()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> यह लिस्ट व्हाट्सएप पर मंगाएं
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22"> व्हाट्सएप पर विवरण मंगाएं
         </button>
 
-        <button class="refresh-btn" onclick="location.reload()">🔄 स्टेटस रिफ्रेश करें</button>
+        <button class="refresh-btn" onclick="location.reload()">🔄 रिफ्रेश स्टेटस</button>
+
+        <div class="footer-blessing">
+            ।। प्रतीक्षा एवं नीति के उज्जवल भविष्य हेतु ।। <br>
+            © 2026 SONU NEEL
+        </div>
     </div>
 
     <script>
-        // --- आपका अंतिम रामबाण V4 Google Script URL ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
         
-        let globalStatus = "Loading...";
-        let globalDetails = "Loading...";
+        let globalStatus = "प्रक्रिया में";
+        let globalDetails = "";
 
         window.onload = function() {
             const mobile = localStorage.getItem('userMobile');
             if (!mobile) { window.location.href = "login.html"; return; }
             document.getElementById('dispMobile').innerText = mobile;
 
-            // Google Sheet से स्टेटस और विवरण लाना
             fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
             .then(response => response.json())
             .then(data => {
                 if(data.status === "Not Found" || !data.details) {
-                    document.getElementById('inventoryList').innerText = "कोई सक्रिय ऑर्डर नहीं मिला।";
+                    document.getElementById('inventoryList').innerText = "कोई सक्रिय चक्र नहीं मिला।";
                     updateSteps("None");
                     return;
                 }
 
-                globalStatus = data.status || "प्रक्रिया में";
-                globalDetails = data.details || "विवरण उपलब्ध नहीं है";
+                globalStatus = data.status;
+                globalDetails = data.details;
 
-                // सूची को अपडेट करना
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
-                // कोमा से अलग कर के लिस्ट दिखाना
                 const items = globalDetails.split(',');
                 items.forEach(item => {
                     if(item.trim()) invList.innerHTML += `<div>${item.trim()}</div>`;
                 });
 
-                // ट्रैकिंग स्टेप्स को अपडेट करना
                 updateSteps(globalStatus);
             })
             .catch(err => {
-                console.error("Error fetching status:", err);
-                document.getElementById('inventoryList').innerText = "सर्वर से संपर्क नहीं हो पाया।";
+                document.getElementById('inventoryList').innerText = "कनेक्शन बाधित। कृपया पुनः प्रयास करें।";
             });
         };
 
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             
-            const steps = {
-                "प्रक्रिया में": 1,
-                "In Process": 1,
-                "धुलाई": 2,
-                "Washing": 2,
-                "आयरनिंग": 3,
-                "आयरन": 3,
-                "प्रेस": 3,
-                "Ironing": 3,
-                "रेडी टू डिलीवरी": 4,
-                "Ready": 4,
-                "Delivered": 5,
-                "डिलीवर कर दिया": 5
+            const stepsMap = {
+                "प्रक्रिया में": 1, "In Process": 1,
+                "धुलाई": 2, "Washing": 2,
+                "आयरनिंग": 3, "Ironing": 3, "प्रेस": 3,
+                "रेडी टू डिलीवरी": 4, "Ready": 4, "सिद्ध": 4,
+                "Delivered": 5, "डिलीवर कर दिया": 5, "गंतव्य": 5
             };
 
-            const currentLevel = steps[status] || 0;
-            for(let i=1; i<=currentLevel; i++) {
-                const stepElement = document.getElementById('step' + i);
-                if(stepElement) stepElement.classList.add('active');
+            const level = stepsMap[status] || 0;
+            const progressLine = document.getElementById('progressLine');
+            
+            // लाइन की हाइट कैलकुलेट करना (25px गैप + 35px सर्कल)
+            if(level > 0) {
+                const heightPercentage = ((level - 1) / 4) * 100;
+                progressLine.style.height = `calc(${heightPercentage}% + 18px)`;
+            }
+
+            for(let i=1; i<=level; i++) {
+                const el = document.getElementById('step' + i);
+                if(el) el.classList.add('active');
             }
         }
 
         function sendToWhatsApp() {
             const mobile = localStorage.getItem('userMobile');
-            const name = localStorage.getItem('userName') || "ग्राहक";
+            const name = localStorage.getItem('userName') || "प्रिय ग्राहक";
             if(!mobile) return;
 
-            const msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n\n*नमस्ते ${name},*\nआपका ऑर्डर स्टेटस: *${globalStatus}*\n\n*कपड़ों की सूची:*\n${globalDetails.split(',').join('\n')}\n\nधन्यवाद! 🙏`;
+            const msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n--------------------------\n*नमस्ते ${name},*\nआपका शुद्धिकरण चक्र: *${globalStatus}*\n\n*कपड़ों का Manifest:*\n${globalDetails.split(',').join('\n')}\n\nधन्यवाद! 🙏\n_प्रतीक्षा एवं नीति हेतु समर्पित_`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
