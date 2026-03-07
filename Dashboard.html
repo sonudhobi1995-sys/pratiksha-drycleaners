@@ -3,132 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>प्रतीक्षा डैशबोर्ड | Moonlight White</title>
+    <title>डैशबोर्ड | प्रतीक्षा ड्राईक्लीनर्स</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --pure-moon: #ffffff;
             --midnight: #010409;
             --accent-gold: #FFD700;
-            --glass-white: rgba(255, 255, 255, 0.95);
+            --sun-orange: #FF8C00;
         }
 
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; 
             background: var(--midnight); 
-            color: white;
             margin: 0; padding: 15px;
-            background-image: radial-gradient(2px 2px at 40px 60px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0));
-            background-size: 300px 300px;
+            /* पृष्ठभूमि में तारे */
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 300px 250px, #fff, transparent);
+            background-size: 250px 250px;
             background-attachment: fixed;
+            color: white;
         }
 
-        .moon-logo-container { text-align: center; padding: 30px 0 10px 0; }
-        .moon-logo {
-            width: 80px; height: 80px; border-radius: 50%;
-            background: white; padding: 5px; border: 3px solid var(--pure-moon);
-            box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.3);
-        }
-
-        .header h2 { text-align: center; font-family: 'Playfair Display', serif; letter-spacing: 2px; margin-bottom: 5px; }
-
-        /* 💰 कुल कमाई का बड़ा कार्ड */
-        .total-revenue-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        .header { text-align: center; padding: 20px 0; }
+        .header h2 { font-family: 'Playfair Display', serif; margin: 0; letter-spacing: 2px; }
+        
+        /* मुख्य कार्ड - चांदनी जैसा सफेद और पारदर्शी */
+        .card-main { 
+            background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(15px);
-            padding: 25px; border-radius: 30px; 
-            text-align: center; border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
-        }
-        .total-revenue-card h2 { font-size: 3.2rem; color: var(--accent-gold); margin: 5px 0; font-family: 'Playfair Display'; }
-
-        /* ग्रिड बॉक्सेस */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        
-        .stat-box { 
-            background: var(--glass-white); 
-            padding: 18px 10px; border-radius: 20px; 
+            padding: 30px 20px; border-radius: 30px; 
             text-align: center; 
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+            margin-bottom: 25px; 
+            border: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 5px solid var(--sun-orange); 
         }
 
-        .stat-box h4 { margin: 0; color: #64748b; font-size: 0.65rem; letter-spacing: 1px; font-weight: 800; text-transform: uppercase; }
-        .stat-box p { margin: 5px 0 0; font-size: 1.8rem; font-weight: 900; color: #000; }
+        /* आज की कमाई का बड़ा नंबर */
+        .card-main h2 { 
+            font-size: 3.5rem; margin: 10px 0; 
+            color: var(--accent-gold); 
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
         
-        /* आवक (Income) के लिए विशेष रंग */
-        .income-text { color: #15803d !important; } 
+        /* 🌸 SIP प्रोग्रेस बार */
+        .sip-box { 
+            margin-top: 20px; 
+            background: rgba(255,255,255,0.05); 
+            padding: 15px; border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .progress-bg { background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { 
+            background: linear-gradient(90deg, var(--sun-orange), var(--accent-gold)); 
+            height: 100%; width: 0%; transition: 1.5s ease-in-out; 
+        }
+        .sip-label { font-size: 0.75rem; display: flex; justify-content: space-between; opacity: 0.9; font-weight: 700; }
 
+        /* ग्रिड बॉक्सेस - शुद्ध चांदनी सफेद */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .stat-box { 
+            background: var(--pure-moon); 
+            padding: 22px 10px; border-radius: 25px; 
+            text-align: center; 
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1); 
+            transition: 0.3s;
+        }
+        .stat-box h4 { margin: 0; color: #64748b; font-size: 0.7rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
+        .stat-box p { margin: 10px 0 0; font-size: 1.85rem; font-weight: 900; color: #000; }
+
+        /* रिफ्रेश बटन */
         .refresh-btn { 
             width: 100%; padding: 18px; 
-            background: #ffffff; color: #000; border: none; border-radius: 20px; 
-            font-size: 1rem; font-weight: 800; margin-top: 20px;
-            cursor: pointer;
+            background: var(--pure-moon); color: #000; 
+            border: none; border-radius: 20px; 
+            font-size: 1.1rem; font-weight: 800; 
+            margin-top: 25px; cursor: pointer; 
+            box-shadow: 0 5px 20px rgba(255,255,255,0.2);
         }
 
         .back-nav {
-            display: block; text-align: center; margin-top: 15px; color: white;
+            display: block; text-align: center; margin-top: 20px; color: white;
             text-decoration: none; font-weight: 700; padding: 12px; 
-            border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 15px;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="moon-logo-container"><img src="logo.png" alt="PRATIKSHA" class="moon-logo"></div>
-
     <div class="header">
-        <h2>प्रतीक्षा डैशबोर्ड</h2>
-        <p style="text-align:center; color: var(--accent-gold); font-size: 10px; font-weight: 700; letter-spacing: 2px;">।। मिशन 2047 - रूहानी सेवा ।।</p>
+        <h2>प्रतीक्षा डिजिटल डैशबोर्ड</h2>
+        <p style="margin:5px 0; color: var(--accent-gold); font-size: 12px; font-weight: 700; letter-spacing: 2px;">सेवा • शुचिता • 2047 का संकल्प</p>
     </div>
 
-    <div class="container">
-        <div class="total-revenue-card">
-            <span style="font-size: 0.75rem; opacity: 0.8; letter-spacing: 1px;">कुल संचित लक्ष्मी (Lifetime)</span>
-            <h2 id="totalRevenue">₹ 0</h2>
+    <div class="card-main">
+        <span style="opacity: 0.8; font-size: 0.9rem;">आज की संचित लक्ष्मी</span>
+        <h2 id="todayColl">₹ 0</h2>
+        
+        <div class="sip-box">
+            <div class="sip-label">
+                <span>दैनिक लक्ष्य (SIP हेतु)</span>
+                <span id="perc">0%</span>
+            </div>
+            <div class="progress-bg"><div id="bar" class="progress-fill"></div></div>
         </div>
-
-        <div class="grid">
-            <div class="stat-box"><h4>आज की आवक</h4><p id="todayColl" class="income-text">₹ 0</p></div>
-            <div class="stat-box"><h4>ऋणानुबंध (Clients)</h4><p id="customers">0</p></div>
-            <div class="stat-box"><h4>पेंडिंग ऑर्डर</h4><p id="pending">0</p></div>
-            <div class="stat-box"><h4>धुलाई में</h4><p id="washing">0</p></div>
-            <div class="stat-box"><h4>तैयार (Ready)</h4><p id="ready">0</p></div>
-            <div class="stat-box"><h4>कुल ऑर्डर</h4><p id="totalOrders">0</p></div>
-        </div>
-
-        <button class="refresh-btn" onclick="fetchData()">🔄 डेटा अपडेट करें</button>
-        <a href="admin-update.html" class="back-nav">← कंट्रोल स्टेशन</a>
+        <small id="totalColl" style="display:block; margin-top:15px; font-weight:800; color: var(--accent-gold); font-size: 0.9rem;">
+            कुल संचित: ₹ 0
+        </small>
     </div>
+
+    <div class="grid">
+        <div class="stat-box"><h4>पेंडिंग</h4><p id="pending">0</p></div>
+        <div class="stat-box"><h4>धुलाई</h4><p id="washing">0</p></div>
+        <div class="stat-box"><h4>रेडी</h4><p id="ready">0</p></div>
+        <div class="stat-box"><h4>कुल ग्राहक</h4><p id="customers">0</p></div>
+    </div>
+
+    <button class="refresh-btn" onclick="fetchData()">🔄 डेटा अपडेट करें</button>
+    <a href="admin-update.html" class="back-nav">← एडमिन पैनल पर जाएं</a>
 
     <script>
+        // ✅ आपका ओरिजिनल वर्किंग स्क्रिप्ट URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
-        
+
         function fetchData() {
             const btn = document.querySelector('.refresh-btn');
-            btn.innerText = "ब्रह्मांड से डेटा मिल रहा है...";
+            btn.innerText = "हिसाब मिल रहा है...";
             
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
-                // डेटा को स्क्रीन पर उतारना
-                document.getElementById('totalRevenue').innerText = '₹ ' + (data.totalRevenue || 0);
-                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
+                // ✅ आपके पुराने कोड के ओरिजिनल ID नाम
+                const today = data.todayColl || 0;
+                document.getElementById('todayColl').innerText = '₹ ' + today;
+                document.getElementById('totalColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
                 document.getElementById('pending').innerText = data.pending || 0;
                 document.getElementById('washing').innerText = data.washing || 0;
                 document.getElementById('ready').innerText = data.ready || 0;
                 document.getElementById('customers').innerText = data.totalCustomers || 0;
-                document.getElementById('totalOrders').innerText = data.totalOrders || 0;
+
+                // ₹2500 मासिक SIP के हिसाब से दैनिक औसत लक्ष्य ₹100 मानकर
+                let dailyTarget = 100; 
+                let progress = Math.min((today / dailyTarget) * 100, 100);
+                document.getElementById('bar').style.width = progress + "%";
+                document.getElementById('perc').innerText = Math.round(progress) + "%";
                 
                 btn.innerText = "🔄 डेटा अपडेट करें";
             })
-            .catch(e => { 
-                console.log(e);
-                btn.innerText = "🔄 दोबारा प्रयास करें"; 
+            .catch(err => {
+                alert("कनेक्शन एरर!");
+                btn.innerText = "🔄 डेटा अपडेट करें";
             });
         }
-        
         window.onload = fetchData;
     </script>
 </body>
