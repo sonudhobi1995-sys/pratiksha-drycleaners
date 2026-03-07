@@ -18,10 +18,10 @@
     <style>
         :root {
             --sun-orange: #FF8C00;
-            --mercury-green: #2E8B57;
             --saturn-blue: #001F3F;
             --cream-bg: #FFFDD0;
             --diamond-silver: #e0e0e0;
+            --space-dark: #020205;
         }
 
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
@@ -69,72 +69,56 @@
         
         @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- चक्रव्यूह सर्विस हब स्टाइल --- */
-        .service-hub { padding: 60px 0 120px; background: #0a0a0a; border-radius: 60px 60px 0 0; margin-top: -40px; text-align: center; position: relative; z-index: 5; color: white; }
-        
-        /* पूरा कंटेनर घूमेगा */
-        .wheel-container { 
-            position: relative; width: 340px; height: 340px; margin: 0 auto; 
-            animation: rotate-chakravyuh 30s linear infinite; 
+        /* --- कोस्मिक सर्विस हब (Space Theme) --- */
+        .service-hub { 
+            padding: 60px 0 120px; background: var(--space-dark); border-radius: 60px 60px 0 0; 
+            margin-top: -40px; text-align: center; position: relative; z-index: 5; color: white; overflow: hidden;
         }
 
-        @keyframes rotate-chakravyuh {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .space-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px);
+            background-size: 400px 400px; animation: starfield 100s linear infinite; opacity: 0.3; z-index: -1;
         }
+        @keyframes starfield { from { background-position: 0 0; } to { background-position: 400px 400px; } }
 
+        /* सूर्य (स्थिर रहेगा) */
         .center-action { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 110px; height: 110px; background: var(--sun-orange); 
-            border: 4px solid white; border-radius: 50%; color: white; 
-            display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-decoration: none; font-weight: bold; 
-            z-index: 10; box-shadow: 0 0 20px var(--sun-orange);
-            /* सेंटर को विपरीत दिशा में घुमाना ताकि वो सीधा रहे */
-            animation: counter-rotate 30s linear infinite;
+            width: 110px; height: 110px; background: radial-gradient(circle, #FFD700, #FF8C00, #FF4500);
+            border: 4px solid white; border-radius: 50%; color: white; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-decoration: none; font-weight: bold; 
+            z-index: 20; box-shadow: 0 0 40px var(--sun-orange); animation: sun-glow 4s ease-in-out infinite;
         }
+        @keyframes sun-glow { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 60px #FFFF00; } }
 
-        /* हीरे जैसे डायमंड बटन्स */
+        /* ग्रहों की कक्षा */
+        .wheel-container { position: relative; width: 340px; height: 340px; margin: 0 auto; animation: orbit-rotate 40s linear infinite; z-index: 10; }
+        @keyframes orbit-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* ग्रह बटन्स (Individual Planet Colors) */
         .orbit-node { 
-            position: absolute; width: 90px; height: 90px; 
-            background: linear-gradient(135deg, var(--saturn-blue) 0%, #003366 100%); 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 0 10px rgba(255,255,255,0.1); 
-            border: 2px solid var(--diamond-silver); 
-            text-decoration: none; transition: 0.3s;
+            position: absolute; width: 85px; height: 85px; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-decoration: none;
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            /* बटन्स को विपरीत घुमाना ताकि टेक्स्ट सीधा रहे */
-            animation: counter-rotate 30s linear infinite;
+            animation: counter-rotate-text 40s linear infinite; border: 2px solid rgba(255,255,255,0.4);
         }
+        @keyframes counter-rotate-text { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
-        @keyframes counter-rotate {
-            from { transform: rotate(0deg) scale(1); }
-            to { transform: rotate(-360deg) scale(1); }
-        }
+        .pos1 { top: -5px; left: 50%; margin-left: -42px; background: linear-gradient(135deg, #FFD700, #DAA520); } /* बृहस्पति-Yellow */
+        .pos2 { top: 75px; right: 5px; background: linear-gradient(135deg, #F5F5F5, #C0C0C0); } /* शुक्र-White */
+        .pos3 { bottom: 75px; right: 5px; background: linear-gradient(135deg, #FF0000, #8B0000); } /* मंगल-Red */
+        .pos4 { bottom: -5px; left: 50%; margin-left: -42px; background: linear-gradient(135deg, #00FF7F, #006400); } /* बुध-Green */
+        .pos5 { bottom: 75px; left: 5px; background: linear-gradient(135deg, #191970, #000033); } /* शनि-DarkBlue */
+        .pos6 { top: 75px; left: 5px; background: linear-gradient(135deg, #8B4513, #3E1F09); } /* लेदर-Brown */
 
-        .orbit-node span { font-size: 1.5rem; filter: drop-shadow(0 0 5px white); }
-        .orbit-node p { font-size: 0.6rem; font-weight: 700; margin-top: 4px; color: var(--diamond-silver); text-transform: uppercase; letter-spacing: 1px; }
+        .orbit-node span { font-size: 1.4rem; filter: drop-shadow(0 0 3px black); }
+        .orbit-node p { font-size: 0.55rem; font-weight: 800; margin-top: 3px; color: white; text-transform: uppercase; text-shadow: 1px 1px 2px black; }
 
-        /* बटन्स की पोजीशन (चक्रव्यूह में) */
-        .pos1 { top: -10px; left: 50%; margin-left: -45px; }
-        .pos2 { top: 70px; right: 5px; }
-        .pos3 { bottom: 70px; right: 5px; }
-        .pos4 { bottom: -10px; left: 50%; margin-left: -45px; }
-        .pos5 { bottom: 70px; left: 5px; }
-        .pos6 { top: 70px; left: 5px; }
-
-        /* रेटिंग और फुटर (कोयले की खदान वाली फील के लिए डार्क) */
         .rating-box { background: white; padding: 40px 20px; text-align: center; }
-        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
-        .rating-info { font-weight: 700; font-size: 1rem; color: var(--saturn-blue); }
-        .rating-avatars { display: flex; justify-content: center; gap: -10px; margin: 20px 0; }
-        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); object-fit: cover; margin-left: -12px; }
-
         .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; position: relative; }
-        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-        .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
-        
-        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); transition: 0.3s; }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
     </style>
 </head>
 <body>
@@ -159,10 +143,10 @@
         <div class="dropdown-content" id="navMenu">
             <a href="index.html">🏠 होम पेज</a>
             <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="process.html">⚙️ कार्य प्रक्रिया (Process)</a>
-            <a href="about.html">📖 हमारे बारे में (About Us)</a>
-            <a href="contact.html">📞 संपर्क करें (Contact Us)</a>
-            <a href="tracking.html">📦 ट्रैकिंग (Tracking)</a>
+            <a href="process.html">⚙️ कार्य प्रक्रिया</a>
+            <a href="about.html">📖 हमारे बारे में</a>
+            <a href="contact.html">📞 संपर्क करें</a>
+            <a href="tracking.html">📦 ट्रैकिंग</a>
         </div>
     </nav>
 
@@ -185,39 +169,32 @@
     </div>
 
     <section class="service-hub">
-        <h2 style="font-family:'Playfair Display'; margin-bottom:50px; color:var(--sun-orange); font-size:1.8rem; letter-spacing:2px;">ROYAL HUB</h2>
-        <div class="wheel-container">
+        <div class="space-bg"></div>
+        <h2 style="font-family:'Playfair Display'; margin-bottom:50px; color:var(--sun-orange); font-size:1.8rem; letter-spacing:2px; position:relative;">COSMIC HUB</h2>
+        <div style="position:relative; width:340px; height:340px; margin:0 auto;">
             <a href="services.html" class="center-action">
                 <span style="font-size:1.8rem;">⚡</span>
                 <span style="font-size:0.6rem;"> RAPID </span>
             </a>
-            <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
-            <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
-            <a href="services.html#wed" class="orbit-node pos3"><span>💃</span><p>Wedding</p></a>
-            <a href="services.html#home" class="orbit-node pos4"><span>🏠</span><p>Home Care</p></a>
-            <a href="services.html#shoe" class="orbit-node pos5"><span>👟</span><p>Shoes</p></a>
-            <a href="services.html#leather" class="orbit-node pos6"><span>🧥</span><p>Leather</p></a>
+            <div class="wheel-container">
+                <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
+                <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
+                <a href="services.html#wed" class="orbit-node pos3"><span>💃</span><p>Wedding</p></a>
+                <a href="services.html#home" class="orbit-node pos4"><span>🏠</span><p>Home Care</p></a>
+                <a href="services.html#shoe" class="orbit-node pos5"><span>👟</span><p>Shoes</p></a>
+                <a href="services.html#leather" class="orbit-node pos6"><span>🧥</span><p>Leather</p></a>
+            </div>
         </div>
     </section>
 
     <div class="rating-box">
         <div class="stars">★★★★★</div>
         <div class="rating-info">5.0 | 1200+ Trusted Clients</div>
-        <div class="rating-avatars">
-            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
-        </div>
         <p style="color:#888; font-size:0.85rem; font-style:italic;">"शुचिता और गुणवत्ता का अटूट ऋणानुबंध"</p>
     </div>
 
     <div class="big-footer">
         <div class="footer-brand">PRATIKSHA</div>
-        <div class="footer-sub">DRYCLEANERS</div>
-        <div class="footer-links">
-            <a href="about.html">About</a>
-            <a href="services.html">Services</a>
-            <a href="process.html">Process</a>
-            <a href="contact.html">Contact</a>
-        </div>
         <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
     </div>
 
@@ -235,21 +212,9 @@
 
         function nextVid() { vIdx = (vIdx + 1) % vList.length; play(); }
         function prevVid() { vIdx = (vIdx - 1 + vList.length) % vList.length; play(); }
-        
-        function play() { 
-            player.src = vList[vIdx]; 
-            player.load(); 
-            const currentMute = player.muted;
-            player.play().then(() => { player.muted = currentMute; }); 
-            pBtn.innerText = "⏸"; 
-        }
-
+        function play() { player.src = vList[vIdx]; player.load(); player.play(); pBtn.innerText = "⏸"; }
         function toggleVid() { if(player.paused){ player.play(); pBtn.innerText="⏸"; } else { player.pause(); pBtn.innerText="▶"; } }
-
-        function toggleSound() {
-            if (player.muted) { player.muted = false; sBtn.innerText = "🔊"; } 
-            else { player.muted = true; sBtn.innerText = "🔇"; }
-        }
+        function toggleSound() { if (player.muted) { player.muted = false; sBtn.innerText = "🔊"; } else { player.muted = true; sBtn.innerText = "🔇"; } }
 
         const track = document.getElementById('imageTrack');
         let imgHTML = '';
@@ -260,14 +225,12 @@
             const m = document.getElementById('navMenu');
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
-
         function logout() { if(confirm("लॉगआउट करना चाहते हैं?")){ localStorage.clear(); location.href="login.html"; } }
 
         window.onload = function() {
-            const mobile = localStorage.getItem('userMobile');
             document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
             document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
-
+            const mobile = localStorage.getItem('userMobile');
             if(mobile) {
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
                 .then(r => r.json()).then(d => {
