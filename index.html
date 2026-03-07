@@ -6,7 +6,6 @@
     <title>PRATIKSHA DRYCLEANERS | Premium Fabric Care</title>
     
     <script>
-        // आपकी सुरक्षा प्रणाली
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
         }
@@ -26,7 +25,7 @@
 
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
         
-        /* 1. टॉप स्टेटस/ट्रैकिंग बार */
+        /* टॉप स्टेटस बार */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
@@ -34,69 +33,85 @@
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* 2. प्रीमियम नेविगेशन */
+        /* नेविगेशन बार - सेंटर अलाइनमेंट के साथ */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
             justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
         }
-        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; flex: 1; }
-        .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
-        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
+        
+        /* सेंटर में नाम लाने के लिए नया स्टाइल */
+        .nav-brand-wrapper { 
+            position: absolute; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 8px; z-index: 1;
+        }
+        .nav-brand-wrapper img { height: 40px; width: auto; border-radius: 5px; background: white; border: 1px solid white; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; white-space: nowrap; }
 
-        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; z-index: 10; }
         .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-right-btns { z-index: 10; display: flex; gap: 10px; }
 
         .dropdown-content { 
             display: none; position: absolute; top: 65px; left: 0; width: 100%;
             background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; transition: 0.3s; }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
 
-        .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+        .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* 3. वीडियो स्लाइडर */
+        /* वीडियो स्लाइडर */
         .video-container { position: relative; width: 100%; height: 42vh; background: #000; overflow: hidden; }
         #heroVid { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
         .vid-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 10; }
         .v-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; }
 
-        /* 4. इमेज पट्टी (Infinite Loop) */
+        /* इमेज पट्टी */
         .photo-strip { background: white; padding: 25px 0; overflow: hidden; border-bottom: 1px solid #eee; }
-        .strip-track { display: flex; width: max-content; animation: scroll-images 45s linear infinite; }
-        .strip-track img { width: 160px; height: 220px; object-fit: contain; background: #fff; margin: 0 12px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        
-        /* बिना कटिंग लूप के लिए एनीमेशन */
-        @keyframes scroll-images { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(-50%); } 
-        }
+        .strip-track { display: flex; width: calc(180px * 24); animation: scroll-images 45s linear infinite; }
+        .strip-track img { width: 160px; height: 220px; object-fit: contain; background: #fff; margin: 0 12px; border-radius: 12px; }
+        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-180px * 12)); } }
 
-        /* 5. सर्विस व्हील */
+        /* सर्विस व्हील - नया लुक */
         .service-hub { padding: 50px 0 100px; background: white; border-radius: 50px 50px 0 0; margin-top: -40px; text-align: center; position: relative; z-index: 5; }
         .wheel-container { position: relative; width: 320px; height: 320px; margin: 0 auto; }
+        
         .center-action { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 115px; height: 115px; background: var(--mercury-green); border: 5px solid var(--sun-orange); 
+            width: 110px; height: 110px; background: var(--mercury-green); border: 4px solid white; 
             border-radius: 50%; color: white; display: flex; flex-direction: column; justify-content: center; 
             align-items: center; text-decoration: none; font-weight: bold; animation: pulse 2.5s infinite; z-index: 10;
+            box-shadow: 0 10px 25px rgba(46, 139, 87, 0.4);
         }
-        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(255,140,0,0.4); } 50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 20px 10px rgba(255,140,0,0); } }
-        
-        .orbit-node { position: absolute; width: 78px; height: 78px; background: white; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 6px 15px rgba(0,0,0,0.08); border: 1px solid #f5f5f5; text-decoration: none; transition: 0.3s; }
-        .pos1 { top: 0; left: 50%; transform: translateX(-50%); }
-        .pos2 { top: 60px; right: 8px; }
-        .pos3 { bottom: 60px; right: 8px; }
-        .pos4 { bottom: 0; left: 50%; transform: translateX(-50%); }
-        .pos5 { bottom: 60px; left: 8px; }
-        .pos6 { top: 60px; left: 8px; }
-        .orbit-node p { font-size: 0.68rem; font-weight: 700; margin: 3px 0 0; color: #444; }
 
-        /* 6. रेटिंग और फुटर */
+        /* बटन्स का नया प्रीमियम लुक */
+        .orbit-node { 
+            position: absolute; width: 75px; height: 75px; 
+            background: linear-gradient(145deg, #ffffff, #f0f0f0); 
+            border-radius: 20px; /* हल्का स्क्वायर-सर्कल लुक */
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            box-shadow: 6px 6px 12px #d9d9d9, -6px -6px 12px #ffffff; 
+            border: 1px solid rgba(255, 140, 0, 0.2); text-decoration: none; transition: 0.4s; 
+        }
+        .orbit-node span { font-size: 1.5rem; }
+        .orbit-node p { font-size: 0.6rem; font-weight: 800; margin-top: 5px; color: var(--saturn-blue); text-transform: uppercase; }
+        .orbit-node:active { transform: scale(0.9); box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff; }
+
+        .pos1 { top: 0; left: 50%; transform: translateX(-50%); }
+        .pos2 { top: 60px; right: 5px; }
+        .pos3 { bottom: 60px; right: 5px; }
+        .pos4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .pos5 { bottom: 60px; left: 5px; }
+        .pos6 { top: 60px; left: 5px; }
+
+        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } }
+
+        /* रेटिंग और फुटर */
+        .rating-box { background: white; padding: 40px 20px; text-align: center; }
         .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; }
-        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; color: white; }
+        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; }
     </style>
 </head>
 <body>
@@ -110,20 +125,21 @@
 
     <nav class="custom-nav">
         <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        
         <div class="nav-brand-wrapper">
             <img src="logo.png" alt="Logo">
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
+        
         <div class="nav-right-btns">
-            <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="location.reload()">🔄</button>
-            <button style="background:none; border:none; font-size:1.4rem; cursor:pointer;" onclick="logout()">🚪</button>
+            <button style="background:none; border:none; font-size:1.4rem; color:white;" onclick="location.reload()">🔄</button>
+            <button style="background:none; border:none; font-size:1.4rem; color:white;" onclick="logout()">🚪</button>
         </div>
+
         <div class="dropdown-content" id="navMenu">
             <a href="index.html">🏠 होम पेज</a>
             <a href="services.html">🧺 हमारी सेवाएं</a>
             <a href="process.html">⚙️ कार्य प्रक्रिया</a>
-            <a href="about.html">📖 हमारे बारे में</a>
-            <a href="contact.html">📞 संपर्क करें</a>
             <a href="tracking.html">📦 ट्रैकिंग</a>
         </div>
     </nav>
@@ -143,8 +159,8 @@
 
     <div class="photo-strip">
         <div class="strip-track">
-            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg"> <img src="5.jpg"> <img src="6.jpg"> <img src="7.jpg"> <img src="8.jpg"> <img src="9.jpg">
-            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg"> <img src="5.jpg"> <img src="6.jpg"> <img src="7.jpg"> <img src="8.jpg"> <img src="9.jpg">
+            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg"> <img src="5.jpg">
+            <img src="6.jpg"> <img src="7.jpg"> <img src="8.jpg"> <img src="9.jpg">
         </div>
     </div>
 
@@ -153,7 +169,7 @@
         <div class="wheel-container">
             <a href="services.html" class="center-action">
                 <span style="font-size:1.8rem;">⚡</span>
-                <span style="font-size:0.7rem;"> Rapid Service </span>
+                <span style="font-size:0.7rem;"> RAPID </span>
             </a>
             <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
             <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
@@ -165,24 +181,14 @@
     </section>
 
     <div class="rating-box">
-        <div class="stars">★★★★★</div>
-        <div class="rating-info">5.0 | 1200+ Trusted Clients</div>
-        <div class="rating-avatars">
-            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
-        </div>
+        <div style="color: #FFD700; font-size: 1.5rem;">★★★★★</div>
         <p style="color:#888; font-size:0.85rem; font-style:italic;">"शुचिता और गुणवत्ता का अटूट ऋणानुबंध"</p>
     </div>
 
     <div class="big-footer">
         <div class="footer-brand">PRATIKSHA</div>
-        <div class="footer-sub">DRYCLEANERS</div>
-        <div class="footer-links">
-            <a href="about.html">About</a>
-            <a href="services.html">Services</a>
-            <a href="process.html">Process</a>
-            <a href="contact.html">Contact</a>
-        </div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
+        <div style="letter-spacing: 5px; opacity: 0.7;">DRYCLEANERS</div>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 Designed by SONU NEEL</p>
     </div>
 
     <a href="https://wa.me/7740870095" class="btn-whatsapp">
@@ -192,7 +198,6 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
         
-        // आपका वीडियो लॉजिक (यथावत)
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
@@ -208,27 +213,21 @@
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
 
-        function logout() { if(confirm("लॉगआउट करना चाहते हैं?")){ localStorage.clear(); location.href="login.html"; } }
+        function logout() { if(confirm("लॉगआउट?")){ localStorage.clear(); location.href="login.html"; } }
 
-        // टीटू इंजन के साथ लाइव स्टेटस अपडेट
         window.onload = function() {
-            const mobile = localStorage.getItem('userMobile');
             document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
             document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
-
+            const mobile = localStorage.getItem('userMobile');
             if(mobile) {
-                // टीटू इंजन से लाइव 'प्रहरी' की तरह स्टेटस खींचना
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
                 .then(r => r.json()).then(d => {
-                    const s = document.getElementById('uStatus');
-                    // अगर स्टेटस 'Ready' या 'Delivered' है तो हरा रंग करें
-                    if(d.status && d.status !== "No Order") {
+                    if(d.status) {
+                        const s = document.getElementById('uStatus');
                         s.innerText = d.status;
-                        if(d.status.includes("Ready") || d.status.includes("Delivered") || d.status.includes("Paid")) {
-                            s.style.background = "#2E8B57";
-                        }
+                        if(d.status.includes("Ready")) s.style.background = "#2E8B57";
                     }
-                }).catch(err => console.log("Status check skip..."));
+                }).catch(() => {});
             }
         };
 
