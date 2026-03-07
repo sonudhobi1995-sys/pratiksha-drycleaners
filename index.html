@@ -21,6 +21,7 @@
             --mercury-green: #2E8B57;
             --saturn-blue: #001F3F;
             --cream-bg: #FFFDD0;
+            --diamond-silver: #e0e0e0;
         }
 
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
@@ -63,44 +64,67 @@
         .v-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; }
 
         .photo-strip { background: white; padding: 25px 0; overflow: hidden; border-bottom: 1px solid #eee; }
-        .strip-track { 
-            display: flex; 
-            width: max-content; 
-            animation: scroll-images 60s linear infinite; 
-        }
+        .strip-track { display: flex; width: max-content; animation: scroll-images 60s linear infinite; }
         .strip-track img { width: 160px; height: 220px; object-fit: cover; background: #fff; margin: 0 12px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
         
-        @keyframes scroll-images { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(-50%); } 
+        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- चक्रव्यूह सर्विस हब स्टाइल --- */
+        .service-hub { padding: 60px 0 120px; background: #0a0a0a; border-radius: 60px 60px 0 0; margin-top: -40px; text-align: center; position: relative; z-index: 5; color: white; }
+        
+        /* पूरा कंटेनर घूमेगा */
+        .wheel-container { 
+            position: relative; width: 340px; height: 340px; margin: 0 auto; 
+            animation: rotate-chakravyuh 30s linear infinite; 
         }
 
-        .service-hub { padding: 50px 0 100px; background: white; border-radius: 50px 50px 0 0; margin-top: -40px; text-align: center; position: relative; z-index: 5; }
-        .wheel-container { position: relative; width: 320px; height: 320px; margin: 0 auto; }
+        @keyframes rotate-chakravyuh {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .center-action { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 115px; height: 115px; background: var(--mercury-green); border: 5px solid var(--sun-orange); 
-            border-radius: 50%; color: white; display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-decoration: none; font-weight: bold; animation: pulse 2.5s infinite; z-index: 10;
+            width: 110px; height: 110px; background: var(--sun-orange); 
+            border: 4px solid white; border-radius: 50%; color: white; 
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-decoration: none; font-weight: bold; 
+            z-index: 10; box-shadow: 0 0 20px var(--sun-orange);
+            /* सेंटर को विपरीत दिशा में घुमाना ताकि वो सीधा रहे */
+            animation: counter-rotate 30s linear infinite;
         }
-        
+
+        /* हीरे जैसे डायमंड बटन्स */
         .orbit-node { 
-            position: absolute; width: 85px; height: 85px; 
-            background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1); border: 2px solid var(--sun-orange); 
+            position: absolute; width: 90px; height: 90px; 
+            background: linear-gradient(135deg, var(--saturn-blue) 0%, #003366 100%); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            box-shadow: 0 0 15px rgba(255,255,255,0.2), inset 0 0 10px rgba(255,255,255,0.1); 
+            border: 2px solid var(--diamond-silver); 
             text-decoration: none; transition: 0.3s;
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            /* बटन्स को विपरीत घुमाना ताकि टेक्स्ट सीधा रहे */
+            animation: counter-rotate 30s linear infinite;
         }
-        .orbit-node p { font-size: 0.55rem; font-weight: 800; margin-top: 2px; color: #444; text-transform: uppercase; }
 
-        .pos1 { top: -10px; left: 50%; transform: translateX(-50%); }
-        .pos2 { top: 60px; right: 0px; }
-        .pos3 { bottom: 60px; right: 0px; }
-        .pos4 { bottom: -10px; left: 50%; transform: translateX(-50%); }
-        .pos5 { bottom: 60px; left: 0px; }
-        .pos6 { top: 60px; left: 0px; }
+        @keyframes counter-rotate {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(-360deg) scale(1); }
+        }
 
-        .rating-box { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f0f0f0; }
+        .orbit-node span { font-size: 1.5rem; filter: drop-shadow(0 0 5px white); }
+        .orbit-node p { font-size: 0.6rem; font-weight: 700; margin-top: 4px; color: var(--diamond-silver); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* बटन्स की पोजीशन (चक्रव्यूह में) */
+        .pos1 { top: -10px; left: 50%; margin-left: -45px; }
+        .pos2 { top: 70px; right: 5px; }
+        .pos3 { bottom: 70px; right: 5px; }
+        .pos4 { bottom: -10px; left: 50%; margin-left: -45px; }
+        .pos5 { bottom: 70px; left: 5px; }
+        .pos6 { top: 70px; left: 5px; }
+
+        /* रेटिंग और फुटर (कोयले की खदान वाली फील के लिए डार्क) */
+        .rating-box { background: white; padding: 40px 20px; text-align: center; }
         .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
         .rating-info { font-weight: 700; font-size: 1rem; color: var(--saturn-blue); }
         .rating-avatars { display: flex; justify-content: center; gap: -10px; margin: 20px 0; }
@@ -109,8 +133,6 @@
         .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; position: relative; }
         .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
         .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
-        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px; }
-        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
         
         .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); transition: 0.3s; }
     </style>
@@ -126,17 +148,14 @@
 
     <nav class="custom-nav">
         <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
-        
         <div class="nav-brand-wrapper">
             <img src="logo.png" alt="Logo">
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
-        
         <div class="nav-right-btns">
             <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="location.reload()">🔄</button>
             <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="logout()">🚪</button>
         </div>
-
         <div class="dropdown-content" id="navMenu">
             <a href="index.html">🏠 होम पेज</a>
             <a href="services.html">🧺 हमारी सेवाएं</a>
@@ -166,11 +185,11 @@
     </div>
 
     <section class="service-hub">
-        <h2 style="font-family:'Playfair Display'; margin-bottom:40px; color:var(--saturn-blue); font-size:1.8rem;">Our Excellence</h2>
+        <h2 style="font-family:'Playfair Display'; margin-bottom:50px; color:var(--sun-orange); font-size:1.8rem; letter-spacing:2px;">ROYAL HUB</h2>
         <div class="wheel-container">
             <a href="services.html" class="center-action">
                 <span style="font-size:1.8rem;">⚡</span>
-                <span style="font-size:0.7rem;"> Rapid Service </span>
+                <span style="font-size:0.6rem;"> RAPID </span>
             </a>
             <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
             <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
@@ -208,12 +227,11 @@
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
-        
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
         const pBtn = document.getElementById('pBtn');
-        const sBtn = document.getElementById('sBtn'); // साउंड बटन का ID
+        const sBtn = document.getElementById('sBtn');
 
         function nextVid() { vIdx = (vIdx + 1) % vList.length; play(); }
         function prevVid() { vIdx = (vIdx - 1 + vList.length) % vList.length; play(); }
@@ -221,7 +239,6 @@
         function play() { 
             player.src = vList[vIdx]; 
             player.load(); 
-            // साउंड का स्टेटस बरकरार रखते हुए वीडियो चलाना
             const currentMute = player.muted;
             player.play().then(() => { player.muted = currentMute; }); 
             pBtn.innerText = "⏸"; 
@@ -229,15 +246,9 @@
 
         function toggleVid() { if(player.paused){ player.play(); pBtn.innerText="⏸"; } else { player.pause(); pBtn.innerText="▶"; } }
 
-        // साउंड ऑन-ऑफ का फंक्शन
         function toggleSound() {
-            if (player.muted) {
-                player.muted = false;
-                sBtn.innerText = "🔊";
-            } else {
-                player.muted = true;
-                sBtn.innerText = "🔇";
-            }
+            if (player.muted) { player.muted = false; sBtn.innerText = "🔊"; } 
+            else { player.muted = true; sBtn.innerText = "🔇"; }
         }
 
         const track = document.getElementById('imageTrack');
