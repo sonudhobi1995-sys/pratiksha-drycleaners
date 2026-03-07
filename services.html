@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Services | PRATIKSHA DRYCLEANERS</title>
+    <title>Premium Services | PRATIKSHA DRYCLEANERS</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -15,69 +15,71 @@
             --cream-bg: #FFFDD0;
         }
 
-        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
 
+        /* टॉप स्टेटस बार */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
-            border-bottom: 3px solid var(--sun-orange);
+            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        /* मास्टर नेविगेशन */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
             justify-content: space-between; height: 65px;
         }
-
         .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; }
         .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; background: white; }
-        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; color: white; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; color: white; }
 
         .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
 
-        /* वेडिंग कार्ड (पुरानी फोटो के साथ) */
+        /* हेडर सेक्शन */
+        .service-header { text-align: center; margin-bottom: 40px; }
+        .service-header h1 { font-family: 'Playfair Display'; font-size: 2.5rem; color: var(--saturn-blue); margin-bottom: 5px; }
+        .service-header p { color: var(--mercury-green); font-weight: 700; letter-spacing: 1px; }
+
+        /* वेडिंग कार्ड (No-Crop) */
         .featured-card { 
             background: white; display: flex; align-items: center; border-radius: 20px; 
             overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 45px; 
-            border-left: 8px solid var(--sun-orange); 
+            border-left: 8px solid var(--sun-orange); padding: 15px;
         }
-        .image-frame { flex: 1; height: 320px; }
-        .image-frame img { width: 100%; height: 100%; object-fit: cover; } /* यहाँ 'cover' रहेगा क्योंकि यह बैनर है */
-        .text-side { flex: 1.2; padding: 40px; }
-        .text-side h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; }
-        .text-side p { line-height: 1.8; color: #444; font-size: 1.1rem; font-weight: 600; }
+        .image-frame { flex: 1; height: 350px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border-radius: 15px; }
+        .image-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        /* सर्विस ग्रिड (सभी 7 पॉइंट्स) */
+        .text-side { flex: 1.2; padding: 30px; }
+        .text-side h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.1rem; margin-top: 0; }
+        .text-side p { line-height: 1.6; color: #444; font-size: 1.05rem; }
+
+        /* सर्विस ग्रिड */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
         .service-desc-card { 
-            background: white; padding: 35px; border-radius: 20px; 
+            background: white; padding: 30px; border-radius: 20px; 
             border-left: 8px solid var(--mercury-green); 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05); transition: 0.3s;
         }
-        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: 10px; }
-        .service-desc-card p { font-size: 1.1rem; line-height: 1.6; color: #444; font-weight: 500; }
+        .service-desc-card:hover { transform: translateY(-5px); }
+        .service-desc-card h3 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; }
+        .service-desc-card p { font-size: 1rem; line-height: 1.6; color: #555; }
 
-        /* ✨ 'नो-क्रॉप' लाइव गैलरी सेक्शन */
+        /* लाइव गैलरी */
         .work-gallery { margin-top: 50px; background: var(--saturn-blue); padding: 30px 15px; border-radius: 25px; }
-        .gallery-title { color: white; text-align: center; font-family: 'Playfair Display'; margin-bottom: 20px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .gallery-item { 
-            background: white; border-radius: 12px; height: 220px; 
-            display: flex; align-items: center; justify-content: center; padding: 5px;
-        }
-        .gallery-item img { 
-            max-width: 100%; max-height: 100%; 
-            object-fit: contain; /* ✨ यहाँ 'contain' है, फोटो कभी नहीं कटेगी */
-            border-radius: 8px; 
-        }
+        .gallery-title { color: white; text-align: center; font-family: 'Playfair Display'; margin-bottom: 25px; font-size: 2rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .gallery-item { background: white; border-radius: 12px; height: 250px; display: flex; align-items: center; justify-content: center; padding: 8px; }
+        .gallery-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
 
         .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px; text-align: center; margin-top: 50px; }
+        .footer-sub { letter-spacing: 5px; opacity: 0.7; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <div class="user-status-bar">
-        <div>🏠 Ambabari | 🧺 <b>हमारी सेवाएं</b></div>
+        <div>📍 Ambabari, Jaipur | 🧺 <b>Premium Services</b></div>
         <div>Pratiksha Drycleaners</div>
     </div>
 
@@ -86,68 +88,72 @@
     </nav>
 
     <div class="container">
+        <div class="service-header">
+            <h1>Our Specialized Services</h1>
+            <p>TRUSTED EXCELLENCE SINCE 1987</p>
+        </div>
+
         <div class="featured-card">
             <div class="image-frame"><img src="services1.jpg" alt="Wedding Care"></div>
             <div class="text-side">
-                <span style="color:var(--sun-orange); font-weight:900;">HERITAGE CARE</span>
-                <h2>Wedding & Couture Care</h2>
-                <p>लहंगे और शेरवानी सिर्फ कपड़े नहीं, भावनाएं हैं। हम हाथ से बारीक सफाई करते हैं ताकि हर मोती और ज़री सुरक्षित रहे।</p>
-                <p style="color:var(--mercury-green); font-weight:900;">TRUSTED SINCE 1987</p>
+                <span style="color:var(--sun-orange); font-weight:900; font-size: 0.8rem; letter-spacing: 1px;">PREMIUM CARE</span>
+                <h2>Wedding & Couture Spa</h2>
+                <p>Your wedding attire is a masterpiece. We specialize in deep cleaning heavy Lehengas and Sherwanis while ensuring every sequin, bead, and zari work remains untouched.</p>
+                <div style="margin-top: 15px; color: var(--mercury-green); font-weight: 700;">★ Hand-Finishing Experts</div>
             </div>
         </div>
 
         <div class="grid">
             <div class="service-desc-card">
                 <h3>Heritage Dry Cleaning</h3>
-                <p>1987 से मास्टर की गई कला। हम इको-फ्रेंडली सॉल्वेंट्स का उपयोग करते हैं जो रेशम और डिजाइनर वियर की चमक बरकरार रखते हैं।</p>
+                <p>Mastering the art of fabric care since 1987. We use eco-friendly solvents to maintain the original shine and texture of your Silk and Designer wear.</p>
             </div>
 
             <div class="service-desc-card" style="border-left-color: #3498db;">
-                <h3>Woolen Care</h3>
-                <p>कोल्ड-सोक तकनीक से स्वेटर और कोट की कोमलता बनी रहती है। हम सुनिश्चित करते हैं कि ऊन कभी छोटा न हो और रोएं न आएं।</p>
+                <h3>Professional Steam Press</h3>
+                <p>Get that crisp, showroom-like finish without any iron marks. Our high-pressure vacuum steam tables sanitize and rejuvenate every fiber.</p>
             </div>
 
             <div class="service-desc-card" style="border-left-color: var(--sun-orange);">
-                <h3>Steam Ironing</h3>
-                <p>हाई-प्रेशर स्टीम टेबल कपड़ों को सैनिटाइज करती हैं और उन्हें बिना 'प्रेस के निशान' के नई जैसी कड़क फिनिश देती हैं।</p>
+                <h3>Scientific Stain Removal</h3>
+                <p>Whether it's ink, oil, or tea, our advanced technology eliminates tough spots without damaging the delicate base of the fabric.</p>
             </div>
 
             <div class="service-desc-card" style="border-left-color: #e74c3c;">
-                <h3>Stain Removal</h3>
-                <p>चाय, कॉफी या इंक—दाग चाहे कैसा भी हो, हमारा विज्ञान रेशों को नुकसान पहुँचाए बिना उन्हें पूरी तरह हटा देता है।</p>
+                <h3>Woolen & Winter Care</h3>
+                <p>Our 'Cold-Soak' technology prevents shrinking and lint formation, keeping your woolens soft and looking like new.</p>
             </div>
 
             <div class="service-desc-card" style="border-left-color: #5d4037;">
-                <h3>Leather & Shoe Spa</h3>
-                <p>लेदर जैकेट और प्रीमियम जूतों के लिए खास कंडीशनिंग। हम लेदर को हाइड्रेट करके उसकी प्राकृतिक चमक वापस लाते हैं।</p>
+                <h3>Leather & Shoe Revival</h3>
+                <p>From premium leather jackets to designer sneakers, we provide specialized conditioning to restore their natural luster.</p>
             </div>
 
             <div class="service-desc-card" style="border-left-color: #2c3e50;">
-                <h3>Linen & Decor</h3>
-                <p>भारी पर्दे और बेडस्प्रेड की गहरी सफाई, ताकि आपका घर धूल, कीटाणुओं और एलर्जी से पूरी तरह मुक्त रहे।</p>
+                <h3>Home Linen Hygiene</h3>
+                <p>Deep-cleaning for heavy curtains and bedspreads to ensure your home remains allergen-free and fresh.</p>
             </div>
 
             <div class="service-desc-card" style="border-left-color: var(--mercury-green);">
-                <h3>Rapid Delivery</h3>
-                <p>जरूरी काम है? हमारी Same-Day या Next-Day सेवा यह सुनिश्चित करती है कि आपके कपड़े समय पर आपके द्वार तक पहुँचें।</p>
+                <h3>Rapid Delivery Service</h3>
+                <p>In a hurry? Our Same-Day and Next-Day priority services ensure your garments reach you exactly when you need them.</p>
             </div>
         </div>
 
         <div class="work-gallery">
-            <h2 class="gallery-title">Our Work Showcase</h2>
-            <div id="gallery-box" class="gallery-grid">
-                </div>
+            <h2 class="gallery-title">Live Service Showcase</h2>
+            <div id="gallery-box" class="gallery-grid"></div>
         </div>
     </div>
 
     <div class="big-footer">
-        <div class="footer-brand">PRATIKSHA</div>
-        <p>© 2026 PRATIKSHA DRYCLEANERS | Managed by Sonu Neel</p>
+        <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 0;">PRATIKSHA</h2>
+        <div class="footer-sub">DRYCLEANERS</div>
+        <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 40px;">© 2026 PRATIKSHA DRYCLEANERS | Managed by Sonu Neel<br>Ambabari, Jaipur</p>
     </div>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
-
         async function loadG() {
             try {
                 const res = await fetch(scriptURL + '?action=getGallery');
@@ -156,7 +162,6 @@
                 data.forEach(file => {
                     const div = document.createElement('div');
                     div.className = 'gallery-item';
-                    // यहाँ 'contain' की वजह से फोटो पूरी दिखेगी
                     div.innerHTML = `<img src="https://drive.google.com/uc?export=view&id=${file.id}" loading="lazy">`;
                     box.appendChild(div);
                 });
