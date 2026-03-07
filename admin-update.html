@@ -1,182 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Guardian Station | Pratiksha Drycleaners</title>
+    <title>Guardian Station | Pratiksha Moonlight</title>
     
-    <link rel="manifest" href="manifest-admin.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#001F3F">
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --gold-glow: #FFD700;
+            --moonlight: #e0e0e0;
+            --star-gold: #FFD700;
+            --midnight-blue: #020617;
+            --saturn-ring: rgba(255, 215, 0, 0.2);
             --sun-orange: #FF8C00;
-            --deep-space: #010103;
-            --saturn-blue: #001F3F;
         }
 
         body {
             font-family: 'Inter', 'Mukta', sans-serif;
-            background-color: var(--deep-space);
-            color: white;
+            background-color: var(--midnight-blue);
+            color: var(--moonlight);
             margin: 0;
             overflow-x: hidden;
-            /* यहाँ आपकी दी हुई मुख्य फोटो (Center of Gravity वाली) का बैकग्राउंड */
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('1000289828.jpg');
-            background-size: cover;
+            /* चांदनी रात का कोस्मिक बैकग्राउंड */
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 200px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 250px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+            background-size: 100% 100%, 200px 200px, 300px 300px, 400px 400px, 500px 500px;
             background-attachment: fixed;
-            background-position: center;
+            animation: stars-twinkle 10s infinite linear;
+        }
+
+        @keyframes stars-twinkle {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 100px; }
         }
 
         .app-header {
-            padding: 35px 15px;
+            padding: 40px 15px;
             text-align: center;
-            background: rgba(0, 31, 63, 0.6);
-            border-bottom: 2px solid var(--sun-orange);
-            backdrop-filter: blur(10px);
-            border-radius: 0 0 40px 40px;
-        }
-        
-        .app-logo {
-            width: 70px; height: 70px; border-radius: 50%;
-            background: white; padding: 5px; margin-bottom: 12px;
-            border: 2px solid var(--gold-glow); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .container { padding: 20px; max-width: 500px; margin: auto; }
-
-        /* CoG - Center of Gravity Card (आपकी दूसरी फोटो के लिए) */
-        .cog-visual {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1.5px solid var(--gold-glow);
-            border-radius: 30px;
-            padding: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-        .cog-visual img {
-            width: 80px; height: 80px; border-radius: 50%;
-            border: 2px solid var(--sun-orange); margin-bottom: 10px;
-            animation: pulse-glow 3s infinite ease-in-out;
-        }
-
-        /* Forms & Cards */
-        .card { 
-            background: rgba(0, 0, 0, 0.7); 
-            padding: 25px; 
-            border-radius: 25px; 
-            margin-bottom: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(2, 6, 23, 0.8);
+            border-bottom: 1px solid var(--saturn-ring);
+            backdrop-filter: blur(15px);
+            border-radius: 0 0 50px 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
-        h3 { color: var(--gold-glow); font-family: 'Playfair Display', serif; margin-top: 0; letter-spacing: 1px; }
-        label { font-size: 0.75rem; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-left: 5px; }
+        .app-logo {
+            width: 75px; height: 75px; border-radius: 50%;
+            background: white; padding: 5px; margin-bottom: 15px;
+            border: 2px solid var(--moonlight); 
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+        }
 
-        input, select { 
-            width: 100%; padding: 15px; margin: 8px 0 18px 0; 
-            border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(255,255,255,0.1); color: white;
-            box-sizing: border-box; font-size: 1rem; 
+        .container { padding: 20px; max-width: 450px; margin: auto; }
+
+        /* CoG - Center of Gravity Card (चांदनी आभा के साथ) */
+        .cog-visual {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--saturn-ring);
+            border-radius: 35px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+        .cog-visual::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cog-visual img {
+            width: 90px; height: 90px; border-radius: 50%;
+            border: 2px solid var(--star-gold); margin-bottom: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            animation: cosmic-pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes cosmic-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+        }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.04); 
+            padding: 25px; border-radius: 30px; margin-bottom: 25px; 
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
         }
         
-        /* Buttons - logic remain same, design updated */
-        .btn { 
-            width: 100%; padding: 18px; border: none; border-radius: 15px; 
-            font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; 
-            display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; 
-            text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+        h3 { color: var(--moonlight); font-family: 'Playfair Display', serif; margin-top: 0; letter-spacing: 2px; font-size: 1.1rem; }
+        label { font-size: 0.7rem; font-weight: 400; color: #8892b0; text-transform: uppercase; letter-spacing: 2px; }
+
+        input, select { 
+            width: 100%; padding: 16px; margin: 10px 0 20px 0; 
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(0,0,0,0.3); color: white;
+            box-sizing: border-box; font-size: 1rem; transition: 0.3s;
         }
-        .btn-status { background: linear-gradient(135deg, var(--sun-orange), #FF4500); color: white; }
-        .btn-dashboard { background: var(--saturn-blue); color: white; border: 1.5px solid var(--gold-glow); }
-        .btn-nav { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        input:focus { border-color: var(--star-gold); outline: none; background: rgba(0,0,0,0.5); }
+
+        .btn { 
+            width: 100%; padding: 18px; border: none; border-radius: 20px; 
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.4s; 
+            display: flex; justify-content: center; align-items: center; gap: 12px; 
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .btn-status { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2); }
+        .btn-status:active { transform: scale(0.96); }
+        
+        .btn-dashboard { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-nav { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
 
         .payment-box { 
-            background: rgba(255, 215, 0, 0.05); 
-            border: 1.5px dashed var(--sun-orange); 
-            padding: 15px; border-radius: 15px; margin-bottom: 15px; 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px dashed rgba(255, 255, 255, 0.2); 
+            padding: 18px; border-radius: 20px; margin-bottom: 20px; 
         }
 
-        @keyframes pulse-glow {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
-        }
-
-        .footer-info { text-align: center; font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 20px; letter-spacing: 1px; }
+        .footer-info { text-align: center; font-size: 9px; color: #4b5563; margin-top: 30px; letter-spacing: 2px; line-height: 2; }
     </style>
 </head>
 <body>
 
     <div class="app-header">
         <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-        <h2 style="margin:0; font-family:'Playfair Display', serif; letter-spacing: 2px;">पहरेदार कंट्रोल स्टेशन</h2>
-        <div style="font-size: 0.65rem; color: var(--gold-glow); margin-top: 5px; letter-spacing: 3px;">MISSION 2047</div>
+        <h2 style="margin:0; font-family:'Playfair Display', serif; letter-spacing: 3px; font-weight: 900;">पहरेदार स्टेशन</h2>
+        <div style="font-size: 0.6rem; color: var(--star-gold); margin-top: 8px; letter-spacing: 4px;">COSMIC GUARDIAN</div>
     </div>
 
     <div class="container">
         <div class="cog-visual">
             <img src="1000289866.jpg" alt="CoG Vision">
-            <div style="color: var(--gold-glow); font-weight: 700; font-size: 0.9rem;">CENTER OF GRAVITY</div>
-            <p style="font-size: 0.7rem; opacity: 0.7; margin: 5px 0 0 0;">ऋणानुबंध ही कर्म की धुरी है</p>
+            <div style="color: var(--moonlight); font-weight: 700; font-size: 0.85rem; letter-spacing: 3px;">CENTER OF GRAVITY</div>
+            <p style="font-size: 0.6rem; opacity: 0.5; margin: 8px 0 0 0; font-style: italic;">ऋणानुबंध ही कर्म की धुरी है</p>
         </div>
 
         <div class="card">
-            <h3>📊 Analytics</h3>
+            <h3>📈 ANALYTICS</h3>
             <button class="btn btn-dashboard" onclick="window.location.href='Dashboard.html'">
-                📈 दैनिक रिपोर्ट (Dashboard)
+                VIEW DAILY INSIGHTS
             </button>
         </div>
 
         <div class="card">
-            <h3>🔄 Quick Update</h3>
-            <label>मोबाइल नंबर:</label>
-            <div style="display: flex; gap: 8px; margin: 8px 0 18px 0;">
+            <h3>✨ QUICK SIGNAL</h3>
+            <label>मोबाइल नंबर</label>
+            <div style="display: flex; gap: 10px; margin: 10px 0 20px 0;">
                 <input type="tel" id="adminMobile" placeholder="98XXXXXXXX" style="margin:0; flex:1;">
-                <button type="button" onclick="getContact('adminMobile')" style="padding:0 15px; border-radius:12px; border:1px solid var(--gold-glow); background:rgba(255,215,0,0.1); color:var(--gold-glow); cursor:pointer;">👤</button>
+                <button type="button" onclick="getContact('adminMobile')" style="padding:0 18px; border-radius:15px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.05); color:white; cursor:pointer;">👤</button>
             </div>
             
-            <label>ऑर्डर स्थिति:</label>
+            <label>ऑर्डर की स्थिति</label>
             <select id="adminStatus">
                 <option value="प्रक्रिया में">🧺 प्रक्रिया में</option>
-                <option value="धुलाई">🧼 धुलाई जारी</option>
-                <option value="आयरनिंग">👔 आयरनिंग/प्रेस</option>
-                <option value="रेडी टू डिलीवरी">✅ रेडी टू डिलीवरी</option>
-                <option value="Delivered">🚚 डिलीवर कर दिया</option>
+                <option value="धुलाई">🧼 शुचिता (Washing)</option>
+                <option value="आयरनिंग">👔 सुसज्जित (Press)</option>
+                <option value="रेडी टू डिलीवरी">✨ सिद्ध (Ready)</option>
+                <option value="Delivered">🚚 गंतव्य (Delivered)</option>
             </select>
 
             <div class="payment-box">
-                <label>💰 पेमेंट की स्थिति:</label>
-                <select id="paymentStatus" style="margin-bottom:0; background: none;">
-                    <option value="Pending" style="color: black;">🔴 Pending (उधारी)</option>
-                    <option value="Paid" style="color: black;">🟢 Paid (प्राप्त)</option>
+                <label>💰 दक्षिणा स्थिति</label>
+                <select id="paymentStatus" style="margin-bottom:0; background: transparent;">
+                    <option value="Pending" style="color: black;">🔴 उधारी (Pending)</option>
+                    <option value="Paid" style="color: black;">🟢 प्राप्त (Paid)</option>
                 </select>
             </div>
 
             <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
-                🚀 अपडेट और सिग्नल भेजें
+                कोस्मिक अपडेट भेजें
             </button>
         </div>
 
         <div class="card">
-            <h3>🚀 Navigation</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <button class="btn btn-nav" onclick="window.location.href='driver-app.html'">🚚 Driver</button>
-                <button class="btn btn-nav" onclick="window.location.href='billing.html'">🧾 Billing</button>
+            <h3>🚀 NAVIGATION</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <button class="btn btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER</button>
+                <button class="btn btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
             </div>
         </div>
         
-        <div class="footer-info">प्रतीक्षा एवं नीति हेतु | SONU NEEL संचालित रूहानी तंत्र</div>
+        <div class="footer-info">
+            ।। प्रतीक्षा एवं नीति हेतु ।। <br>
+            SONU NEEL संचालित रूहानी तंत्र © 2026
+        </div>
     </div>
 
 <script>
-    // आपका मूल लॉजिक (Original Logic) - इसमें कोई बदलाव नहीं किया गया है
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
 
     async function getContact(mobileId) {
@@ -209,7 +226,7 @@
         setTimeout(() => {
             alert("कोस्मिक सिग्नल भेज दिया गया है! ✅");
             const payText = pStatus === "Paid" ? "✅ प्राप्त (Paid)" : "⏳ बकाया (Pending)";
-            const waMsg = `* प्रतीक्षा ड्राईक्लीनर्स * 🧺✨\n--------------------------------\nनमस्ते,\nआपके कपड़ों का स्टेटस: *${status}*\nपेमेंट स्टेटस: *${payText}*\n\nविवरण यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/tracking.html\n\nधन्यवाद! 🙏`;
+            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nनमस्ते,\nआपके कपड़ों का स्टेटस: *${status}*\nपेमेंट स्टेटस: *${payText}*\n\nविवरण यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/tracking.html\n\nधन्यवाद! 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
         }, 1500);
