@@ -1,267 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Driver Station | PRATIKSHA</title>
+    <title>प्रतीक्षा ड्राइवर स्टेशन | PRATIKSHA</title>
     
-    <link rel="manifest" href="manifest-driver.json">
-    <meta name="theme-color" content="#001F3F">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --sun-orange: #FF8C00; 
-            --saturn-blue: #001F3F; 
-            --mercury-green: #00FF7F; 
-            --space-dark: #010103;
-            --glass: rgba(255, 255, 255, 0.08);
+            --midnight: #010409;
+            --pure-moon: #ffffff;
+            --accent-gold: #FFD700;
+            --sun-orange: #FF8C00;
         }
 
         body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--space-dark); 
+            font-family: 'Inter', 'Mukta', sans-serif; 
+            background: var(--midnight); 
             color: white; 
             margin: 0; 
             padding-bottom: 90px; 
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
+                radial-gradient(1px 1px at 250px 300px, #fff, transparent);
+            background-size: 200px 200px;
+            background-attachment: fixed;
         }
 
-        /* सितारों वाला बैकग्राउंड */
-        .stars-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(white, rgba(255,255,255,.05) 1px, transparent 5px);
-            background-size: 150px 150px; z-index: -1; opacity: 0.3;
-        }
-
-        .app-header { 
-            background: linear-gradient(180deg, var(--saturn-blue) 0%, #000 100%); 
-            padding: 25px 15px; text-align: center; 
-            border-bottom: 2px solid var(--sun-orange);
-            box-shadow: 0 5px 20px rgba(255,140,0,0.2);
-        }
-        
+        .app-header { padding: 30px 15px; text-align: center; }
         .app-logo { 
-            width: 60px; height: 60px; border-radius: 50%; 
-            background: white; padding: 4px; border: 2px solid var(--sun-orange); 
-            object-fit: contain; margin-bottom: 8px;
+            width: 90px; height: 90px; border-radius: 50%; 
+            background: white; padding: 5px; border: 3px solid var(--pure-moon);
+            object-fit: contain; margin-bottom: 10px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
         }
 
-        .container { padding: 15px; }
-
-        /* कोस्मिक कार्ड्स */
         .card { 
-            background: var(--glass); 
-            backdrop-filter: blur(10px);
-            padding: 20px; border-radius: 25px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 20px; 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            background: var(--pure-moon); 
+            padding: 22px; border-radius: 30px; 
+            margin: 0 15px 20px 15px; 
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            color: #000;
         }
         
-        h3 { color: var(--sun-orange); font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-top: 0; letter-spacing: 1px; }
+        h3 { color: #000; font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-top: 0; border-bottom: 2px solid var(--sun-orange); display: inline-block; }
 
-        .input-group { display: flex; gap: 10px; margin: 15px 0; }
-        .input-group input { margin: 0; flex: 1; }
-        
-        .btn-contact { 
-            padding: 0 15px; border-radius: 12px; border: 1px solid var(--sun-orange); 
-            background: rgba(255,140,0,0.1); color: var(--sun-orange); cursor: pointer; font-size: 1.2rem; 
-        }
+        label { font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-top: 10px; display: block; }
 
         input, select { 
-            width: 100%; padding: 14px; margin: 10px 0; 
-            border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(255,255,255,0.1); color: white; font-size: 1rem;
+            width: 100%; padding: 14px; margin: 8px 0 15px 0; 
+            border-radius: 12px; border: 1.5px solid #cbd5e1; 
+            background: #f1f5f9; color: #000; font-size: 1rem;
+            box-sizing: border-box; font-weight: 600;
         }
-        input:focus { border-color: var(--sun-orange); outline: none; }
 
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-primary { background: linear-gradient(135deg, var(--sun-orange), #FF4500); color: white; box-shadow: 0 5px 15px rgba(255,69,0,0.3); }
-        .btn-success { background: linear-gradient(135deg, #128C7E, #25D366); color: white; }
-
-        /* कैटेगरी ग्रिड */
-        .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
+        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
         .cat-btn { 
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
-            padding: 10px 5px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; color: #aaa; cursor: pointer;
+            background: #e2e8f0; border: 1px solid #cbd5e1; 
+            padding: 12px 5px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; color: #475569; cursor: pointer;
             transition: 0.3s; text-align: center;
         }
-        .cat-btn.active { background: var(--sun-orange); color: white; border-color: var(--sun-orange); box-shadow: 0 0 10px rgba(255,140,0,0.5); }
+        .cat-btn.active { background: var(--sun-orange); color: white; border-color: var(--sun-orange); box-shadow: 0 4px 10px rgba(255,140,0,0.3); }
 
-        /* लाइव लिस्ट डिजाइन */
-        #liveList { 
-            margin-top: 15px; font-size: 0.85rem; color: #eee; 
-            background: rgba(255,255,255,0.05); padding: 15px; 
-            border-radius: 15px; border: 1px dashed var(--sun-orange); 
-        }
-        
-        /* नेविगेशन बार */
-        .nav-bar { 
-            position: fixed; bottom: 0; width: 100%; background: rgba(0, 31, 63, 0.9); 
-            backdrop-filter: blur(20px); display: flex; justify-content: space-around; 
-            padding: 15px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); 
-        }
-        .nav-item { border: none; background: none; color: #666; font-size: 0.7rem; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .nav-item.active { color: var(--sun-orange); font-weight: bold; }
-        .nav-item span { font-size: 1.2rem; }
+        .btn-add { background: #000; color: #fff; width: 100%; padding: 16px; border-radius: 15px; font-weight: 800; border: none; cursor: pointer; }
+        .btn-primary { background: var(--sun-orange); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 1.1rem; }
 
-        .hidden { display: none; }
+        #liveList { margin-top: 15px; font-size: 0.85rem; color: #334155; background: #f8fafc; padding: 15px; border-radius: 15px; border: 1px dashed #cbd5e1; }
+        .list-item { padding: 5px 0; border-bottom: 1px solid #eee; font-weight: 600; }
+
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(1, 4, 9, 0.95); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; }
+        .nav-item.active { color: var(--pure-moon); }
     </style>
 </head>
 <body>
 
-    <div class="stars-bg"></div>
-
     <div class="app-header">
         <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.4rem; letter-spacing: 1px;">LOGISTICS HUB</h2>
+        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.4rem; letter-spacing: 2px;">LOGISTICS HUB</h2>
+        <div style="font-size: 0.65rem; color: var(--accent-gold); letter-spacing: 3px;">।। सेवा • शुचिता • संकल्प ।।</div>
     </div>
 
     <div class="container">
-        <div id="pickup-sec" class="app-sec">
-            <div class="card">
-                <h3>🧺 New Collection</h3>
-                
-                <div class="input-group">
-                    <input type="tel" id="pickMobile" placeholder="Client Mobile">
-                    <button type="button" class="btn-contact" onclick="getContact('pickMobile')">👤</button>
-                </div>
-                
-                <label style="font-size: 0.7rem; color: #888;">SELECT CATEGORY</label>
-                <div class="cat-grid">
-                    <button class="cat-btn" onclick="loadItems('men', this)">MEN</button>
-                    <button class="cat-btn" onclick="loadItems('women', this)">WOMEN</button>
-                    <button class="cat-btn" onclick="loadItems('winter', this)">WINTER</button>
-                    <button class="cat-btn" onclick="loadItems('home', this)">HOME</button>
-                </div>
-
-                <select id="itemSelect"><option value="">Choose Item</option></select>
-                
-                <select id="serviceType">
-                    <option value="Ironing">💨 Steam Iron</option>
-                    <option value="Wash & Iron">🧼 Wash & Iron</option>
-                    <option value="Dry Cleaning">✨ Dry Cleaning</option>
-                </select>
-
-                <div style="display:flex; gap:10px;">
-                    <input type="number" id="itemQty" placeholder="Qty" style="flex:1;">
-                    <select id="itemNote" style="flex:1;">
-                        <option value="OK">OK Condition</option>
-                        <option value="Stain">Stains (दाग)</option>
-                        <option value="Damaged">Damaged (कटा)</option>
-                    </select>
-                </div>
-
-                <button onclick="addToInv()" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); width:100%; padding:12px; border-radius:12px; font-weight:bold; cursor:pointer;">+ Add to Manifest</button>
-                
-                <div id="liveList"><b>Current Manifest:</b><div id="listContent"></div></div>
-                
-                <button class="btn btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">Launch Collection</button>
+        <div class="card">
+            <h3>🧺 नया पिकअप</h3>
+            
+            <label>ग्राहक मोबाइल</label>
+            <input type="tel" id="pickMobile" placeholder="मोबाइल नंबर लिखें">
+            
+            <label>कपड़ा श्रेणी (Category)</label>
+            <div class="cat-grid">
+                <button class="cat-btn" onclick="loadItems('men', this)">पुरुष (Men)</button>
+                <button class="cat-btn" onclick="loadItems('women', this)">महिला (Women)</button>
+                <button class="cat-btn" onclick="loadItems('kids', this)">बच्चे (Kids)</button>
+                <button class="cat-btn" onclick="loadItems('home', this)">होम (Home)</button>
+                <button class="cat-btn" onclick="loadItems('winter', this)">विंटर (Winter)</button>
+                <button class="cat-btn" onclick="loadItems('other', this)">अन्य (Other)</button>
             </div>
-        </div>
 
-        <div id="delivery-sec" class="app-sec hidden">
-            <div class="card">
-                <h3>🚚 Mission Delivery</h3>
-                <div class="input-group">
-                    <input type="tel" id="delMobile" placeholder="Client Mobile">
-                    <button type="button" class="btn-contact" onclick="getContact('delMobile')">👤</button>
-                </div>
-                <label style="font-size: 0.7rem; color: #888;">TOTAL FARE (₹)</label>
-                <input type="number" id="amount" placeholder="0.00">
-                <button class="btn btn-success" id="delBtn" onclick="confirmDelivery()">Complete Mission</button>
+            <label>कपड़ा चुनें (Item)</label>
+            <select id="itemSelect"><option value="">पहले श्रेणी चुनें...</option></select>
+            
+            <label>सेवा का क्षेत्र (Service)</label>
+            <select id="serviceType">
+                <option value="प्रेस">💨 सामान्य प्रेस</option>
+                <option value="स्टीम प्रेस">💎 कीमती स्टीम प्रेस</option>
+                <option value="धुलाई प्रेस">🧼 गंदे कपड़े (धुलाई प्रेस)</option>
+                <option value="ड्राई क्लीनिंग प्रेस">✨ विशेष दाग (ड्राई क्लीनिंग प्रेस)</option>
+            </select>
+
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;"><label>नग (Qty)</label><input type="number" id="itemQty" value="1"></div>
+                <div style="flex:1;"><label>स्थिति (Note)</label><select id="itemNote"><option value="OK">OK</option><option value="दाग">दाग</option><option value="कटा">कटा</option></select></div>
             </div>
+
+            <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
+            
+            <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
+            
+            <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें</button>
         </div>
     </div>
 
     <div class="nav-bar">
-        <div class="nav-item active" onclick="showSec('pickup-sec', this)"><span>🧺</span>PICKUP</div>
-        <div class="nav-item" onclick="showSec('delivery-sec', this)"><span>🚚</span>DELIVERY</div>
+        <div class="nav-item active"><span>🧺</span>पिकअप</div>
+        <div class="nav-item"><span>🚚</span>डिलीवरी</div>
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
-    let selectedItems = [];
-
-    async function getContact(mobileId) {
-        if (!('contacts' in navigator)) return alert("Access Denied: Use Mobile Chrome.");
-        try {
-            const props = ['tel'];
-            const contacts = await navigator.contacts.select(props, {multiple: false});
-            if (contacts.length > 0) {
-                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
-                document.getElementById(mobileId).value = rawNum.slice(-10);
-            }
-        } catch (err) { console.log(err); }
-    }
-
-    function showSec(id, btn) {
-        document.querySelectorAll('.app-sec').forEach(s => s.classList.add('hidden'));
-        document.getElementById(id).classList.remove('hidden');
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        btn.classList.add('active');
-    }
-
     const inventory = {
-        men: ["Shirt", "Pant", "Jeans", "T-Shirt", "Suit (2pc/3pc)", "Coat", "Kurta Pajama", "Sadri", "Regular Wear", "Other"],
-        women: ["Saree", "Suit Salwar", "Kurti", "Lehenga", "Dupatta", "Gown", "Blouse", "Regular Wear", "Other"],
-        winter: ["Jacket", "Heavy Coat", "Sweater", "Cardigan", "Shawl", "Blazer", "Woolen Wear", "Other"],
-        home: ["Bed Sheet", "Blanket", "Curtains", "Towel", "Rug/Carpet", "Pillow Cover", "Regular Item", "Other"]
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट (2pc/3pc)", "कोट/ब्लेज़र", "कुर्ता", "पायजामा", "धोती", "सदरी/बास्कट", "ट्रैक सूट", "पगड़ी/साफ़ा", "रेगुलर कपड़े", "अन्य (डिजाइनर/इंडो-वेस्टर्न)"],
+        women: ["साड़ी", "भारी साड़ी (Work)", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "गाउन", "ब्लाउज", "टॉप", "स्कर्ट", "नाइट गाउन", "रेगुलर कपड़े", "अन्य (डिजाइनर/इंडो-वेस्टर्न)"],
+        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "टी-शर्ट/पेंट", "स्कूल ड्रेस", "शर्ट/पेंट (Kids)", "रेगुलर कपड़े", "अन्य (डिजाइनर/फैंसी)"],
+        home: ["बेड शीट (S/D)", "पर्दे", "कंबल", "रजाई कवर", "तौलिया", "गलीचा/कालीन", "पिलो कवर", "कुशन कवर", "मेजपोश", "सोफा कवर", "अन्य (घर का सामान)"],
+        winter: ["जैकैट (Heavy)", "स्वेटर", "कार्डिगन", "कोट", "ऊनी टोपी/स्कार्फ़", "ऊनी कपड़े", "अन्य (विंटर वियर)"],
+        other: ["बैग", "टोपी", "मोजे", "रुमाल", "सॉफ्ट टॉयज", "जूते (Canvas)", "अन्य सामान"]
     };
 
     function loadItems(cat, btn) {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const sel = document.getElementById('itemSelect');
-        sel.innerHTML = '<option value="">Choose Item</option>';
+        sel.innerHTML = '<option value="">कपड़ा चुनें</option>';
         inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
     }
 
+    let selectedItems = [];
     function addToInv() {
         const item = document.getElementById('itemSelect').value;
         const qty = document.getElementById('itemQty').value;
-        const note = document.getElementById('itemNote').value;
         const service = document.getElementById('serviceType').value;
-        if(!item || !qty) return alert("Please enter Quantity");
+        const note = document.getElementById('itemNote').value;
+        if(!item || !qty) return alert("कपड़ा और संख्या चुनें!");
         
-        const entry = `${item} (${qty} Nos) - ${service} [${note}]`;
+        const entry = `${item} (${qty} नग) - ${service} [${note}]`;
         selectedItems.push(entry);
-        document.getElementById('listContent').innerHTML += `<div style="padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• ${entry}</div>`;
-        document.getElementById('itemQty').value = "";
+        document.getElementById('listContent').innerHTML += `<div class="list-item">• ${entry}</div>`;
+        document.getElementById('itemQty').value = "1";
     }
 
     function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
         const dbStr = selectedItems.join(", ");
-        if(!mobile || selectedItems.length === 0) return alert("Incomplete Manifest");
+        if(!mobile || selectedItems.length === 0) return alert("मोबाइल और कपड़े दर्ज करें!");
 
         const btn = document.getElementById('pickBtn');
-        btn.innerText = "SYNCHRONIZING...";
+        btn.innerText = "दर्ज हो रहा है...";
         btn.disabled = true;
-        
+
+        // यहाँ आपका Apps Script URL आएगा
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
         fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=In Process&details=${encodeURIComponent(dbStr)}`, { mode: 'no-cors' });
 
         setTimeout(() => {
-            const waMsg = `*PRATIKSHA DRYCLEANERS* 🧺✨\n\n*Pickup Manifest:*\n${dbStr}\n\nThank you for choosing quality! 🙏`;
+            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n\n*पिकअप सूची:*\n${dbStr}\n\nशुचिता का वादा! 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
-            location.reload();
-        }, 1200);
-    }
-
-    function confirmDelivery() {
-        const mobile = document.getElementById('delMobile').value;
-        const amt = document.getElementById('amount').value;
-        if(!mobile || !amt) return alert("Enter Amount");
-
-        const btn = document.getElementById('delBtn');
-        btn.innerText = "FINALIZING...";
-        btn.disabled = true;
-        
-        fetch(`${scriptURL}?action=updateStatus&mobile=${mobile}&status=Delivered&amount=${amt}`, { mode: 'no-cors' });
-
-        setTimeout(() => {
-            alert("Mission Accomplished! ✅");
             location.reload();
         }, 1200);
     }
