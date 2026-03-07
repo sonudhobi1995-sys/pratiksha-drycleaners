@@ -6,7 +6,6 @@
     <title>PRATIKSHA DRYCLEANERS | Premium Fabric Care</title>
     
     <script>
-        // सुरक्षा जांच: अगर लॉगिन नहीं है तो बाहर भेजें
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
         }
@@ -26,7 +25,7 @@
 
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
         
-        /* 1. टॉप स्टेटस बार (एक्यूरेट) */
+        /* टॉप स्टेटस बार */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
@@ -34,7 +33,7 @@
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* 2. नेविगेशन (लोगो + नाम + रिफ्रेश + लॉगआउट) */
+        /* नेविगेशन */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
@@ -59,19 +58,19 @@
 
         .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; }
 
-        /* 3. वीडियो स्लाइडर (6 वीडियो ऑटो-प्ले) */
+        /* वीडियो स्लाइडर */
         .video-container { position: relative; width: 100%; height: 40vh; background: #000; overflow: hidden; }
         #heroVid { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
         .vid-controls { position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 10; }
         .v-btn { background: rgba(0,0,0,0.5); border: 1px solid white; color: white; padding: 8px 18px; border-radius: 25px; font-size: 0.7rem; cursor: pointer; }
 
-        /* 4. इमेज पट्टी (A4 Contain Fit - नो कटिंग) */
+        /* इमेज पट्टी */
         .photo-strip { background: white; padding: 20px 0; overflow: hidden; border-bottom: 1px solid #eee; }
         .strip-track { display: flex; width: calc(170px * 24); animation: scroll-images 40s linear infinite; }
         .strip-track img { width: 150px; height: 210px; object-fit: contain; background: #fdfdfd; margin: 0 10px; border-radius: 10px; border: 1px solid #eee; }
         @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-170px * 12)); } }
 
-        /* 5. सर्विस व्हील (एनिमेटेड) */
+        /* सर्विस व्हील */
         .service-hub { padding: 40px 0 80px; background: white; border-radius: 40px 40px 0 0; margin-top: -30px; text-align: center; }
         .wheel-container { position: relative; width: 310px; height: 310px; margin: 0 auto; }
         .center-action { 
@@ -91,7 +90,7 @@
         .pos6 { top: 55px; left: 5px; }
         .orbit-node p { font-size: 0.65rem; font-weight: bold; margin: 0; color: #555; }
 
-        /* 6. शानदार 'प्रतीक्षा' फुटर (जैसा आपने माँगा) */
+        /* फुटर */
         .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px 100px; text-align: center; }
         .footer-brand { font-family: 'Playfair Display'; font-size: 3rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .footer-sub { letter-spacing: 6px; font-size: 0.8rem; opacity: 0.8; margin-top: -10px; margin-bottom: 30px; }
@@ -99,7 +98,6 @@
         .footer-links a { color: white; text-decoration: none; opacity: 0.6; font-size: 0.9rem; }
         
         .btn-whatsapp { position: fixed; bottom: 20px; right: 20px; z-index: 2000; transition: 0.3s; }
-        .btn-whatsapp:active { transform: scale(0.9); }
     </style>
 </head>
 <body>
@@ -125,10 +123,12 @@
         </div>
 
         <div class="dropdown-content" id="navMenu">
-            <a href="index.html">🏠 होम</a>
+            <a href="index.html">🏠 होम पेज</a>
             <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="tracking.html">📦 ऑर्डर ट्रैक करें</a>
-            <a href="contact.html">📞 संपर्क करें</a>
+            <a href="tracking.html">📦 ट्रैकिंग (Tracking)</a>
+            <a href="about.html">📖 अबाउट अस (About Us)</a>
+            <a href="process.html">⚙️ हमारी प्रक्रिया (Process)</a>
+            <a href="contact.html">📞 कॉन्टैक्ट अस (Contact Us)</a>
         </div>
     </nav>
 
@@ -187,8 +187,6 @@
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycby0rlXJGkcIgJtSB34KZn3veB7lGTpEhBJzKBOQ2hrw0fkXkeXp3iTAAEFHPHqHPZXC/exec';
-        
-        // वीडियो लिस्ट (GitHub फाइल्स)
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
@@ -207,10 +205,9 @@
         function logout() { if(confirm("लॉगआउट?")){ localStorage.clear(); location.href="login.html"; } }
 
         window.onload = function() {
-            const mobile = localStorage.getItem('userMobile');
             document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "...";
             document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
-
+            const mobile = localStorage.getItem('userMobile');
             if(mobile) {
                 fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
                 .then(r => r.json()).then(d => {
