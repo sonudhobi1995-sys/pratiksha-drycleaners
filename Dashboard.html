@@ -3,194 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Moonlight Vision</title>
+    <title>प्रतीक्षा डैशबोर्ड | Moonlight White</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --moon: #f8fafc;
-            --midnight: #020617;
-            --star-gold: #FFD700;
-            --nebula-blue: #1e293b;
-            --accent: #FF8C00;
+            --pure-moon: #ffffff;
+            --midnight: #010409;
+            --accent-gold: #FFD700;
+            --glass-white: rgba(255, 255, 255, 0.95);
         }
 
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; 
-            background-color: var(--midnight); 
-            color: var(--moon);
+            background: var(--midnight); 
+            color: white;
             margin: 0; padding: 15px;
             background-image: 
-                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 150px 150px, rgba(255,255,255,0.5), rgba(0,0,0,0)),
-                radial-gradient(circle at top right, rgba(255,215,0,0.05), transparent 40%);
+                radial-gradient(2px 2px at 40px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2.5px 2.5px at 200px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.2px 1.2px at 300px 250px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 150px 350px, #fff, rgba(0,0,0,0));
+            background-size: 300px 300px;
             background-attachment: fixed;
         }
 
-        .header { text-align: center; padding: 25px 0; }
+        /* 🌙 चाँद जैसा लोगो */
+        .moon-logo-container { text-align: center; padding: 40px 0 20px 0; }
+        .moon-logo {
+            width: 100px; height: 100px; border-radius: 50%;
+            background: white; padding: 8px; border: 3px solid var(--pure-moon);
+            box-shadow: 0 0 60px 15px rgba(255, 255, 255, 0.4);
+        }
+
         .header h2 { 
-            font-family: 'Playfair Display', serif; 
-            margin: 0; font-size: 1.5rem; letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255,255,255,0.2);
+            text-align: center; font-family: 'Playfair Display', serif; 
+            letter-spacing: 2px; text-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
 
-        /* मुख्य कार्ड - ब्रह्मांडीय आभा */
+        /* मुख्य कार्ड */
         .card-main { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(15px);
-            padding: 35px 20px; border-radius: 35px; 
-            text-align: center; 
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            margin-bottom: 25px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(10px);
+            padding: 25px; border-radius: 30px; 
+            text-align: center; border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
         }
         
-        .card-main h2 { 
-            font-size: 3.2rem; margin: 15px 0; 
-            color: var(--star-gold); font-weight: 900;
-            text-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
-            font-family: 'Playfair Display', serif;
-        }
-        
-        /* 🌸 SIP संकल्प प्रोग्रेस बार */
-        .sip-box { 
-            margin-top: 25px; 
-            background: rgba(0, 0, 0, 0.3); 
-            padding: 18px; border-radius: 20px; 
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .progress-bg { background: rgba(255,255,255,0.05); height: 10px; border-radius: 10px; margin: 12px 0; overflow: hidden; }
-        .progress-fill { 
-            background: linear-gradient(90deg, var(--accent), var(--star-gold)); 
-            height: 100%; width: 0%; transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: 0 0 15px var(--accent);
-        }
-        .sip-label { font-size: 0.7rem; display: flex; justify-content: space-between; color: #94a3b8; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
+        .card-main h2 { font-size: 3rem; color: var(--accent-gold); margin: 10px 0; }
 
-        /* ग्रिड और बॉक्सेस */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+        /* ⭐ विशेष व्हाइट ग्रिड बॉक्सेस (पेंडिंग, धुलाई आदि) */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        
         .stat-box { 
-            background: rgba(255, 255, 255, 0.02); 
-            padding: 25px 15px; border-radius: 25px; 
-            text-align: center; border: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(5px);
+            background: var(--glass-white); /* शुद्ध सफ़ेद बैकग्राउंड */
+            padding: 20px 10px; border-radius: 22px; 
+            text-align: center; 
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(0,0,0,0.05);
             transition: 0.3s;
+            border: none;
         }
-        .stat-box:active { transform: scale(0.95); background: rgba(255,255,255,0.05); }
-        .stat-box h4 { margin: 0; color: #64748b; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
-        .stat-box p { margin: 12px 0 0; font-size: 1.8rem; font-weight: 800; color: var(--moon); text-shadow: 0 0 10px rgba(255,255,255,0.1); }
 
+        .stat-box h4 { 
+            margin: 0; color: #475569; /* डार्क ग्रे टेक्स्ट पढ़ने के लिए */
+            font-size: 0.75rem; letter-spacing: 1px; font-weight: 800;
+        }
+
+        .stat-box p { 
+            margin: 5px 0 0; font-size: 2.2rem; 
+            font-weight: 900; color: #000000; /* नंबर्स एकदम काले और साफ़ */
+        }
+
+        /* अपडेट बटन */
         .refresh-btn { 
             width: 100%; padding: 20px; 
-            background: linear-gradient(135deg, var(--accent), #e67e22); 
-            color: white; border: none; border-radius: 22px; 
-            font-size: 1rem; font-weight: 800; letter-spacing: 2px;
-            margin-top: 30px; cursor: pointer; 
-            box-shadow: 0 10px 25px rgba(255, 140, 0, 0.2);
-            transition: 0.3s;
+            background: #ffffff; color: #000; border: none; border-radius: 22px; 
+            font-size: 1.1rem; font-weight: 800; margin-top: 25px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
         }
-        .refresh-btn:active { transform: translateY(2px); box-shadow: none; }
 
         .back-nav {
-            display: block; text-align: center; margin-top: 25px; color: #475569;
-            text-decoration: none; font-size: 0.8rem; font-weight: 600; 
-            padding: 15px; border-radius: 20px; letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .footer-spirit {
-            text-align: center; font-size: 0.6rem; color: #334155; 
-            margin-top: 35px; letter-spacing: 2px; text-transform: uppercase;
+            display: block; text-align: center; margin-top: 20px; color: white;
+            text-decoration: none; font-weight: 700; padding: 15px; 
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
         }
     </style>
 </head>
 <body>
 
+    <div class="moon-logo-container">
+        <img src="logo.png" alt="PRATIKSHA" class="moon-logo">
+    </div>
+
     <div class="header">
-        <h2>कोस्मिक डैशबोर्ड</h2>
-        <p style="margin:8px 0; color: var(--star-gold); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">सेवा • शुचिता • संकल्प 2047</p>
+        <h2>प्रतीक्षा डैशबोर्ड</h2>
+        <p style="text-align:center; color: var(--accent-gold); font-size: 11px; font-weight: 700; letter-spacing: 2px;">।। शुभ लाभ ।।</p>
     </div>
 
-    <div class="card-main">
-        <span style="font-size: 0.75rem; letter-spacing: 2px; color: #94a3b8; font-weight: 600;">आज की संचित लक्ष्मी</span>
-        <h2 id="todayColl">₹ 0</h2>
-        
-        <div class="sip-box">
-            <div class="sip-label">
-                <span>दैनिक लक्ष्य (SIP हेतु)</span>
-                <span id="perc">0%</span>
-            </div>
-            <div class="progress-bg"><div id="bar" class="progress-fill"></div></div>
-            <small id="totalColl" style="display:block; margin-top:10px; font-size: 0.65rem; color: #64748b;">कुल संचित: ₹ 0</small>
+    <div class="container">
+        <div class="card-main">
+            <span style="font-size: 0.8rem; opacity: 0.8;">आज की संचित लक्ष्मी</span>
+            <h2 id="todayColl">₹ 0</h2>
         </div>
-    </div>
 
-    <div class="grid">
-        <div class="stat-box"><h4>पेंडिंग</h4><p id="pending">0</p></div>
-        <div class="stat-box"><h4>धुलाई</h4><p id="washing">0</p></div>
-        <div class="stat-box"><h4>सिद्ध (Ready)</h4><p id="ready">0</p></div>
-        <div class="stat-box"><h4>कुल ऋणानुबंध</h4><p id="customers">0</p></div>
-    </div>
+        <div class="grid">
+            <div class="stat-box"><h4>पेंडिंग</h4><p id="pending">0</p></div>
+            <div class="stat-box"><h4>धुलाई</h4><p id="washing">0</p></div>
+            <div class="stat-box"><h4>सिद्ध (Ready)</h4><p id="ready">0</p></div>
+            <div class="stat-box"><h4>ऋणानुबंध</h4><p id="customers">0</p></div>
+        </div>
 
-    <button class="refresh-btn" onclick="fetchData()">🔄 हिसाब अद्यतन करें</button>
-    <a href="admin-update.html" class="back-nav">← वापस स्टेशन पर जाएं</a>
-
-    <div class="footer-spirit">
-        ।। प्रतीक्षा - नीति उज्जवल भविष्य ।।
+        <button class="refresh-btn" onclick="fetchData()">🔄 डेटा अपडेट करें</button>
+        <a href="admin-update.html" class="back-nav">← स्टेशन पर जाएं</a>
     </div>
 
     <script>
+        // ... (पुराना Script ही रहेगा) ...
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
-
         function fetchData() {
             const btn = document.querySelector('.refresh-btn');
-            const originalText = btn.innerHTML;
-            btn.innerText = "ब्रह्मांड से जुड़ रहे हैं...";
-            
+            btn.innerText = "हिसाब मिल रहा है...";
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
-                const today = data.todayColl || 0;
-                // रूहानी एनिमेशन के साथ नंबर अपडेट
-                animateValue("todayColl", 0, today, 1000);
-                document.getElementById('totalColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
+                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
                 document.getElementById('pending').innerText = data.pending || 0;
                 document.getElementById('washing').innerText = data.washing || 0;
                 document.getElementById('ready').innerText = data.ready || 0;
                 document.getElementById('customers').innerText = data.totalCustomers || 0;
-
-                // SIP लक्ष्य प्रोग्रेस
-                let dailyTarget = 100; 
-                let progress = Math.min((today / dailyTarget) * 100, 100);
-                setTimeout(() => {
-                    document.getElementById('bar').style.width = progress + "%";
-                    document.getElementById('perc').innerText = Math.round(progress) + "%";
-                }, 500);
-                
-                btn.innerHTML = originalText;
-            })
-            .catch(err => {
-                btn.innerHTML = "🔄 पुनः प्रयास करें";
-            });
+                btn.innerText = "🔄 डेटा अपडेट करें";
+            }).catch(e => { btn.innerText = "🔄 डेटा अपडेट करें"; });
         }
-
-        function animateValue(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = "₹ " + Math.floor(progress * (end - start) + start);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
         window.onload = fetchData;
     </script>
 </body>
