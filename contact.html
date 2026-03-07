@@ -1,97 +1,129 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contact Us | PRATIKSHA DRYCLEANERS</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') { window.location.href = "login.html"; }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --sun-orange: #FF8C00;
-            --mercury-green: #2E8B57;
             --saturn-blue: #001F3F;
-            --cream-bg: #FFFDD0;
+            --space-dark: #010103;
+            --mercury-green: #00FF7F;
+            --venus-silver: #F5F5F5;
         }
 
-        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--space-dark); color: white; overflow-x: hidden; }
 
-        /* 1. टॉप स्टेटस बार */
+        /* सितारों वाला बैकग्राउंड */
+        .stars-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 10px);
+            background-size: 200px 200px; opacity: 0.3; z-index: -1;
+            animation: move-stars 180s linear infinite;
+        }
+        @keyframes move-stars { from { background-position: 0 0; } to { background-position: 800px 800px; } }
+
+        /* टॉप स्टेटस बार */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
-            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--sun-orange); color: #333;
         }
+        .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* 2. मास्टर नेविगेशन बार */
+        /* नेविगेशन बार */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
-            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
+            justify-content: space-between; height: 65px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .nav-brand-wrapper { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
         .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
-        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; white-space: nowrap; }
 
-        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; z-index: 10; }
         .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+        .nav-right-btns { z-index: 10; display: flex; gap: 10px; }
 
         .dropdown-content { 
             display: none; position: absolute; top: 65px; left: 0; width: 100%;
             background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
-
-        .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #eee; }
 
         /* मुख्य लेआउट */
-        .contact-container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
-        .contact-flex { display: flex; flex-wrap: wrap; background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-top: 8px solid var(--sun-orange); }
+        .contact-container { max-width: 1100px; margin: 40px auto; padding: 0 15px; position: relative; z-index: 1; }
+        .contact-flex { display: flex; flex-wrap: wrap; background: rgba(255,255,255,0.05); border-radius: 25px; overflow: hidden; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-top: 5px solid var(--sun-orange); }
         
         /* लेफ्ट साइड: जानकारी */
         .info-side { flex: 1.2; min-width: 320px; padding: 45px; }
-        .info-side h1 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 30px; border-bottom: 4px solid var(--mercury-green); display: inline-block; }
+        .info-side h1 { color: var(--sun-orange); font-family: 'Playfair Display', serif; font-size: 2.8rem; margin: 0 0 30px 0; }
         
         .detail-item { margin-bottom: 25px; }
-        .detail-item strong { color: var(--sun-orange); display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
-        .detail-item span { font-size: 1.1rem; font-weight: 700; color: var(--saturn-blue); }
+        .detail-item strong { color: var(--sun-orange); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; opacity: 0.8; }
+        .detail-item span { font-size: 1.2rem; font-weight: 600; color: white; display: block; }
 
-        .delivery-notice { background: #fff8e1; border-left: 6px solid var(--mercury-green); padding: 20px; margin: 30px 0; border-radius: 0 15px 15px 0; font-weight: 600; color: #4e342e; }
+        .delivery-notice { 
+            background: rgba(0, 255, 127, 0.1); border-left: 5px solid var(--mercury-green); 
+            padding: 20px; margin: 35px 0; border-radius: 0 15px 15px 0; 
+            font-size: 0.95rem; color: #e0e0e0; line-height: 1.6;
+        }
 
-        /* बटन स्टाइल */
-        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
-        .btn-call { background: var(--saturn-blue); color: white; padding: 15px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
-        .btn-wa { background: #25D366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        /* बटन स्टाइल - कोस्मिक चमक के साथ */
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        .btn-call { 
+            background: linear-gradient(135deg, var(--saturn-blue), #003366); 
+            color: white; padding: 16px 35px; text-decoration: none; border-radius: 50px; 
+            font-weight: bold; display: flex; align-items: center; gap: 12px; 
+            border: 1px solid rgba(255,255,255,0.2); transition: 0.3s;
+        }
+        .btn-wa { 
+            background: linear-gradient(135deg, #128C7E, #25D366); 
+            color: white; padding: 16px 35px; text-decoration: none; border-radius: 50px; 
+            font-weight: bold; display: flex; align-items: center; gap: 12px; 
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-call:hover, .btn-wa:hover { transform: scale(1.05); }
 
-        /* राइट साइड: फोटो + मैप (Auto-Crop) */
-        .map-side { flex: 1; min-width: 320px; display: flex; flex-direction: column; }
-        .contact-photo { width: 100%; height: 250px; object-fit: cover; border-bottom: 5px solid var(--sun-orange); }
-        .map-frame { flex-grow: 1; min-height: 300px; border: none; width: 100%; }
+        /* राइट साइड: फोटो + मैप */
+        .map-side { flex: 1; min-width: 320px; display: flex; flex-direction: column; background: rgba(0,0,0,0.4); }
+        .contact-photo { width: 100%; height: 280px; object-fit: cover; border-bottom: 3px solid var(--sun-orange); filter: brightness(0.8); }
+        .map-frame { flex-grow: 1; min-height: 350px; border: none; width: 100%; filter: invert(90%) hue-rotate(180deg); opacity: 0.7; }
 
-        /* रेटिंग और फुटर (Consistency) */
-        .rating-box { background: white; padding: 40px 20px; text-align: center; border-top: 1px solid #f0f0f0; margin-top: 50px; }
-        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
-        .rating-avatars { display: flex; justify-content: center; gap: -12px; margin: 20px 0; }
-        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); object-fit: cover; }
+        /* रेटिंग और फुटर */
+        .rating-box { padding: 60px 20px; text-align: center; margin-top: 60px; }
+        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 15px; letter-spacing: 5px; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .rating-avatars { display: flex; justify-content: center; gap: -15px; margin: 25px 0; }
+        .rating-avatars img { width: 50px; height: 50px; border-radius: 50%; border: 3px solid var(--space-dark); box-shadow: 0 0 10px rgba(255,140,0,0.2); }
 
-        .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px 100px; text-align: center; }
+        .big-footer { background: var(--saturn-blue); color: white; padding: 80px 20px 110px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
 
         @media (max-width: 768px) {
-            .info-side { padding: 30px 20px; }
+            .info-side { padding: 35px 25px; }
+            .info-side h1 { font-size: 2.2rem; }
             .btn-group a { width: 100%; justify-content: center; }
-            .contact-photo { height: 200px; }
         }
     </style>
 </head>
 <body>
 
+    <div class="stars-overlay"></div>
+
     <div class="user-status-bar">
-        <div>🏠 <span id="uHouse">Ambabari</span> | 👤 <b>संपर्क करें</b></div>
-        <div>Pratiksha Drycleaners</div>
+        <div>🏠 <span id="uHouse">...</span> | 👤 <b>Connect</b></div>
+        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
+            Order: <span id="uStatus" class="status-pill">Online</span>
+        </div>
     </div>
 
     <nav class="custom-nav">
@@ -101,76 +133,87 @@
             <span>PRATIKSHA DRYCLEANERS</span>
         </div>
         <div class="nav-right-btns">
-            <a href="index.html" style="text-decoration:none; font-size:1.4rem;">🏠</a>
+            <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="location.reload()">🔄</button>
+            <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="history.back()">🔙</button>
         </div>
 
         <div class="dropdown-content" id="navMenu">
-            <a href="index.html">🏠 होम पेज</a>
-            <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="tracking.html">📦 ट्रैकिंग (Tracking)</a>
-            <a href="about.html">📖 हमारे बारे में (About Us)</a>
-            <a href="process.html">⚙️ कार्य प्रक्रिया (Process)</a>
-            <a href="contact.html" style="background:#f9f9f9; color:var(--sun-orange);">📞 संपर्क करें (Contact Us)</a>
+            <a href="index.html">🏠 Home Page</a>
+            <a href="services.html">🧺 Our Services</a>
+            <a href="process.html">⚙️ Work Procedure</a>
+            <a href="about.html">📖 Our Legacy</a>
+            <a href="contact.html" style="background:#f9f9f9; color:var(--sun-orange);">📞 Contact Us</a>
+            <a href="tracking.html">🚚 Order Tracking</a>
         </div>
     </nav>
-
-    <div class="top-bar-info">★ Expert Fabric Care Since 1987 ★</div>
 
     <div class="contact-container">
         <div class="contact-flex">
             <div class="info-side">
-                <h1>Connect With Us</h1>
+                <h1>Reach the Galaxy</h1>
                 
-                <div class="detail-item"><strong>Our Workshop</strong><span>प्रतीक्षा ड्राईक्लीनर्स, अंबाबाड़ी, जयपुर</span></div>
+                <div class="detail-item"><strong>Headquarters</strong><span>Pratiksha Drycleaners, Ambabari, Jaipur</span></div>
                 
-                <div class="detail-item"><strong>Service Areas</strong><span>दुर्गा पार्क, हनुमान पार्क और संपूर्ण अंबाबाड़ी क्षेत्र</span></div>
+                <div class="detail-item"><strong>Service Constellations</strong><span>Durga Park, Hanuman Park & Entire Ambabari Region</span></div>
                 
-                <div class="detail-item"><strong>Operating Hours</strong><span>सोम - रवि: सुबह 09:00 - रात 09:00</span></div>
+                <div class="detail-item"><strong>Mission Hours</strong><span>Mon - Sun: 09:00 AM - 09:00 PM</span></div>
 
                 <div class="delivery-notice">
-                    🚚 <strong>पिकअप पॉलिसी:</strong> अंबाबाड़ी क्षेत्र में ₹250 से ऊपर के ऑर्डर पर फ्री पिकअप और डिलीवरी उपलब्ध है।
+                    🚀 <strong>Space Logistics:</strong> Free Pickup & Delivery on orders above ₹250 within the Ambabari region.
                 </div>
 
                 <div class="btn-group">
-                    <a href="tel:+917740870095" class="btn-call">📞 कॉल करें</a>
-                    <a href="https://wa.me/917740870095" class="btn-wa">💬 WhatsApp पिकअप</a>
+                    <a href="tel:+917740870095" class="btn-call">📞 Call Station</a>
+                    <a href="https://wa.me/917740870095" class="btn-wa">💬 WhatsApp Pickup</a>
                 </div>
             </div>
 
             <div class="map-side">
                 <img src="contact.jpg" alt="Contact Us" class="contact-photo">
-                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.123456789!2d75.789123!3d26.956789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDU3JzI0LjQiTiA3NcKwNDcnMjAuOCJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.123456789!2d75.789!3d26.912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDU0JzQzLjIiTiA3NcKwNDcnMjAuNCJF!5e0!3m2!1sen!2sin!4v123456789" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </div>
 
     <div class="rating-box">
         <div class="stars">★★★★★</div>
-        <div class="rating-info">5.0 | 1200+ Happy Customers</div>
+        <div style="letter-spacing: 2px; font-weight: bold;">5.0 | THE MOST TRUSTED IN AMBABARI</div>
         <div class="rating-avatars">
             <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
         </div>
-        <p style="font-size: 0.85rem; color: #888; font-style: italic;">"शुचिता और संवेदना का संगम"</p>
+        <p style="font-size: 0.9rem; color: #aaa; font-style: italic;">"Where Purity meets Perfection"</p>
     </div>
 
     <div class="big-footer">
         <div class="footer-brand">PRATIKSHA</div>
         <div class="footer-sub">DRYCLEANERS</div>
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="process.html">Process</a>
-            <a href="about.html">About</a>
-        </div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed with ❤️ by SONU NEEL</p>
     </div>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
+
         function toggleMenu() {
             const m = document.getElementById('navMenu');
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
         document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
+
+        window.onload = function() {
+            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
+            
+            const mobile = localStorage.getItem('userMobile');
+            if(mobile) {
+                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+                .then(r => r.json()).then(d => {
+                    if(d.status) {
+                        const s = document.getElementById('uStatus');
+                        s.innerText = d.status;
+                        if(d.status.includes("Ready")) s.style.background = "#2E8B57";
+                    }
+                }).catch(() => {});
+            }
+        };
     </script>
 </body>
 </html>
