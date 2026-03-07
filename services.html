@@ -3,116 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Premium Services | PRATIKSHA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Our Services | PRATIKSHA DRYCLEANERS</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* [आपका पुराना CSS यहाँ रहेगा] */
-        :root { --sun-orange: #FF8C00; --saturn-blue: #001F3F; --mercury-green: #2E8B57; --cream-bg: #FFFDD0; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--cream-bg); color: #333; }
+        :root {
+            --sun-orange: #FF8C00;
+            --mercury-green: #2E8B57;
+            --saturn-blue: #001F3F;
+            --cream-bg: #FFFDD0;
+        }
 
-        /* ✨ नया: गैलरी को सुंदर बनाने के लिए (No Crop System) */
-        .work-gallery { background: var(--saturn-blue); padding: 40px 15px; border-radius: 30px 30px 0 0; margin-top: 40px; }
-        .gallery-title { color: white; text-align: center; font-family: 'Playfair Display'; margin-bottom: 25px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
+
+        /* मास्टर टॉप स्टेटस बार (प्रक्रिया पेज जैसा) */
+        .user-status-bar {
+            background: white; padding: 12px 15px; display: flex; justify-content: space-between;
+            align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
+            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* मास्टर नेविगेशन */
+        nav.custom-nav { 
+            background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
+            top: 48px; z-index: 1100; display: flex; align-items: center; 
+            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
+        }
+        .nav-left-section { display: flex; align-items: center; gap: 12px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
+
+        .nav-brand-wrapper { display: flex; align-items: center; gap: 8px; }
+        .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
+        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; }
+
+        .nav-right-actions { display: flex; align-items: center; gap: 8px; }
+        .icon-btn { background: rgba(255,255,255,0.1); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+
+        .dropdown-content { 
+            display: none; position: absolute; top: 65px; left: 0; width: 100%;
+            background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; }
+
+        /* कंटेनर और ग्रिड */
+        .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
         
-        .gallery-item { 
-            background: white; border-radius: 12px; height: 200px; 
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.1); padding: 5px;
+        .service-header { text-align: center; margin-bottom: 50px; }
+        .service-header h2 { color: var(--saturn-blue); font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card { 
+            background: white; border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-left: 8px solid var(--mercury-green);
+            transition: transform 0.3s ease;
         }
-        .gallery-item img { 
-            max-width: 100%; max-height: 100%; 
-            object-fit: contain; /* ✨ इससे फोटो कभी नहीं कटेगी */
-            border-radius: 8px;
-        }
+        .service-card:hover { transform: translateY(-10px); }
+        .card-content { padding: 30px; }
+        
+        .service-card h3 { color: var(--saturn-blue); margin: 0 0 15px 0; font-family: 'Playfair Display', serif; font-size: 1.6rem; border-bottom: 2px solid var(--sun-orange); display: inline-block; padding-bottom: 5px; }
+        .service-card p { font-size: 1.05rem; color: #444; margin: 0; text-align: justify; line-height: 1.7; font-weight: 500; }
 
-        /* ✨ नया: सर्विस कार्ड्स को अट्रैक्टिव बनाने के लिए */
-        .trust-tag { 
-            display: inline-block; background: #e8f5e9; color: var(--mercury-green); 
-            padding: 4px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; margin-bottom: 10px;
+        /* नो-क्रॉप गैलरी (जैसा हमने तय किया था) */
+        .live-gallery-section { margin-top: 60px; background: var(--saturn-blue); padding: 40px 15px; border-radius: 25px; }
+        .gallery-title { color: white; text-align: center; font-family: 'Playfair Display'; margin-bottom: 30px; font-size: 2rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .gallery-item { 
+            background: white; border-radius: 12px; height: 220px; 
+            display: flex; align-items: center; justify-content: center; padding: 5px;
         }
+        .gallery-item img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+
+        /* मास्टर फुटर */
+        .big-footer { background: var(--saturn-blue); color: white; padding: 60px 20px 100px; text-align: center; margin-top: 50px; }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-sub { letter-spacing: 8px; font-size: 0.9rem; opacity: 0.7; margin-bottom: 40px; }
     </style>
 </head>
 <body>
 
+    <div class="user-status-bar">
+        <div>🏠 Ambabari | 🧺 <b>हमारी सेवाएं</b></div>
+        <div>Pratiksha Drycleaners</div>
+    </div>
+
+    <nav class="custom-nav">
+        <div class="nav-left-section">
+            <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+            <div class="nav-brand-wrapper"><img src="logo.png" alt="Logo"><span>PRATIKSHA</span></div>
+        </div>
+        <div class="nav-right-actions">
+            <div class="icon-btn" onclick="location.href='index.html'">🏠</div>
+        </div>
+
+        <div class="dropdown-content" id="navMenu">
+            <a href="index.html">🏠 होम पेज</a>
+            <a href="services.html" style="background:#f9f9f9; color:var(--sun-orange);">🧺 हमारी सेवाएं</a>
+            <a href="about.html">📖 हमारे बारे में</a>
+            <a href="process.html">⚙️ कार्य प्रक्रिया</a>
+            <a href="contact.html">📞 संपर्क करें</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="featured-card">
-            <div class="image-frame"><img src="services1.jpg" alt="Wedding Care"></div>
-            <div class="text-side">
-                <span class="detail-tag">Luxury Couture Care</span>
-                <h2>Couture & Wedding Gown Specialists</h2>
-                <p>We understand that your wedding attire is a piece of art. Our experts use <b>Gentle Hand-Finishing</b> techniques to protect delicate sequins, zari work, and embroidery.</p>
-                <div class="trust-tag">✨ Chemical Free Purification</div>
-                <p style="color:var(--mercury-green); font-weight:900;">TRUSTED LEGACY SINCE 1987</p>
+        <div class="service-header">
+            <h2>Our Specialized Services</h2>
+            <p>शुचिता और विश्वास का संगम - 1987 से आपकी सेवा में।</p>
+        </div>
+
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="card-content">
+                    <h3>Heritage Dry Cleaning</h3>
+                    <p>हम कपड़ों की धुलाई नहीं, उनकी उम्र बढ़ाते हैं। सिल्क, शिफॉन और बनारसी साड़ियों के लिए हमारी विशेष 'हैंड-फिनिश' प्रक्रिया उनकी चमक को सालों-साल बरकरार रखती है।</p>
+                </div>
+            </div>
+
+            <div class="service-card" style="border-left-color: var(--sun-orange);">
+                <div class="card-content">
+                    <h3>Wedding Wear Spa</h3>
+                    <p>शादी के भारी लहंगे और शेरवानी हमारे लिए सिर्फ कपड़े नहीं, आपकी यादें हैं। हम बारीक ज़री और मोतियों के काम को सुरक्षित रखते हुए गहरी सफाई सुनिश्चित करते हैं।</p>
+                </div>
+            </div>
+
+            <div class="service-card" style="border-left-color: #3498db;">
+                <div class="card-content">
+                    <h3>Steam Ironing</h3>
+                    <p>बिना प्रेस के निशान के कड़क और साफ़ फिनिश। हमारी हाई-प्रेशर स्टीम मशीनें कपड़ों के रेशों को नुकसान पहुँचाए बिना उन्हें बिल्कुल नए जैसी लुक देती हैं।</p>
+                </div>
+            </div>
+
+            <div class="service-card" style="border-left-color: #e74c3c;">
+                <div class="card-content">
+                    <h3>Woolen & Coat Care</h3>
+                    <p>कोट, जैकेट और ऊनी कपड़ों के लिए हमारी 'कोल्ड-वॉश' तकनीक। हम सुनिश्चित करते हैं कि आपके ऊनी कपड़े मुलायम रहें और उनका आकार कभी न बिगड़े।</p>
+                </div>
             </div>
         </div>
 
-        <div class="grid">
-            <div class="service-desc-card">
-                <span class="detail-tag">Premium Quality</span>
-                <h3>Signature Dry Cleaning</h3>
-                <p>Using world-class eco-friendly solvents that are tough on stains but gentle on fibers. Perfect for Silks, Pashminas, and Designer wear.</p>
-            </div>
-
-            <div class="service-desc-card" style="border-left-color: #3498db;">
-                <span class="detail-tag">Texture Protection</span>
-                <h3>Advanced Woolen Spa</h3>
-                <p>Special Cold-Soak technology to prevent shrinking and maintain the fluffiness of your expensive cardigans and coats.</p>
-            </div>
-
-            <div class="service-desc-card" style="border-left-color: var(--sun-orange);">
-                <span class="detail-tag">Precision Finish</span>
-                <h3>Italian Steam Press</h3>
-                <p>Say goodbye to iron marks. Our high-pressure vacuum steam tables provide a crisp, showroom-like finish while sanitizing the fabric.</p>
-            </div>
-
-            <div class="service-desc-card" style="border-left-color: #e74c3c;">
-                <span class="detail-tag">Scientific Clean</span>
-                <h3>Expert Stain Surgery</h3>
-                <p>From ink to oil, our deep-fiber stain removal science eliminates spots without damaging the original color of the cloth.</p>
-            </div>
+        <div class="live-gallery-section">
+            <h2 class="gallery-title">Service Showcase</h2>
+            <div id="service-gallery" class="gallery-grid">
+                </div>
         </div>
+    </div>
 
-        <div class="work-gallery">
-            <h2 class="gallery-title">Our Work Gallery</h2>
-            <div id="galleryContainer" class="gallery-grid">
-                <div class="gallery-item"><img src="saree1.jpg" alt="Work"></div>
-                <div class="gallery-item"><img src="suit1.jpg" alt="Work"></div>
-            </div>
-            <p style="text-align: center; color: #999; font-size: 0.8rem; margin-top: 20px;">*Actual photos of garments processed at our facility</p>
-        </div>
-
-        </div>
+    <div class="big-footer">
+        <div class="footer-brand">PRATIKSHA</div>
+        <div class="footer-sub">DRYCLEANERS</div>
+        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Managed by Sonu Neel</p>
+    </div>
 
     <script>
-        // गैलरी लोड करने का जादुई फंक्शन (Titu 5G Engine 3.8 से लिंक)
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
 
         async function fetchGallery() {
             try {
-                const response = await fetch(scriptURL + '?action=getGallery');
+                const response = await fetch(`${scriptURL}?action=getGallery`);
                 const data = await response.json();
-                const container = document.getElementById('galleryContainer');
-                if(data.length > 0) container.innerHTML = ''; // डमी फोटो हटाएँ
+                const galleryDiv = document.getElementById('service-gallery');
                 
-                data.forEach(file => {
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    // गूगल ड्राइव फोटो को बिना क्रॉप किए दिखाने के लिए
-                    item.innerHTML = `<img src="https://lh3.googleusercontent.com/d/${file.id}" loading="lazy" alt="Pratiksha Gallery">`;
-                    container.appendChild(item);
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `<img src="https://drive.google.com/uc?export=view&id=${item.id}" loading="lazy">`;
+                    galleryDiv.appendChild(div);
                 });
-            } catch (e) { console.log("Gallery yet to be synced"); }
+            } catch(e) { console.log("Syncing services..."); }
         }
 
         window.onload = fetchGallery;
-        
-        // [आपके पुराने फंक्शन यहाँ रहेंगे]
+
         function toggleMenu() {
             const m = document.getElementById('navMenu');
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
+        document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
     </script>
 </body>
 </html>
