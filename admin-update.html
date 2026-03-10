@@ -22,7 +22,6 @@
             color: var(--moonlight);
             margin: 0;
             overflow-x: hidden;
-            /* चांदनी रात का कोस्मिक बैकग्राउंड */
             background-image: 
                 radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05) 0%, transparent 50%),
                 radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
@@ -58,7 +57,6 @@
 
         .container { padding: 20px; max-width: 450px; margin: auto; }
 
-        /* CoG - Center of Gravity Card (चांदनी आभा के साथ) */
         .cog-visual {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--saturn-ring);
@@ -69,11 +67,6 @@
             backdrop-filter: blur(8px);
             position: relative;
             overflow: hidden;
-        }
-        .cog-visual::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-            pointer-events: none;
         }
 
         .cog-visual img {
@@ -104,7 +97,6 @@
             background: rgba(0,0,0,0.3); color: white;
             box-sizing: border-box; font-size: 1rem; transition: 0.3s;
         }
-        input:focus { border-color: var(--star-gold); outline: none; background: rgba(0,0,0,0.5); }
 
         .btn { 
             width: 100%; padding: 18px; border: none; border-radius: 20px; 
@@ -113,8 +105,6 @@
             text-transform: uppercase; letter-spacing: 2px;
         }
         .btn-status { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2); }
-        .btn-status:active { transform: scale(0.96); }
-        
         .btn-dashboard { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
         .btn-nav { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
 
@@ -184,6 +174,11 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <button class="btn btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER</button>
                 <button class="btn btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
+                
+                <button class="btn btn-nav" style="grid-column: span 2; margin-top: 5px; background: rgba(212, 175, 55, 0.1); border: 1px dashed var(--star-gold); color: var(--star-gold);" 
+                        onclick="window.location.href='Member_Exclusive.html'">
+                    💳 MEMBER EXCLUSIVE CARD
+                </button>
             </div>
         </div>
         
@@ -226,7 +221,7 @@
         setTimeout(() => {
             alert("कोस्मिक सिग्नल भेज दिया गया है! ✅");
             const payText = pStatus === "Paid" ? "✅ प्राप्त (Paid)" : "⏳ बकाया (Pending)";
-            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nनमस्ते,\nआपके कपड़ों का स्टेटस: *${status}*\nपेमेंट स्टेटस: *${payText}*\n\nविवरण यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/tracking.html\n\nधन्यवाद! 🙏`;
+            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nनमस्ते,\nदर्जा: *${status}*\nदक्षिणा स्थिति: *${payText}*\n\nअपना बैलेंस यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/Member_Exclusive.html\n\nऋणानुबंध ही कर्म की धुरी है। 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
         }, 1500);
