@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* ✨ चलायमान सितारों का जादू (Animated Galaxy) */
+        /* ✨ चलायमान सितारों का जादू */
         body::before {
             content: "";
             position: fixed;
@@ -45,18 +45,7 @@
         }
 
         .app-header { padding: 25px 15px; text-align: center; }
-        .app-logo { 
-            width: 70px; height: 70px; border-radius: 50%; background: white; 
-            padding: 5px; border: 2px solid var(--sun-orange); 
-            box-shadow: 0 0 25px rgba(255, 140, 0, 0.5);
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 10px rgba(255, 140, 0, 0.4); }
-            to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-        }
-
+        
         .card { 
             background: rgba(255, 255, 255, 0.98); 
             padding: 22px; border-radius: 30px; 
@@ -106,19 +95,22 @@
 <body>
 
     <div class="app-header">
-        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.4rem; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.3);">LOGISTICS HUB</h2>
+        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.5rem; letter-spacing: 2px;">PRATIKSHA LOGISTICS</h2>
     </div>
 
     <div class="container">
         <div id="pickup-sec" class="app-sec">
             <div class="card">
                 <h3>🧺 नया पिकअप</h3>
+                
                 <label>ग्राहक मोबाइल</label>
                 <div class="input-group">
                     <input type="tel" id="pickMobile" placeholder="9929xxxxxx">
-                    <button type="button" class="btn-contact" onclick="getContact('pickMobile')">👤</button>
+                    <button type="button" class="btn-contact" onclick="getContact('pickMobile', 'pickName')">👤</button>
                 </div>
+
+                <label>ग्राहक का नाम</label>
+                <input type="text" id="pickName" placeholder="नाम लिखें">
                 
                 <label>श्रेणी (Category)</label>
                 <div class="cat-grid">
@@ -145,7 +137,7 @@
 
                 <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
                 <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
-                <button class="btn-primary" style="margin-top:15px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें</button>
+                <button class="btn-primary" style="margin-top:15px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें & WhatsApp</button>
             </div>
         </div>
 
@@ -154,10 +146,13 @@
                 <h3>🚚 डिलीवरी मिशन</h3>
                 <label>ग्राहक मोबाइल</label>
                 <div class="input-group">
-                    <input type="tel" id="delMobile" placeholder="मोबाइल नंबर लिखें">
-                    <button type="button" class="btn-contact" onclick="getContact('delMobile')">👤</button>
+                    <input type="tel" id="delMobile" placeholder="9929xxxxxx">
+                    <button type="button" class="btn-contact" onclick="getContact('delMobile', 'delName')">👤</button>
                 </div>
                 
+                <label>ग्राहक का नाम</label>
+                <input type="text" id="delName" placeholder="नाम लिखें">
+
                 <label>कुल प्राप्त राशि (₹)</label>
                 <input type="number" id="amount" placeholder="0.00">
 
@@ -168,7 +163,7 @@
                     <option value="Wallet">Wallet (सदस्यता वॉलेट)</option>
                 </select>
                 
-                <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें ✅</button>
+                <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें & WhatsApp ✅</button>
             </div>
         </div>
     </div>
@@ -179,18 +174,17 @@
     </div>
 
 <script>
-    // 🚀 TITU 5G ENGINE - APPS SCRIPT LINK
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
 
-    // 👤 कांटेक्ट पिकर लॉजिक
-    async function getContact(mobileId) {
+    async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator)) return alert("Browser Support missing!");
         try {
-            const props = ['tel'];
+            const props = ['name', 'tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
                 let rawNum = contacts[0].tel[0].replace(/\D/g, '');
                 document.getElementById(mobileId).value = rawNum.slice(-10);
+                if(contacts[0].name) document.getElementById(nameId).value = contacts[0].name[0];
             }
         } catch (err) { console.log(err); }
     }
@@ -203,7 +197,6 @@
         window.scrollTo(0,0);
     }
 
-    // 🧺 इन्वेंटरी डेटा (सभी 'अन्य' विकल्पों के साथ सुरक्षित)
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य (डिजाइनर)"],
         women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य (डिजाइनर)"],
@@ -234,39 +227,51 @@
         document.getElementById('itemQty').value = "1";
     }
 
+    // 🧺 पिकअप लॉजिक (Sheets + WhatsApp)
     async function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
+        const name = document.getElementById('pickName').value;
         if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
         
         const btn = document.getElementById('pickBtn');
-        btn.innerText = "सेव हो रहा है..."; btn.disabled = true;
-
+        btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
         const details = selectedItems.join(", ");
-        const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=Washing&details=${encodeURIComponent(details)}`;
+
+        const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=Washing&details=${encodeURIComponent(details)}`;
 
         try {
             await fetch(url);
-            alert("संग्रह सफल! भगवान आपका दिन शुभ करें।");
+            const msg = `*प्रतीक्षा ड्रायक्लीनर्स (पिकअप रसीद)*\n\nनमस्ते ${name},\nहमने आपके कपड़े पिकअप कर लिए हैं।\n\n*विवरण:* ${details}\n\n*स्टेटस:* धुलाई में (Washing)\nधन्यवाद!`;
+            const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
+            alert("डेटा सेव हो गया! अब व्हाट्सएप मैसेज भेजें।");
+            window.open(waUrl, '_blank');
             location.reload();
         } catch (e) { alert("नेटवर्क त्रुटि!"); btn.innerText = "संग्रह संपन्न करें"; btn.disabled = false; }
     }
 
+    // 🚚 डिलीवरी लॉजिक (Sheets + WhatsApp रसीद)
     async function confirmDelivery() {
         const mobile = document.getElementById('delMobile').value;
+        const name = document.getElementById('delName').value;
         const amt = document.getElementById('amount').value;
         const mode = document.getElementById('payMode').value;
         if(!mobile || !amt) return alert("राशि और मोबाइल लिखें!");
 
         const btn = document.getElementById('delBtn');
-        btn.innerText = "अपडेट हो रहा है..."; btn.disabled = true;
+        btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
 
-        const url = `${scriptURL}?action=addBill&mobile=${mobile}&amount=${amt}&mode=${mode}`;
+        const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${mode}`;
 
         try {
             await fetch(url);
-            alert("डिलीवरी सफल! मिशन पूरा हुआ। ✅");
+            // व्हाट्सएप डिलीवरी रसीद मैसेज
+            const msg = `*प्रतीक्षा ड्रायक्लीनर्स (डिलीवरी रसीद)*\n\nनमस्ते ${name},\nआपके कपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान:* ${mode}\n\nधन्यवाद, फिर से सेवा का अवसर दें! ✅`;
+            const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
+            
+            alert("डिलीवरी डेटा सेव हो गया! अब ग्राहक को व्हाट्सएप रसीद भेजें।");
+            window.open(waUrl, '_blank');
             location.reload();
-        } catch (e) { alert("Error!"); btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; }
+        } catch (e) { alert("त्रुटि!"); btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; }
     }
 </script>
 </body>
