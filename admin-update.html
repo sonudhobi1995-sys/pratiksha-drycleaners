@@ -3,202 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Guardian Station | Pratiksha Moonlight</title>
+    <title>Guardian Station | PRATIKSHA PREMIUM</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --moonlight: #e0e0e0;
+            --moonlight: #f8fafc;
             --star-gold: #FFD700;
-            --midnight-blue: #020617;
-            --saturn-ring: rgba(255, 215, 0, 0.2);
+            --deep-space: #010409;
             --sun-orange: #FF8C00;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border-glow: rgba(255, 215, 0, 0.15);
         }
 
         body {
             font-family: 'Inter', 'Mukta', sans-serif;
-            background-color: var(--midnight-blue);
+            background-color: var(--deep-space);
             color: var(--moonlight);
             margin: 0;
-            overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05) 0%, transparent 50%),
-                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 100px 150px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 200px 50px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 300px 250px, rgba(255,255,255,0.8), rgba(0,0,0,0));
-            background-size: 100% 100%, 200px 200px, 300px 300px, 400px 400px, 500px 500px;
+                radial-gradient(circle at 50% -20%, rgba(255,215,0,0.1), transparent 50%),
+                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 150px 150px, #fff, transparent);
+            background-size: 100% 100%, 250px 250px, 350px 350px;
             background-attachment: fixed;
-            animation: stars-twinkle 10s infinite linear;
-        }
-
-        @keyframes stars-twinkle {
-            0% { background-position: 0 0; }
-            100% { background-position: 50px 100px; }
         }
 
         .app-header {
-            padding: 40px 15px;
+            padding: 50px 20px 30px;
             text-align: center;
-            background: rgba(2, 6, 23, 0.8);
-            border-bottom: 1px solid var(--saturn-ring);
-            backdrop-filter: blur(15px);
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .app-logo {
-            width: 75px; height: 75px; border-radius: 50%;
-            background: white; padding: 5px; margin-bottom: 15px;
-            border: 2px solid var(--moonlight); 
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(to bottom, rgba(2,6,23,0.9), transparent);
+            border-bottom: 1px solid var(--border-glow);
         }
 
-        .container { padding: 20px; max-width: 450px; margin: auto; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
 
         .cog-visual {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--saturn-ring);
-            border-radius: 35px;
-            padding: 30px 20px;
+            background: var(--glass);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 40px 20px;
             margin-bottom: 30px;
             text-align: center;
-            backdrop-filter: blur(8px);
-            position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(20px);
         }
 
         .cog-visual img {
-            width: 90px; height: 90px; border-radius: 50%;
+            width: 100px; height: 100px; border-radius: 50%;
             border: 2px solid var(--star-gold); margin-bottom: 15px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            animation: cosmic-pulse 4s infinite ease-in-out;
-        }
-
-        @keyframes cosmic-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
         }
 
         .card { 
-            background: rgba(255, 255, 255, 0.04); 
-            padding: 25px; border-radius: 30px; margin-bottom: 25px; 
-            border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
+            background: var(--glass); 
+            padding: 30px 25px; border-radius: 35px; margin-bottom: 25px; 
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
         }
         
-        h3 { color: var(--moonlight); font-family: 'Playfair Display', serif; margin-top: 0; letter-spacing: 2px; font-size: 1.1rem; }
-        label { font-size: 0.7rem; font-weight: 400; color: #8892b0; text-transform: uppercase; letter-spacing: 2px; }
+        h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; letter-spacing: 3px; font-size: 0.9rem; text-transform: uppercase; }
+        label { font-size: 0.65rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 5px; }
 
         input, select { 
-            width: 100%; padding: 16px; margin: 10px 0 20px 0; 
-            border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); 
-            background: rgba(0,0,0,0.3); color: white;
-            box-sizing: border-box; font-size: 1rem; transition: 0.3s;
+            width: 100%; padding: 18px; margin: 10px 0 25px 0; 
+            border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); 
+            background: rgba(0,0,0,0.5); color: white;
+            box-sizing: border-box; font-size: 1rem;
         }
 
         .btn { 
-            width: 100%; padding: 18px; border: none; border-radius: 20px; 
-            font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.4s; 
-            display: flex; justify-content: center; align-items: center; gap: 12px; 
+            width: 100%; padding: 20px; border: none; border-radius: 22px; 
+            font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: 0.4s; 
             text-transform: uppercase; letter-spacing: 2px;
         }
-        .btn-status { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2); }
-        .btn-dashboard { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
-        .btn-nav { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; }
+        .btn-status { background: linear-gradient(135deg, #FFD700, #FF8C00); color: #000; }
+        .btn-nav { background: rgba(255,255,255,0.03); color: var(--moonlight); border: 1px solid rgba(255,255,255,0.1); font-size: 0.7rem; }
 
-        .payment-box { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px dashed rgba(255, 255, 255, 0.2); 
-            padding: 18px; border-radius: 20px; margin-bottom: 20px; 
-        }
-
-        .footer-info { text-align: center; font-size: 9px; color: #4b5563; margin-top: 30px; letter-spacing: 2px; line-height: 2; }
+        .footer-info { text-align: center; font-size: 10px; color: #4b5563; margin: 40px 0; letter-spacing: 2px; line-height: 2.5; font-weight: 700; }
     </style>
 </head>
 <body>
 
     <div class="app-header">
-        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-        <h2 style="margin:0; font-family:'Playfair Display', serif; letter-spacing: 3px; font-weight: 900;">पहरेदार स्टेशन</h2>
-        <div style="font-size: 0.6rem; color: var(--star-gold); margin-top: 8px; letter-spacing: 4px;">COSMIC GUARDIAN</div>
+        <h2 style="margin:0; font-family:'Playfair Display', serif; letter-spacing: 4px; font-weight: 900; font-size: 1.8rem;">Guardian Station</h2>
+        <div style="font-size: 0.65rem; color: var(--star-gold); margin-top: 10px; letter-spacing: 5px;">COMMAND CENTER</div>
     </div>
 
     <div class="container">
         <div class="cog-visual">
             <img src="1000289866.jpg" alt="CoG Vision">
-            <div style="color: var(--moonlight); font-weight: 700; font-size: 0.85rem; letter-spacing: 3px;">CENTER OF GRAVITY</div>
-            <p style="font-size: 0.6rem; opacity: 0.5; margin: 8px 0 0 0; font-style: italic;">ऋणानुबंध ही कर्म की धुरी है</p>
-        </div>
-
-        <div class="card">
-            <h3>📈 ANALYTICS</h3>
-            <button class="btn btn-dashboard" onclick="window.location.href='Dashboard.html'">
-                VIEW DAILY INSIGHTS
-            </button>
+            <div style="color: var(--star-gold); font-weight: 900; font-size: 0.9rem; letter-spacing: 4px;">CENTER OF GRAVITY</div>
+            <p style="font-size: 0.65rem; opacity: 0.6; margin: 10px 0 0 0;">"ऋणानुबंध ही कर्म की धुरी है"</p>
         </div>
 
         <div class="card">
             <h3>✨ QUICK SIGNAL</h3>
-            <label>मोबाइल नंबर</label>
-            <div style="display: flex; gap: 10px; margin: 10px 0 20px 0;">
+            
+            <label>ग्राहक संपर्क</label>
+            <div style="display: flex; gap: 12px; margin: 12px 0 25px 0;">
                 <input type="tel" id="adminMobile" placeholder="98XXXXXXXX" style="margin:0; flex:1;">
-                <button type="button" onclick="getContact('adminMobile')" style="padding:0 18px; border-radius:15px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.05); color:white; cursor:pointer;">👤</button>
+                <button type="button" onclick="getContact('adminMobile')" style="padding:0 20px; border-radius:18px; border:1px solid var(--star-gold); background:rgba(255,215,0,0.05); color:var(--star-gold); cursor:pointer;">👤</button>
             </div>
             
-            <label>ऑर्डर की स्थिति</label>
+            <label>ऑर्डर की मुख्य प्रक्रिया</label>
             <select id="adminStatus">
-                <option value="प्रक्रिया में">🧺 प्रक्रिया में</option>
-                <option value="धुलाई">🧼 शुचिता (Washing)</option>
-                <option value="आयरनिंग">👔 सुसज्जित (Press)</option>
-                <option value="रेडी टू डिलीवरी">✨ सिद्ध (Ready)</option>
-                <option value="Delivered">🚚 गंतव्य (Delivered)</option>
+                <option value="Order Pickup">🚚 ऑर्डर पिकअप (Pickup)</option>
+                <option value="Processing">🧺 प्रोसेसिंग (Processing)</option>
+                <option value="Ready to Deliver">✨ रेडी टू डिलीवर (Ready)</option>
+                <option value="Delivered">✅ डिलीवर्ड (Delivered)</option>
             </select>
 
-            <div class="payment-box">
-                <label>💰 दक्षिणा स्थिति</label>
-                <select id="paymentStatus" style="margin-bottom:0; background: transparent;">
-                    <option value="Pending" style="color: black;">🔴 उधारी (Pending)</option>
-                    <option value="Paid" style="color: black;">🟢 प्राप्त (Paid)</option>
-                </select>
-            </div>
+            <label>💰 दक्षिणा स्थिति</label>
+            <select id="paymentStatus">
+                <option value="Pending">🔴 उधारी (Pending)</option>
+                <option value="Paid">🟢 प्राप्त (Paid)</option>
+            </select>
 
             <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
-                कोस्मिक अपडेट भेजें
+                सिग्नल सिंक करें
             </button>
         </div>
 
         <div class="card">
             <h3>🚀 NAVIGATION</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <button class="btn btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER</button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <button class="btn btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
-                
-                <button class="btn btn-nav" style="grid-column: span 2; margin-top: 5px; background: rgba(212, 175, 55, 0.1); border: 1px dashed var(--star-gold); color: var(--star-gold);" 
-                        onclick="window.location.href='Member_Exclusive.html'">
-                    💳 MEMBER EXCLUSIVE CARD
-                </button>
+                <button class="btn btn-nav" onclick="window.location.href='Dashboard.html'">📊 INSIGHTS</button>
             </div>
         </div>
         
         <div class="footer-info">
-            ।। प्रतीक्षा एवं नीति हेतु ।। <br>
-            SONU NEEL संचालित रूहानी तंत्र © 2026
+            ।। मिशन 2047: प्रतीक्षा एवं नीति हेतु ।। <br>
+            PREMIUM DIGITAL ECOSYSTEM © 2026
         </div>
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyJTODOfrdJ42n1FasR7o-wTg8ER2Fra5Z87GL3rv2WfTlkSEkATK2rIrMwbkSH1D-s/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
     async function getContact(mobileId) {
-        if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
+        if (!('contacts' in navigator)) return alert("Access Denied: Use Chrome on Android.");
         try {
             const props = ['tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
-                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
-                document.getElementById(mobileId).value = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
+                let rawNum = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
+                document.getElementById(mobileId).value = rawNum;
             }
         } catch (err) { console.log(err); }
     }
@@ -209,9 +160,9 @@
         const pStatus = document.getElementById('paymentStatus').value;
         const btn = document.getElementById('updateBtn');
         
-        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें");
+        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें।");
 
-        btn.innerText = "सिग्नल भेजा जा रहा है...";
+        btn.innerText = "सिंक हो रहा है...";
         btn.disabled = true;
 
         const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&paymentStatus=${encodeURIComponent(pStatus)}`;
@@ -219,14 +170,13 @@
         fetch(finalURL, { method: 'GET', mode: 'no-cors' });
 
         setTimeout(() => {
-            alert("कोस्मिक सिग्नल भेज दिया गया है! ✅");
+            alert("सिग्नल सिंक हो गया! ✅");
             const payText = pStatus === "Paid" ? "✅ प्राप्त (Paid)" : "⏳ बकाया (Pending)";
-            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nनमस्ते,\nदर्जा: *${status}*\nदक्षिणा स्थिति: *${payText}*\n\nअपना बैलेंस यहाँ देखें:\n🔗 https://sonudhobi1995-sys.github.io/pratiksha-drycleaners/Member_Exclusive.html\n\nऋणानुबंध ही कर्म की धुरी है। 🙏`;
+            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nऑर्डर स्थिति: *${status}*\nदक्षिणा: *${payText}*\n\n।। शुचिता ही संकल्प ।। 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
         }, 1500);
     }
 </script>
-
 </body>
 </html>
