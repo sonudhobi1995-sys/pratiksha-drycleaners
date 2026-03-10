@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>प्रतीक्षा ड्राइवर स्टेशन | PRATIKSHA</title>
+    <title>Driver Station | Astra v10</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -13,6 +13,7 @@
             --pure-moon: #ffffff;
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body { 
@@ -25,77 +26,80 @@
             position: relative;
         }
 
-        /* ✨ चलायमान सितारों का जादू */
-        body::before {
-            content: "";
+        /* ✨ कोस्मिक एनीमेशन (Astra v10 Standard) */
+        .stars-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 200%;
             background-image: 
-                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 100px 150px, #ffd700, transparent),
-                radial-gradient(2px 2px at 250px 350px, #fff, transparent);
+                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
+                radial-gradient(2.5px 2.5px at 300px 50px, #fff, transparent);
             background-size: 300px 300px;
+            animation: stars-stream 50s infinite linear;
             z-index: -1;
-            animation: starsMove 50s linear infinite;
+            opacity: 0.6;
         }
 
-        @keyframes starsMove {
-            from { transform: translateY(0); }
-            to { transform: translateY(-300px); }
+        @keyframes stars-stream {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
 
-        .app-header { padding: 25px 15px; text-align: center; }
+        .app-header { padding: 40px 15px 20px; text-align: center; border-bottom: 1px solid rgba(255,215,0,0.2); }
         
         .card { 
             background: rgba(255, 255, 255, 0.98); 
-            padding: 22px; border-radius: 30px; 
-            margin: 0 15px 20px 15px; 
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            padding: 25px; border-radius: 35px; 
+            margin: 20px 15px; 
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
             color: #000;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid var(--accent-gold);
         }
         
-        h3 { color: #000; font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; margin-bottom: 15px; }
+        h3 { color: #000; font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; margin-bottom: 15px; letter-spacing: 1px; }
 
         .input-group { display: flex; gap: 10px; margin: 8px 0 12px 0; }
-        .input-group input { margin: 0; flex: 1; }
+        .input-group input { margin: 0; flex: 1; border: 2px solid #e2e8f0; }
         
         .btn-contact { 
-            padding: 0 15px; border-radius: 12px; border: 1.5px solid var(--sun-orange); 
-            background: rgba(255,140,0,0.1); color: var(--sun-orange); cursor: pointer; font-size: 1.2rem; 
+            padding: 0 15px; border-radius: 15px; border: none; 
+            background: var(--midnight); color: var(--accent-gold); cursor: pointer; font-size: 1.2rem; 
         }
 
-        label { font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-top: 10px; display: block; }
+        label { font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; margin-top: 10px; display: block; letter-spacing: 1px; }
 
         input, select { 
-            width: 100%; padding: 14px; margin: 8px 0 12px 0; 
-            border-radius: 12px; border: 1.5px solid #cbd5e1; 
-            background: #f1f5f9; color: #000; font-size: 1rem;
-            box-sizing: border-box; font-weight: 600;
+            width: 100%; padding: 16px; margin: 8px 0 12px 0; 
+            border-radius: 15px; border: 2px solid #e2e8f0; 
+            background: #f8fafc; color: #000; font-size: 1rem;
+            box-sizing: border-box; font-weight: 600; outline: none;
         }
 
-        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .cat-btn { background: #e2e8f0; border: 1px solid #cbd5e1; padding: 10px 5px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; color: #475569; cursor: pointer; }
-        .cat-btn.active { background: var(--sun-orange); color: white; border-color: var(--sun-orange); box-shadow: 0 4px 12px rgba(255, 140, 0, 0.4); }
+        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .cat-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 12px 5px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; color: #475569; cursor: pointer; transition: 0.3s; }
+        .cat-btn.active { background: var(--sun-orange); color: white; border-color: var(--sun-orange); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3); }
 
-        .btn-add { background: #000; color: #fff; width: 100%; padding: 15px; border-radius: 12px; font-weight: 800; border: none; margin-bottom: 10px; cursor: pointer; }
-        .btn-primary { background: var(--sun-orange); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
-        .btn-success { background: #128C7E; color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        .btn-add { background: #000; color: #fff; width: 100%; padding: 18px; border-radius: 18px; font-weight: 800; border: none; margin-bottom: 15px; cursor: pointer; letter-spacing: 1px; }
+        .btn-primary { background: linear-gradient(135deg, var(--sun-orange), #ff4500); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3); }
+        .btn-success { background: linear-gradient(135deg, #128C7E, #075E54); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-        #liveList { margin-top: 10px; font-size: 0.85rem; background: #f8fafc; padding: 12px; border-radius: 15px; border: 1px dashed #cbd5e1; color: #334155; min-height: 40px; }
+        #liveList { margin-top: 15px; font-size: 0.85rem; background: #fff; padding: 15px; border-radius: 20px; border: 2px dashed var(--sun-orange); color: #334155; min-height: 50px; }
         
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(1, 4, 9, 0.95); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); z-index: 1000; backdrop-filter: blur(10px); }
-        .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; cursor: pointer; }
-        .nav-item.active { color: var(--pure-moon); }
-        .nav-item span { font-size: 1.5rem; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(1, 4, 9, 0.98); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid rgba(255,215,0,0.2); z-index: 1000; backdrop-filter: blur(15px); }
+        .nav-item { background: none; border: none; color: #64748b; font-size: 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+        .nav-item.active { color: var(--accent-gold); }
+        .nav-item span { font-size: 1.6rem; }
 
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
+    <div class="stars-container"></div>
+
     <div class="app-header">
-        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.5rem; letter-spacing: 2px;">PRATIKSHA LOGISTICS</h2>
+        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.7rem; letter-spacing: 3px; color: var(--accent-gold);">PRATIKSHA LOGISTICS</h2>
+        <div style="font-size: 0.6rem; letter-spacing: 4px; color: #fff; margin-top: 5px; opacity: 0.8;">Astra v10 Fleet Management</div>
     </div>
 
     <div class="container">
@@ -110,7 +114,7 @@
                 </div>
 
                 <label>ग्राहक का नाम</label>
-                <input type="text" id="pickName" placeholder="नाम लिखें">
+                <input type="text" id="pickName" placeholder="नाम अपने आप आएगा">
                 
                 <label>श्रेणी (Category)</label>
                 <div class="cat-grid">
@@ -130,16 +134,28 @@
                     <option value="ड्राई क्लीनिंग प्रेस">✨ ड्राई क्लीनिंग प्रेस</option>
                 </select>
 
-                <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
+                <label>कपड़ा चुनें</label>
+                <select id="itemSelect"><option value="">श्रेणी चुनें...</option></select>
 
                 <div style="display:flex; gap:10px;">
-                    <input type="number" id="itemQty" value="1" style="flex:1;">
-                    <select id="itemNote" style="flex:1;"><option value="OK">OK</option><option value="दाग">दाग</option><option value="कटा">कटा</option></select>
+                    <div style="flex:1;">
+                        <label>संख्या</label>
+                        <input type="number" id="itemQty" value="1">
+                    </div>
+                    <div style="flex:1;">
+                        <label>स्थिति</label>
+                        <select id="itemNote">
+                            <option value="OK">OK ✅</option>
+                            <option value="दाग">दाग ⚠️</option>
+                            <option value="कटा">कटा ❌</option>
+                            <option value="बटन गायब">बटन 🔘</option>
+                        </select>
+                    </div>
                 </div>
 
                 <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
-                <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
-                <button class="btn-primary" style="margin-top:15px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें & WhatsApp</button>
+                <div id="liveList"><b>📋 वर्तमान लिस्ट:</b><div id="listContent"></div></div>
+                <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें & WhatsApp</button>
             </div>
         </div>
 
@@ -156,13 +172,13 @@
                 <input type="text" id="delName" placeholder="नाम लिखें">
 
                 <label>कुल प्राप्त राशि (₹)</label>
-                <input type="number" id="amount" placeholder="0.00">
+                <input type="number" id="amount" placeholder="0.00" style="font-size: 1.5rem; text-align: center; color: var(--sun-orange);">
 
                 <label>भुगतान का तरीका</label>
                 <select id="payMode">
-                    <option value="Cash">Cash (नकद)</option>
-                    <option value="Online">Online (UPI)</option>
-                    <option value="Wallet">Wallet (सदस्यता वॉलेट)</option>
+                    <option value="Cash">💵 Cash (नकद)</option>
+                    <option value="Online">📱 Online (UPI/QR)</option>
+                    <option value="Wallet">💳 Wallet (सदस्यता)</option>
                 </select>
                 
                 <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें & WhatsApp ✅</button>
@@ -173,13 +189,15 @@
     <div class="nav-bar">
         <div class="nav-item active" id="nav-pick" onclick="switchTab('pickup-sec', 'nav-pick')"><span>🧺</span>पिकअप</div>
         <div class="nav-item" id="nav-del" onclick="switchTab('delivery-sec', 'nav-del')"><span>🚚</span>डिलीवरी</div>
+        <div class="nav-item" onclick="window.location.href='admin.html'"><span>⚙️</span>एडमिन</div>
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
+    // Astra v10 Engine Sync URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
     async function getContact(mobileId, nameId) {
-        if (!('contacts' in navigator)) return alert("Browser Support missing!");
+        if (!('contacts' in navigator)) return alert("आपका ब्राउज़र कॉन्टैक्ट सपोर्ट नहीं करता।");
         try {
             const props = ['name', 'tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
@@ -188,7 +206,7 @@
                 document.getElementById(mobileId).value = rawNum.slice(-10);
                 if(contacts[0].name) document.getElementById(nameId).value = contacts[0].name[0];
             }
-        } catch (err) { console.log(err); }
+        } catch (err) { console.log("Error selecting contact"); }
     }
 
     function switchTab(secId, navId) {
@@ -200,12 +218,12 @@
     }
 
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य (डिजाइनर)"],
-        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य (डिजाइनर)"],
-        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "रेगुलर कपड़े", "अन्य"],
-        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "कुशन कवर", "अन्य"],
-        winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट", "अन्य"],
-        other: ["बैग", "टोपी", "मोजे", "रुमाल", "अन्य सामान"]
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य"],
+        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य"],
+        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "रेगुलर कपड़े"],
+        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "कुशन कवर"],
+        winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट"],
+        other: ["बैग", "टोपी", "मोजे", "रुमाल"]
     };
 
     function loadItems(cat, btn) {
@@ -222,63 +240,67 @@
         const qty = document.getElementById('itemQty').value;
         const service = document.getElementById('serviceType').value;
         const note = document.getElementById('itemNote').value;
-        if(!item || !qty) return alert("संख्या लिखें!");
+        if(!item || !qty) return alert("कपड़ा और संख्या चुनें!");
         const entry = `${item} (${qty} नग) - ${service} [${note}]`;
         selectedItems.push(entry);
-        document.getElementById('listContent').innerHTML += `<div style="padding:4px 0; border-bottom:1px solid #eee;">• ${entry}</div>`;
+        document.getElementById('listContent').innerHTML += `<div style="padding:6px 0; border-bottom:1px solid #f1f5f9; font-weight:600;">• ${entry}</div>`;
         document.getElementById('itemQty').value = "1";
     }
 
-    // 🧺 पिकअप लॉजिक (सुधरा हुआ WhatsApp मैसेज)
     async function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
         const name = document.getElementById('pickName').value;
-        const serviceFinal = document.getElementById('serviceType').value; // चुनी हुई सर्विस
+        const serviceFinal = document.getElementById('serviceType').value;
         
-        if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
+        if(!mobile || selectedItems.length === 0) return alert("मोबाइल और लिस्ट चेक करें!");
         
         const btn = document.getElementById('pickBtn');
-        btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
+        btn.innerText = "COSMIC SYNCING..."; btn.disabled = true;
         const details = selectedItems.join(", ");
 
-        // Google Sheets Update (Service के साथ)
+        // Astra v10 Engine Update
         const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(serviceFinal)}&details=${encodeURIComponent(details)}`;
 
         try {
-            await fetch(url);
+            await fetch(url, { mode: 'no-cors' });
             
-            // ✨ डायनामिक मैसेज - अब "Washing" गायब, जो चुना वही दिखेगा
-            const msg = `*प्रतीक्षा ड्रायक्लीनर्स (पिकअप रसीद)*\n\nनमस्ते ${name},\nहमने आपके कपड़े *${serviceFinal}* के लिए पिकअप कर लिए हैं।\n\n*विवरण:* ${details}\n\nधन्यवाद!`;
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (पिकअप रसीद)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nहमने आपके कपड़े सफलतापूर्वक पिकअप कर लिए हैं।\n\n*सेवा:* ${serviceFinal}\n*विवरण:* ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
             
             const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
-            alert("डेटा सेव हो गया! अब व्हाट्सएप मैसेज भेजें।");
+            alert("डेटा Astra Engine में सुरक्षित हो गया! ✅");
             window.open(waUrl, '_blank');
             location.reload();
-        } catch (e) { alert("नेटवर्क त्रुटि!"); btn.innerText = "संग्रह संपन्न करें"; btn.disabled = false; }
+        } catch (e) { 
+            alert("इंजन से संपर्क टूटा!"); 
+            btn.innerText = "संग्रह संपन्न करें"; btn.disabled = false; 
+        }
     }
 
-    // 🚚 डिलीवरी लॉजिक
     async function confirmDelivery() {
         const mobile = document.getElementById('delMobile').value;
         const name = document.getElementById('delName').value;
         const amt = document.getElementById('amount').value;
         const mode = document.getElementById('payMode').value;
-        if(!mobile || !amt) return alert("राशि और मोबाइल लिखें!");
+        if(!mobile || !amt) return alert("मोबाइल और राशि अनिवार्य है!");
 
         const btn = document.getElementById('delBtn');
-        btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
+        btn.innerText = "DELIVERY SYNCING..."; btn.disabled = true;
 
+        // Astra v10: Adding Bill/Transaction
         const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${mode}`;
 
         try {
-            await fetch(url);
-            const msg = `*प्रतीक्षा ड्रायक्लीनर्स (डिलीवरी रसीद)*\n\nनमस्ते ${name},\nआपके कपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान:* ${mode}\n\nधन्यवाद, फिर से सेवा का अवसर दें! ✅`;
-            const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
+            await fetch(url, { mode: 'no-cors' });
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (डिलीवरी रसीद)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nआपके कपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान माध्यम:* ${mode}\n\nधन्यवाद, फिर से सेवा का अवसर दें! ✅\n।। मिशन 2047 ।।`;
             
-            alert("डिलीवरी डेटा सेव हो गया! अब ग्राहक को व्हाट्सएप रसीद भेजें।");
+            const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
+            alert("डिलीवरी डेटा Astra Engine में दर्ज हो गया! ✅");
             window.open(waUrl, '_blank');
             location.reload();
-        } catch (e) { alert("त्रुटि!"); btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; }
+        } catch (e) { 
+            alert("इंजन त्रुटि!"); 
+            btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; 
+        }
     }
 </script>
 </body>
