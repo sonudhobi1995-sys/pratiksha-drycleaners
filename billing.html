@@ -15,8 +15,7 @@
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; background: var(--midnight); 
             margin: 0; padding: 0; color: white; 
-            background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-                              radial-gradient(2px 2px at 150px 150px, #fff, transparent);
+            background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent);
             background-size: 200px 200px;
         }
         .billing-header { 
@@ -34,14 +33,15 @@
             width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; 
             border: 1.5px solid #cbd5e1; background: #f1f5f9; color: #000; font-size: 1rem; font-weight: 600; box-sizing: border-box;
         }
-        .balance-field { border: 2px solid var(--mars-red) !important; color: var(--mars-red); }
+        .balance-field { border: 2px solid var(--mars-red) !important; color: var(--mars-red); font-weight: bold; }
+        .discount-field { border: 2px solid var(--nebula-green) !important; color: var(--nebula-green); font-weight: bold; }
         .btn-add { background: #000; color: white; width: 100%; border: none; padding: 16px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; }
         .total-box { background: #f8fafc; padding: 20px; border-radius: 20px; text-align: center; border: 2px dashed var(--sun-orange); margin-top: 15px; }
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; margin-top: 20px; cursor: pointer; font-size: 1.1rem; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; color: #000; }
         td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; font-weight: 600; }
         .loader { display: none; text-align: center; color: var(--sun-orange); font-weight: bold; padding: 10px; }
-        @media print { .no-print { display: none !important; } .card { box-shadow: none; border: 1px solid #eee; } }
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
 <body>
@@ -59,8 +59,17 @@
             <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:1px solid var(--sun-orange); background:none; font-size:1.3rem; cursor:pointer;">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
-        <label>पुराना बकाया (Debt):</label>
-        <input type="number" id="manualBalance" class="balance-field" placeholder="₹ 0" oninput="render()">
+        
+        <div style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label>पुराना बकाया (+):</label>
+                <input type="number" id="manualBalance" class="balance-field" placeholder="₹ 0" oninput="render()">
+            </div>
+            <div style="flex: 1;">
+                <label>विशेष छूट (-):</label>
+                <input type="number" id="discountAmt" class="discount-field" placeholder="₹ 0" oninput="render()">
+            </div>
+        </div>
     </div>
 
     <div class="card no-print">
@@ -72,8 +81,10 @@
             <option value="kids">बच्चे (Kids)</option>
             <option value="home">होम (Home)</option>
             <option value="winter">विंटर (Winter)</option>
+            <option value="other">अन्य (Others)</option>
         </select>
         <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
+        
         <select id="serviceType">
             <option value="Press">Press</option>
             <option value="Steam Press">Steam Press</option>
@@ -108,12 +119,14 @@
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWhOuYb_uKW7vRDuTgceiVv_NlH1PvdsoHAR2CwzAqm2fnXtkxiD6FLUawoP1Wj-XZ/exec";
     
+    // ✅ 'Other' विकल्प हर जगह जोड़ दिया गया है
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "अन्य", "रेगुलर"],
-        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "ब्लाउज" , "अन्य", "रेगुलर" ],
-        kids: ["बाबा सूट", "फ्रॉक", "स्कूल ड्रेस", "अन्य", "रेगुलर" ],
-        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "अन्य", "रेगुलर" ],
-        winter: ["जैकैट", "स्वेटर", "कोट", "कार्डिगन", "अन्य", "रेगुलर" ]
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "अन्य (Men)"],
+        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "ब्लाउज", "अन्य (Women)"],
+        kids: ["बाबा सूट", "फ्रॉक", "स्कूल ड्रेस", "अन्य (Kids)"],
+        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "अन्य (Home)"],
+        winter: ["जैकैट", "स्वेटर", "कोट", "कार्डिगन", "अन्य (Winter)"],
+        other: ["बैग", "टोपी", "मोजे", "डिजाइनर वियर", "अन्य सामान"]
     };
 
     let billItems = [];
@@ -125,6 +138,22 @@
         if(cat && inventory[cat]) inventory[cat].forEach(i => sel.innerHTML += `<option value="${i}">${i}</option>`);
     }
 
+    async function getContact() {
+        if (!('contacts' in navigator)) return alert("Access Denied: Use Chrome.");
+        try {
+            const props = ['name', 'tel'];
+            const contacts = await navigator.contacts.select(props, {multiple: false});
+            if (contacts.length > 0) {
+                if (contacts[0].name) document.getElementById('custName').value = contacts[0].name[0];
+                if (contacts[0].tel) {
+                    let rawNum = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
+                    document.getElementById('custMobile').value = rawNum;
+                    autoFetchDetails();
+                }
+            }
+        } catch (err) {}
+    }
+
     async function autoFetchDetails() {
         const mob = document.getElementById('custMobile').value;
         if(mob.length < 10) return;
@@ -133,6 +162,7 @@
             const data = await res.json();
             if(data.name) document.getElementById('custName').value = data.name;
             if(data.balance < 0) document.getElementById('manualBalance').value = Math.abs(data.balance);
+            render();
         } catch(e) {}
     }
 
@@ -150,14 +180,19 @@
     function render() {
         const body = document.querySelector('#billTable tbody');
         const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
+        
         body.innerHTML = ''; let currentTotal = 0;
         billItems.forEach(i => {
             currentTotal += i.total;
             body.innerHTML += `<tr><td>${i.name} x${i.q}</td><td style="text-align:right;">₹${i.total}</td></tr>`;
         });
-        if(manualBal > 0) body.innerHTML += `<tr style="color:red;"><td>पुराना बकाया (+)</td><td style="text-align:right;">₹${manualBal}</td></tr>`;
-        const final = currentTotal + manualBal;
-        document.getElementById('gTotal').innerText = `कुल राशि: ₹ ${final}`;
+        
+        if(manualBal > 0) body.innerHTML += `<tr style="color:var(--mars-red);"><td>पुराना बकाया (+)</td><td style="text-align:right;">₹${manualBal}</td></tr>`;
+        if(discount > 0) body.innerHTML += `<tr style="color:var(--nebula-green);"><td>विशेष छूट (-)</td><td style="text-align:right;">₹${discount}</td></tr>`;
+        
+        const final = (currentTotal + manualBal) - discount;
+        document.getElementById('gTotal').innerText = `कुल राशि: ₹ ${final > 0 ? final : 0}`;
         return final;
     }
 
@@ -166,6 +201,8 @@
         const name = document.getElementById('custName').value;
         const mode = document.getElementById('payMode').value;
         const finalAmt = render();
+        const disc = document.getElementById('discountAmt').value || 0;
+
         if(!mob || billItems.length === 0) return alert("डेटा अधूरा है!");
 
         document.getElementById('loader').style.display = 'block';
@@ -173,22 +210,15 @@
         const details = billItems.map(i => `${i.name}x${i.q}`).join(", ");
 
         try {
-            await fetch(`${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${mode}&details=${encodeURIComponent(details)}`, {mode: 'no-cors'});
+            await fetch(`${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${mode}&details=${encodeURIComponent(details)}&discount=${disc}`, {mode: 'no-cors'});
             
-            let msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते ${name},\nआपका बिल: *₹${finalAmt}*\nभुगतान: ${mode}\nविवरण: ${details}\n।। शुचिता ही संकल्प ।।`;
+            let msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते ${name},\nकुल बिल: *₹${finalAmt}*\n${disc > 0 ? 'छूट: ₹' + disc : ''}\nभुगतान: ${mode}\nविवरण: ${details}\n।। शुचिता ही संकल्प ।।`;
             window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
             location.reload();
         } catch (e) { alert("सिस्टम एरर!"); }
     }
 
-    async function getContact() {
-        if (!('contacts' in navigator)) return alert("Access Denied: Use Chrome.");
-        try {
-            const contacts = await navigator.contacts.select(['tel'], {multiple: false});
-            if (contacts.length > 0) document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
-            autoFetchDetails();
-        } catch (err) {}
-    }
+    updateItems();
 </script>
 </body>
 </html>
