@@ -3,146 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Member Exclusive | Pratiksha Drycleaners</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Member Exclusive | Pratiksha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --gold-card: linear-gradient(135deg, #BF953F 0%, #FCF6BA 45%, #B38728 70%, #FBF5B7 100%);
-            --space-bg: #010103;
+            --royal-gold: linear-gradient(135deg, #d4af37 0%, #f9f295 45%, #b8860b 70%, #f9f295 100%);
+            --deep-space: #010103;
             --saturn-blue: #001F3F;
-            --sun-orange: #FF8C00;
+            --success-green: #27ae60;
+            --danger-red: #e74c3c;
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--space-bg); color: white; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--deep-space); color: white; overflow-x: hidden; }
 
-        /* हैडर सेक्शन */
-        .ex-header { padding: 30px 20px; text-align: center; background: radial-gradient(circle at center, #111, #000); }
-        .ex-header h1 { font-family: 'Playfair Display', serif; background: var(--gold-card); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; margin: 0; letter-spacing: 2px; }
-
-        /* प्रिविलेज कार्ड (गोल्डन कार्ड) */
-        .card-container { padding: 0 20px; perspective: 1000px; }
-        .gold-card {
-            background: var(--gold-card); border-radius: 20px; padding: 25px; color: #1a1a1a;
-            box-shadow: 0 15px 35px rgba(191, 149, 63, 0.4); position: relative; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.3); transition: 0.3s;
+        /* 1. विजुअल लेआउट: फ्लोटिंग गोल्डन कार्ड */
+        .header-space { padding: 40px 20px 20px; text-align: center; }
+        .membership-card {
+            background: var(--royal-gold);
+            border-radius: 20px;
+            padding: 25px;
+            color: #1a1a1a;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            transform: translateZ(0);
+            transition: transform 0.3s;
         }
-        .gold-card::after { content: "PREMIUM"; position: absolute; right: -20px; top: 10px; background: rgba(0,0,0,0.1); padding: 5px 30px; transform: rotate(45deg); font-weight: 800; font-size: 0.6rem; }
+        .membership-card:active { transform: scale(0.97); }
+        .card-type { font-size: 0.7rem; font-weight: 900; letter-spacing: 3px; opacity: 0.7; }
         
-        .chip { width: 45px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 6px; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.2); }
-        .bal-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
-        .bal-amt { font-size: 2.8rem; font-weight: 900; margin: 5px 0; letter-spacing: -1px; }
-        
-        .card-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
-        .cust-name { font-size: 1rem; font-weight: 800; text-transform: uppercase; }
-        .expiry { font-size: 0.65rem; font-weight: 700; text-align: right; }
+        /* 2. रियल-टाइम बैलेंस डिस्प्ले */
+        .balance-section { margin-top: 15px; }
+        .balance-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .balance-amt { font-size: 3.5rem; font-weight: 900; font-family: 'Inter'; letter-spacing: -2px; }
 
-        /* ट्रांजैक्शन फीड (व्हाइट सेक्शन) */
-        .feed-section { background: white; border-radius: 40px 40px 0 0; margin-top: 30px; padding: 30px 20px 100px; min-height: 60vh; color: #333; }
-        .feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
-        .feed-header h2 { font-size: 1.1rem; margin: 0; color: var(--saturn-blue); font-weight: 800; }
-        
-        .log-item { 
-            background: #f8f9fa; border-radius: 15px; padding: 15px; margin-bottom: 12px;
-            display: flex; align-items: center; gap: 15px; border-left: 5px solid #B38728;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); animation: fadeIn 0.5s ease;
+        .refresh-btn { 
+            background: rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.1);
+            padding: 5px 12px; border-radius: 15px; font-size: 0.7rem; font-weight: 700;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .log-icon { width: 40px; height: 40px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-        .log-text { flex-grow: 1; }
-        .log-desc { font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 2px; }
-        .log-date { font-size: 0.7rem; color: #999; font-weight: 600; }
+        /* 3. डिजिटल पासबुक (Transaction History) */
+        .passbook-section {
+            background: white;
+            border-radius: 40px 40px 0 0;
+            min-height: 60vh;
+            padding: 30px 20px;
+            color: #1a1a1a;
+        }
+        .passbook-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .passbook-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0; }
 
-        /* व्हाट्सएप सपोर्ट */
-        .support-strip { background: #e7f3ef; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 600; }
+        .log-list { list-style: none; padding: 0; }
+        .log-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #eee;
+        }
+        .log-info { display: flex; flex-direction: column; }
+        .log-desc { font-weight: 700; font-size: 0.95rem; }
+        .log-date { font-size: 0.75rem; color: #888; font-weight: 600; }
+        .log-amt { font-weight: 900; font-size: 1rem; }
+        .log-amt.minus { color: var(--danger-red); }
+        .log-amt.plus { color: var(--success-green); }
 
-        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--saturn-blue); padding: 15px; display: flex; justify-content: center; z-index: 100; }
-        .home-btn { background: var(--sun-orange); color: white; padding: 10px 30px; border-radius: 25px; text-decoration: none; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        /* 4. क्विक लिंक्स */
+        .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .action-btn { 
+            padding: 15px; border-radius: 15px; text-decoration: none; text-align: center;
+            font-weight: 700; font-size: 0.8rem; border: 1px solid #eee; color: var(--saturn-blue);
+        }
+
+        /* 5. लोडर */
+        #loader { display: none; text-align: center; padding: 20px; color: var(--royal-gold); }
     </style>
 </head>
 <body>
 
-    <div class="ex-header">
-        <h1>PRATIKSHA PRIVILEGE</h1>
-        <div style="font-size: 0.7rem; color: #666; margin-top: 5px;">EXCLUSIVE MEMBER ACCESS</div>
-    </div>
-
-    <div class="card-container">
-        <div class="gold-card">
-            <div class="chip"></div>
-            <div class="bal-label">Current Wallet Balance</div>
-            <div class="bal-amt">₹<span id="uBalance">0.00</span></div>
-            <div class="card-info">
-                <div>
-                    <div class="bal-label">Member</div>
-                    <div class="cust-name" id="uNameDisp">Loading...</div>
-                </div>
-                <div class="expiry">
-                    VALID THRU<br><span id="uExpiryDisp">--/--</span>
-                </div>
+    <div class="header-space">
+        <div class="membership-card" id="memberCard">
+            <div class="card-type" id="mType">PLATINUM MEMBER</div>
+            <div class="balance-section">
+                <div class="balance-label">Current Balance</div>
+                <div class="balance-amt">₹<span id="uBalance">0.00</span></div>
+                <div class="refresh-btn" onclick="fetchMemberData()">🔄 Tap to Refresh</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 25px; align-items: flex-end;">
+                <div id="uNameDisp" style="font-weight: 800; font-size: 1.1rem; text-transform: uppercase;">...</div>
+                <div id="uExpiry" style="font-size: 0.6rem; font-weight: 700; text-align: right;">VALID THRU<br>--/--</div>
             </div>
         </div>
     </div>
 
-    <div class="feed-section">
-        <div class="support-strip">
-            <span>🛡️</span>
-            <span>सुरक्षित ट्रांजैक्शन: आपका पैसा और कपड़े दोनों सुरक्षित हैं।</span>
+    <div class="passbook-section">
+        <div class="passbook-header">
+            <h2>Digital Passbook</h2>
+            <div style="font-size: 0.7rem; font-weight: 800; color: var(--saturn-blue);">LIVE FEED</div>
         </div>
 
-        <div class="feed-header">
-            <h2>Transaction Log</h2>
-            <div style="font-size: 0.7rem; background: #eee; padding: 4px 10px; border-radius: 10px; font-weight: 700;">HISTORY</div>
-        </div>
+        <div id="loader">कनेक्ट हो रहा है...</div>
+        <div id="logContainer" class="log-list">
+            </div>
 
-        <div id="logContainer">
-            <p style="text-align: center; color: #999; margin-top: 30px;">ट्रांजैक्शन हिस्ट्री लोड हो रही है...</p>
+        <div class="quick-actions">
+            <a href="https://wa.me/7740870095" class="action-btn">💬 Support</a>
+            <a href="services.html" class="action-btn" style="background: var(--saturn-blue); color: white;">🧺 New Order</a>
         </div>
-    </div>
-
-    <div class="footer-nav">
-        <a href="index.html" class="home-btn">🏠 वापस होम पेज</a>
+        
+        <p style="text-align: center; font-size: 0.6rem; color: #ccc; margin-top: 40px;">
+            © 2026 PRATIKSHA DRYCLEANERS | Your Spiritual Fabric Guardian
+        </p>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // अपना URL यहाँ डालें
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
 
-        window.onload = function() {
+        async function fetchMemberData() {
             const mobile = localStorage.getItem('userMobile');
-            const name = localStorage.getItem('userName');
-            document.getElementById('uNameDisp').innerText = name || "Premium Member";
+            const loader = document.getElementById('loader');
+            if(!mobile) return;
 
-            if(mobile) {
-                fetch(`${scriptURL}?action=getMemberDetails&mobile=${mobile}`)
-                .then(r => r.json())
-                .then(d => {
-                    document.getElementById('uBalance').innerText = d.balance || "0.00";
-                    document.getElementById('uExpiryDisp').innerText = d.expiry || "12/26";
-                    
-                    const logs = d.transactionLog ? d.transactionLog.split('\n') : [];
-                    let logHTML = '';
-                    
-                    logs.forEach(log => {
-                        if(log.trim()) {
-                            let icon = log.includes('+') ? '💰' : '🧺';
-                            logHTML += `
-                                <div class="log-item">
-                                    <div class="log-icon">${icon}</div>
-                                    <div class="log-text">
-                                        <div class="log-desc">${log}</div>
-                                    </div>
-                                </div>`;
-                        }
-                    });
-                    
-                    document.getElementById('logContainer').innerHTML = logHTML || '<p style="text-align:center;">कोई पिछला रिकॉर्ड नहीं मिला।</p>';
-                })
-                .catch(() => {
-                    document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:red;">डेटा कनेक्ट करने में समस्या।</p>';
+            loader.style.display = 'block';
+            try {
+                const response = await fetch(`${scriptURL}?action=getMemberDetails&mobile=${mobile}`);
+                const data = await response.json();
+                
+                // डेटा अपडेट
+                document.getElementById('uBalance').innerText = data.balance;
+                document.getElementById('uNameDisp').innerText = data.name || localStorage.getItem('userName');
+                document.getElementById('mType').innerText = data.membershipType || "GOLD MEMBER";
+                document.getElementById('uExpiry').innerText = `VALID THRU\n${data.expiry || '12/26'}`;
+                
+                // ट्रांजैक्शन लॉग (कॉलम M से)
+                const logs = data.transactionLog ? data.transactionLog.split('\n') : [];
+                let logHTML = '';
+                
+                logs.forEach(log => {
+                    if(log.trim()) {
+                        const isMinus = log.includes('-');
+                        const amtClass = isMinus ? 'minus' : 'plus';
+                        const symbol = isMinus ? '' : '+';
+                        
+                        logHTML += `
+                            <div class="log-item">
+                                <div class="log-info">
+                                    <span class="log-desc">${log.split('|')[1] || log}</span>
+                                    <span class="log-date">${log.split('|')[0] || ''}</span>
+                                </div>
+                                <div class="log-amt ${amtClass}">${log.match(/-?₹?\d+/)}</div>
+                            </div>`;
+                    }
                 });
+                document.getElementById('logContainer').innerHTML = logHTML || '<p style="text-align:center; padding:20px;">अभी कोई ट्रांजैक्शन नहीं है।</p>';
+
+            } catch (e) {
+                console.error("Error!", e);
+            } finally {
+                loader.style.display = 'none';
             }
-        };
+        }
+
+        window.onload = fetchMemberData;
     </script>
 </body>
 </html>
