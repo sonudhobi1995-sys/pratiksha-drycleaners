@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>डैशबोर्ड | प्रतीक्षा ड्राईक्लीनर्स</title>
+    <title>डैशबोर्ड | प्रतीक्षा डिजिटल सुप्रीम</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -19,7 +19,6 @@
             font-family: 'Inter', 'Mukta', sans-serif; 
             background: var(--midnight); 
             margin: 0; padding: 15px;
-            /* पृष्ठभूमि में तारे */
             background-image: 
                 radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
                 radial-gradient(2px 2px at 150px 150px, #fff, transparent),
@@ -32,7 +31,6 @@
         .header { text-align: center; padding: 20px 0; }
         .header h2 { font-family: 'Playfair Display', serif; margin: 0; letter-spacing: 2px; }
         
-        /* मुख्य कार्ड - चांदनी जैसा सफेद और पारदर्शी */
         .card-main { 
             background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(15px);
@@ -44,7 +42,6 @@
             border-bottom: 5px solid var(--sun-orange); 
         }
 
-        /* आज की कमाई का बड़ा नंबर */
         .card-main h2 { 
             font-size: 3.5rem; margin: 10px 0; 
             color: var(--accent-gold); 
@@ -52,7 +49,6 @@
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
         
-        /* 🌸 SIP प्रोग्रेस बार */
         .sip-box { 
             margin-top: 20px; 
             background: rgba(255,255,255,0.05); 
@@ -66,7 +62,6 @@
         }
         .sip-label { font-size: 0.75rem; display: flex; justify-content: space-between; opacity: 0.9; font-weight: 700; }
 
-        /* ग्रिड बॉक्सेस - शुद्ध चांदनी सफेद */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .stat-box { 
             background: var(--pure-moon); 
@@ -78,7 +73,6 @@
         .stat-box h4 { margin: 0; color: #64748b; font-size: 0.7rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
         .stat-box p { margin: 10px 0 0; font-size: 1.85rem; font-weight: 900; color: #000; }
 
-        /* रिफ्रेश बटन */
         .refresh-btn { 
             width: 100%; padding: 18px; 
             background: var(--pure-moon); color: #000; 
@@ -99,8 +93,8 @@
 <body>
 
     <div class="header">
-        <h2>प्रतीक्षा डिजिटल डैशबोर्ड</h2>
-        <p style="margin:5px 0; color: var(--accent-gold); font-size: 12px; font-weight: 700; letter-spacing: 2px;">सेवा • शुचिता • 2047 का संकल्प</p>
+        <h2>प्रतीक्षा डिजिटल सुप्रीम</h2>
+        <p style="margin:5px 0; color: var(--accent-gold); font-size: 12px; font-weight: 700; letter-spacing: 2px;">मिशन 2047 • सेवा • शुचिता</p>
     </div>
 
     <div class="card-main">
@@ -109,13 +103,13 @@
         
         <div class="sip-box">
             <div class="sip-label">
-                <span>दैनिक लक्ष्य (SIP हेतु)</span>
+                <span>दैनिक SIP लक्ष्य (₹2,500/माह)</span>
                 <span id="perc">0%</span>
             </div>
             <div class="progress-bg"><div id="bar" class="progress-fill"></div></div>
         </div>
         <small id="totalColl" style="display:block; margin-top:15px; font-weight:800; color: var(--accent-gold); font-size: 0.9rem;">
-            कुल संचित: ₹ 0
+            मासिक अनुमानित आय: ₹ 0
         </small>
     </div>
 
@@ -130,38 +124,45 @@
     <a href="admin-update.html" class="back-nav">← एडमिन पैनल पर जाएं</a>
 
     <script>
-        // ✅ आपका ओरिजिनल वर्किंग स्क्रिप्ट URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD3DOpl3cCCV1HWlZnlsp_n9ERHSH4i0I02cHt3X0PFPIp6tjzQrdVnEtn5RzCPKZL/exec';
+        // ✅ आपका नया अपडेटेड स्क्रिप्ट URL (Astra v10.0 Engine)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
         function fetchData() {
             const btn = document.querySelector('.refresh-btn');
-            btn.innerText = "हिसाब मिल रहा है...";
+            btn.innerText = "✨ हिसाब मिल रहा है...";
             
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
-                // ✅ आपके पुराने कोड के ओरिजिनल ID नाम
+                // 1. आज का कलेक्शन
                 const today = data.todayColl || 0;
                 document.getElementById('todayColl').innerText = '₹ ' + today;
-                document.getElementById('totalColl').innerText = 'कुल संचित कमाई: ₹ ' + (data.collection || 0);
-                document.getElementById('pending').innerText = data.pending || 0;
-                document.getElementById('washing').innerText = data.washing || 0;
+                
+                // 2. स्टेटस मैपिंग (Astra v10.0 से UI तक)
+                document.getElementById('pending').innerText = data.pickup || 0;
+                document.getElementById('washing').innerText = data.processing || 0;
                 document.getElementById('ready').innerText = data.ready || 0;
                 document.getElementById('customers').innerText = data.totalCustomers || 0;
 
-                // ₹2500 मासिक SIP के हिसाब से दैनिक औसत लक्ष्य ₹100 मानकर
-                let dailyTarget = 100; 
+                // 3. SIP प्रोग्रेस (मासिक ₹2500 के लिए दैनिक औसत ≈ ₹83.33)
+                const dailyTarget = 83.33; 
                 let progress = Math.min((today / dailyTarget) * 100, 100);
                 document.getElementById('bar').style.width = progress + "%";
                 document.getElementById('perc').innerText = Math.round(progress) + "%";
+
+                // 4. भविष्य की भविष्यवाणी (Monthly Projection)
+                document.getElementById('totalColl').innerText = 'मासिक अनुमानित आय: ₹ ' + (data.monthlyProjection || 0);
                 
                 btn.innerText = "🔄 डेटा अपडेट करें";
             })
             .catch(err => {
-                alert("कनेक्शन एरर!");
+                console.error("Error fetching data:", err);
+                alert("सर्वर से संपर्क नहीं हो पाया। कृपया इंटरनेट चेक करें।");
                 btn.innerText = "🔄 डेटा अपडेट करें";
             });
         }
+
+        // पेज लोड होते ही डेटा प्राप्त करें
         window.onload = fetchData;
     </script>
 </body>
