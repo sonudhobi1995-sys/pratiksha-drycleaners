@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>डैशबोर्ड | प्रतीक्षा डिजिटल सुप्रीम</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
@@ -10,105 +10,166 @@
     <style>
         :root { 
             --pure-moon: #ffffff;
-            --midnight: #010409;
+            --midnight: #000205; /* गहरा अंतरिक्ष */
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00;
+            --glass-border: rgba(255, 215, 0, 0.3);
         }
 
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; 
             background: var(--midnight); 
             margin: 0; padding: 15px;
-            background-image: 
-                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 300px 250px, #fff, transparent);
-            background-size: 250px 250px;
-            background-attachment: fixed;
             color: white;
+            overflow-x: hidden;
         }
 
-        .header { text-align: center; padding: 20px 0; }
-        .header h2 { font-family: 'Playfair Display', serif; margin: 0; letter-spacing: 2px; }
+        /* 🪐 सौरमंडल बैकग्राउंड */
+        .solar-system {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .sun {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 90px; height: 90px;
+            background: radial-gradient(circle, #f39c12 20%, #e67e22 60%, transparent 80%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 50px rgba(243, 156, 18, 0.4);
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%; left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbit-rotate linear infinite;
+        }
+
+        @keyframes orbit-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .orb-1 { width: 200px; height: 200px; animation-duration: 12s; }
+        .orb-2 { width: 320px; height: 320px; animation-duration: 20s; }
+        .orb-3 { width: 480px; height: 480px; animation-duration: 35s; }
+
+        .planet {
+            position: absolute;
+            top: 0; left: 50%;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        /* ✨ सितारों की बारिश */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 200%;
+            background-image: radial-gradient(1px 1px at 20px 30px, #fff, transparent), radial-gradient(1.5px 1.5px at 150px 150px, #fff, transparent);
+            background-size: 250px 250px;
+            animation: stars-flow 50s infinite linear;
+            z-index: -3;
+        }
+        @keyframes stars-flow { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+
+        .header { text-align: center; padding: 20px 0; position: relative; }
+        .header h2 { font-family: 'Playfair Display', serif; margin: 0; letter-spacing: 3px; font-weight: 900; }
         
+        /* 💎 पारदर्शी मुख्य कार्ड */
         .card-main { 
-            background: rgba(255, 255, 255, 0.08); 
-            backdrop-filter: blur(15px);
-            padding: 30px 20px; border-radius: 30px; 
+            background: rgba(255, 255, 255, 0); 
+            backdrop-filter: blur(2px);
+            padding: 30px 20px; border-radius: 35px; 
             text-align: center; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
             margin-bottom: 25px; 
-            border: 1px solid rgba(255,255,255,0.2);
-            border-bottom: 5px solid var(--sun-orange); 
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
         }
 
         .card-main h2 { 
-            font-size: 3.5rem; margin: 10px 0; 
+            font-size: 3.8rem; margin: 10px 0; 
             color: var(--accent-gold); 
             font-family: 'Playfair Display', serif;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
         }
         
         .sip-box { 
             margin-top: 20px; 
-            background: rgba(255,255,255,0.05); 
+            background: rgba(0,0,0,0.4); 
             padding: 15px; border-radius: 20px; 
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .progress-bg { background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; margin: 10px 0; overflow: hidden; }
+        .progress-bg { background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; margin: 10px 0; overflow: hidden; }
         .progress-fill { 
             background: linear-gradient(90deg, var(--sun-orange), var(--accent-gold)); 
             height: 100%; width: 0%; transition: 1.5s ease-in-out; 
         }
-        .sip-label { font-size: 0.75rem; display: flex; justify-content: space-between; opacity: 0.9; font-weight: 700; }
 
+        /* 📦 पारदर्शी ग्रिड बॉक्स */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .stat-box { 
-            background: var(--pure-moon); 
+            background: rgba(255, 255, 255, 0); 
             padding: 22px 10px; border-radius: 25px; 
             text-align: center; 
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1); 
-            transition: 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(2px);
         }
-        .stat-box h4 { margin: 0; color: #64748b; font-size: 0.7rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
-        .stat-box p { margin: 10px 0 0; font-size: 1.85rem; font-weight: 900; color: #000; }
+        .stat-box h4 { margin: 0; color: rgba(255,255,255,0.6); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        .stat-box p { margin: 10px 0 0; font-size: 1.85rem; font-weight: 900; color: var(--accent-gold); }
 
         .refresh-btn { 
             width: 100%; padding: 18px; 
-            background: var(--pure-moon); color: #000; 
-            border: none; border-radius: 20px; 
-            font-size: 1.1rem; font-weight: 800; 
+            background: linear-gradient(135deg, var(--accent-gold), var(--sun-orange)); 
+            color: #000; border: none; border-radius: 20px; 
+            font-size: 1.1rem; font-weight: 900; 
             margin-top: 25px; cursor: pointer; 
-            box-shadow: 0 5px 20px rgba(255,255,255,0.2);
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
         .back-nav {
             display: block; text-align: center; margin-top: 20px; color: white;
             text-decoration: none; font-weight: 700; padding: 12px; 
-            border: 1px solid rgba(255,255,255,0.3); border-radius: 15px;
-            font-size: 0.9rem;
+            border: 1px solid var(--glass-border); border-radius: 15px;
+            font-size: 0.8rem; background: rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
 
+    <div class="stars"></div>
+    <div class="solar-system">
+        <div class="sun"></div>
+        <div class="orbit orb-1"><div class="planet"></div></div>
+        <div class="orbit orb-2"><div class="planet" style="background:#3498db; left:0;"></div></div>
+        <div class="orbit orb-3"><div class="planet" style="background:#e74c3c; top:auto; bottom:0;"></div></div>
+    </div>
+
     <div class="header">
         <h2>प्रतीक्षा डिजिटल सुप्रीम</h2>
-        <p style="margin:5px 0; color: var(--accent-gold); font-size: 12px; font-weight: 700; letter-spacing: 2px;">मिशन 2047 • सेवा • शुचिता</p>
+        <p style="margin:5px 0; color: var(--accent-gold); font-size: 11px; font-weight: 700; letter-spacing: 2px;">।। मिशन 2047: भविष्य निर्माण ।।</p>
     </div>
 
     <div class="card-main">
-        <span style="opacity: 0.8; font-size: 0.9rem;">आज की संचित लक्ष्मी</span>
+        <span style="opacity: 0.8; font-size: 0.85rem; letter-spacing: 1px;">आज की संचित लक्ष्मी</span>
         <h2 id="todayColl">₹ 0</h2>
         
         <div class="sip-box">
-            <div class="sip-label">
+            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; color: var(--accent-gold);">
                 <span>दैनिक SIP लक्ष्य (₹2,500/माह)</span>
                 <span id="perc">0%</span>
             </div>
             <div class="progress-bg"><div id="bar" class="progress-fill"></div></div>
         </div>
-        <small id="totalColl" style="display:block; margin-top:15px; font-weight:800; color: var(--accent-gold); font-size: 0.9rem;">
+        <small id="totalColl" style="display:block; margin-top:15px; font-weight:800; color: var(--sun-orange); font-size: 0.85rem; letter-spacing: 1px;">
             मासिक अनुमानित आय: ₹ 0
         </small>
     </div>
@@ -124,45 +185,35 @@
     <a href="admin-update.html" class="back-nav">← एडमिन पैनल पर जाएं</a>
 
     <script>
-        // ✅ आपका नया अपडेटेड स्क्रिप्ट URL (Astra v10.0 Engine)
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
         function fetchData() {
             const btn = document.querySelector('.refresh-btn');
-            btn.innerText = "✨ हिसाब मिल रहा है...";
+            btn.innerText = "✨ कोस्मिक सिंक जारी...";
             
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
-                // 1. आज का कलेक्शन
-                const today = data.todayColl || 0;
-                document.getElementById('todayColl').innerText = '₹ ' + today;
-                
-                // 2. स्टेटस मैपिंग (Astra v10.0 से UI तक)
+                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
                 document.getElementById('pending').innerText = data.pickup || 0;
                 document.getElementById('washing').innerText = data.processing || 0;
                 document.getElementById('ready').innerText = data.ready || 0;
                 document.getElementById('customers').innerText = data.totalCustomers || 0;
 
-                // 3. SIP प्रोग्रेस (मासिक ₹2500 के लिए दैनिक औसत ≈ ₹83.33)
                 const dailyTarget = 83.33; 
-                let progress = Math.min((today / dailyTarget) * 100, 100);
+                let progress = Math.min(((data.todayColl || 0) / dailyTarget) * 100, 100);
                 document.getElementById('bar').style.width = progress + "%";
                 document.getElementById('perc').innerText = Math.round(progress) + "%";
 
-                // 4. भविष्य की भविष्यवाणी (Monthly Projection)
                 document.getElementById('totalColl').innerText = 'मासिक अनुमानित आय: ₹ ' + (data.monthlyProjection || 0);
-                
                 btn.innerText = "🔄 डेटा अपडेट करें";
             })
             .catch(err => {
-                console.error("Error fetching data:", err);
-                alert("सर्वर से संपर्क नहीं हो पाया। कृपया इंटरनेट चेक करें।");
+                console.error(err);
                 btn.innerText = "🔄 डेटा अपडेट करें";
             });
         }
 
-        // पेज लोड होते ही डेटा प्राप्त करें
         window.onload = fetchData;
     </script>
 </body>
