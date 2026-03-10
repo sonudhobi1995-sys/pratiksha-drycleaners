@@ -3,195 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium Membership | Pratiksha</title>
+    <title>Member Exclusive | Pratiksha Drycleaners</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            --space-dark: #010103;
+            --gold-card: linear-gradient(135deg, #BF953F 0%, #FCF6BA 45%, #B38728 70%, #FBF5B7 100%);
+            --space-bg: #010103;
             --saturn-blue: #001F3F;
             --sun-orange: #FF8C00;
         }
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; padding: 0; 
-            background: var(--space-dark); 
-            color: white; 
-            overflow-x: hidden;
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: var(--space-bg); color: white; overflow-x: hidden; }
+
+        /* हैडर सेक्शन */
+        .ex-header { padding: 30px 20px; text-align: center; background: radial-gradient(circle at center, #111, #000); }
+        .ex-header h1 { font-family: 'Playfair Display', serif; background: var(--gold-card); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; margin: 0; letter-spacing: 2px; }
+
+        /* प्रिविलेज कार्ड (गोल्डन कार्ड) */
+        .card-container { padding: 0 20px; perspective: 1000px; }
+        .gold-card {
+            background: var(--gold-card); border-radius: 20px; padding: 25px; color: #1a1a1a;
+            box-shadow: 0 15px 35px rgba(191, 149, 63, 0.4); position: relative; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.3); transition: 0.3s;
         }
-
-        /* प्रीमियम हैडर */
-        .exclusive-header {
-            padding: 40px 20px;
-            text-align: center;
-            background: radial-gradient(circle at top, #1a1a2e, #010103);
-        }
-
-        .exclusive-header h1 {
-            font-family: 'Playfair Display', serif;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.2rem;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-
-        /* गोल्डन वॉलेट कार्ड */
-        .wallet-card {
-            width: 85%;
-            margin: -20px auto 30px;
-            background: var(--gold-gradient);
-            border-radius: 20px;
-            padding: 25px;
-            color: #1a1a1a;
-            box-shadow: 0 15px 35px rgba(191, 149, 63, 0.3);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .wallet-card:active { transform: scale(0.98); }
-
-        .wallet-card::before {
-            content: ""; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: rgba(255,255,255,0.1);
-            transform: rotate(45deg); pointer-events: none;
-        }
-
-        .chip { width: 45px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 5px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.2); }
-        .balance-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
-        .balance-amt { font-size: 2.8rem; font-weight: 900; margin: 5px 0; font-family: 'Inter'; }
+        .gold-card::after { content: "PREMIUM"; position: absolute; right: -20px; top: 10px; background: rgba(0,0,0,0.1); padding: 5px 30px; transform: rotate(45deg); font-weight: 800; font-size: 0.6rem; }
         
-        .card-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
-        .member-name { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
-        .expiry { font-size: 0.7rem; font-weight: 600; }
+        .chip { width: 45px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 6px; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.2); }
+        .bal-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
+        .bal-amt { font-size: 2.8rem; font-weight: 900; margin: 5px 0; letter-spacing: -1px; }
+        
+        .card-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
+        .cust-name { font-size: 1rem; font-weight: 800; text-transform: uppercase; }
+        .expiry { font-size: 0.65rem; font-weight: 700; text-align: right; }
 
-        /* ट्रांजैक्शन हिस्ट्री */
-        .history-section {
-            background: white;
-            border-radius: 40px 40px 0 0;
-            padding: 30px 20px 100px;
-            min-height: 50vh;
-            color: #333;
+        /* ट्रांजैक्शन फीड (व्हाइट सेक्शन) */
+        .feed-section { background: white; border-radius: 40px 40px 0 0; margin-top: 30px; padding: 30px 20px 100px; min-height: 60vh; color: #333; }
+        .feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
+        .feed-header h2 { font-size: 1.1rem; margin: 0; color: var(--saturn-blue); font-weight: 800; }
+        
+        .log-item { 
+            background: #f8f9fa; border-radius: 15px; padding: 15px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 15px; border-left: 5px solid #B38728;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); animation: fadeIn 0.5s ease;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .history-title {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;
-        }
+        .log-icon { width: 40px; height: 40px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .log-text { flex-grow: 1; }
+        .log-desc { font-size: 0.85rem; font-weight: 600; color: #444; margin-bottom: 2px; }
+        .log-date { font-size: 0.7rem; color: #999; font-weight: 600; }
 
-        .history-title h2 { font-size: 1.2rem; margin: 0; color: var(--saturn-blue); }
+        /* व्हाट्सएप सपोर्ट */
+        .support-strip { background: #e7f3ef; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 600; }
 
-        .log-list { list-style: none; padding: 0; margin: 0; }
-        .log-item {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-left: 5px solid #BF953F;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .log-icon { font-size: 1.5rem; }
-        .log-details { flex-grow: 1; }
-        .log-date { font-size: 0.7rem; color: #888; font-weight: 700; }
-        .log-desc { font-size: 0.9rem; font-weight: 600; color: #444; }
-        .log-amt { font-weight: 800; color: #d32f2f; }
-        .log-amt.plus { color: #2e7d32; }
-
-        /* बैक बटन */
-        .back-btn {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: var(--saturn-blue); color: white; padding: 15px 40px;
-            border-radius: 30px; text-decoration: none; font-weight: 700;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4); z-index: 100;
-        }
+        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--saturn-blue); padding: 15px; display: flex; justify-content: center; z-index: 100; }
+        .home-btn { background: var(--sun-orange); color: white; padding: 10px 30px; border-radius: 25px; text-decoration: none; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
 
-    <div class="exclusive-header">
-        <h1>PREMIUM HUB</h1>
-        <p style="color: #888; font-size: 0.8rem;">आपकी शुचिता, हमारी प्राथमिकता</p>
+    <div class="ex-header">
+        <h1>PRATIKSHA PRIVILEGE</h1>
+        <div style="font-size: 0.7rem; color: #666; margin-top: 5px;">EXCLUSIVE MEMBER ACCESS</div>
     </div>
 
-    <div class="wallet-card">
-        <div class="chip"></div>
-        <div class="balance-label">Current Balance</div>
-        <div class="balance-amt">₹<span id="uBalance">0.00</span></div>
-        
-        <div class="card-footer">
-            <div>
-                <div class="balance-label">Member Name</div>
-                <div class="member-name" id="uNameDisp">Loading...</div>
-            </div>
-            <div class="expiry">
-                VAL THRU<br><span id="uExpiry">--/--</span>
+    <div class="card-container">
+        <div class="gold-card">
+            <div class="chip"></div>
+            <div class="bal-label">Current Wallet Balance</div>
+            <div class="bal-amt">₹<span id="uBalance">0.00</span></div>
+            <div class="card-info">
+                <div>
+                    <div class="bal-label">Member</div>
+                    <div class="cust-name" id="uNameDisp">Loading...</div>
+                </div>
+                <div class="expiry">
+                    VALID THRU<br><span id="uExpiryDisp">--/--</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="history-section">
-        <div class="history-title">
+    <div class="feed-section">
+        <div class="support-strip">
+            <span>🛡️</span>
+            <span>सुरक्षित ट्रांजैक्शन: आपका पैसा और कपड़े दोनों सुरक्षित हैं।</span>
+        </div>
+
+        <div class="feed-header">
             <h2>Transaction Log</h2>
-            <span style="font-size: 0.8rem; color: #BF953F; font-weight: 700;">LIVE FEED</span>
+            <div style="font-size: 0.7rem; background: #eee; padding: 4px 10px; border-radius: 10px; font-weight: 700;">HISTORY</div>
         </div>
-        
-        <div id="logContainer" class="log-list">
-            <p style="text-align: center; color: #999;">डेटा लोड किया जा रहा है...</p>
+
+        <div id="logContainer">
+            <p style="text-align: center; color: #999; margin-top: 30px;">ट्रांजैक्शन हिस्ट्री लोड हो रही है...</p>
         </div>
     </div>
 
-    <a href="index.html" class="back-btn">🏠 वापस होम पेज</a>
+    <div class="footer-nav">
+        <a href="index.html" class="home-btn">🏠 वापस होम पेज</a>
+    </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
+        const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // अपना URL यहाँ डालें
 
         window.onload = function() {
             const mobile = localStorage.getItem('userMobile');
             const name = localStorage.getItem('userName');
-            document.getElementById('uNameDisp').innerText = name || "Valued Client";
+            document.getElementById('uNameDisp').innerText = name || "Premium Member";
 
             if(mobile) {
-                // Member_DB से डेटा फेच करना
                 fetch(`${scriptURL}?action=getMemberDetails&mobile=${mobile}`)
                 .then(r => r.json())
                 .then(d => {
                     document.getElementById('uBalance').innerText = d.balance || "0.00";
-                    document.getElementById('uExpiry').innerText = d.expiry || "12/26";
+                    document.getElementById('uExpiryDisp').innerText = d.expiry || "12/26";
                     
                     const logs = d.transactionLog ? d.transactionLog.split('\n') : [];
                     let logHTML = '';
                     
                     logs.forEach(log => {
                         if(log.trim()) {
-                            const isPlus = log.includes('+');
-                            const icon = isPlus ? '💰' : '🧺';
-                            const amtClass = isPlus ? 'plus' : '';
-                            
+                            let icon = log.includes('+') ? '💰' : '🧺';
                             logHTML += `
                                 <div class="log-item">
                                     <div class="log-icon">${icon}</div>
-                                    <div class="log-details">
+                                    <div class="log-text">
                                         <div class="log-desc">${log}</div>
                                     </div>
                                 </div>`;
                         }
                     });
                     
-                    document.getElementById('logContainer').innerHTML = logHTML || '<p style="text-align:center;">कोई ट्रांजैक्शन नहीं मिला।</p>';
+                    document.getElementById('logContainer').innerHTML = logHTML || '<p style="text-align:center;">कोई पिछला रिकॉर्ड नहीं मिला।</p>';
                 })
-                .catch(err => {
-                    document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:red;">डेटा लोड करने में समस्या आई।</p>';
+                .catch(() => {
+                    document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:red;">डेटा कनेक्ट करने में समस्या।</p>';
                 });
             }
         };
