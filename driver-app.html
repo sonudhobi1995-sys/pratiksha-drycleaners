@@ -122,13 +122,15 @@
                     <button class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
                 </div>
 
-                <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
+                <label>सेवा का प्रकार (Service)</label>
                 <select id="serviceType">
                     <option value="प्रेस">💨 सामान्य प्रेस</option>
                     <option value="स्टीम प्रेस">💎 कीमती स्टीम प्रेस</option>
                     <option value="धुलाई प्रेस">🧼 धुलाई प्रेस</option>
                     <option value="ड्राई क्लीनिंग प्रेस">✨ ड्राई क्लीनिंग प्रेस</option>
                 </select>
+
+                <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
 
                 <div style="display:flex; gap:10px;">
                     <input type="number" id="itemQty" value="1" style="flex:1;">
@@ -227,21 +229,27 @@
         document.getElementById('itemQty').value = "1";
     }
 
-    // 🧺 पिकअप लॉजिक (Sheets + WhatsApp)
+    // 🧺 पिकअप लॉजिक (सुधरा हुआ WhatsApp मैसेज)
     async function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
         const name = document.getElementById('pickName').value;
+        const serviceFinal = document.getElementById('serviceType').value; // चुनी हुई सर्विस
+        
         if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
         
         const btn = document.getElementById('pickBtn');
         btn.innerText = "प्रोसेसिंग..."; btn.disabled = true;
         const details = selectedItems.join(", ");
 
-        const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=Washing&details=${encodeURIComponent(details)}`;
+        // Google Sheets Update (Service के साथ)
+        const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(serviceFinal)}&details=${encodeURIComponent(details)}`;
 
         try {
             await fetch(url);
-            const msg = `*प्रतीक्षा ड्रायक्लीनर्स (पिकअप रसीद)*\n\nनमस्ते ${name},\nहमने आपके कपड़े पिकअप कर लिए हैं।\n\n*विवरण:* ${details}\n\n*स्टेटस:* धुलाई में (Washing)\nधन्यवाद!`;
+            
+            // ✨ डायनामिक मैसेज - अब "Washing" गायब, जो चुना वही दिखेगा
+            const msg = `*प्रतीक्षा ड्रायक्लीनर्स (पिकअप रसीद)*\n\nनमस्ते ${name},\nहमने आपके कपड़े *${serviceFinal}* के लिए पिकअप कर लिए हैं।\n\n*विवरण:* ${details}\n\nधन्यवाद!`;
+            
             const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
             alert("डेटा सेव हो गया! अब व्हाट्सएप मैसेज भेजें।");
             window.open(waUrl, '_blank');
@@ -249,7 +257,7 @@
         } catch (e) { alert("नेटवर्क त्रुटि!"); btn.innerText = "संग्रह संपन्न करें"; btn.disabled = false; }
     }
 
-    // 🚚 डिलीवरी लॉजिक (Sheets + WhatsApp रसीद)
+    // 🚚 डिलीवरी लॉजिक
     async function confirmDelivery() {
         const mobile = document.getElementById('delMobile').value;
         const name = document.getElementById('delName').value;
@@ -264,7 +272,6 @@
 
         try {
             await fetch(url);
-            // व्हाट्सएप डिलीवरी रसीद मैसेज
             const msg = `*प्रतीक्षा ड्रायक्लीनर्स (डिलीवरी रसीद)*\n\nनमस्ते ${name},\nआपके कपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान:* ${mode}\n\nधन्यवाद, फिर से सेवा का अवसर दें! ✅`;
             const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
             
