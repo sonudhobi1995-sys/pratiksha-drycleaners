@@ -2,281 +2,149 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratiksha | Member Exclusive Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Member Exclusive | Pratiksha Drycleaners</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root {
-            --gold: #D4AF37;
-            --navy: #011627;
-            --light-navy: #012a4a;
-            --white: #ffffff;
-            --danger: #e63946;
-            --success: #2a9d8f;
+        :root { 
+            --moonlight: #e0e0e0;
+            --star-gold: #FFD700;
+            --midnight-blue: #020617;
+            --saturn-ring: rgba(255, 215, 0, 0.2);
         }
 
         body {
+            font-family: 'Inter', 'Mukta', sans-serif;
+            background-color: var(--midnight-blue);
+            color: var(--moonlight);
             margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top, var(--light-navy), var(--navy));
-            color: var(--white);
+            background-image: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
             min-height: 100vh;
         }
 
-        /* Glassmorphism Container */
-        .app-container {
-            max-width: 500px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 25px;
-            padding: 25px;
+        .container { padding: 20px; width: 100%; max-width: 450px; }
+
+        .branding { text-align: center; margin-bottom: 30px; margin-top: 20px; }
+        .branding h1 { font-family: 'Playfair Display', serif; color: var(--star-gold); letter-spacing: 4px; margin: 0; }
+        .branding p { font-size: 0.6rem; letter-spacing: 2px; opacity: 0.7; text-transform: uppercase; }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.04); 
+            padding: 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px); text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        /* Branding Section */
-        .branding {
-            text-align: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+        .wallet-icon { font-size: 3rem; color: var(--star-gold); margin-bottom: 15px; }
+
+        input { 
+            width: 100%; padding: 16px; margin: 15px 0; border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); 
+            color: white; box-sizing: border-box; font-size: 1.1rem; text-align: center;
         }
 
-        .branding h1 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            margin: 0;
-            letter-spacing: 4px;
-            font-size: 2rem;
+        .btn-check { 
+            width: 100%; padding: 18px; border: none; border-radius: 20px; 
+            font-weight: 700; background: linear-gradient(135deg, #FFD700, #FFA500); 
+            color: #000; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
         }
 
-        .branding p {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 5px 0 0;
-            opacity: 0.8;
+        /* Result Section */
+        #resultArea { display: none; margin-top: 25px; animation: fadeIn 0.5s; }
+        
+        .balance-box {
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--star-gold);
+            border-radius: 20px; padding: 20px; margin-bottom: 20px;
         }
 
-        /* Member Info & Wallet */
-        .wallet-section {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0,0,0,0.2));
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid var(--gold);
-            margin-bottom: 25px;
-            position: relative;
+        .history-list { text-align: left; font-size: 0.8rem; max-height: 250px; overflow-y: auto; }
+        .history-item { 
+            display: flex; justify-content: space-between; padding: 10px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
         }
 
-        .member-id {
-            font-size: 0.8rem;
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .balance-label {
-            display: block;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            opacity: 0.7;
-        }
-
-        .balance-amount {
-            font-size: 2.8rem;
-            font-weight: 600;
-            margin: 5px 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .low-balance-warning {
-            color: var(--danger);
-            font-size: 0.75rem;
-            font-weight: bold;
-            display: none; /* JS triggers this */
-            animation: pulse 1s infinite;
-        }
-
-        /* Transaction Log */
-        .log-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .log-header h3 {
-            font-size: 1.1rem;
-            margin: 0;
-            color: var(--gold);
-        }
-
-        .scroll-area {
-            max-height: 250px;
-            overflow-y: auto;
-            border-radius: 10px;
-            padding-right: 5px;
-        }
-
-        .entry-card {
-            background: rgba(255, 255, 255, 0.03);
-            margin-bottom: 10px;
-            padding: 12px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 3px solid var(--gold);
-        }
-
-        .entry-info h4 {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-        .entry-info span {
-            font-size: 0.7rem;
-            opacity: 0.6;
-        }
-
-        .entry-amount {
-            text-align: right;
-        }
-
-        .amt-minus { color: var(--danger); font-weight: 600; }
-        .amt-plus { color: var(--success); font-weight: 600; }
-
-        /* Actions */
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .btn {
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Poppins';
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-
-        .btn-recharge { background: var(--gold); color: var(--navy); }
-        .btn-whatsapp { background: #25D366; color: white; }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div class="app-container">
+<div class="container">
     <div class="branding">
         <h1>PRATIKSHA</h1>
-        <p>Exclusive Member Dashboard</p>
+        <p>Exclusive Member Wallet</p>
     </div>
 
-    <div class="wallet-section">
-        <div class="member-id"><i class="fas fa-crown"></i> ID: MS-280894</div>
-        <span class="balance-label">Current Wallet Balance</span>
-        <div class="balance-amount">₹<span id="balance">150</span></div>
-        <div id="lowAlert" class="low-balance-warning">
-            <i class="fas fa-exclamation-triangle"></i> LOW BALANCE! PLEASE RECHARGE
+    <div class="card">
+        <i class="fas fa-wallet wallet-icon"></i>
+        <h3 style="margin:0; font-family:'Playfair Display';">प्रीमियम वॉलेट लॉगिन</h3>
+        <p style="font-size: 0.75rem; opacity: 0.7;">अपना रजिस्टर्ड मोबाइल नंबर दर्ज करें</p>
+        
+        <input type="tel" id="mobileInput" placeholder="98XXXXXXXX" maxlength="10">
+        <button class="btn-check" onclick="checkWallet()">खाता देखें</button>
+
+        <div id="resultArea">
+            <div class="balance-box">
+                <span style="font-size: 0.8rem; opacity: 0.8;">उपलब्ध शेष राशि</span>
+                <h2 id="balanceAmount" style="margin: 5px 0; font-size: 2.5rem; color: var(--star-gold);">₹0.00</h2>
+                <div id="lowBalMsg" style="color: #ff4d4d; font-size: 0.7rem; display: none; font-weight: bold;">⚠️ लो बैलेंस! कृपया रिचार्ज करें</div>
+            </div>
+
+            <div style="text-align: left; padding-left: 5px; margin-bottom: 10px;">
+                <span style="font-size: 0.7rem; color: var(--star-gold); text-transform: uppercase; letter-spacing: 1px;">लेन-देन का इतिहास (History)</span>
+            </div>
+            
+            <div class="history-list" id="historyContent">
+                </div>
         </div>
     </div>
 
-    <div class="log-header">
-        <h3><i class="fas fa-history"></i> Monthly Entry Log</h3>
-        <span style="font-size: 0.7rem; opacity: 0.6;">March 2026</span>
-    </div>
-
-    <div class="scroll-area">
-        <div class="entry-card">
-            <div class="entry-info">
-                <h4>Silk Saree (Dry Clean)</h4>
-                <span>10 Mar 2026 | 02:30 PM</span>
-            </div>
-            <div class="entry-amount">
-                <div class="amt-minus">- ₹250</div>
-                <div style="font-size: 0.6rem; opacity: 0.5;">Bal: ₹150</div>
-            </div>
-        </div>
-
-        <div class="entry-card">
-            <div class="entry-info">
-                <h4>5 Cotton Shirts (Steam Press)</h4>
-                <span>08 Mar 2026 | 11:15 AM</span>
-            </div>
-            <div class="entry-amount">
-                <div class="amt-minus">- ₹50</div>
-                <div style="font-size: 0.6rem; opacity: 0.5;">Bal: ₹400</div>
-            </div>
-        </div>
-
-        <div class="entry-card" style="border-left-color: var(--success);">
-            <div class="entry-info">
-                <h4>Wallet Recharge</h4>
-                <span>05 Mar 2026 | 10:00 AM</span>
-            </div>
-            <div class="entry-amount">
-                <div class="amt-plus">+ ₹450</div>
-                <div style="font-size: 0.6rem; opacity: 0.5;">Bal: ₹450</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="actions">
-        <button class="btn btn-recharge" onclick="recharge()">
-            <i class="fas fa-wallet"></i> Recharge
-        </button>
-        <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
-            <i class="fab fa-whatsapp"></i> Send Status
-        </button>
+    <div style="text-align: center; font-size: 9px; color: #4b5563; margin-top: 40px; letter-spacing: 2px;">
+        ।। प्रतीक्षा एवं नीति हेतु ।। <br>
+        सत्यता • शुचिता • सेवा © 2026
     </div>
 </div>
 
 <script>
-    // लो बैलेंस चेक करने का फंक्शन
-    function checkBalance() {
-        const balance = parseInt(document.getElementById('balance').innerText);
-        const alert = document.getElementById('lowAlert');
-        if(balance < 200) {
-            alert.style.display = 'block';
-        } else {
-            alert.style.display = 'none';
+    const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // अपना Google Script URL यहाँ डालें
+
+    async function checkWallet() {
+        const mobile = document.getElementById('mobileInput').value;
+        const resultArea = document.getElementById('resultArea');
+        const balanceTxt = document.getElementById('balanceAmount');
+
+        if(mobile.length < 10) return alert("सही मोबाइल नंबर दर्ज करें");
+
+        balanceTxt.innerText = "खोज रहे हैं...";
+        resultArea.style.display = 'block';
+
+        try {
+            // Google Sheet से डेटा लाने का लॉजिक
+            const response = await fetch(`${scriptURL}?action=getWallet&mobile=${mobile}`);
+            const data = await response.json();
+
+            if(data.success) {
+                balanceTxt.innerText = `₹${data.balance}`;
+                document.getElementById('historyContent').innerHTML = data.historyHTML;
+                
+                // लो बैलेंस अलर्ट
+                if(data.balance < 200) document.getElementById('lowBalMsg').style.display = 'block';
+                else document.getElementById('lowBalMsg').style.display = 'none';
+                
+            } else {
+                alert("यह नंबर मेंबरशिप में पंजीकृत नहीं है।");
+                resultArea.style.display = 'none';
+            }
+        } catch (e) {
+            console.error("Error!", e);
+            balanceTxt.innerText = "Error";
         }
     }
-
-    function sendWhatsApp() {
-        const balance = document.getElementById('balance').innerText;
-        const msg = encodeURIComponent(`नमस्ते! आपके Pratiksha Wallet का वर्तमान बैलेंस ₹${balance} है। किसी भी सहायता के लिए संपर्क करें।`);
-        window.open(`https://wa.me/?text=${msg}`);
-    }
-
-    function recharge() {
-        alert("Redirecting to Secure Payment Gateway...");
-    }
-
-    // पेज लोड होते ही चेक करें
-    window.onload = checkBalance;
 </script>
 
 </body>
