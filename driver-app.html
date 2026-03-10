@@ -21,23 +21,52 @@
             color: white; 
             margin: 0; 
             padding-bottom: 100px; 
-            background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent), radial-gradient(2px 2px at 150px 150px, #fff, transparent);
-            background-size: 200px 200px;
-            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ✨ चलायमान सितारों का जादू (Animated Galaxy) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 100px 150px, #ffd700, transparent),
+                radial-gradient(2px 2px at 250px 350px, #fff, transparent);
+            background-size: 300px 300px;
+            z-index: -1;
+            animation: starsMove 50s linear infinite;
+        }
+
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-300px); }
         }
 
         .app-header { padding: 25px 15px; text-align: center; }
-        .app-logo { width: 70px; height: 70px; border-radius: 50%; background: white; padding: 5px; border: 2px solid var(--sun-orange); box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+        .app-logo { 
+            width: 70px; height: 70px; border-radius: 50%; background: white; 
+            padding: 5px; border: 2px solid var(--sun-orange); 
+            box-shadow: 0 0 25px rgba(255, 140, 0, 0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(255, 140, 0, 0.4); }
+            to { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
 
         .card { 
-            background: var(--pure-moon); 
+            background: rgba(255, 255, 255, 0.98); 
             padding: 22px; border-radius: 30px; 
             margin: 0 15px 20px 15px; 
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
             color: #000;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
-        h3 { color: #000; font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 15px; }
+        h3 { color: #000; font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; margin-bottom: 15px; }
 
         .input-group { display: flex; gap: 10px; margin: 8px 0 12px 0; }
         .input-group input { margin: 0; flex: 1; }
@@ -58,15 +87,15 @@
 
         .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
         .cat-btn { background: #e2e8f0; border: 1px solid #cbd5e1; padding: 10px 5px; border-radius: 12px; font-size: 0.7rem; font-weight: 800; color: #475569; cursor: pointer; }
-        .cat-btn.active { background: var(--sun-orange); color: white; border-color: var(--sun-orange); }
+        .cat-btn.active { background: var(--sun-orange); color: white; border-color: var(--sun-orange); box-shadow: 0 4px 12px rgba(255, 140, 0, 0.4); }
 
-        .btn-add { background: #000; color: #fff; width: 100%; padding: 15px; border-radius: 12px; font-weight: 800; border: none; margin-bottom: 10px; }
-        .btn-primary { background: var(--sun-orange); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; }
-        .btn-success { background: #128C7E; color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; }
+        .btn-add { background: #000; color: #fff; width: 100%; padding: 15px; border-radius: 12px; font-weight: 800; border: none; margin-bottom: 10px; cursor: pointer; }
+        .btn-primary { background: var(--sun-orange); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        .btn-success { background: #128C7E; color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
 
-        #liveList { margin-top: 10px; font-size: 0.85rem; background: #f8fafc; padding: 12px; border-radius: 15px; border: 1px dashed #cbd5e1; color: #334155; }
+        #liveList { margin-top: 10px; font-size: 0.85rem; background: #f8fafc; padding: 12px; border-radius: 15px; border: 1px dashed #cbd5e1; color: #334155; min-height: 40px; }
         
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(1, 4, 9, 0.98); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); z-index: 1000; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(1, 4, 9, 0.95); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid rgba(255,255,255,0.1); z-index: 1000; backdrop-filter: blur(10px); }
         .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; cursor: pointer; }
         .nav-item.active { color: var(--pure-moon); }
         .nav-item span { font-size: 1.5rem; }
@@ -78,7 +107,7 @@
 
     <div class="app-header">
         <img src="logo.png" alt="PRATIKSHA" class="app-logo">
-        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.4rem; letter-spacing: 2px;">LOGISTICS HUB</h2>
+        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.4rem; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.3);">LOGISTICS HUB</h2>
     </div>
 
     <div class="container">
@@ -101,7 +130,7 @@
                     <button class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
                 </div>
 
-                <select id="itemSelect"><option value="">श्रेणी चुनें...</option></select>
+                <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
                 <select id="serviceType">
                     <option value="प्रेस">💨 सामान्य प्रेस</option>
                     <option value="स्टीम प्रेस">💎 कीमती स्टीम प्रेस</option>
@@ -131,6 +160,13 @@
                 
                 <label>कुल प्राप्त राशि (₹)</label>
                 <input type="number" id="amount" placeholder="0.00">
+
+                <label>भुगतान का तरीका</label>
+                <select id="payMode">
+                    <option value="Cash">Cash (नकद)</option>
+                    <option value="Online">Online (UPI)</option>
+                    <option value="Wallet">Wallet (सदस्यता वॉलेट)</option>
+                </select>
                 
                 <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें ✅</button>
             </div>
@@ -143,9 +179,12 @@
     </div>
 
 <script>
-    // 👤 जादुई कांटेक्ट पिकर
+    // 🚀 TITU 5G ENGINE - APPS SCRIPT LINK
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
+
+    // 👤 कांटेक्ट पिकर लॉजिक
     async function getContact(mobileId) {
-        if (!('contacts' in navigator)) return alert("क्षमा करें! यह सुविधा केवल क्रोम ब्राउज़र पर काम करती है।");
+        if (!('contacts' in navigator)) return alert("Browser Support missing!");
         try {
             const props = ['tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
@@ -164,6 +203,7 @@
         window.scrollTo(0,0);
     }
 
+    // 🧺 इन्वेंटरी डेटा (सभी 'अन्य' विकल्पों के साथ सुरक्षित)
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य (डिजाइनर)"],
         women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य (डिजाइनर)"],
@@ -194,18 +234,39 @@
         document.getElementById('itemQty').value = "1";
     }
 
-    function submitPickup() {
+    async function submitPickup() {
         const mobile = document.getElementById('pickMobile').value;
         if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
-        alert("संग्रह सफल! भगवान आपका दिन शुभ करें।");
-        location.reload();
+        
+        const btn = document.getElementById('pickBtn');
+        btn.innerText = "सेव हो रहा है..."; btn.disabled = true;
+
+        const details = selectedItems.join(", ");
+        const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=Washing&details=${encodeURIComponent(details)}`;
+
+        try {
+            await fetch(url);
+            alert("संग्रह सफल! भगवान आपका दिन शुभ करें।");
+            location.reload();
+        } catch (e) { alert("नेटवर्क त्रुटि!"); btn.innerText = "संग्रह संपन्न करें"; btn.disabled = false; }
     }
 
-    function confirmDelivery() {
+    async function confirmDelivery() {
+        const mobile = document.getElementById('delMobile').value;
         const amt = document.getElementById('amount').value;
-        if(!amt) return alert("राशि लिखें!");
-        alert("डिलीवरी सफल! मिशन पूरा हुआ। ✅");
-        location.reload();
+        const mode = document.getElementById('payMode').value;
+        if(!mobile || !amt) return alert("राशि और मोबाइल लिखें!");
+
+        const btn = document.getElementById('delBtn');
+        btn.innerText = "अपडेट हो रहा है..."; btn.disabled = true;
+
+        const url = `${scriptURL}?action=addBill&mobile=${mobile}&amount=${amt}&mode=${mode}`;
+
+        try {
+            await fetch(url);
+            alert("डिलीवरी सफल! मिशन पूरा हुआ। ✅");
+            location.reload();
+        } catch (e) { alert("Error!"); btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; }
     }
 </script>
 </body>
