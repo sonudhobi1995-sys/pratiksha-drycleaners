@@ -25,36 +25,59 @@
             overflow-x: hidden;
         }
 
-        /* 🌌 मंदाकिनी और एनिमेटेड तारे */
+        /* 🌌 1. मंदाकिनी (The Milky Way Layer) */
         .milky-way {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #000205 100%);
-            z-index: -5;
+            z-index: -10;
         }
 
-        /* ✨ झिलमिलाते सितारे */
-        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -4; pointer-events: none; }
+        /* ✨ 2. एनिमेटेड तारे (Twinkling Stars Layer) */
+        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -9; pointer-events: none; }
         .star {
             position: absolute; background: white; border-radius: 50%;
             animation: twinkle var(--duration) infinite ease-in-out;
             opacity: 0.5;
         }
-        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
 
-        .app-header { padding: 40px 15px 25px; text-align: center; border-bottom: 2px solid var(--sun-orange); backdrop-filter: blur(5px); }
+        /* 🪐 3. सजीव सौरमंडल (Moving Solar System) */
+        .solar-system {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%; z-index: -8; pointer-events: none; opacity: 0.4;
+        }
+        .sun {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; height: 60px; background: radial-gradient(circle, #ffcc00, #ff8800, transparent);
+            border-radius: 50%; box-shadow: 0 0 50px #ff8800;
+        }
+        .orbit {
+            position: absolute; top: 50%; left: 50%; border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%; transform: translate(-50%, -50%);
+            animation: rotate linear infinite;
+        }
+        .planet {
+            position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* 📱 UI एलीमेंट्स */
+        .app-header { padding: 40px 15px 25px; text-align: center; border-bottom: 2px solid var(--sun-orange); backdrop-filter: blur(5px); position: relative; z-index: 10; }
         
         .card { 
-            background: rgba(255, 255, 255, 0.02); 
+            background: rgba(255, 255, 255, 0.03); 
             padding: 25px; border-radius: 35px; 
             margin: 20px 15px; 
             border: 2px solid var(--glass-border);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative; z-index: 10;
         }
         
         h3 { color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 20px; letter-spacing: 2px; }
-        label { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-top: 15px; display: block; letter-spacing: 1.5px; }
+        label { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-top: 15px; display: block; letter-spacing: 1.5px; }
 
         input, select { 
             width: 100%; padding: 16px; margin: 8px 0 12px 0; 
@@ -64,21 +87,20 @@
         }
 
         .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); padding: 12px 5px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; color: white; cursor: pointer; }
-        .cat-btn.active { background: var(--sun-orange); border-color: var(--sun-orange); }
+        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); padding: 12px 5px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; color: white; cursor: pointer; transition: 0.3s; }
+        .cat-btn.active { background: var(--sun-orange); border-color: var(--sun-orange); box-shadow: 0 0 15px var(--sun-orange); }
 
         .btn-add { background: none; color: var(--accent-gold); width: 100%; padding: 15px; border-radius: 18px; font-weight: 800; border: 1px dashed var(--accent-gold); margin-bottom: 15px; cursor: pointer; }
         .btn-primary { background: linear-gradient(135deg, var(--sun-orange), #ff4500); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
         .btn-success { background: linear-gradient(135deg, #128C7E, #075E54); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-        /* 📋 इन्वेंटरी लिस्ट स्टाइल */
-        #liveList { margin-top: 15px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 20px; border: 1px dashed var(--accent-gold); }
+        #liveList { margin-top: 15px; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 20px; border: 1px dashed var(--accent-gold); }
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; }
-        .remove-btn { color: var(--error-red); font-weight: 900; padding: 5px 10px; cursor: pointer; border: 1px solid var(--error-red); border-radius: 8px; font-size: 0.7rem; }
+        .remove-btn { color: var(--error-red); font-weight: 900; cursor: pointer; border: 1px solid var(--error-red); padding: 4px 8px; border-radius: 8px; font-size: 0.65rem; }
 
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.95); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid var(--glass-border); z-index: 1000; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.9); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid var(--glass-border); z-index: 1000; backdrop-filter: blur(10px); }
         .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 800; cursor: pointer; width: 50%; }
-        .nav-item.active { color: var(--accent-gold); }
+        .nav-item.active { color: var(--accent-gold); text-shadow: 0 0 10px var(--accent-gold); }
         .nav-item span { font-size: 1.8rem; }
         .hidden { display: none; }
     </style>
@@ -87,10 +109,18 @@
 
     <div class="milky-way"></div>
     <div class="stars-layer" id="starsContainer"></div>
+    
+    <div class="solar-system">
+        <div class="sun"></div>
+        <div class="orbit" style="width:140px; height:140px; animation-duration: 10s;"><div class="planet" style="width:6px; height:6px; background:#aaa;"></div></div>
+        <div class="orbit" style="width:200px; height:200px; animation-duration: 20s;"><div class="planet" style="width:10px; height:10px; background:#e3bb76;"></div></div>
+        <div class="orbit" style="width:280px; height:280px; animation-duration: 30s;"><div class="planet" style="width:11px; height:11px; background:#2271b3;"></div></div>
+        <div class="orbit" style="width:360px; height:360px; animation-duration: 45s;"><div class="planet" style="width:8px; height:8px; background:#e27b58;"></div></div>
+    </div>
 
     <div class="app-header">
         <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.6rem; letter-spacing: 3px; color: var(--accent-gold);">PRATIKSHA LOGISTICS</h2>
-        <div style="font-size: 0.6rem; letter-spacing: 3px; color: #fff; margin-top: 5px;">Astra v10 • Cosmic Edition</div>
+        <div style="font-size: 0.6rem; letter-spacing: 3px; color: #fff; margin-top: 5px; opacity: 0.8;">Unified Cosmic Fleet Engine</div>
     </div>
 
     <div class="container">
@@ -102,9 +132,9 @@
                     <input type="tel" id="pickMobile" placeholder="9929xxxxxx" style="margin:0; flex:1;">
                     <button type="button" style="padding:0 15px; border-radius:15px; border:1px solid var(--accent-gold); background:none; color:var(--accent-gold);" onclick="getContact('pickMobile', 'pickName')">👤</button>
                 </div>
-                <input type="text" id="pickName" placeholder="ग्राहक का नाम" readonly style="color:var(--accent-gold); font-weight:bold;">
+                <input type="text" id="pickName" placeholder="नाम..." readonly style="color:var(--accent-gold); font-weight:bold;">
                 
-                <label>श्रेणी (Category)</label>
+                <label>श्रेणी</label>
                 <div class="cat-grid">
                     <button class="cat-btn" onclick="loadItems('men', this)">पुरुष</button>
                     <button class="cat-btn" onclick="loadItems('women', this)">महिला</button>
@@ -114,14 +144,14 @@
                     <button class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
                 </div>
 
-                <label>सेवा & कपड़ा</label>
+                <label>विवरण</label>
                 <select id="serviceType">
                     <option value="सामान्य प्रेस">💨 सामान्य प्रेस</option>
                     <option value="स्टीम प्रेस">💎 स्टीम प्रेस</option>
                     <option value="धुलाई प्रेस">🧼 धुलाई प्रेस</option>
                     <option value="ड्राई क्लीनिंग">✨ ड्राई क्लीनिंग</option>
                 </select>
-                <select id="itemSelect"><option value="">श्रेणी चुनें...</option></select>
+                <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
                 
                 <div style="display:flex; gap:10px;">
                     <input type="number" id="itemQty" value="1">
@@ -129,36 +159,29 @@
                 </div>
 
                 <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
-                
-                <div id="liveList">
-                    <b>📋 वर्तमान लिस्ट:</b>
-                    <div id="listContent"></div>
-                </div>
-
-                <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें & WhatsApp</button>
+                <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
+                <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">पिकअप संपन्न करें & WhatsApp</button>
             </div>
         </div>
 
         <div id="delivery-sec" class="app-sec hidden">
             <div class="card">
                 <h3>🚚 डिलीवरी मिशन</h3>
-                <label>ग्राहक मोबाइल</label>
+                <label>मोबाइल</label>
                 <div style="display: flex; gap: 10px; margin-bottom: 12px;">
                     <input type="tel" id="delMobile" placeholder="9929xxxxxx" style="margin:0; flex:1;">
                     <button type="button" style="padding:0 15px; border-radius:15px; border:1px solid var(--accent-gold); background:none; color:var(--accent-gold);" onclick="getContact('delMobile', 'delName')">👤</button>
                 </div>
                 <input type="text" id="delName" placeholder="नाम" readonly style="color:var(--accent-gold); font-weight:bold;">
-                
-                <label>कुल प्राप्त राशि (₹)</label>
+                <label>राशि (₹)</label>
                 <input type="number" id="amount" placeholder="0.00" style="font-size: 1.8rem; text-align: center; color: var(--sun-orange); font-weight: 900;">
-                
-                <label>भुगतान का तरीका</label>
+                <label>माध्यम</label>
                 <select id="payMode">
-                    <option value="Cash">💵 Cash (नकद)</option>
-                    <option value="Online">📱 Online (UPI)</option>
-                    <option value="Wallet">💳 Wallet (सदस्यता)</option>
+                    <option value="Cash">💵 Cash</option>
+                    <option value="Online">📱 Online</option>
+                    <option value="Wallet">💳 Wallet</option>
                 </select>
-                <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें ✅</button>
+                <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न ✅</button>
             </div>
         </div>
     </div>
@@ -171,10 +194,9 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
-    // ✨ तारे बनाने का रूहानी इंजन
     function createStars() {
         const container = document.getElementById('starsContainer');
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 70; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
@@ -188,7 +210,7 @@
     window.onload = () => { createStars(); };
 
     async function getContact(mobileId, nameId) {
-        if (!('contacts' in navigator)) return alert("कॉन्टैक्ट सपोर्ट नहीं है।");
+        if (!('contacts' in navigator)) return alert("सपोर्ट नहीं है");
         try {
             const props = ['name', 'tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
@@ -208,11 +230,11 @@
     }
 
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य"],
-        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य"],
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "अन्य"],
+        women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "अन्य"],
         kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "अन्य"],
         home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "अन्य"],
-        winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट", "अन्य"],
+        winter: ["जैकैट", "स्वेटर", "कोट", "अन्य"],
         other: ["बैग", "टोपी", "मोजे", "रुमाल", "अन्य"]
     };
 
@@ -224,7 +246,6 @@
         inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
     }
 
-    // 📋 इन्वेंटरी मैनेजमेंट (With Delete Feature)
     let selectedItems = [];
     function addToInv() {
         const item = document.getElementById('itemSelect').value;
@@ -232,9 +253,7 @@
         const service = document.getElementById('serviceType').value;
         const note = document.getElementById('itemNote').value;
         if(!item || !qty) return alert("चेक करें!");
-        
-        const entry = { text: `${item} (${qty}) - ${service} [${note}]`, id: Date.now() };
-        selectedItems.push(entry);
+        selectedItems.push({ text: `${item} (${qty}) - ${service} [${note}]`, id: Date.now() });
         renderList();
     }
 
@@ -259,39 +278,28 @@
         const mobile = document.getElementById('pickMobile').value;
         const name = document.getElementById('pickName').value;
         const serviceFinal = document.getElementById('serviceType').value;
-        if(!mobile || selectedItems.length === 0) return alert("डेटा अपूर्ण है!");
-        
+        if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
         const btn = document.getElementById('pickBtn');
-        btn.innerText = "सिंक जारी..."; btn.disabled = true;
+        btn.innerText = "ब्रह्मांडीय सिंक..."; btn.disabled = true;
         const details = selectedItems.map(i => i.text).join(", ");
-
         const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(serviceFinal)}&details=${encodeURIComponent(details)}`;
-
         try {
             await fetch(url, { mode: 'no-cors' });
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स*\nनमस्ते *${name || 'ग्राहक'}*,\nकपड़े सफलतापूर्वक पिकअप कर लिए गए हैं।\n*विवरण:* ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nपिकअप सफल: " + details)}`, '_blank');
             location.reload();
-        } catch (e) { alert("त्रुटि!"); btn.innerText = "संपन्न करें"; btn.disabled = false; }
+        } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
     }
 
     async function confirmDelivery() {
         const mobile = document.getElementById('delMobile').value;
-        const name = document.getElementById('delName').value;
         const amt = document.getElementById('amount').value;
-        const mode = document.getElementById('payMode').value;
-        if(!mobile || !amt) return alert("डेटा भरें!");
-
-        const btn = document.getElementById('delBtn');
-        btn.innerText = "सिंक जारी..."; btn.disabled = true;
-        const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${mode}`;
-
+        if(!mobile || !amt) return alert("चेक करें!");
+        const url = `${scriptURL}?action=addBill&mobile=${mobile}&amount=${amt}&mode=${document.getElementById('payMode').value}`;
         try {
             await fetch(url, { mode: 'no-cors' });
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स*\nकपड़े डिलीवर कर दिए गए हैं।\n*राशि:* ₹${amt}\n*माध्यम:* ${mode}\nधन्यवाद! ✅`;
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nडिलीवरी सफल: ₹" + amt)}`, '_blank');
             location.reload();
-        } catch (e) { alert("त्रुटि!"); btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; }
+        } catch (e) { alert("त्रुटि!"); }
     }
 </script>
 </body>
