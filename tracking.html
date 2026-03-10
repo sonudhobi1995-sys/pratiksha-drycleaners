@@ -3,247 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Track Journey | PRATIKSHA</title>
+    <title>Track Journey | PRATIKSHA v10</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --sun-gold: #FFD700;
-            --deep-space: #010103;
-            --orbit-line: rgba(255, 215, 0, 0.2);
-            --purity-green: #00FF7F;
+        :root { 
+            --sun-gold: #FFD700; 
+            --deep-space: #010409; 
+            --orbit-line: rgba(255, 215, 0, 0.15); 
+            --glass: rgba(255, 255, 255, 0.03); 
         }
 
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; 
             background-color: var(--deep-space); 
-            margin: 0; padding: 20px; color: white;
-            background-image: radial-gradient(circle at top right, rgba(255,140,0,0.1) 0%, transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(0,31,63,0.3) 0%, transparent 40%);
-            min-height: 100vh;
+            margin: 0; padding: 20px; color: white; 
+            min-height: 100vh; overflow-x: hidden;
+            position: relative;
         }
+
+        /* ✨ वही सितारों वाला असली बैकग्राउंड जो आपने मांगा था */
+        .stars-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 200%;
+            background-image: 
+                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
+                radial-gradient(2.5px 2.5px at 300px 50px, #fff, transparent);
+            background-size: 300px 300px;
+            animation: stars-stream 60s infinite linear;
+            z-index: -1; opacity: 0.6;
+        }
+        @keyframes stars-stream { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
         .track-container { 
             max-width: 450px; margin: auto; 
-            background: rgba(255, 255, 255, 0.05); 
-            padding: 30px 20px; border-radius: 30px; 
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: var(--glass); 
+            padding: 35px 20px; border-radius: 40px; 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 215, 0, 0.1); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6); 
         }
         
-        .status-header { text-align: center; margin-bottom: 30px; }
-        .status-header h2 { 
-            font-family: 'Playfair Display', serif; 
-            color: var(--sun-gold); font-size: 1.8rem; margin: 0;
-            letter-spacing: 1px;
-        }
+        .status-header { text-align: center; margin-bottom: 35px; }
+        .status-header h2 { font-family: 'Playfair Display', serif; color: var(--sun-gold); font-size: 1.8rem; margin: 0; letter-spacing: 2px; }
 
-        .back-btn { 
-            display: inline-block; margin-bottom: 20px; color: rgba(255,255,255,0.5); 
-            text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;
-        }
+        .back-btn { display: inline-block; margin-bottom: 25px; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; font-weight: bold; }
 
-        /* कोस्मिक प्रोग्रेस स्टेप्स */
-        .step-container { display: flex; flex-direction: column; gap: 25px; margin-top: 10px; position: relative; }
-        
-        .step { 
-            display: flex; align-items: center; gap: 20px; 
-            opacity: 0.2; transition: all 0.8s ease;
-            transform: translateX(-10px);
-        }
-        .step.active { opacity: 1; transform: translateX(0); }
+        /* 4-स्टेप्स प्रोग्रेस बार */
+        .step-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; position: relative; }
+        .step { display: flex; align-items: center; gap: 20px; opacity: 0.15; transition: all 1s ease; }
+        .step.active { opacity: 1; filter: drop-shadow(0 0 5px var(--sun-gold)); }
 
         .circle { 
-            width: 35px; height: 35px; border-radius: 50%; 
-            background: rgba(255,255,255,0.1); 
+            width: 42px; height: 42px; border-radius: 50%; 
+            background: rgba(255,255,255,0.05); 
             display: flex; align-items: center; justify-content: center; 
-            color: white; font-size: 0.9rem; z-index: 1;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: 0.5s;
+            color: white; font-size: 1rem; z-index: 1; 
+            border: 1px solid rgba(255,255,255,0.1); font-weight: 900;
         }
-        .active .circle { 
-            background: var(--sun-gold); color: black; 
-            box-shadow: 0 0 20px var(--sun-gold);
-            border-color: var(--sun-gold);
-        }
+        .active .circle { background: var(--sun-gold); color: black; box-shadow: 0 0 25px var(--sun-gold); border-color: var(--sun-gold); }
         
-        /* धुरी (Line) */
-        .line { 
-            position: absolute; left: 17px; top: 0; width: 1px; height: 100%; 
-            background: var(--orbit-line); z-index: 0; 
-        }
-        .line-progress {
-            position: absolute; left: 17px; top: 0; width: 1px; 
-            background: var(--sun-gold); z-index: 0;
-            transition: height 1s ease;
-            box-shadow: 0 0 10px var(--sun-gold);
-        }
+        .line { position: absolute; left: 21px; top: 0; width: 1px; height: 100%; background: var(--orbit-line); z-index: 0; }
+        .line-progress { position: absolute; left: 21px; top: 0; width: 1.5px; background: var(--sun-gold); z-index: 0; transition: height 1.5s ease; box-shadow: 0 0 15px var(--sun-gold); }
         
-        /* इन्वेंटरी कार्ड - Center of Gravity */
-        .inventory-card { 
-            background: rgba(255, 215, 0, 0.03); 
-            border: 1px solid rgba(255, 215, 0, 0.2); 
-            border-radius: 20px; padding: 20px; margin-top: 40px; 
-            position: relative; overflow: hidden;
-        }
-        .inventory-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
+        .inventory-card { background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 25px; padding: 25px; margin-top: 40px; }
+        .inventory-title { font-family: 'Playfair Display', serif; color: var(--sun-gold); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 2px; font-weight: 900; }
+        #inventoryList div { margin-bottom: 12px; padding-left: 15px; border-left: 2px solid var(--sun-gold); font-size: 0.9rem; opacity: 0.9; }
 
-        .inventory-title { 
-            font-family: 'Playfair Display', serif;
-            font-weight: bold; color: var(--sun-gold); 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 12px; margin-bottom: 15px; 
-            display: flex; justify-content: space-between; align-items: center;
-            letter-spacing: 1px;
-        }
-
-        #inventoryList div { 
-            margin-bottom: 10px; padding-left: 15px; 
-            border-left: 2px solid var(--sun-gold); 
-            font-size: 0.95rem; opacity: 0.9;
-        }
-
-        /* बटन्स */
-        .wa-btn { 
-            width: 100%; margin-top: 25px; 
-            background: linear-gradient(135deg, #25D366, #128C7E); 
-            color: white; border: none; padding: 16px; 
-            border-radius: 15px; font-weight: bold; cursor: pointer; 
-            display: flex; justify-content: center; align-items: center; gap: 12px; 
-            font-size: 1rem; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-            transition: 0.3s;
-        }
-        .wa-btn:active { transform: scale(0.95); }
-
-        .refresh-btn { 
-            display: block; width: 100%; margin-top: 20px; 
-            background: none; border: 1px solid rgba(255,255,255,0.1); 
-            padding: 12px; border-radius: 12px; color: rgba(255,255,255,0.4); 
-            cursor: pointer; font-size: 0.75rem; letter-spacing: 1px;
-        }
-
-        .footer-blessing {
-            text-align: center; font-size: 0.7rem; color: rgba(255,255,255,0.3);
-            margin-top: 30px; line-height: 1.5;
-        }
+        .wa-btn { width: 100%; margin-top: 30px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 900; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; font-size: 0.95rem; text-transform: uppercase; }
+        .footer-blessing { text-align: center; font-size: 0.65rem; color: #475569; margin-top: 40px; line-height: 2; letter-spacing: 1px; }
     </style>
 </head>
 <body>
-
+    <div class="stars-container"></div>
     <div class="track-container">
-        <a href="index.html" class="back-btn">← RETURN HOME</a>
-        
+        <a href="index.html" class="back-btn">← मुख्य द्वार</a>
         <div class="status-header">
-            <h2 id="statusTitle">शुद्धिकरण चक्र</h2>
-            <p style="font-size: 0.7rem; color: var(--sun-gold); margin-top: 8px; letter-spacing: 2px; text-transform: uppercase;">
-                ID: <span id="dispMobile">...</span>
-            </p>
+            <h2>शुद्धिकरण चक्र</h2>
+            <div style="font-size: 0.6rem; color: var(--sun-gold); margin-top: 10px; letter-spacing: 3px; text-transform: uppercase;">ID: <span id="dispMobile">...</span></div>
         </div>
-
         <div class="step-container">
             <div class="line"></div>
-            <div class="line-progress" id="progressLine"></div>
-            
-            <div class="step" id="step1"><div class="circle">1</div> 🧺 चक्रारंभ (In Process)</div>
-            <div class="step" id="step2"><div class="circle">2</div> 🧼 शुचिता (Washing)</div>
-            <div class="step" id="step3"><div class="circle">3</div> 👔 सुसज्जित (Ironing)</div>
-            <div class="step" id="step4"><div class="circle">4</div> ✨ सिद्ध (Ready)</div>
-            <div class="step" id="step5"><div class="circle">5</div> 🚚 गंतव्य (Delivered)</div>
+            <div class="line-progress" id="progressLine" style="height: 0px;"></div>
+            <div class="step" id="step1"><div class="circle">1</div> 🧺 पिकअप</div>
+            <div class="step" id="step2"><div class="circle">2</div> 🧼 प्रक्रिया</div>
+            <div class="step" id="step3"><div class="circle">3</div> ✨ तैयार</div>
+            <div class="step" id="step4"><div class="circle">4</div> ✅ डिलीवर</div>
         </div>
-
         <div class="inventory-card">
             <div class="inventory-title"> Manifest / सूची <span>✨</span></div>
-            <div id="inventoryList">विवरण ब्रह्मांड से आ रहा है...</div>
+            <div id="inventoryList">विवरण आ रहा है...</div>
         </div>
-
-        <button class="wa-btn" onclick="sendToWhatsApp()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22"> व्हाट्सएप पर विवरण मंगाएं
-        </button>
-
-        <button class="refresh-btn" onclick="location.reload()">🔄 रिफ्रेश स्टेटस</button>
-
-        <div class="footer-blessing">
-            ।। प्रतीक्षा एवं नीति के उज्जवल भविष्य हेतु ।। <br>
-            © 2026 SONU NEEL
-        </div>
+        <button class="wa-btn" onclick="sendToWhatsApp()">व्हाट्सएप विवरण</button>
+        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> प्रतीक्षा एवं नीति समर्पित © 2026</div>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyJTODOfrdJ42n1FasR7o-wTg8ER2Fra5Z87GL3rv2WfTlkSEkATK2rIrMwbkSH1D-s/exec';
-        
-        let globalStatus = "प्रक्रिया में";
-        let globalDetails = "";
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
+        let globalStatus = "Pickup"; let globalDetails = "";
 
         window.onload = function() {
             const mobile = localStorage.getItem('userMobile');
             if (!mobile) { window.location.href = "login.html"; return; }
             document.getElementById('dispMobile').innerText = mobile;
 
-            fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
-            .then(response => response.json())
+            fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`)
+            .then(res => res.json())
             .then(data => {
-                if(data.status === "Not Found" || !data.details) {
-                    document.getElementById('inventoryList').innerText = "कोई सक्रिय चक्र नहीं मिला।";
-                    updateSteps("None");
-                    return;
-                }
-
-                globalStatus = data.status;
-                globalDetails = data.details;
-
+                if(data.status === "not_found") { document.getElementById('inventoryList').innerText = "कोई रिकॉर्ड नहीं मिला।"; return; }
+                globalStatus = data.orderStatus || "Pickup";
+                globalDetails = data.details || "";
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
-                const items = globalDetails.split(',');
-                items.forEach(item => {
-                    if(item.trim()) invList.innerHTML += `<div>${item.trim()}</div>`;
-                });
-
+                globalDetails.split(',').forEach(item => { if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; });
                 updateSteps(globalStatus);
-            })
-            .catch(err => {
-                document.getElementById('inventoryList').innerText = "कनेक्शन बाधित। कृपया पुनः प्रयास करें।";
             });
         };
 
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            
-            const stepsMap = {
-                "प्रक्रिया में": 1, "In Process": 1,
-                "धुलाई": 2, "Washing": 2,
-                "आयरनिंग": 3, "Ironing": 3, "प्रेस": 3,
-                "रेडी टू डिलीवरी": 4, "Ready": 4, "सिद्ध": 4,
-                "Delivered": 5, "डिलीवर कर दिया": 5, "गंतव्य": 5
-            };
-
-            const level = stepsMap[status] || 0;
+            const stepsMap = { "Pickup": 1, "Order Pickup": 1, "पिकअप": 1, "Processing": 2, "Washing": 2, "प्रक्रिया": 2, "Ready": 3, "सिद्ध": 3, "तैयार": 3, "Delivered": 4, "डिलीवर": 4 };
+            let level = stepsMap[status] || 1;
             const progressLine = document.getElementById('progressLine');
-            
-            // लाइन की हाइट कैलकुलेट करना (25px गैप + 35px सर्कल)
-            if(level > 0) {
-                const heightPercentage = ((level - 1) / 4) * 100;
-                progressLine.style.height = `calc(${heightPercentage}% + 18px)`;
-            }
-
-            for(let i=1; i<=level; i++) {
-                const el = document.getElementById('step' + i);
-                if(el) el.classList.add('active');
-            }
+            const h = ((level - 1) / 3) * 100;
+            progressLine.style.height = level > 1 ? `calc(${h}% - 5px)` : "0px";
+            for(let i=1; i<=level; i++) { const el = document.getElementById('step' + i); if(el) el.classList.add('active'); }
         }
 
         function sendToWhatsApp() {
             const mobile = localStorage.getItem('userMobile');
-            const name = localStorage.getItem('userName') || "प्रिय ग्राहक";
-            if(!mobile) return;
-
-            const msg = `*प्रतीक्षा ड्राई क्लीनर्स* 🧺✨\n--------------------------\n*नमस्ते ${name},*\nआपका शुद्धिकरण चक्र: *${globalStatus}*\n\n*कपड़ों का Manifest:*\n${globalDetails.split(',').join('\n')}\n\nधन्यवाद! 🙏\n_प्रतीक्षा एवं नीति हेतु समर्पित_`;
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स*\nस्थिति: *${globalStatus}*\nविवरण: ${globalDetails}\nधन्यवाद!`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
