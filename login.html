@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Pratiksha Dry Cleaners</title>
+    <title>पंजीकरण - प्रतीक्षा ड्राई क्लीनर्स</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root { --sun-orange: #FF8C00; --saturn-blue: #001F3F; --cream-bg: #FFFDD0; }
@@ -33,8 +33,8 @@
     </div>
 
     <script>
-        // --- आपका ताज़ा रामबाण V4 Google Script URL ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD3DOpl3cCCV1HWlZnlsp_n9ERHSH4i0I02cHt3X0PFPIp6tjzQrdVnEtn5RzCPKZL/exec';
+        // ✨ PRATIKSHA SUPREME V8.5 URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyJTODOfrdJ42n1FasR7o-wTg8ER2Fra5Z87GL3rv2WfTlkSEkATK2rIrMwbkSH1D-s/exec';
 
         document.getElementById('regForm').onsubmit = function(e) {
             e.preventDefault();
@@ -46,21 +46,25 @@
             btn.innerText = "पंजीकरण हो रहा है...";
             btn.disabled = true;
 
-            // डेटा को 'प्रतीक्षा डिजिटल कोर' (Master_sheet) में भेजना
+            // डेटा को 'Supreme Engine' में भेजना
             const finalURL = `${scriptURL}?action=addCustomer&houseNo=${encodeURIComponent(house)}&name=${encodeURIComponent(name)}&mobile=${mobile}`;
 
-            // "Fire & Forget" लॉजिक: डेटा फेंको और आगे बढ़ो
-            fetch(finalURL, { mode: 'no-cors' });
+            // Fire & Forget: डेटा क्लाउड की ओर
+            fetch(finalURL, { mode: 'no-cors' })
+            .then(() => {
+                console.log("Data sent to Supreme Engine");
+            })
+            .catch(err => console.log("Network logic handled"));
 
-            // 1.5 सेकंड का इंतज़ार ताकि डेटा शीट की तरफ उड़ सके
+            // 1.5 सेकंड का इंतज़ार ताकि डेटा सुरक्षित हो सके
             setTimeout(() => {
-                // डेटा को ग्राहक के फोन में सुरक्षित करना
+                // लोकल मेमोरी में सुरक्षित करना (Offline Access के लिए)
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
                 localStorage.setItem('isLoggedIn', 'true');
                 
-                // मुख्य द्वार (Index.html) खोलना
+                // मुख्य द्वार (Cosmic Hub) की ओर प्रस्थान
                 window.location.href = "index.html";
             }, 1500);
         };
