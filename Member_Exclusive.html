@@ -3,149 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Member Exclusive | Pratiksha Drycleaners</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Premium Membership | Pratiksha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --moonlight: #e0e0e0;
-            --star-gold: #FFD700;
-            --midnight-blue: #020617;
-            --saturn-ring: rgba(255, 215, 0, 0.2);
+        :root {
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --space-dark: #010103;
+            --saturn-blue: #001F3F;
+            --sun-orange: #FF8C00;
         }
 
-        body {
-            font-family: 'Inter', 'Mukta', sans-serif;
-            background-color: var(--midnight-blue);
-            color: var(--moonlight);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; padding: 0; 
+            background: var(--space-dark); 
+            color: white; 
+            overflow-x: hidden;
+        }
+
+        /* प्रीमियम हैडर */
+        .exclusive-header {
+            padding: 40px 20px;
+            text-align: center;
+            background: radial-gradient(circle at top, #1a1a2e, #010103);
+        }
+
+        .exclusive-header h1 {
+            font-family: 'Playfair Display', serif;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
             margin: 0;
-            background-image: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05) 0%, transparent 50%);
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
+            letter-spacing: 2px;
         }
 
-        .container { padding: 20px; width: 100%; max-width: 450px; }
-
-        .branding { text-align: center; margin-bottom: 30px; margin-top: 20px; }
-        .branding h1 { font-family: 'Playfair Display', serif; color: var(--star-gold); letter-spacing: 4px; margin: 0; }
-        .branding p { font-size: 0.6rem; letter-spacing: 2px; opacity: 0.7; text-transform: uppercase; }
-
-        .card { 
-            background: rgba(255, 255, 255, 0.04); 
-            padding: 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px); text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        /* गोल्डन वॉलेट कार्ड */
+        .wallet-card {
+            width: 85%;
+            margin: -20px auto 30px;
+            background: var(--gold-gradient);
+            border-radius: 20px;
+            padding: 25px;
+            color: #1a1a1a;
+            box-shadow: 0 15px 35px rgba(191, 149, 63, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
-        .wallet-icon { font-size: 3rem; color: var(--star-gold); margin-bottom: 15px; }
+        .wallet-card:active { transform: scale(0.98); }
 
-        input { 
-            width: 100%; padding: 16px; margin: 15px 0; border-radius: 15px; 
-            border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); 
-            color: white; box-sizing: border-box; font-size: 1.1rem; text-align: center;
+        .wallet-card::before {
+            content: ""; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg); pointer-events: none;
         }
 
-        .btn-check { 
-            width: 100%; padding: 18px; border: none; border-radius: 20px; 
-            font-weight: 700; background: linear-gradient(135deg, #FFD700, #FFA500); 
-            color: #000; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-        }
-
-        /* Result Section */
-        #resultArea { display: none; margin-top: 25px; animation: fadeIn 0.5s; }
+        .chip { width: 45px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 5px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.2); }
+        .balance-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
+        .balance-amt { font-size: 2.8rem; font-weight: 900; margin: 5px 0; font-family: 'Inter'; }
         
-        .balance-box {
-            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--star-gold);
-            border-radius: 20px; padding: 20px; margin-bottom: 20px;
+        .card-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
+        .member-name { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
+        .expiry { font-size: 0.7rem; font-weight: 600; }
+
+        /* ट्रांजैक्शन हिस्ट्री */
+        .history-section {
+            background: white;
+            border-radius: 40px 40px 0 0;
+            padding: 30px 20px 100px;
+            min-height: 50vh;
+            color: #333;
         }
 
-        .history-list { text-align: left; font-size: 0.8rem; max-height: 250px; overflow-y: auto; }
-        .history-item { 
-            display: flex; justify-content: space-between; padding: 10px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        .history-title {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .history-title h2 { font-size: 1.2rem; margin: 0; color: var(--saturn-blue); }
+
+        .log-list { list-style: none; padding: 0; margin: 0; }
+        .log-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 5px solid #BF953F;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .log-icon { font-size: 1.5rem; }
+        .log-details { flex-grow: 1; }
+        .log-date { font-size: 0.7rem; color: #888; font-weight: 700; }
+        .log-desc { font-size: 0.9rem; font-weight: 600; color: #444; }
+        .log-amt { font-weight: 800; color: #d32f2f; }
+        .log-amt.plus { color: #2e7d32; }
+
+        /* बैक बटन */
+        .back-btn {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: var(--saturn-blue); color: white; padding: 15px 40px;
+            border-radius: 30px; text-decoration: none; font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4); z-index: 100;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="branding">
-        <h1>PRATIKSHA</h1>
-        <p>Exclusive Member Wallet</p>
+    <div class="exclusive-header">
+        <h1>PREMIUM HUB</h1>
+        <p style="color: #888; font-size: 0.8rem;">आपकी शुचिता, हमारी प्राथमिकता</p>
     </div>
 
-    <div class="card">
-        <i class="fas fa-wallet wallet-icon"></i>
-        <h3 style="margin:0; font-family:'Playfair Display';">प्रीमियम वॉलेट लॉगिन</h3>
-        <p style="font-size: 0.75rem; opacity: 0.7;">अपना रजिस्टर्ड मोबाइल नंबर दर्ज करें</p>
+    <div class="wallet-card">
+        <div class="chip"></div>
+        <div class="balance-label">Current Balance</div>
+        <div class="balance-amt">₹<span id="uBalance">0.00</span></div>
         
-        <input type="tel" id="mobileInput" placeholder="98XXXXXXXX" maxlength="10">
-        <button class="btn-check" onclick="checkWallet()">खाता देखें</button>
-
-        <div id="resultArea">
-            <div class="balance-box">
-                <span style="font-size: 0.8rem; opacity: 0.8;">उपलब्ध शेष राशि</span>
-                <h2 id="balanceAmount" style="margin: 5px 0; font-size: 2.5rem; color: var(--star-gold);">₹0.00</h2>
-                <div id="lowBalMsg" style="color: #ff4d4d; font-size: 0.7rem; display: none; font-weight: bold;">⚠️ लो बैलेंस! कृपया रिचार्ज करें</div>
+        <div class="card-footer">
+            <div>
+                <div class="balance-label">Member Name</div>
+                <div class="member-name" id="uNameDisp">Loading...</div>
             </div>
-
-            <div style="text-align: left; padding-left: 5px; margin-bottom: 10px;">
-                <span style="font-size: 0.7rem; color: var(--star-gold); text-transform: uppercase; letter-spacing: 1px;">लेन-देन का इतिहास (History)</span>
+            <div class="expiry">
+                VAL THRU<br><span id="uExpiry">--/--</span>
             </div>
-            
-            <div class="history-list" id="historyContent">
-                </div>
         </div>
     </div>
 
-    <div style="text-align: center; font-size: 9px; color: #4b5563; margin-top: 40px; letter-spacing: 2px;">
-        ।। प्रतीक्षा एवं नीति हेतु ।। <br>
-        सत्यता • शुचिता • सेवा © 2026
+    <div class="history-section">
+        <div class="history-title">
+            <h2>Transaction Log</h2>
+            <span style="font-size: 0.8rem; color: #BF953F; font-weight: 700;">LIVE FEED</span>
+        </div>
+        
+        <div id="logContainer" class="log-list">
+            <p style="text-align: center; color: #999;">डेटा लोड किया जा रहा है...</p>
+        </div>
     </div>
-</div>
 
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // अपना Google Script URL यहाँ डालें
+    <a href="index.html" class="back-btn">🏠 वापस होम पेज</a>
 
-    async function checkWallet() {
-        const mobile = document.getElementById('mobileInput').value;
-        const resultArea = document.getElementById('resultArea');
-        const balanceTxt = document.getElementById('balanceAmount');
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlTe0mIbSAS1xxgy3imkn3M6AoR4HkCed-XHDy2lSln2j9kA74rBYoITi2iki90qdu/exec';
 
-        if(mobile.length < 10) return alert("सही मोबाइल नंबर दर्ज करें");
+        window.onload = function() {
+            const mobile = localStorage.getItem('userMobile');
+            const name = localStorage.getItem('userName');
+            document.getElementById('uNameDisp').innerText = name || "Valued Client";
 
-        balanceTxt.innerText = "खोज रहे हैं...";
-        resultArea.style.display = 'block';
-
-        try {
-            // Google Sheet से डेटा लाने का लॉजिक
-            const response = await fetch(`${scriptURL}?action=getWallet&mobile=${mobile}`);
-            const data = await response.json();
-
-            if(data.success) {
-                balanceTxt.innerText = `₹${data.balance}`;
-                document.getElementById('historyContent').innerHTML = data.historyHTML;
-                
-                // लो बैलेंस अलर्ट
-                if(data.balance < 200) document.getElementById('lowBalMsg').style.display = 'block';
-                else document.getElementById('lowBalMsg').style.display = 'none';
-                
-            } else {
-                alert("यह नंबर मेंबरशिप में पंजीकृत नहीं है।");
-                resultArea.style.display = 'none';
+            if(mobile) {
+                // Member_DB से डेटा फेच करना
+                fetch(`${scriptURL}?action=getMemberDetails&mobile=${mobile}`)
+                .then(r => r.json())
+                .then(d => {
+                    document.getElementById('uBalance').innerText = d.balance || "0.00";
+                    document.getElementById('uExpiry').innerText = d.expiry || "12/26";
+                    
+                    const logs = d.transactionLog ? d.transactionLog.split('\n') : [];
+                    let logHTML = '';
+                    
+                    logs.forEach(log => {
+                        if(log.trim()) {
+                            const isPlus = log.includes('+');
+                            const icon = isPlus ? '💰' : '🧺';
+                            const amtClass = isPlus ? 'plus' : '';
+                            
+                            logHTML += `
+                                <div class="log-item">
+                                    <div class="log-icon">${icon}</div>
+                                    <div class="log-details">
+                                        <div class="log-desc">${log}</div>
+                                    </div>
+                                </div>`;
+                        }
+                    });
+                    
+                    document.getElementById('logContainer').innerHTML = logHTML || '<p style="text-align:center;">कोई ट्रांजैक्शन नहीं मिला।</p>';
+                })
+                .catch(err => {
+                    document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:red;">डेटा लोड करने में समस्या आई।</p>';
+                });
             }
-        } catch (e) {
-            console.error("Error!", e);
-            balanceTxt.innerText = "Error";
-        }
-    }
-</script>
-
+        };
+    </script>
 </body>
 </html>
