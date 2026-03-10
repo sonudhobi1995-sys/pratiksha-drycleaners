@@ -106,16 +106,13 @@
         <div id="pickup-sec" class="app-sec">
             <div class="card">
                 <h3>🧺 नया पिकअप</h3>
-                
                 <label>ग्राहक मोबाइल</label>
                 <div class="input-group">
                     <input type="tel" id="pickMobile" placeholder="9929xxxxxx">
                     <button type="button" class="btn-contact" onclick="getContact('pickMobile', 'pickName')">👤</button>
                 </div>
-
                 <label>ग्राहक का नाम</label>
                 <input type="text" id="pickName" placeholder="नाम अपने आप आएगा">
-                
                 <label>श्रेणी (Category)</label>
                 <div class="cat-grid">
                     <button class="cat-btn" onclick="loadItems('men', this)">पुरुष</button>
@@ -125,7 +122,6 @@
                     <button class="cat-btn" onclick="loadItems('winter', this)">विंटर</button>
                     <button class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
                 </div>
-
                 <label>सेवा का प्रकार (Service)</label>
                 <select id="serviceType">
                     <option value="प्रेस">💨 सामान्य प्रेस</option>
@@ -133,26 +129,12 @@
                     <option value="धुलाई प्रेस">🧼 धुलाई प्रेस</option>
                     <option value="ड्राई क्लीनिंग प्रेस">✨ ड्राई क्लीनिंग प्रेस</option>
                 </select>
-
                 <label>कपड़ा चुनें</label>
                 <select id="itemSelect"><option value="">श्रेणी चुनें...</option></select>
-
                 <div style="display:flex; gap:10px;">
-                    <div style="flex:1;">
-                        <label>संख्या</label>
-                        <input type="number" id="itemQty" value="1">
-                    </div>
-                    <div style="flex:1;">
-                        <label>स्थिति</label>
-                        <select id="itemNote">
-                            <option value="OK">OK ✅</option>
-                            <option value="दाग">दाग ⚠️</option>
-                            <option value="कटा">कटा ❌</option>
-                            <option value="बटन गायब">बटन 🔘</option>
-                        </select>
-                    </div>
+                    <div style="flex:1;"><label>संख्या</label><input type="number" id="itemQty" value="1"></div>
+                    <div style="flex:1;"><label>स्थिति</label><select id="itemNote"><option value="OK">OK ✅</option><option value="दाग">दाग ⚠️</option><option value="कटा">कटा ❌</option><option value="बटन गायब">बटन 🔘</option></select></div>
                 </div>
-
                 <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
                 <div id="liveList"><b>📋 वर्तमान लिस्ट:</b><div id="listContent"></div></div>
                 <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें & WhatsApp</button>
@@ -167,20 +149,16 @@
                     <input type="tel" id="delMobile" placeholder="9929xxxxxx">
                     <button type="button" class="btn-contact" onclick="getContact('delMobile', 'delName')">👤</button>
                 </div>
-                
                 <label>ग्राहक का नाम</label>
                 <input type="text" id="delName" placeholder="नाम लिखें">
-
                 <label>कुल प्राप्त राशि (₹)</label>
                 <input type="number" id="amount" placeholder="0.00" style="font-size: 1.5rem; text-align: center; color: var(--sun-orange);">
-
                 <label>भुगतान का तरीका</label>
                 <select id="payMode">
                     <option value="Cash">💵 Cash (नकद)</option>
                     <option value="Online">📱 Online (UPI/QR)</option>
                     <option value="Wallet">💳 Wallet (सदस्यता)</option>
                 </select>
-                
                 <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें & WhatsApp ✅</button>
             </div>
         </div>
@@ -190,14 +168,13 @@
         <div class="nav-item active" id="nav-pick" onclick="switchTab('pickup-sec', 'nav-pick')"><span>🧺</span>पिकअप</div>
         <div class="nav-item" id="nav-del" onclick="switchTab('delivery-sec', 'nav-del')"><span>🚚</span>डिलीवरी</div>
         <div class="nav-item" onclick="window.location.href='Admin_Update.html'"><span>⚙️</span>एडमिन</div>
-</div>
+    </div>
 
 <script>
-    // Astra v10 Engine Sync URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
     async function getContact(mobileId, nameId) {
-        if (!('contacts' in navigator)) return alert("आपका ब्राउज़र कॉन्टैक्ट सपोर्ट नहीं करता।");
+        if (!('contacts' in navigator)) return alert("कॉन्टैक्ट सपोर्ट नहीं है।");
         try {
             const props = ['name', 'tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
@@ -206,7 +183,7 @@
                 document.getElementById(mobileId).value = rawNum.slice(-10);
                 if(contacts[0].name) document.getElementById(nameId).value = contacts[0].name[0];
             }
-        } catch (err) { console.log("Error selecting contact"); }
+        } catch (err) { console.log("Cancelled"); }
     }
 
     function switchTab(secId, navId) {
@@ -217,13 +194,14 @@
         window.scrollTo(0,0);
     }
 
+    // ✅ आपकी पूरी इन्वेंटरी ऑप्शंस के साथ
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य"],
         women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य"],
-        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "रेगुलर कपड़े"],
-        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "कुशन कवर"],
-        winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट"],
-        other: ["बैग", "टोपी", "मोजे", "रुमाल"]
+        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "रेगुलर कपड़े", "अन्य"],
+        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "कुशन कवर", "रेगुलर कपड़े", "अन्य"],
+        winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट", "अन्य"],
+        other: ["बैग", "टोपी", "मोजे", "रुमाल", "अन्य"]
     };
 
     function loadItems(cat, btn) {
@@ -251,24 +229,18 @@
         const mobile = document.getElementById('pickMobile').value;
         const name = document.getElementById('pickName').value;
         const serviceFinal = document.getElementById('serviceType').value;
-        
         if(!mobile || selectedItems.length === 0) return alert("मोबाइल और लिस्ट चेक करें!");
         
         const btn = document.getElementById('pickBtn');
         btn.innerText = "COSMIC SYNCING..."; btn.disabled = true;
         const details = selectedItems.join(", ");
 
-        // Astra v10 Engine Update
         const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(serviceFinal)}&details=${encodeURIComponent(details)}`;
 
         try {
             await fetch(url, { mode: 'no-cors' });
-            
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (पिकअप रसीद)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nहमने आपके कपड़े सफलतापूर्वक पिकअप कर लिए हैं।\n\n*सेवा:* ${serviceFinal}\n*विवरण:* ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
-            
-            const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
-            alert("डेटा Astra Engine में सुरक्षित हो गया! ✅");
-            window.open(waUrl, '_blank');
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (पिकअप रसीद)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nकपड़े सफलतापूर्वक पिकअप कर लिए गए हैं।\n\n*सेवा:* ${serviceFinal}\n*विवरण:* ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
             location.reload();
         } catch (e) { 
             alert("इंजन से संपर्क टूटा!"); 
@@ -286,16 +258,12 @@
         const btn = document.getElementById('delBtn');
         btn.innerText = "DELIVERY SYNCING..."; btn.disabled = true;
 
-        // Astra v10: Adding Bill/Transaction
         const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${mode}`;
 
         try {
             await fetch(url, { mode: 'no-cors' });
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (डिलीवरी रसीद)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nआपके कपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान माध्यम:* ${mode}\n\nधन्यवाद, फिर से सेवा का अवसर दें! ✅\n।। मिशन 2047 ।।`;
-            
-            const waUrl = `https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`;
-            alert("डिलीवरी डेटा Astra Engine में दर्ज हो गया! ✅");
-            window.open(waUrl, '_blank');
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (डिलीवरी रसीद)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nकपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान माध्यम:* ${mode}\n\nधन्यवाद! ✅\n।। मिशन 2047 ।।`;
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
             location.reload();
         } catch (e) { 
             alert("इंजन त्रुटि!"); 
