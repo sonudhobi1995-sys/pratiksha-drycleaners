@@ -14,6 +14,7 @@
             --deep-space: #010409;
             --glass: rgba(255, 255, 255, 0.04);
             --border-glow: rgba(255, 215, 0, 0.25);
+            --sun-glow: rgba(255, 140, 0, 0.3);
         }
 
         body {
@@ -25,42 +26,77 @@
             position: relative;
         }
 
-        /* ✨ 1. कोस्मिक बैकग्राउंड: बहते हुए घने और चमकदार तारे */
+        /* 🪐 सौरमंडल एनीमेशन (The Core Background) */
+        .solar-system-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .sun {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, #f39c12 20%, #e67e22 60%, transparent 80%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 60px 20px var(--sun-glow);
+            animation: sun-pulse 4s infinite alternate;
+        }
+
+        @keyframes sun-pulse {
+            from { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%; left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* ग्रहों की कक्षाएँ */
+        .orb-1 { width: 180px; height: 180px; animation-duration: 10s; }
+        .orb-2 { width: 300px; height: 300px; animation-duration: 25s; }
+        .orb-3 { width: 450px; height: 450px; animation-duration: 40s; }
+
+        .planet {
+            position: absolute;
+            top: 0; left: 50%;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--star-gold);
+            box-shadow: 0 0 10px var(--star-gold);
+        }
+
+        /* ✨ सितारों का बहाव */
         .stars-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 200%;
-            background-image: 
-                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
-                radial-gradient(2.5px 2.5px at 300px 50px, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 50px 300px, #fff, transparent),
-                radial-gradient(2px 2px at 400px 250px, #fff, transparent);
+            background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent), radial-gradient(2px 2px at 150px 150px, #fff, transparent);
             background-size: 300px 300px;
             animation: stars-stream 45s infinite linear;
-            z-index: -2;
-            opacity: 0.85;
+            z-index: -3;
+            opacity: 0.5;
         }
 
-        @keyframes stars-stream {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-        }
-
-        /* 🌙 2. पवित्र चंद्रमा (Divine Moon) */
-        .moon {
-            position: absolute;
-            top: -60px; left: -60px; width: 180px; height: 180px;
-            background: radial-gradient(circle at 70% 30%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.1) 60%, transparent 75%);
-            border-radius: 50%;
-            box-shadow: 0 0 80px rgba(255, 255, 255, 0.2);
-            z-index: -1;
-        }
+        @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         .app-header {
             padding: 45px 20px 20px;
             text-align: center;
             border-bottom: 1px solid var(--border-glow);
-            background: linear-gradient(to bottom, rgba(1, 4, 9, 0.9), transparent);
+            background: rgba(1, 4, 9, 0.8);
+            backdrop-filter: blur(10px);
         }
         
         .app-logo {
@@ -73,12 +109,11 @@
         .container { 
             padding: 20px; max-width: 500px; margin: auto; 
             position: relative; z-index: 1; 
-            height: calc(100vh - 120px); overflow-y: auto;
         }
 
-        /* 💎 PREMIUM DASHBOARD BUTTON (Replacement for Center of Gravity) */
+        /* 💎 PREMIUM DASHBOARD BUTTON */
         .cog-dashboard-btn {
-            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,255,255,0.05));
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--star-gold);
             border-radius: 45px;
             padding: 35px 20px;
@@ -86,32 +121,24 @@
             text-align: center;
             backdrop-filter: blur(25px);
             cursor: pointer;
-            transition: 0.4s;
             display: block;
             text-decoration: none;
             box-shadow: inset 0 0 30px rgba(255,215,0,0.1);
         }
 
-        .cog-dashboard-btn:active { transform: scale(0.97); }
-
         .cog-dashboard-btn img {
             width: 95px; height: 95px; border-radius: 50%;
             border: 2px solid var(--star-gold); margin-bottom: 15px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
             animation: cosmic-float 6s infinite ease-in-out;
         }
 
-        @keyframes cosmic-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+        @keyframes cosmic-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         .card { 
             background: var(--glass); 
             padding: 28px; border-radius: 38px; margin-bottom: 25px; 
             border: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            backdrop-filter: blur(20px);
         }
         
         h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; margin-top: 0; letter-spacing: 3px; font-size: 0.95rem; text-transform: uppercase; }
@@ -121,21 +148,19 @@
             width: 100%; padding: 18px; margin: 8px 0 25px 0; 
             border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); 
             background: rgba(0,0,0,0.7); color: white; font-size: 1rem;
-            outline: none; transition: 0.3s;
+            outline: none; box-sizing: border-box;
         }
-        input:focus { border-color: var(--star-gold); }
 
-        .btn { 
+        .btn-status { 
             width: 100%; padding: 20px; border: none; border-radius: 25px; 
-            font-weight: 900; font-size: 0.9rem; cursor: pointer; transition: 0.4s; 
-            text-transform: uppercase; letter-spacing: 2px;
+            background: linear-gradient(135deg, #FFD700, #FF8C00); color: #000; 
+            font-weight: 900; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 12px 25px rgba(255, 140, 0, 0.3);
         }
-        .btn-status { background: linear-gradient(135deg, #FFD700, #FF8C00); color: #000; box-shadow: 0 12px 25px rgba(255, 140, 0, 0.3); }
         
-        /* 🚀 NAVIGATION MENU */
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .btn-nav { background: rgba(255,255,255,0.05); color: var(--moonlight); border: 1px solid rgba(255,255,255,0.12); font-size: 0.75rem; }
-        .btn-full { grid-column: span 2; margin-top: 8px; border: 1px dashed var(--star-gold); color: var(--star-gold); background: rgba(255,215,0,0.05); }
+        .btn-nav { background: rgba(255,255,255,0.05); color: var(--moonlight); border: 1px solid rgba(255,255,255,0.12); padding: 15px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; }
+        .btn-full { grid-column: span 2; border: 1px dashed var(--star-gold); color: var(--star-gold); }
 
         .footer-info { text-align: center; font-size: 10px; color: #64748b; margin: 45px 0; font-weight: 700; letter-spacing: 2px; line-height: 2; }
     </style>
@@ -143,7 +168,13 @@
 <body>
 
     <div class="stars-container"></div>
-    <div class="moon"></div>
+    
+    <div class="solar-system-bg">
+        <div class="sun"></div>
+        <div class="orbit orb-1"><div class="planet"></div></div>
+        <div class="orbit orb-2"><div class="planet" style="background: #3498db; left: 0;"></div></div>
+        <div class="orbit orb-3"><div class="planet" style="background: #e67e22; top: auto; bottom: 0;"></div></div>
+    </div>
 
     <div class="app-header">
         <img src="logo.png" alt="PRATIKSHA" class="app-logo">
@@ -163,41 +194,39 @@
             <h3>✨ QUICK SIGNAL</h3>
             
             <label>ग्राहक का नाम</label>
-            <input type="text" id="custName" placeholder="कॉन्टैक्ट चुनने पर नाम यहाँ आएगा..." readonly style="background: rgba(255,255,255,0.03); color: #FFD700; font-weight: 700;">
+            <input type="text" id="custName" placeholder="नाम..." readonly style="color: #FFD700; font-weight: 700;">
 
             <label>ग्राहक संपर्क</label>
             <div style="display: flex; gap: 12px; margin-bottom: 25px;">
                 <input type="tel" id="adminMobile" placeholder="98XXXXXXXX" style="margin:0; flex:1;">
-                <button type="button" onclick="getContact()" style="padding:0 20px; border-radius:20px; border:1px solid var(--star-gold); background:rgba(255,215,0,0.05); color:var(--star-gold); cursor:pointer; font-size: 1.2rem;">👤</button>
+                <button type="button" onclick="getContact()" style="padding:0 20px; border-radius:20px; border:1px solid var(--star-gold); background:rgba(255,215,0,0.05); color:var(--star-gold); cursor:pointer;">👤</button>
             </div>
             
             <label>ऑर्डर प्रक्रिया चरण</label>
             <select id="adminStatus">
-                <option value="Order Pickup">🚚 ऑर्डर पिकअप (Field)</option>
-                <option value="Processing">🧺 प्रोसेसिंग (Laundry)</option>
-                <option value="Ready to Deliver">✨ रेडी टू डिलीवर (Ready)</option>
-                <option value="Delivered">✅ डिलीवर्ड (Complete)</option>
+                <option value="Order Pickup">🚚 ऑर्डर पिकअप</option>
+                <option value="Processing">🧺 प्रोसेसिंग</option>
+                <option value="Ready to Deliver">✨ रेडी टू डिलीवर</option>
+                <option value="Delivered">✅ डिलीवर्ड</option>
             </select>
 
-            <label>💰 भुगतान मार्ग (Payment Mode)</label>
+            <label>💰 भुगतान मार्ग</label>
             <select id="paymentMode">
-                <option value="Cash">💵 नकद (Cash)</option>
-                <option value="Online">📱 डिजिटल (UPI)</option>
-                <option value="Wallet">💳 सदस्यता (Wallet)</option>
-                <option value="Due">🔴 उधारी (Due)</option>
+                <option value="Cash">💵 नकद</option>
+                <option value="Online">📱 डिजिटल</option>
+                <option value="Wallet">💳 सदस्यता</option>
+                <option value="Due">🔴 उधारी</option>
             </select>
 
-            <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
-                सिग्नल सिंक करें
-            </button>
+            <button class="btn-status" id="updateBtn" onclick="updateStatusOnly()">सिग्नल सिंक करें</button>
         </div>
 
         <div class="card">
             <h3>🚀 QUICK NAVIGATION</h3>
             <div class="nav-grid">
-                <button class="btn btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
-                <button class="btn btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER APP</button>
-                <button class="btn btn-nav btn-full" onclick="window.location.href='Member_Exclusive.html'">💳 MEMBER INSIGHTS & RECORDS</button>
+                <button class="btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
+                <button class="btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER APP</button>
+                <button class="btn-nav btn-full" onclick="window.location.href='Member_Exclusive.html'">💳 MEMBER INSIGHTS & RECORDS</button>
             </div>
         </div>
         
@@ -208,10 +237,8 @@
     </div>
 
 <script>
-    // Astra v10 Engine Sync URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
-    // 👤 कांटेक्ट लिस्ट से नाम और नंबर उठाना
     async function getContact() {
         if (!('contacts' in navigator)) return alert("क्षमा करें, यह केवल Android Chrome पर काम करता है।");
         try {
@@ -228,7 +255,6 @@
         } catch (err) { console.error(err); }
     }
 
-    // 🚀 डेटा अपडेट और व्हाट्सएप ट्रिगर
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const name = document.getElementById('custName').value;
@@ -236,12 +262,11 @@
         const pMode = document.getElementById('paymentMode').value;
         const btn = document.getElementById('updateBtn');
         
-        if(!mobile || mobile.length < 10) return alert("कृपया सही मोबाइल नंबर दर्ज करें।");
+        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर दर्ज करें।");
 
         btn.innerText = "कोस्मिक सिंक जारी...";
         btn.disabled = true;
 
-        // Astra v10 Logic: Due means Pending, others mean Paid
         const pStatus = (pMode === "Due") ? "Pending" : "Paid";
         const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&paymentStatus=${pStatus}&paymentMode=${encodeURIComponent(pMode)}`;
         
@@ -250,10 +275,7 @@
         setTimeout(() => {
             alert("कोस्मिक सिग्नल सिंक हो गया! ✅");
             let payMsg = (pMode === "Due") ? "⏳ उधारी (Due)" : `✅ प्राप्त (${pMode})`;
-            
-            // व्हाट्सएप संदेश (Personalized with Name)
             const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\n\nआपके ऑर्डर की वर्तमान स्थिति: *${status}*\nदक्षिणा स्थिति: *${payMsg}*\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
-            
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
         }, 1500);
