@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Guardian Station | PRATIKSHA PREMIUM</title>
+    <title>Guardian Station | PRATIKSHA COSMIC MAX</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -12,9 +12,8 @@
             --moonlight: #f8fafc;
             --star-gold: #FFD700;
             --deep-space: #010409;
-            --sun-orange: #FF8C00;
             --glass: rgba(255, 255, 255, 0.03);
-            --border-glow: rgba(255, 215, 0, 0.15);
+            --border-glow: rgba(255, 215, 0, 0.2); /* स्वर्ण ग्लो थोड़ा बढ़ाया गया */
         }
 
         body {
@@ -22,22 +21,87 @@
             background-color: var(--deep-space);
             color: var(--moonlight);
             margin: 0;
+            overflow: hidden; /* तारों के एनीमेशन के लिए स्क्रॉल बंद */
+            position: relative;
+        }
+
+        /* ✨ 1. दिव्य चंद्रमा (Divine Moon - Brightened) */
+        .moon {
+            position: absolute;
+            top: -60px;
+            left: -60px;
+            width: 170px;
+            height: 170px;
+            /* चमक और शीतलता बढ़ाई गई */
+            background: radial-gradient(circle at 70% 30%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.25) 55%, transparent 75%);
+            border-radius: 50%;
+            box-shadow: 0 0 70px rgba(255, 255, 255, 0.35);
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        /* ✨ 2. सघन और चमकदार बहते हुए तारे (Streaming Stars - Hyped Density & Brightness) */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 200%; /* दुगनी ऊंचाई एनीमेशन के लिए */
+            /* तारों की संख्या और चमक बढ़ाई गई */
             background-image: 
-                radial-gradient(circle at 50% -20%, rgba(255,215,0,0.1), transparent 50%),
                 radial-gradient(1px 1px at 20px 30px, #fff, transparent),
-                radial-gradient(1.5px 1.5px at 150px 150px, #fff, transparent);
-            background-size: 100% 100%, 250px 250px, 350px 350px;
-            background-attachment: fixed;
+                radial-gradient(1.5px 1.5px at 150px 150px, #fff, transparent),
+                radial-gradient(1px 1px at 300px 50px, #fff, transparent),
+                radial-gradient(2px 2px at 400px 250px, #fff, transparent),
+                radial-gradient(1px 1px at 50px 300px, #fff, transparent), /* नई परत: सघनता */
+                radial-gradient(1.5px 1.5px at 200px 400px, rgba(255,255,255,0.9), transparent), /* नई परत */
+                radial-gradient(2.5px 2.5px at 350px 100px, rgba(255,255,255,0.7), transparent); /* बड़ी, चमकदार परत */
+            background-size: 280px 280px; /* थोड़ा बड़ा बैकग्राउंड पैटर्न सघनता के लिए */
+            animation: stars-stream 50s infinite linear; /* गति थोड़ी तेज ताकि बहने का अहसास हो */
+            z-index: -2;
+            opacity: 0.75; /* थोड़ी अधिक विजिबिलिटी */
+        }
+
+        @keyframes stars-stream {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); } /* आधी ऊंचाई तक बहना */
+        }
+
+        /* ✨ 3. सुनहरी कोस्मिक आभा (Cosmic Glow - Increased) */
+        .cosmic-glow {
+            position: fixed;
+            top: -25%; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255,215,0,0.1), transparent 75%); /* सुनहरी आभा बढ़ाई गई */
+            z-index: -1;
         }
 
         .app-header {
             padding: 50px 20px 30px;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(2,6,23,0.9), transparent);
+            background: linear-gradient(to bottom, rgba(1, 4, 9, 0.95), transparent); /* और अधिक ओपेक बैकग्राउंड */
             border-bottom: 1px solid var(--border-glow);
+            backdrop-filter: blur(8px);
+        }
+        
+        .app-logo {
+            width: 85px; height: 85px; border-radius: 50%;
+            background: white; padding: 3px; margin-bottom: 20px;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.3);
+            border: 2px solid var(--star-gold);
         }
 
-        .container { padding: 20px; max-width: 500px; margin: auto; }
+        /* ✨ 4. कमांड सेंटर पैनल (Centering with scrolling support if needed) */
+        .container { 
+            padding: 20px; 
+            max-width: 500px; 
+            margin: auto; 
+            position: relative; 
+            z-index: 1; 
+            max-height: 100vh; /* कमांड सेंटर के लिए स्क्रॉलिंग समर्थन */
+            overflow-y: auto; /* यदि कार्ड बढ़ें तो स्क्रॉलिंग */
+            scrollbar-width: thin; /* पतली स्क्रॉलबार */
+            scrollbar-color: var(--star-gold) transparent;
+        }
+
+        .container::-webkit-scrollbar { width: 5px; }
+        .container::-webkit-scrollbar-thumb { background-color: var(--star-gold); border-radius: 5px; }
 
         .cog-visual {
             background: var(--glass);
@@ -47,12 +111,19 @@
             margin-bottom: 30px;
             text-align: center;
             backdrop-filter: blur(20px);
+            box-shadow: inset 0 0 20px rgba(255,215,0,0.05);
         }
 
         .cog-visual img {
             width: 100px; height: 100px; border-radius: 50%;
             border: 2px solid var(--star-gold); margin-bottom: 15px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            animation: cosmic-float 6s infinite ease-in-out;
+        }
+
+        @keyframes cosmic-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .card { 
@@ -60,9 +131,16 @@
             padding: 30px 25px; border-radius: 35px; margin-bottom: 25px; 
             border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
-        h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; letter-spacing: 3px; font-size: 0.9rem; text-transform: uppercase; }
+        h3 { 
+            color: var(--star-gold); 
+            font-family: 'Playfair Display', serif; 
+            margin-top: 0; letter-spacing: 3px; 
+            font-size: 0.9rem; text-transform: uppercase;
+        }
+
         label { font-size: 0.65rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 5px; }
 
         input, select { 
@@ -77,17 +155,36 @@
             font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: 0.4s; 
             text-transform: uppercase; letter-spacing: 2px;
         }
-        .btn-status { background: linear-gradient(135deg, #FFD700, #FF8C00); color: #000; }
-        .btn-nav { background: rgba(255,255,255,0.03); color: var(--moonlight); border: 1px solid rgba(255,255,255,0.1); font-size: 0.7rem; }
+        .btn-status { 
+            background: linear-gradient(135deg, #FFD700, #FF8C00); 
+            color: #000; 
+            box-shadow: 0 15px 30px rgba(255, 140, 0, 0.2); 
+        }
 
-        .footer-info { text-align: center; font-size: 10px; color: #4b5563; margin: 40px 0; letter-spacing: 2px; line-height: 2.5; font-weight: 700; }
+        .btn-nav { 
+            background: rgba(255,255,255,0.03); 
+            color: var(--moonlight); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            font-size: 0.7rem;
+        }
+
+        .footer-info { 
+            text-align: center; font-size: 10px; color: #4b5563; 
+            margin: 40px 0; letter-spacing: 2px; line-height: 2.5;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
 
+    <div class="stars-container"></div>
+    <div class="cosmic-glow"></div>
+    <div class="moon"></div>
+
     <div class="app-header">
+        <img src="logo.png" alt="PRATIKSHA" class="app-logo">
         <h2 style="margin:0; font-family:'Playfair Display', serif; letter-spacing: 4px; font-weight: 900; font-size: 1.8rem;">Guardian Station</h2>
-        <div style="font-size: 0.65rem; color: var(--star-gold); margin-top: 10px; letter-spacing: 5px;">COMMAND CENTER</div>
+        <div style="font-size: 0.65rem; color: var(--star-gold); margin-top: 10px; letter-spacing: 5px;">COSMIC COMMAND CENTER</div>
     </div>
 
     <div class="container">
@@ -103,10 +200,10 @@
             <label>ग्राहक संपर्क</label>
             <div style="display: flex; gap: 12px; margin: 12px 0 25px 0;">
                 <input type="tel" id="adminMobile" placeholder="98XXXXXXXX" style="margin:0; flex:1;">
-                <button type="button" onclick="getContact('adminMobile')" style="padding:0 20px; border-radius:18px; border:1px solid var(--star-gold); background:rgba(255,215,0,0.05); color:var(--star-gold); cursor:pointer;">👤</button>
+                <button type="button" onclick="getContact()" style="padding:0 20px; border-radius:18px; border:1px solid var(--star-gold); background:rgba(255,215,0,0.05); color:var(--star-gold); cursor:pointer;">👤</button>
             </div>
             
-            <label>ऑर्डर की मुख्य प्रक्रिया</label>
+            <label>ऑर्डर प्रक्रिया चरण</label>
             <select id="adminStatus">
                 <option value="Order Pickup">🚚 ऑर्डर पिकअप (Pickup)</option>
                 <option value="Processing">🧺 प्रोसेसिंग (Processing)</option>
@@ -114,10 +211,12 @@
                 <option value="Delivered">✅ डिलीवर्ड (Delivered)</option>
             </select>
 
-            <label>💰 दक्षिणा स्थिति</label>
-            <select id="paymentStatus">
-                <option value="Pending">🔴 उधारी (Pending)</option>
-                <option value="Paid">🟢 प्राप्त (Paid)</option>
+            <label>💰 भुगतान मार्ग (Payment Mode)</label>
+            <select id="paymentMode">
+                <option value="Cash">💵 Cash (नकद)</option>
+                <option value="Online">📱 Online (UPI)</option>
+                <option value="Wallet">💳 Wallet (सदस्यता)</option>
+                <option value="Due">🔴 Due (उधारी)</option>
             </select>
 
             <button class="btn btn-status" id="updateBtn" onclick="updateStatusOnly()">
@@ -142,14 +241,14 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
-    async function getContact(mobileId) {
-        if (!('contacts' in navigator)) return alert("Access Denied: Use Chrome on Android.");
+    async function getContact() {
+        if (!('contacts' in navigator)) return alert("क्षमा करें, यह फीचर केवल Android Chrome पर काम करता है।");
         try {
             const props = ['tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
-                let rawNum = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
-                document.getElementById(mobileId).value = rawNum;
+                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
+                document.getElementById('adminMobile').value = rawNum.length > 10 ? rawNum.slice(-10) : rawNum;
             }
         } catch (err) { console.log(err); }
     }
@@ -157,22 +256,24 @@
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
-        const pStatus = document.getElementById('paymentStatus').value;
+        const pMode = document.getElementById('paymentMode').value;
         const btn = document.getElementById('updateBtn');
         
-        if(!mobile || mobile.length < 10) return alert("सही मोबाइल नंबर डालें।");
+        if(!mobile || mobile.length < 10) return alert("कृपया सही मोबाइल नंबर दर्ज करें।");
 
         btn.innerText = "सिंक हो रहा है...";
         btn.disabled = true;
 
-        const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&paymentStatus=${encodeURIComponent(pStatus)}`;
+        const pStatus = (pMode === "Due") ? "Pending" : "Paid";
+        const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&paymentStatus=${pStatus}&paymentMode=${encodeURIComponent(pMode)}`;
         
+        // no-cors fetch for cross-origin tracking without explicit response needed
         fetch(finalURL, { method: 'GET', mode: 'no-cors' });
 
         setTimeout(() => {
-            alert("सिग्नल सिंक हो गया! ✅");
-            const payText = pStatus === "Paid" ? "✅ प्राप्त (Paid)" : "⏳ बकाया (Pending)";
-            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nऑर्डर स्थिति: *${status}*\nदक्षिणा: *${payText}*\n\n।। शुचिता ही संकल्प ।। 🙏`;
+            alert("कोस्मिक सिग्नल सिंक हो गया! ✅");
+            let payMsg = (pMode === "Due") ? "⏳ उधारी (Due)" : `✅ प्राप्त (${pMode})`;
+            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* 🧺✨\n--------------------------------\nऑर्डर स्थिति: *${status}*\nभुगतान: *${payMsg}*\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
         }, 1500);
