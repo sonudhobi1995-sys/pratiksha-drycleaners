@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ultimate Billing | PRATIKSHA</title>
+    <title>Ultimate Billing | PRATIKSHA DIGITAL</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -110,16 +110,16 @@
             <option value="Online">Online (UPI)</option>
             <option value="Wallet">Wallet (सदस्यता वॉलेट)</option>
         </select>
-        <div id="loader" class="loader">कोस्मिक सिंक हो रहा है...</div>
+        <div id="loader" class="loader">✨ कोस्मिक सिंक हो रहा है...</div>
         <button class="btn-wa no-print" id="syncBtn" onclick="processFinalBill()">📲 SYNC & WHATSAPP</button>
         <button class="no-print" onclick="window.print()" style="width:100%; background:none; border:1px solid #ccc; margin-top:10px; padding:10px; border-radius:12px; cursor:pointer;">🖨️ प्रिंट रसीद</button>
     </div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWhOuYb_uKW7vRDuTgceiVv_NlH1PvdsoHAR2CwzAqm2fnXtkxiD6FLUawoP1Wj-XZ/exec";
+    // ✅ Astra v10.0 Engine URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec";
     
-    // ✅ 'Other' विकल्प हर जगह जोड़ दिया गया है
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता-पायजामा", "अन्य (Men)"],
         women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "ब्लाउज", "अन्य (Women)"],
@@ -139,7 +139,7 @@
     }
 
     async function getContact() {
-        if (!('contacts' in navigator)) return alert("Access Denied: Use Chrome.");
+        if (!('contacts' in navigator)) return alert("संपर्क चुनने के लिए Chrome का उपयोग करें।");
         try {
             const props = ['name', 'tel'];
             const contacts = await navigator.contacts.select(props, {multiple: false});
@@ -160,18 +160,23 @@
         try {
             const res = await fetch(`${SCRIPT_URL}?action=getMemberDetails&mobile=${mob}`);
             const data = await res.json();
-            if(data.name) document.getElementById('custName').value = data.name;
-            if(data.balance < 0) document.getElementById('manualBalance').value = Math.abs(data.balance);
-            render();
-        } catch(e) {}
+            if(data.name !== "Guest") {
+                document.getElementById('custName').value = data.name;
+                // यदि बैलेंस नेगेटिव है (बकाया), तो उसे ऑटो-फिल करें
+                if(parseFloat(data.balance) < 0) {
+                    document.getElementById('manualBalance').value = Math.abs(parseFloat(data.balance));
+                }
+                render();
+            }
+        } catch(e) { console.log("Fetch Error: ", e); }
     }
 
     function addItem() {
         const item = document.getElementById('itemSelect').value;
         const service = document.getElementById('serviceType').value;
-        const q = document.getElementById('qty').value;
-        const r = document.getElementById('rate').value;
-        if(!item || !q || !r) return alert("विवरण भरें");
+        const q = parseFloat(document.getElementById('qty').value);
+        const r = parseFloat(document.getElementById('rate').value);
+        if(!item || isNaN(q) || isNaN(r)) return alert("कृपया विवरण और नग/दर भरें।");
         billItems.push({name: `${item} (${service})`, q, r, total: q*r});
         render();
         document.getElementById('qty').value = "";
@@ -182,18 +187,24 @@
         const manualBal = parseFloat(document.getElementById('manualBalance').value) || 0;
         const discount = parseFloat(document.getElementById('discountAmt').value) || 0;
         
-        body.innerHTML = ''; let currentTotal = 0;
-        billItems.forEach(i => {
-            currentTotal += i.total;
-            body.innerHTML += `<tr><td>${i.name} x${i.q}</td><td style="text-align:right;">₹${i.total}</td></tr>`;
+        body.innerHTML = ''; 
+        let currentItemsTotal = 0;
+        billItems.forEach((i, index) => {
+            currentItemsTotal += i.total;
+            body.innerHTML += `<tr><td>${i.name} x${i.q} <span onclick="removeItem(${index})" style="color:red; cursor:pointer; font-size:12px; margin-left:10px;">✕</span></td><td style="text-align:right;">₹${i.total}</td></tr>`;
         });
         
         if(manualBal > 0) body.innerHTML += `<tr style="color:var(--mars-red);"><td>पुराना बकाया (+)</td><td style="text-align:right;">₹${manualBal}</td></tr>`;
         if(discount > 0) body.innerHTML += `<tr style="color:var(--nebula-green);"><td>विशेष छूट (-)</td><td style="text-align:right;">₹${discount}</td></tr>`;
         
-        const final = (currentTotal + manualBal) - discount;
+        const final = (currentItemsTotal + manualBal) - discount;
         document.getElementById('gTotal').innerText = `कुल राशि: ₹ ${final > 0 ? final : 0}`;
         return final;
+    }
+
+    function removeItem(index) {
+        billItems.splice(index, 1);
+        render();
     }
 
     async function processFinalBill() {
@@ -203,19 +214,38 @@
         const finalAmt = render();
         const disc = document.getElementById('discountAmt').value || 0;
 
-        if(!mob || billItems.length === 0) return alert("डेटा अधूरा है!");
+        if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
 
-        document.getElementById('loader').style.display = 'block';
-        document.getElementById('syncBtn').disabled = true;
+        const loader = document.getElementById('loader');
+        const syncBtn = document.getElementById('syncBtn');
+        loader.style.display = 'block';
+        syncBtn.disabled = true;
+
         const details = billItems.map(i => `${i.name}x${i.q}`).join(", ");
 
         try {
-            await fetch(`${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${mode}&details=${encodeURIComponent(details)}&discount=${disc}`, {mode: 'no-cors'});
+            // Astra v10.0 को डेटा भेजना
+            const response = await fetch(`${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${mode}&details=${encodeURIComponent(details)}&discount=${disc}`);
+            const result = await response.text();
+
+            if(result.includes("Error")) {
+                alert(result); // जैसे: Insufficient Balance
+                loader.style.display = 'none';
+                syncBtn.disabled = false;
+                return;
+            }
             
-            let msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते ${name},\nकुल बिल: *₹${finalAmt}*\n${disc > 0 ? 'छूट: ₹' + disc : ''}\nभुगतान: ${mode}\nविवरण: ${details}\n।। शुचिता ही संकल्प ।।`;
+            // WhatsApp संदेश
+            let msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते ${name},\n\nकुल बिल: *₹${finalAmt}*\nविवरण: ${details}\nभुगतान: ${mode}\n${disc > 0 ? 'छूट: ₹' + disc : ''}\n\n।। शुचिता ही संकल्प ।।`;
             window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+            
+            alert("बिल सफलतापूर्वक सिंक हो गया!");
             location.reload();
-        } catch (e) { alert("सिस्टम एरर!"); }
+        } catch (e) { 
+            alert("नेटवर्क त्रुटि! कृपया पुनः प्रयास करें।"); 
+            loader.style.display = 'none';
+            syncBtn.disabled = false;
+        }
     }
 
     updateItems();
