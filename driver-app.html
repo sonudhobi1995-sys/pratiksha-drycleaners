@@ -13,6 +13,7 @@
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00;
             --glass-border: rgba(255, 215, 0, 0.3);
+            --error-red: #ff4d4d;
         }
 
         body { 
@@ -24,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* 🌌 मंदाकिनी (Milky Way) Background */
+        /* 🌌 मंदाकिनी और एनिमेटेड तारे */
         .milky-way {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -32,77 +33,64 @@
             z-index: -5;
         }
 
-        /* 🌟 सितारे और ध्रुव तारा */
-        .star { position: fixed; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle 3s infinite; z-index: -4; }
-        .pole-star { top: 30px; right: 30px; width: 5px; height: 5px; box-shadow: 0 0 15px 5px white; opacity: 1; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
-        /* 🪐 पूर्ण सौरमंडल */
-        .universe { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -3; pointer-events: none; }
-        .sun { width: 60px; height: 60px; background: radial-gradient(circle, #ffcc00, #ff8800, transparent); border-radius: 50%; box-shadow: 0 0 40px #ff8800; position: absolute; transform: translate(-50%, -50%); }
-        .orbit { position: absolute; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 50%; transform: translate(-50%, -50%); animation: rotate linear infinite; }
-        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        /* ✨ झिलमिलाते सितारे */
+        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -4; pointer-events: none; }
+        .star {
+            position: absolute; background: white; border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0.5;
+        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
 
         .app-header { padding: 40px 15px 25px; text-align: center; border-bottom: 2px solid var(--sun-orange); backdrop-filter: blur(5px); }
         
         .card { 
-            background: rgba(255, 255, 255, 0); 
+            background: rgba(255, 255, 255, 0.02); 
             padding: 25px; border-radius: 35px; 
             margin: 20px 15px; 
             border: 2px solid var(--glass-border);
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(8px);
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
         }
         
-        h3 { color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 20px; letter-spacing: 2px; font-size: 1.1rem; }
+        h3 { color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 20px; letter-spacing: 2px; }
         label { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-top: 15px; display: block; letter-spacing: 1.5px; }
 
         input, select { 
             width: 100%; padding: 16px; margin: 8px 0 12px 0; 
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem;
+            background: rgba(0,0,0,0.6); color: #fff; font-size: 1rem;
             box-sizing: border-box; outline: none;
         }
 
         .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); padding: 12px 5px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; color: white; cursor: pointer; }
-        .cat-btn.active { background: var(--sun-orange); border-color: var(--sun-orange); box-shadow: 0 0 15px rgba(255, 140, 0, 0.4); }
+        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); padding: 12px 5px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; color: white; cursor: pointer; }
+        .cat-btn.active { background: var(--sun-orange); border-color: var(--sun-orange); }
 
         .btn-add { background: none; color: var(--accent-gold); width: 100%; padding: 15px; border-radius: 18px; font-weight: 800; border: 1px dashed var(--accent-gold); margin-bottom: 15px; cursor: pointer; }
-        .btn-primary { background: linear-gradient(135deg, var(--sun-orange), #ff4500); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3); }
+        .btn-primary { background: linear-gradient(135deg, var(--sun-orange), #ff4500); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
         .btn-success { background: linear-gradient(135deg, #128C7E, #075E54); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
 
-        #liveList { margin-top: 15px; font-size: 0.85rem; background: rgba(255,215,0,0.05); padding: 15px; border-radius: 20px; border: 1px dashed var(--accent-gold); color: #fff; }
-        
-        /* ✅ नेविगेशन बार: केवल पिकअप और डिलीवरी */
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.95); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid var(--glass-border); z-index: 1000; backdrop-filter: blur(10px); }
-        .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 800; text-transform: uppercase; cursor: pointer; width: 50%; }
+        /* 📋 इन्वेंटरी लिस्ट स्टाइल */
+        #liveList { margin-top: 15px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 20px; border: 1px dashed var(--accent-gold); }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; }
+        .remove-btn { color: var(--error-red); font-weight: 900; padding: 5px 10px; cursor: pointer; border: 1px solid var(--error-red); border-radius: 8px; font-size: 0.7rem; }
+
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.95); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid var(--glass-border); z-index: 1000; }
+        .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 800; cursor: pointer; width: 50%; }
         .nav-item.active { color: var(--accent-gold); }
         .nav-item span { font-size: 1.8rem; }
-
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
     <div class="milky-way"></div>
-    <div class="star pole-star"></div>
-    
-    <div class="star" style="top:80px; left:40px; width:2px; height:2px;"></div>
-    <div class="star" style="top:100px; left:70px; width:2px; height:2px;"></div>
-    <div class="star" style="top:90px; left:100px; width:3px; height:3px;"></div>
-    <div class="star" style="top:110px; left:130px; width:2px; height:2px;"></div>
-
-    <div class="universe">
-        <div class="sun"></div>
-        <div class="orbit" style="width:140px; height:140px; animation-duration: 8s;"><div style="width:6px; height:6px; background:#aaa; border-radius:50%; position:absolute; top:0; left:50%;"></div></div>
-        <div class="orbit" style="width:220px; height:220px; animation-duration: 15s;"><div style="width:10px; height:10px; background:#3498db; border-radius:50%; position:absolute; top:0; left:50%;"></div></div>
-        <div class="orbit" style="width:320px; height:320px; animation-duration: 25s;"><div style="width:8px; height:8px; background:#e74c3c; border-radius:50%; position:absolute; top:0; left:50%;"></div></div>
-    </div>
+    <div class="stars-layer" id="starsContainer"></div>
 
     <div class="app-header">
         <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.6rem; letter-spacing: 3px; color: var(--accent-gold);">PRATIKSHA LOGISTICS</h2>
-        <div style="font-size: 0.6rem; letter-spacing: 3px; color: #fff; margin-top: 5px;">COSMIC FLEET COMMAND</div>
+        <div style="font-size: 0.6rem; letter-spacing: 3px; color: #fff; margin-top: 5px;">Astra v10 • Cosmic Edition</div>
     </div>
 
     <div class="container">
@@ -141,7 +129,12 @@
                 </div>
 
                 <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
-                <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
+                
+                <div id="liveList">
+                    <b>📋 वर्तमान लिस्ट:</b>
+                    <div id="listContent"></div>
+                </div>
+
                 <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">संग्रह संपन्न करें & WhatsApp</button>
             </div>
         </div>
@@ -178,6 +171,22 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxb3u12cCfzUGkKcd-mlIauxKRwjDBwJNKtglsIXVeRvxXxBXK1TosBSP93Dyq2TNIj/exec';
 
+    // ✨ तारे बनाने का रूहानी इंजन
+    function createStars() {
+        const container = document.getElementById('starsContainer');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            container.appendChild(star);
+        }
+    }
+    window.onload = () => { createStars(); };
+
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator)) return alert("कॉन्टैक्ट सपोर्ट नहीं है।");
         try {
@@ -196,14 +205,13 @@
         document.getElementById(secId).classList.remove('hidden');
         document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
         document.getElementById(navId).classList.add('active');
-        window.scrollTo(0,0);
     }
 
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "कुर्ता", "पायजामा", "रेगुलर कपड़े", "अन्य"],
         women: ["साड़ी", "भारी साड़ी", "सूट सलवार", "कुर्ती", "लहंगा", "दुपट्टा", "रेगुलर कपड़े", "अन्य"],
-        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "रेगुलर कपड़े", "अन्य"],
-        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "कुशन कवर", "अन्य"],
+        kids: ["बाबा सूट", "फ्रॉक", "निक्कर", "स्कूल ड्रेस", "अन्य"],
+        home: ["बेड शीट", "पर्दे", "कंबल", "तौलिया", "कालीन", "अन्य"],
         winter: ["जैकैट", "स्वेटर", "कार्डिगन", "कोट", "अन्य"],
         other: ["बैग", "टोपी", "मोजे", "रुमाल", "अन्य"]
     };
@@ -216,6 +224,7 @@
         inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
     }
 
+    // 📋 इन्वेंटरी मैनेजमेंट (With Delete Feature)
     let selectedItems = [];
     function addToInv() {
         const item = document.getElementById('itemSelect').value;
@@ -223,9 +232,27 @@
         const service = document.getElementById('serviceType').value;
         const note = document.getElementById('itemNote').value;
         if(!item || !qty) return alert("चेक करें!");
-        const entry = `${item} (${qty}) - ${service} [${note}]`;
+        
+        const entry = { text: `${item} (${qty}) - ${service} [${note}]`, id: Date.now() };
         selectedItems.push(entry);
-        document.getElementById('listContent').innerHTML += `<div style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">• ${entry}</div>`;
+        renderList();
+    }
+
+    function renderList() {
+        const listDiv = document.getElementById('listContent');
+        listDiv.innerHTML = '';
+        selectedItems.forEach((item) => {
+            listDiv.innerHTML += `
+                <div class="list-item">
+                    <span>• ${item.text}</span>
+                    <span class="remove-btn" onclick="removeItem(${item.id})">❌ हटाएँ</span>
+                </div>`;
+        });
+    }
+
+    function removeItem(id) {
+        selectedItems = selectedItems.filter(i => i.id !== id);
+        renderList();
     }
 
     async function submitPickup() {
@@ -233,13 +260,16 @@
         const name = document.getElementById('pickName').value;
         const serviceFinal = document.getElementById('serviceType').value;
         if(!mobile || selectedItems.length === 0) return alert("डेटा अपूर्ण है!");
+        
         const btn = document.getElementById('pickBtn');
-        btn.innerText = "ब्रह्मांडीय सिंक..."; btn.disabled = true;
-        const details = selectedItems.join(", ");
+        btn.innerText = "सिंक जारी..."; btn.disabled = true;
+        const details = selectedItems.map(i => i.text).join(", ");
+
         const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(serviceFinal)}&details=${encodeURIComponent(details)}`;
+
         try {
             await fetch(url, { mode: 'no-cors' });
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (पिकअप)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nकपड़े सफलतापूर्वक पिकअप कर लिए गए हैं।\n\n*सेवा:* ${serviceFinal}\n*विवरण:* ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स*\nनमस्ते *${name || 'ग्राहक'}*,\nकपड़े सफलतापूर्वक पिकअप कर लिए गए हैं।\n*विवरण:* ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.innerText = "संपन्न करें"; btn.disabled = false; }
@@ -251,12 +281,14 @@
         const amt = document.getElementById('amount').value;
         const mode = document.getElementById('payMode').value;
         if(!mobile || !amt) return alert("डेटा भरें!");
+
         const btn = document.getElementById('delBtn');
         btn.innerText = "सिंक जारी..."; btn.disabled = true;
         const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${mode}`;
+
         try {
             await fetch(url, { mode: 'no-cors' });
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स (डिलीवरी)*\n------------------------------\nनमस्ते *${name || 'ग्राहक जी'}*,\nकपड़े सफलतापूर्वक डिलीवर कर दिए गए हैं।\n\n*प्राप्त राशि:* ₹${amt}\n*भुगतान माध्यम:* ${mode}\n\nधन्यवाद! ✅\n।। मिशन 2047 ।।`;
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स*\nकपड़े डिलीवर कर दिए गए हैं।\n*राशि:* ₹${amt}\n*माध्यम:* ${mode}\nधन्यवाद! ✅`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.innerText = "डिलीवरी संपन्न करें ✅"; btn.disabled = false; }
