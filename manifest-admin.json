@@ -1,22 +1,25 @@
 {
-  "name": "Pratiksha Admin",
+  "name": "Pratiksha Admin Supreme",
   "short_name": "P-Admin",
   "description": "Pratiksha Dry Cleaners - Manager Control Panel",
-  "start_url": "admin-update.html",
+  "start_url": "./admin-update.html",
   "display": "standalone",
-  "background_color": "#001F3F",
-  "theme_color": "#001F3F",
+  "background_color": "#000205",
+  "theme_color": "#FF8C00",
   "orientation": "portrait",
+  "scope": "./",
   "icons": [
     {
       "src": "logo.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "logo.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
