@@ -297,5 +297,15 @@
         }, 1200);
     }
 </script>
+   <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // यह आपके sw-billing.js को एक्टिवेट करेगा
+      navigator.serviceWorker.register('./sw-billing.js')
+        .then(reg => console.log('Admin Astra: Engine Active ✅'))
+        .catch(err => console.log('Sync Error:', err));
+    });
+  }
+</script> 
 </body>
 </html>
