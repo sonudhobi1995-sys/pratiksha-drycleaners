@@ -137,7 +137,7 @@
             btn.disabled = true;
 
             // Astra v10 Engine: action=addCustomer के साथ डेटा भेजना
-            const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&details=${encodeURIComponent("House: " + house)}&status=New Registration`;
+            const finalURL = `${scriptURL}?action=addCustomer&mobile=${mobile}&name=${encodeURIComponent(name)}&details=${encodeURIComponent("House: " + house)}&status=New Registration`;
 
             // डेटा को इंजन की ओर रवाना करना
             fetch(finalURL, { method: 'GET', mode: 'no-cors' })
