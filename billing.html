@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Navagraha Billing | PRATIKSHA DIGITAL</title>
     
-    <!-- PWA और PDF के लिए जरूरी Libraries -->
+    <!-- PWA & PDF Libraries -->
     <link rel="manifest" href="manifest-admin.json">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
@@ -21,62 +21,43 @@
             --earth-blue: #3498db;
         }
 
-        body { 
-            font-family: 'Inter', 'Mukta', sans-serif; 
-            background: var(--deep-space); 
-            margin: 0; padding: 0; color: white; 
-            overflow-x: hidden; position: relative;
-        }
+        body { font-family: 'Inter', 'Mukta', sans-serif; background: var(--deep-space); margin: 0; padding: 0; color: white; overflow-x: hidden; position: relative; }
 
-        /* ✨ सितारों का गहरा बहाव (Original Logic) */
-        body::before {
-            content: ""; position: fixed;
-            top: 0; left: 0; width: 100%; height: 200%;
-            background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent), radial-gradient(2px 2px at 150px 150px, #fff, transparent);
-            background-size: 300px 300px; animation: stars-stream 60s infinite linear; z-index: -2; opacity: 0.5;
-        }
+        /* ✨ कोस्मिक एनीमेशन */
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 200%; background-image: radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent), radial-gradient(2px 2px at 150px 150px, #fff, transparent); background-size: 300px 300px; animation: stars-stream 60s infinite linear; z-index: -2; opacity: 0.5; }
+        @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-        /* 🪐 तैरता हुआ सौरमंडल (Original Animations) */
+        /* 🪐 तैरता हुआ सौरमंडल */
         .solar-system { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
         .sun { position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; background: radial-gradient(circle, #f39c12 20%, #e67e22 60%, transparent 80%); border-radius: 50%; box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.4); transform: translate(-50%, -50%); animation: sun-pulse 4s infinite alternate; }
         @keyframes sun-pulse { 0% { box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.4); } 100% { box-shadow: 0 0 80px 30px rgba(243, 156, 18, 0.6); } }
-
         .orbit { position: absolute; top: 50%; left: 50%; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50%; transform: translate(-50%, -50%); animation: orbit-rotate linear infinite; }
         .planet { position: absolute; border-radius: 50%; }
-
         @keyframes orbit-rotate { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* सभी ग्रहों की कक्षाएं सुरक्षित हैं */
-        .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; }
-        .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
-        .orbit-venus { width: 200px; height: 200px; animation-duration: 8s; }
-        .planet-venus { top: 20px; left: 20px; width: 100px; height: 10px; background: #f1c40f; }
-        .orbit-earth { width: 280px; height: 280px; animation-duration: 12s; }
-        .planet-earth { bottom: 30px; right: 30px; width: 11px; height: 11px; background: var(--earth-blue); }
-        /* ... (बाकी ग्रहों की CSS आपकी मूल 311 लाइनों वाली ही है) */
+        /* नवग्रहों की कक्षाएँ */
+        .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; } .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
+        .orbit-venus { width: 200px; height: 200px; animation-duration: 8s; } .planet-venus { top: 20px; left: 20px; width: 10px; height: 10px; background: #f1c40f; }
+        .orbit-earth { width: 280px; height: 280px; animation-duration: 12s; } .planet-earth { bottom: 30px; right: 30px; width: 11px; height: 11px; background: var(--earth-blue); }
+        .orbit-mars { width: 360px; height: 360px; animation-duration: 20s; } .planet-mars { top: 50%; right: 10px; width: 8px; height: 8px; background: var(--mars-red); }
 
-        /* 📋 कोस्मिक बिलिंग स्टाइल */
+        /* हैडर और कार्ड */
         .billing-header { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); padding: 35px 20px; text-align: center; border-bottom: 5px solid var(--sun-orange); }
         .container { padding: 15px; max-width: 550px; margin: auto; position: relative; z-index: 1; }
         .card { background: var(--pure-moon); backdrop-filter: blur(15px); padding: 25px; border-radius: 20px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
-        
+        h3 { margin: 0 0 15px; color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; font-size: 1.2rem; }
         input, select { width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); outline: none; }
-        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; font-weight: 800; cursor: pointer; }
-        .total-box { border: 2px solid var(--sun-orange); padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px; }
+        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .total-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid var(--sun-orange); margin-top: 20px; }
         .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; }
-        .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; }
-
-        /* ✍️ Signature Line */
-        .signature-line { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent-gold); font-style: italic; margin-top: 20px; text-align: center; }
-
-        @media print { .no-print { display: none !important; } }
+        .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; font-size: 1.2rem; }
+        .signature-line { text-align: center; margin-top: 20px; font-size: 1rem; color: var(--accent-gold); font-family: 'Playfair Display'; font-style: italic; }
     </style>
 </head>
 <body>
 
 <div class="solar-system no-print">
     <div class="sun"></div>
-    <!-- सभी ग्रह अपनी स्वतंत्र कक्षाओं में -->
     <div class="orbit orbit-mercury"><div class="planet planet-mercury"></div></div>
     <div class="orbit orbit-venus"><div class="planet planet-venus"></div></div>
     <div class="orbit orbit-earth"><div class="planet planet-earth"></div></div>
@@ -84,8 +65,8 @@
 </div>
 
 <div class="billing-header no-print">
-    <h1 style="color: var(--accent-gold); font-family: 'Playfair Display';">प्रतीक्षा ड्राई क्लीनर्स</h1>
-    <p style="font-size: 0.7rem; letter-spacing: 4px;">।। मिशन 2047: ऋणानुबंध ।।</p>
+    <h1>प्रतीक्षा ड्राई क्लीनर्स</h1>
+    <p>शुचिता • सेवा • समर्पण | MISSION 2047</p>
 </div>
 
 <div class="container">
@@ -93,73 +74,84 @@
         <h3>👤 ग्राहक मेनिफेस्ट</h3>
         <div style="display:flex; gap:10px;">
             <input type="tel" id="custMobile" placeholder="मोबाइल नंबर" onchange="autoFetchDetails()">
-            <button onclick="getContact()" style="background:none; border:1px solid var(--accent-gold); color:var(--accent-gold); border-radius:10px; padding:0 15px;">👤</button>
+            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); font-size:1.3rem; cursor:pointer;">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
         <div style="display: flex; gap: 10px;">
-            <input type="number" id="manualBalance" placeholder="बकाया ₹" style="flex:1;">
-            <input type="number" id="discountAmt" placeholder="छूट ₹" style="flex:1;">
+            <div style="flex: 1;"><label>बकाया (+):</label><input type="number" id="manualBalance" placeholder="₹ 0" oninput="render()"></div>
+            <div style="flex: 1;"><label>छूट (-):</label><input type="number" id="discountAmt" placeholder="₹ 0" oninput="render()"></div>
         </div>
     </div>
 
     <div class="card no-print">
         <h3>🧺 सर्विस ऑर्बिट</h3>
-        <select id="itemCategory" onchange="updateItems()"><option value="">श्रेणी चुनें...</option><option value="men">पुरुष (Men)</option><option value="women">महिला (Women)</option></select>
+        <select id="itemCategory" onchange="updateItems()"><option value="">श्रेणी चुनें...</option><option value="men">पुरुष (Men)</option><option value="women">महिला (Women)</option><option value="home">होम (Home)</option></select>
         <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
-        <select id="serviceType"><option value="Wash & Press">Wash & Press</option><option value="Dry Clean">Dry Clean</option></select>
+        <select id="serviceType"><option value="Wash & Press">Wash & Press</option><option value="Dry Clean">Dry Clean</option><option value="Steam Press">Steam Press</option></select>
         <div style="display:flex; gap:10px;"><input type="number" id="qty" placeholder="नग"><input type="number" id="rate" placeholder="दर ₹"></div>
         <button class="btn-add" onclick="addItem()">+ लिस्ट में जोड़ें</button>
     </div>
 
     <div class="card">
         <h3>📋 फाइनल मेनिफेस्ट</h3>
-        <table id="billTable" style="width: 100%;"><tbody></tbody></table>
+        <table id="billTable" style="width: 100%; border-collapse: collapse;"><tbody></tbody></table>
         <div class="total-box">
             <div id="gTotal" class="grand-total-band">₹ 0</div>
         </div>
-        
         <div class="no-print">
-            <select id="payMode"><option value="Cash">Cash</option><option value="Online">UPI</option></select>
+            <label>भुगतान तरीका</label>
+            <select id="payMode"><option value="Cash">💵 Cash</option><option value="Online">📱 UPI</option><option value="Wallet">💳 Wallet</option></select>
             <button class="btn-wa" id="syncBtn" onclick="processFinalBill()">📲 SYNC & WHATSAPP</button>
-            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:15px; padding:12px; border-radius:12px; font-weight:bold;">📄 DOWNLOAD TAX INVOICE</button>
+            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1.5px solid white; color:white; margin-top:15px; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">📄 DOWNLOAD TAX INVOICE</button>
         </div>
-
         <div class="signature-line">Designed by SONU NEEL</div>
     </div>
 </div>
 
 <!-- 📄 प्रोफेशनल इन्वॉइस टेम्पलेट (Hidden) -->
-<div id="invoice-template" style="display: none; width: 700px; padding: 40px; background: white; color: black; font-family: 'Inter'; border: 1px solid #000;">
+<div id="invoice-template" style="display: none; width: 700px; padding: 30px; background: white; color: black; font-family: 'Inter'; border: 1px solid #000;">
     <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px;">
-        <img src="logo.png" style="width: 60px;">
+        <img src="logo.png" style="width: 60px; height: 60px; border-radius: 50%;">
         <h1 style="margin: 0; font-family: 'Playfair Display';">PRATIKSHA DRY CLEANERS</h1>
-        <p style="margin: 0; font-size: 12px;">11, Shankar Vihar Road, Jaipur | 7740870095</p>
-        <h3 style="margin: 10px 0 0 0; text-decoration: underline;">TAX INVOICE</h3>
+        <p style="margin: 2px 0; font-size: 12px;">11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
+        <p style="margin: 2px 0; font-size: 12px;">PAN: CAMPS2004H | GST INVOICE</p>
     </div>
-    <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 14px;">
-        <div><strong>Billed To:</strong> <br><span id="pdfName">---</span><br><span id="pdfMob">---</span></div>
-        <div style="text-align: right;"><strong>Invoice No:</strong> <span id="pdfInv">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span></div>
+    <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px;">
+        <div style="border: 1px solid #ccc; padding: 10px; width: 45%;">
+            <strong>Billed To:</strong><br><span id="pdfCustName">---</span><br>Mobile: <span id="pdfCustMob">---</span><br>State: Rajasthan
+        </div>
+        <div style="border: 1px solid #ccc; padding: 10px; width: 45%; text-align: right;">
+            <strong>Invoice No:</strong> <span id="pdfInvNo">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span><br><strong>Reverse Charge:</strong> NO
+        </div>
     </div>
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #000;">
-        <thead><tr style="background: #eee; border: 1px solid #000;"><th style="padding: 10px; border: 1px solid #000;">Description</th><th style="padding: 10px; border: 1px solid #000;">QTY</th><th style="padding: 10px; border: 1px solid #000;">Rate</th><th style="padding: 10px; border: 1px solid #000;">Total</th></tr></thead>
-        <tbody id="pdfItems" style="border: 1px solid #000;"></tbody>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px; border: 1px solid #000;">
+        <thead><tr style="background: #eee;">
+            <th style="border: 1px solid #000; padding: 5px;">Description</th>
+            <th style="border: 1px solid #000; padding: 5px;">QTY</th>
+            <th style="border: 1px solid #000; padding: 5px;">Rate</th>
+            <th style="border: 1px solid #000; padding: 5px;">Total</th>
+        </tr></thead>
+        <tbody id="pdfItemBody"></tbody>
     </table>
-    <div style="text-align: right; margin-top: 20px; font-size: 18px; font-weight: bold;">Final Amount: ₹<span id="pdfTotal">0</span></div>
-    <div style="margin-top: 50px; display: flex; justify-content: space-between; font-size: 12px;">
-        <div>* This is a computer generated invoice.</div>
-        <div style="text-align: center; border-top: 1px solid #000; width: 150px;"><br>Authorised Signatory</div>
+    <div style="text-align: right; margin-top: 10px; font-weight: bold; font-size: 16px;">Final Amount: ₹<span id="pdfFinalTotal">0</span></div>
+    <div style="margin-top: 30px; font-size: 11px;">
+        <p><strong>Terms:</strong> 1. Electronically generated document. 2. Disputes subject to Jaipur jurisdiction.</p>
+        <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+            <div>Thank you for your business!</div>
+            <div style="text-align: center; border-top: 1px solid #000; width: 150px;"><br>Authorised Signatory</div>
+        </div>
     </div>
-    <div style="text-align: center; margin-top: 30px; font-style: italic; color: #888;">Designed by SONU NEEL</div>
+    <div style="text-align: center; margin-top: 20px; font-style: italic; color: #b8860b;">Designed by SONU NEEL</div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec";
+    const inventory = { men: ["शर्ट", "पेंट", "जींस", "सूट"], women: ["साड़ी", "लहंगा", "कुर्ती"], home: ["पर्दे", "कंबल", "बेडशीट"] };
     let billItems = [];
 
     function updateItems() {
         const cat = document.getElementById('itemCategory').value;
         const sel = document.getElementById('itemSelect');
-        const inventory = { men: ["शर्ट", "पेंट", "कोट"], women: ["साड़ी", "लहंगा"] };
         sel.innerHTML = '<option value="">कपड़ा चुनें...</option>';
         if(cat) inventory[cat].forEach(i => sel.innerHTML += `<option value="${i}">${i}</option>`);
     }
@@ -169,7 +161,7 @@
         const service = document.getElementById('serviceType').value;
         const q = parseFloat(document.getElementById('qty').value);
         const r = parseFloat(document.getElementById('rate').value);
-        if(!item || isNaN(q) || isNaN(r)) return alert("पूरा विवरण भरें!");
+        if(!item || isNaN(q) || isNaN(r)) return alert("विवरण पूरा भरें!");
         billItems.push({ name: `${item} (${service})`, q, r, total: q*r });
         render();
     }
@@ -178,32 +170,41 @@
         const body = document.querySelector('#billTable tbody');
         const mBal = parseFloat(document.getElementById('manualBalance').value) || 0;
         const disc = parseFloat(document.getElementById('discountAmt').value) || 0;
-        body.innerHTML = ''; let sum = 0;
-        billItems.forEach(i => { sum += i.total; body.innerHTML += `<tr><td>${i.name} x ${i.q}</td><td style="text-align:right;">₹${i.total}</td></tr>`; });
-        const final = (sum + mBal) - disc;
-        document.getElementById('gTotal').innerText = `₹ ${final}`;
+        body.innerHTML = ''; let itemsSum = 0;
+        billItems.forEach((i, idx) => { itemsSum += i.total; body.innerHTML += `<tr><td style="padding:10px;">${i.name} x ${i.q} <span onclick="removeItem(${idx})" style="color:red; cursor:pointer;">✕</span></td><td style="text-align:right;">₹${i.total}</td></tr>`; });
+        const final = (itemsSum + mBal) - disc;
+        document.getElementById('gTotal').innerText = `₹ ${final > 0 ? final : 0}`;
         return final;
     }
+
+    function removeItem(idx) { billItems.splice(idx, 1); render(); }
 
     function generateInvoicePDF() {
         const element = document.getElementById('invoice-template');
         element.style.display = 'block';
-        document.getElementById('pdfName').innerText = document.getElementById('custName').value || "Guest";
-        document.getElementById('pdfMob').innerText = document.getElementById('custMobile').value;
-        document.getElementById('pdfDate').innerText = new Date().toLocaleDateString();
-        document.getElementById('pdfInv').innerText = "INV" + Date.now().toString().slice(-6);
-        document.getElementById('pdfTotal').innerText = document.getElementById('gTotal').innerText.replace('₹ ', '');
+        document.getElementById('pdfCustName').innerText = document.getElementById('custName').value || "Guest Customer";
+        document.getElementById('pdfCustMob').innerText = document.getElementById('custMobile').value || "---";
+        document.getElementById('pdfInvNo').innerText = "INV-" + Date.now().toString().slice(-6);
+        document.getElementById('pdfDate').innerText = new Date().toLocaleDateString('hi-IN');
+        document.getElementById('pdfFinalTotal').innerText = document.getElementById('gTotal').innerText.replace('₹ ', '');
         
         let html = '';
-        billItems.forEach(i => { html += `<tr><td style="padding:8px; border:1px solid #000;">${i.name}</td><td style="padding:8px; border:1px solid #000; text-align:center;">${i.q}</td><td style="padding:8px; border:1px solid #000; text-align:center;">${i.r}</td><td style="padding:8px; border:1px solid #000; text-align:right;">${i.total}</td></tr>`; });
-        document.getElementById('pdfItems').innerHTML = html;
+        billItems.forEach(i => { html += `<tr><td style="border:1px solid #000; padding:5px;">${i.name}</td><td style="border:1px solid #000; padding:5px; text-align:center;">${i.q}</td><td style="border:1px solid #000; padding:5px; text-align:center;">${i.r}</td><td style="border:1px solid #000; padding:5px; text-align:right;">${i.total}</td></tr>`; });
+        document.getElementById('pdfItemBody').innerHTML = html;
 
         html2pdf().from(element).save('Pratiksha_Invoice.pdf').then(() => { element.style.display = 'none'; });
     }
 
     async function processFinalBill() {
-        // (आपका पुराना SYNC और व्हाट्सएप लॉजिक यहाँ रहेगा, बस URL SCRIPT_URL रहेगा)
-        alert("सिंक सफल! इन्वॉयस अब डाउनलोड के लिए तैयार है।");
+        const mob = document.getElementById('custMobile').value;
+        const name = document.getElementById('custName').value;
+        const finalAmt = document.getElementById('gTotal').innerText.replace('₹ ', '');
+        if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
+        
+        const details = billItems.map(i => `${i.name}x${i.q}`).join(", ");
+        const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते ${name},\n\nकुल बिल: *₹${finalAmt}*\nविवरण: ${details}\n\n।। ऋणानुबंध ही कर्म की धुरी है ।।`;
+        window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(waMsg)}`, '_blank');
+        location.reload();
     }
 </script>
 </body>
