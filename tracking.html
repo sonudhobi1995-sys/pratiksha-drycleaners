@@ -9,70 +9,70 @@
     
     <style>
         :root { 
-            --sun-gold: #FFD700; 
-            --deep-space: #010409; 
-            --orbit-line: rgba(255, 215, 0, 0.15); 
-            --glass: rgba(255, 255, 255, 0.03); 
+            --sun-orange: #FF8C00; 
+            --mercury-green: #2E8B57; 
+            --saturn-blue: #001F3F; 
+            --cream-light: #FFFDD0; 
+            --gold-accent: #D4AF37; 
         }
 
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; 
-            background-color: var(--deep-space); 
-            margin: 0; padding: 20px; color: white; 
+            background-color: var(--cream-light); 
+            margin: 0; padding: 20px; color: #333; 
             min-height: 100vh; overflow-x: hidden;
             position: relative;
         }
 
-        /* ✨ वही सितारों वाला असली बैकग्राउंड जो आपने मांगा था */
+        /* ✨ सितारों वाला बैकग्राउंड (Cream थीम पर हल्का सा ओपेसिटी के साथ) */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 200%;
             background-image: 
-                radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
-                radial-gradient(2.5px 2.5px at 300px 50px, #fff, transparent);
+                radial-gradient(1.5px 1.5px at 20px 30px, var(--sun-orange), transparent),
+                radial-gradient(2px 2px at 150px 150px, var(--mercury-green), transparent);
             background-size: 300px 300px;
             animation: stars-stream 60s infinite linear;
-            z-index: -1; opacity: 0.6;
+            z-index: -1; opacity: 0.15;
         }
         @keyframes stars-stream { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
         .track-container { 
             max-width: 450px; margin: auto; 
-            background: var(--glass); 
+            background: white; 
             padding: 35px 20px; border-radius: 40px; 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 215, 0, 0.1); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6); 
+            backdrop-filter: blur(10px); 
+            border: 2px solid var(--gold-accent); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
         }
         
-        .status-header { text-align: center; margin-bottom: 35px; }
-        .status-header h2 { font-family: 'Playfair Display', serif; color: var(--sun-gold); font-size: 1.8rem; margin: 0; letter-spacing: 2px; }
+        .status-header { text-align: center; margin-bottom: 35px; border-bottom: 2px solid var(--sun-orange); padding-bottom: 15px; }
+        .status-header h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); font-size: 1.8rem; margin: 0; }
 
-        .back-btn { display: inline-block; margin-bottom: 25px; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; font-weight: bold; }
+        .back-btn { display: inline-block; margin-bottom: 25px; color: var(--mercury-green); text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
 
-        /* 4-स्टेप्स प्रोग्रेस बार */
+        /* 4-स्टेप्स प्रोग्रेस बार - नई कलर थीम */
         .step-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; position: relative; }
-        .step { display: flex; align-items: center; gap: 20px; opacity: 0.15; transition: all 1s ease; }
-        .step.active { opacity: 1; filter: drop-shadow(0 0 5px var(--sun-gold)); }
+        .step { display: flex; align-items: center; gap: 20px; opacity: 0.3; transition: all 1s ease; font-weight: 700; color: var(--saturn-blue); }
+        .step.active { opacity: 1; }
 
         .circle { 
-            width: 42px; height: 42px; border-radius: 50%; 
-            background: rgba(255,255,255,0.05); 
+            width: 45px; height: 45px; border-radius: 50%; 
+            background: #eee; 
             display: flex; align-items: center; justify-content: center; 
-            color: white; font-size: 1rem; z-index: 1; 
-            border: 1px solid rgba(255,255,255,0.1); font-weight: 900;
+            color: #777; font-size: 1.1rem; z-index: 1; 
+            border: 2px solid #ddd; font-weight: 900;
         }
-        .active .circle { background: var(--sun-gold); color: black; box-shadow: 0 0 25px var(--sun-gold); border-color: var(--sun-gold); }
+        .active .circle { background: var(--sun-orange); color: white; border-color: var(--gold-accent); box-shadow: 0 0 15px rgba(255, 140, 0, 0.4); }
         
-        .line { position: absolute; left: 21px; top: 0; width: 1px; height: 100%; background: var(--orbit-line); z-index: 0; }
-        .line-progress { position: absolute; left: 21px; top: 0; width: 1.5px; background: var(--sun-gold); z-index: 0; transition: height 1.5s ease; box-shadow: 0 0 15px var(--sun-gold); }
+        .line { position: absolute; left: 22.5px; top: 0; width: 3px; height: 100%; background: #eee; z-index: 0; }
+        .line-progress { position: absolute; left: 22.5px; top: 0; width: 3px; background: var(--sun-orange); z-index: 0; transition: height 1.5s ease; }
         
-        .inventory-card { background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 25px; padding: 25px; margin-top: 40px; }
-        .inventory-title { font-family: 'Playfair Display', serif; color: var(--sun-gold); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 2px; font-weight: 900; }
-        #inventoryList div { margin-bottom: 12px; padding-left: 15px; border-left: 2px solid var(--sun-gold); font-size: 0.9rem; opacity: 0.9; }
+        .inventory-card { background: #fdfae1; border: 1.5px dashed var(--gold-accent); border-radius: 25px; padding: 25px; margin-top: 40px; }
+        .inventory-title { font-family: 'Playfair Display', serif; color: var(--saturn-blue); border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px; margin-bottom: 15px; font-weight: 900; font-size: 1.1rem; }
+        #inventoryList div { margin-bottom: 12px; padding-left: 15px; border-left: 3px solid var(--mercury-green); font-size: 0.95rem; font-weight: 600; color: #444; }
 
-        .wa-btn { width: 100%; margin-top: 30px; background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 900; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; font-size: 0.95rem; text-transform: uppercase; }
-        .footer-blessing { text-align: center; font-size: 0.65rem; color: #475569; margin-top: 40px; line-height: 2; letter-spacing: 1px; }
+        .wa-btn { width: 100%; margin-top: 30px; background: var(--mercury-green); color: white; border: 1px solid white; padding: 18px; border-radius: 20px; font-weight: 900; cursor: pointer; text-transform: uppercase; box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3); }
+        .footer-blessing { text-align: center; font-size: 0.7rem; color: var(--saturn-blue); margin-top: 40px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -81,7 +81,7 @@
         <a href="index.html" class="back-btn">← मुख्य द्वार</a>
         <div class="status-header">
             <h2>शुद्धिकरण चक्र</h2>
-            <div style="font-size: 0.6rem; color: var(--sun-gold); margin-top: 10px; letter-spacing: 3px; text-transform: uppercase;">ID: <span id="dispMobile">...</span></div>
+            <div style="font-size: 0.65rem; color: var(--mercury-green); margin-top: 10px; letter-spacing: 2px; font-weight: bold;">ID: <span id="dispMobile">...</span></div>
         </div>
         <div class="step-container">
             <div class="line"></div>
@@ -92,49 +92,70 @@
             <div class="step" id="step4"><div class="circle">4</div> ✅ डिलीवर</div>
         </div>
         <div class="inventory-card">
-            <div class="inventory-title"> Manifest / सूची <span>✨</span></div>
+            <div class="inventory-title"> Manifest / सूची</div>
             <div id="inventoryList">विवरण आ रहा है...</div>
         </div>
-        <button class="wa-btn" onclick="sendToWhatsApp()">व्हाट्सएप विवरण</button>
-        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> प्रतीक्षा एवं नीति समर्पित © 2026</div>
+        <button class="wa-btn" onclick="sendToWhatsApp()">सहायता हेतु व्हाट्सएप</button>
+        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> Designed by SONU NEEL</div>
     </div>
 
     <script>
+        // आपका v10.6 मास्टर इंजन यूआरएल
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec';
         let globalStatus = "Pickup"; let globalDetails = "";
 
         window.onload = function() {
-            const mobile = localStorage.getItem('userMobile');
-            if (!mobile) { window.location.href = "login.html"; return; }
+            const mobile = localStorage.getItem('userMobile') || "Unknown";
             document.getElementById('dispMobile').innerText = mobile;
 
+            // डेटा फेचिंग इंजन
             fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`)
             .then(res => res.json())
             .then(data => {
-                if(data.status === "not_found") { document.getElementById('inventoryList').innerText = "कोई रिकॉर्ड नहीं मिला।"; return; }
+                if(data.status === "not_found") { 
+                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय ऑर्डर नहीं है।"; 
+                    return; 
+                }
                 globalStatus = data.orderStatus || "Pickup";
                 globalDetails = data.details || "";
+                
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
-                globalDetails.split(',').forEach(item => { if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; });
+                globalDetails.split(',').forEach(item => { 
+                    if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
+                });
+                
                 updateSteps(globalStatus);
+            }).catch(err => {
+                document.getElementById('inventoryList').innerText = "सिंक एरर! कृपया दोबारा प्रयास करें।";
             });
         };
 
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            const stepsMap = { "Pickup": 1, "Order Pickup": 1, "पिकअप": 1, "Processing": 2, "Washing": 2, "प्रक्रिया": 2, "Ready": 3, "सिद्ध": 3, "तैयार": 3, "Delivered": 4, "डिलीवर": 4 };
+            // स्थिति को मैप करना (v10.6 स्टैंडर्ड)
+            const stepsMap = { 
+                "Pickup": 1, "Order Pickup": 1, "পিকআপ": 1, 
+                "Processing": 2, "Washing": 2, "Laundry": 2, 
+                "Ready to Deliver": 3, "Ready": 3, "तैयार": 3, 
+                "Delivered": 4, "Complete": 4 
+            };
+            
             let level = stepsMap[status] || 1;
             const progressLine = document.getElementById('progressLine');
             const h = ((level - 1) / 3) * 100;
+            
             progressLine.style.height = level > 1 ? `calc(${h}% - 5px)` : "0px";
-            for(let i=1; i<=level; i++) { const el = document.getElementById('step' + i); if(el) el.classList.add('active'); }
+            for(let i=1; i<=level; i++) { 
+                const el = document.getElementById('step' + i); 
+                if(el) el.classList.add('active'); 
+            }
         }
 
         function sendToWhatsApp() {
             const mobile = localStorage.getItem('userMobile');
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स*\nस्थिति: *${globalStatus}*\nविवरण: ${globalDetails}\nधन्यवाद!`;
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`, '_blank');
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते,\n\nमेरे ऑर्डर की स्थिति: *${globalStatus}*\nआइटम्स: ${globalDetails}\n\n।। ऋणानुबंध ।।`;
+            window.open(`https://wa.me/917740870095?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
 </body>
