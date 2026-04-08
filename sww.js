@@ -1,43 +1,50 @@
-const CACHE_NAME = 'pratiksha-admin-v10.5'; // वर्जन बदला ताकि फोन नया अपडेट पकड़ ले
+const CACHE_NAME = 'pratiksha-admin-v10.6'; // आज का मास्टर वर्जन
 const urlsToCache = [
-  './admin-update.html',  // एडमिन की मुख्य फाइल
-  './billing.html',       // बिलिंग फाइल
-  './manifest-billing.json',
-  './logo.png',           // आपका आइकॉन
-  './4.jpg'               // अगर कोई बैकग्राउंड फोटो है
+  './admin-update.html',
+  './billing.html',
+  './Dashboard.html',
+  './manifest-admin.json',
+  './logo.png',
+  './style.css' // आपकी मुख्य डिजाइन फाइल
 ];
 
-// 1. इंस्टॉल: फाइलों को फोन की मेमोरी में सुरक्षित करना
+// 1. इंस्टॉल: फाइलों को कोस्मिक मेमोरी में सुरक्षित करना
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('Admin Astra: Files Cached! ✅');
+      console.log('Guardian Engine: Files Cached Successfully! ✅');
       return cache.addAll(urlsToCache);
-    }).then(() => self.skipWaiting()) // तुरंत एक्टिवेट करें
+    }).then(() => self.skipWaiting()) 
   );
 });
 
-// 2. एक्टिवेट: पुरानी फाइलों को हटाना (ताकि ऐप अटके नहीं)
+// 2. एक्टिवेट: पुरानी ऊर्जा (Old Cache) को शुद्ध करना
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            console.log('Clearing Old Admin Cache... 🧹');
+            console.log('Clearing Old Cosmic Cache... 🧹');
             return caches.delete(cache);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // सभी टैब्स पर तुरंत नियंत्रण
   );
 });
 
-// 3. फेच: इंटरनेट न होने पर भी ऐप को 'Standalone' मोड में खोलना
+// 3. फेच: इंटरनेट की बाधा के बिना सेवा जारी रखना
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+      // अगर कैश में है तो वहां से लें, वरना नेटवर्क से खींचें
+      return response || fetch(event.request).catch(() => {
+        // अगर इंटरनेट भी नहीं है और कैश में भी नहीं, तो कम से कम मुख्य पेज दिखाएं
+        if (event.request.mode === 'navigate') {
+          return caches.match('./admin-update.html');
+        }
+      });
     })
   );
 });
