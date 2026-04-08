@@ -1,7 +1,7 @@
 {
-  "name": "Guardian Station Admin",
-  "short_name": "P-Admin",
-  "description": "Pratiksha Dry Cleaners Admin Control",
+  "name": "Pratiksha Admin Station",
+  "short_name": "P-Guardian",
+  "description": "Pratiksha Dry Cleaners - Manager Command Center",
   "start_url": "admin-update.html",
   "display": "standalone",
   "background_color": "#000205",
@@ -11,12 +11,14 @@
     {
       "src": "logo.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "logo.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
