@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Member Exclusive | Pratiksha Digital</title>
+    <title>Member Exclusive | Pratiksha Dry Cleaners</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -13,11 +13,14 @@
             --saturn-blue: #001F3F;
             --success-green: #27ae60;
             --danger-red: #e74c3c;
+            --star-gold: #FFD700;
         }
 
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--deep-space); color: white; overflow-x: hidden; }
 
         .header-space { padding: 40px 20px 20px; text-align: center; }
+        
+        /* 💳 आपका जादुई मेंबरशिप कार्ड */
         .membership-card {
             background: var(--royal-gold);
             border-radius: 20px;
@@ -43,6 +46,7 @@
             cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px;
         }
 
+        /* 📖 डिजिटल पासबुक सेक्शन */
         .passbook-section {
             background: white;
             border-radius: 40px 40px 0 0;
@@ -72,13 +76,23 @@
         }
 
         #loader { display: none; text-align: center; padding: 20px; color: #d4af37; font-weight: 800; }
+
+        /* 🔱 कोस्मिक फुटर - शंकर विहार मैट्रिक्स */
+        .big-footer { 
+            background: var(--saturn-blue); color: white; padding: 50px 20px 100px; text-align: center; 
+            margin-top: 0; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-brand { font-family: 'Playfair Display'; font-size: 2.2rem; color: white; margin-bottom: 15px; }
+        .footer-address { font-size: 0.8rem; line-height: 1.6; margin-bottom: 25px; color: rgba(255,255,255,0.7); }
+        .signature-line { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--star-gold); font-style: italic; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <div class="header-space">
+        <!-- 💳 कोस्मिक मेंबरशिप कार्ड -->
         <div class="membership-card" id="memberCard">
-            <div class="card-type" id="mType">MEMBERSHIP</div>
+            <div class="card-type" id="mType">GOLD MEMBERSHIP</div>
             <div class="balance-section">
                 <div class="balance-label">Current Balance</div>
                 <div class="balance-amt">₹<span id="uBalance">0.00</span></div>
@@ -97,25 +111,41 @@
             <div style="font-size: 0.7rem; font-weight: 800; color: var(--saturn-blue);">LIVE FEED</div>
         </div>
 
-        <div id="loader">✨ शुचिता के साथ डेटा मिल रहा है...</div>
+        <div id="loader">✨ कोस्मिक डेटा सिंक जारी...</div>
         <div id="logContainer" class="log-list"></div>
 
         <div class="quick-actions">
             <a href="https://wa.me/917740870095" class="action-btn">💬 Support</a>
             <a href="index.html" class="action-btn" style="background: var(--saturn-blue); color: white;">🧺 New Order</a>
         </div>
+    </div>
+
+    <!-- 🔱 कोस्मिक फुटर मैट्रिक्स -->
+    <div class="big-footer">
+        <div class="footer-brand">प्रतीक्षा ड्राई क्लीनर्स</div>
+        <div class="footer-address">
+            🏠 11, शंकर विहार, नियर 200 फीट बाईपास,<br>
+            मुरलीपुरा स्कीम, जयपुर - 302039<br>
+            📞 +91 77408 70095 | 📧 sonudhobi1995@gmail.com
+        </div>
         
-        <p style="text-align: center; font-size: 0.6rem; color: #ccc; margin-top: 40px;">
-            © 2026 PRATIKSHA DIGITAL SUPREME | Mission 2047
-        </p>
+        <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;">
+            <a href="terms.html" style="color:var(--star-gold); text-decoration:none; font-size:0.7rem;">नियम एवं शर्तें</a>
+            <span style="color:rgba(255,255,255,0.2);">|</span>
+            <a href="privacy.html" style="color:var(--star-gold); text-decoration:none; font-size:0.7rem;">गोपनीयता नीति</a>
+        </div>
+
+        <div style="font-size: 0.6rem; color: #999; letter-spacing: 2px; text-transform: uppercase;">।। मिशन 2047: ऋणानुबंध ।।</div>
+        
+        <!-- ✍️ आपकी खास मोहर -->
+        <div class="signature-line">Designed by SONU NEEL</div>
     </div>
 
     <script>
-        // ✅ Astra v10.0 Engine URL
+        // 🔱 v10.6 Galactic Engine Master Link
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
 
         async function fetchMemberData() {
-            // मोबाइल नंबर प्राप्त करना (Astra शुचिता: 10 अंक)
             let mobile = localStorage.getItem('userMobile');
             if(!mobile) {
                 alert("मोबाइल नंबर नहीं मिला। कृपया पुनः लॉगिन करें।");
@@ -126,37 +156,41 @@
             loader.style.display = 'block';
 
             try {
+                // v10.6 'getMemberDetails' एक्शन का उपयोग
                 const response = await fetch(`${scriptURL}?action=getMemberDetails&mobile=${mobile}`);
                 const data = await response.json();
                 
-                // UI अपडेट - बैलेंस और विवरण
+                // UI अपडेट
                 document.getElementById('uBalance').innerText = data.balance || "0.00";
-                document.getElementById('uNameDisp').innerText = data.name || "Customer";
+                document.getElementById('uNameDisp').innerText = data.name || localStorage.getItem('userName');
                 document.getElementById('mType').innerText = data.membership || "GOLD MEMBER";
                 document.getElementById('uExpiry').innerText = `VALID THRU\n${data.expiry || '12/26'}`;
                 
-                // ट्रांजैक्शन लॉग (कॉलम M: Log से)
+                // ट्रांजैक्शन लॉग रेंडरिंग
                 const logData = data.log || "";
-                const logs = logData.split('\n').reverse(); // नवीनतम सबसे ऊपर
+                const logs = logData.split('\n').filter(l => l.trim()).reverse(); 
                 let logHTML = '';
                 
                 logs.forEach(log => {
-                    if(log.trim() && log.includes(':')) {
+                    if(log.includes(':')) {
                         const isMinus = log.includes('-');
                         const amtClass = isMinus ? 'minus' : 'plus';
                         
-                        // लॉग फॉर्मेट: "Date: Details -Amount"
                         const parts = log.split(':');
                         const datePart = parts[0].trim();
                         const infoPart = parts[1].trim();
 
+                        // अमाउंट और डिस्क्रिप्शन को अलग करना
+                        const amtMatch = infoPart.match(/-?₹?\d+/);
+                        const cleanDesc = infoPart.replace(amtMatch, '').trim();
+
                         logHTML += `
                             <div class="log-item">
                                 <div class="log-info">
-                                    <span class="log-desc">${infoPart.replace(/-₹?\d+/, '').trim()}</span>
+                                    <span class="log-desc">${cleanDesc}</span>
                                     <span class="log-date">${datePart}</span>
                                 </div>
-                                <div class="log-amt ${amtClass}">${infoPart.match(/-?₹?\d+/)}</div>
+                                <div class="log-amt ${amtClass}">${amtMatch}</div>
                             </div>`;
                     }
                 });
@@ -164,14 +198,13 @@
                 document.getElementById('logContainer').innerHTML = logHTML || '<p style="text-align:center; padding:20px; font-size:0.8rem; color:#888;">अभी कोई ट्रांजैक्शन इतिहास नहीं है।</p>';
 
             } catch (e) {
-                console.error("Fetch Error:", e);
-                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:red;">डेटा लोड करने में त्रुटि हुई।</p>';
+                console.error("Sync Error:", e);
+                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:red;">कोस्मिक डेटा लोड करने में त्रुटि हुई।</p>';
             } finally {
                 loader.style.display = 'none';
             }
         }
 
-        // पेज लोड पर ऑटो-फेच
         window.onload = fetchMemberData;
     </script>
 </body>
