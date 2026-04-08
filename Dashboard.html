@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 🪐 सौरमंडल बैकग्राउंड */
+        /* 🪐 सौरमंडल बैकग्राउंड (विजुअल्स यथावत) */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -70,7 +70,6 @@
             box-shadow: 0 0 10px var(--accent-gold);
         }
 
-        /* ✨ सितारों की बारिश */
         .stars {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 200%;
@@ -84,7 +83,6 @@
         .header { text-align: center; padding: 20px 0; position: relative; }
         .header h2 { font-family: 'Playfair Display', serif; margin: 0; letter-spacing: 3px; font-weight: 900; }
         
-        /* 💎 पारदर्शी मुख्य कार्ड */
         .card-main { 
             background: rgba(255, 255, 255, 0); 
             backdrop-filter: blur(2px);
@@ -114,7 +112,6 @@
             height: 100%; width: 0%; transition: 1.5s ease-in-out; 
         }
 
-        /* 📦 पारदर्शी ग्रिड बॉक्स */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .stat-box { 
             background: rgba(255, 255, 255, 0); 
@@ -164,13 +161,13 @@
         
         <div class="sip-box">
             <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; color: var(--accent-gold);">
-                <span>दैनिक SIP लक्ष्य (₹2,500/माह)</span>
+                <span>मासिक SIP प्रोग्रेस (लक्ष्य ₹2,500)</span>
                 <span id="perc">0%</span>
             </div>
             <div class="progress-bg"><div id="bar" class="progress-fill"></div></div>
         </div>
         <small id="totalColl" style="display:block; margin-top:15px; font-weight:800; color: var(--sun-orange); font-size: 0.85rem; letter-spacing: 1px;">
-            मासिक अनुमानित आय: ₹ 0
+            कुल मासिक कमाई: ₹ 0
         </small>
     </div>
 
@@ -185,6 +182,7 @@
     <a href="admin-update.html" class="back-nav">← एडमिन पैनल पर जाएं</a>
 
     <script>
+        // 🔱 v10.6 Galactic Master Link
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
 
         function fetchData() {
@@ -194,26 +192,32 @@
             fetch(`${scriptURL}?action=getDashboardData`)
             .then(res => res.json())
             .then(data => {
+                // v10.6 डेटा मैपिंग
                 document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
-                document.getElementById('pending').innerText = data.pickup || 0;
-                document.getElementById('washing').innerText = data.processing || 0;
+                document.getElementById('pending').innerText = data.pending || 0;
+                document.getElementById('washing').innerText = data.washing || 0;
                 document.getElementById('ready').innerText = data.ready || 0;
-                document.getElementById('customers').innerText = data.totalCustomers || 0;
+                document.getElementById('customers').innerText = data.totalCust || 0;
 
-                const dailyTarget = 83.33; 
-                let progress = Math.min(((data.todayColl || 0) / dailyTarget) * 100, 100);
+                // SIP Calculation (मासिक लक्ष्य ₹2500 के आधार पर)
+                const monthlyTarget = 2500;
+                // मान लेते हैं कि मासिक कमाई अभी आज की कमाई ही दिखा रहा है (बाद में इसे बैकएंड से बदलेंगे)
+                let progress = Math.min(((data.todayColl || 0) / monthlyTarget) * 100, 100);
+                
                 document.getElementById('bar').style.width = progress + "%";
                 document.getElementById('perc').innerText = Math.round(progress) + "%";
-
-                document.getElementById('totalColl').innerText = 'मासिक अनुमानित आय: ₹ ' + (data.monthlyProjection || 0);
+                document.getElementById('totalColl').innerText = 'कुल मासिक कमाई: ₹ ' + (data.todayColl || 0);
+                
                 btn.innerText = "🔄 डेटा अपडेट करें";
             })
             .catch(err => {
                 console.error(err);
                 btn.innerText = "🔄 डेटा अपडेट करें";
+                alert("नेटवर्क त्रुटि: कोस्मिक डेटा प्राप्त नहीं हुआ।");
             });
         }
 
+        // लोड होते ही डेटा लाएँ
         window.onload = fetchData;
     </script>
 </body>
