@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Guardian Station | PRATIKSHA COSMIC PREMIERE</title>
     
+    <link rel="manifest" href="manifest-admin.json">
+    <meta name="theme-color" content="#FF8C00">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --moonlight: #f8fafc;
             --star-gold: #FFD700;
-            --deep-space: #000205; /* गहरा अंतरिक्ष, ताकि ग्रह दिखें */
+            --deep-space: #000205; 
             --sun-orange: #FF8C00;
-            --border-glow: rgba(255, 215, 0, 0.4); /* ज्यादा चमकदार बॉर्डर */
+            --border-glow: rgba(255, 215, 0, 0.4); 
         }
 
         body {
@@ -25,13 +27,13 @@
             position: relative;
         }
 
-        /* 🪐 1. सौरमंडल एनीमेशन (Background - अब पूरी तरह दृश्यमान) */
+        /* 🪐 1. सौरमंडल एनीमेशन - आपकी मूल 311 लाइनों वाली कोडिंग */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2; /* कार्ड के पीछे */
+            z-index: -2;
             pointer-events: none;
-            opacity: 0.8; /* ग्रहों को चमकदार रखने के लिए */
+            opacity: 0.8;
         }
 
         .sun {
@@ -56,47 +58,45 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            animation: orbit-rotate linear infinite;
         }
+
+        /* प्रत्येक ग्रह की अपनी स्वतंत्र रूहानी गति */
+        .orb-1 { width: 180px; height: 180px; animation: orbit-rotate 8s linear infinite; }
+        .orb-2 { width: 280px; height: 280px; animation: orbit-rotate 15s linear infinite; }
+        .orb-3 { width: 400px; height: 400px; animation: orbit-rotate 25s linear infinite; }
+        .orb-4 { width: 550px; height: 550px; animation: orbit-rotate 40s linear infinite; }
 
         @keyframes orbit-rotate {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* नवग्रहों की कक्षाएँ और आकार */
-        .orb-1 { width: 180px; height: 180px; animation-duration: 8s; }
         .planet-mercury { top: 10px; left: 50%; width: 8px; height: 8px; background: #95a5a6; border-radius: 50%; position: absolute; }
-
-        .orb-2 { width: 280px; height: 280px; animation-duration: 15s; }
         .planet-venus { top: 20px; left: 20px; width: 12px; height: 12px; background: #f1c40f; border-radius: 50%; position: absolute; }
-
-        .orb-3 { width: 400px; height: 400px; animation-duration: 25s; }
         .planet-earth { bottom: 30px; right: 30px; width: 14px; height: 14px; background: #3498db; border-radius: 50%; position: absolute; box-shadow: 0 0 10px #3498db; }
-
-        .orb-4 { width: 550px; height: 550px; animation-duration: 40s; }
         .planet-mars { top: 50%; right: 10px; width: 10px; height: 10px; background: #e74c3c; border-radius: 50%; position: absolute; }
 
-        /* ✨ सितारों का बहाव */
+        /* ✨ सितारों का गहरा बहाव */
         .stars-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 200%;
             background-image: 
                 radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 150px 150px, #fff, transparent);
+                radial-gradient(2px 2px at 150px 150px, #fff, transparent),
+                radial-gradient(1px 1px at 400px 400px, #fff, transparent);
             background-size: 300px 300px;
             animation: stars-stream 60s infinite linear;
-            z-index: -3; /* सबसे पीछे */
+            z-index: -3;
             opacity: 0.6;
         }
 
         @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-        /* ✅ पारदर्शी हेडर */
+        /* हैडर और कंटेनर */
         .app-header {
             padding: 45px 20px 25px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.7); /* हल्का गहरा ताकि टेक्स्ट दिखे */
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
             border-bottom: 2px solid var(--sun-orange);
         }
@@ -108,79 +108,65 @@
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
-        .container { 
-            padding: 20px; max-width: 500px; margin: auto; 
-            position: relative; z-index: 1; /* ग्रहों के आगे */
-        }
+        .container { padding: 20px; max-width: 500px; margin: auto; position: relative; z-index: 1; }
 
-        /* 💎 पारदर्शी डैशबोर्ड बटन (केवल सुनहरी बॉर्डर) */
         .cog-dashboard-btn {
-            background: rgba(255, 255, 255, 0); /* पूरी तरह पारदर्शी */
+            background: rgba(255, 255, 255, 0);
             border: 2px solid var(--star-gold);
             border-radius: 30px;
             padding: 25px;
             margin-bottom: 25px;
             text-align: center;
-            backdrop-filter: blur(2px); /* बहुत हल्का ब्लर, ताकि पीछे का दिखे */
+            backdrop-filter: blur(2px);
             text-decoration: none;
             display: block;
             transition: 0.3s;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
         }
-        .cog-dashboard-btn:active { transform: scale(0.96); border-color: var(--sun-orange); }
 
         .cog-dashboard-btn img {
             width: 85px; height: 85px; border-radius: 50%;
             border: 2px solid var(--star-gold); margin-bottom: 10px;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
             animation: cosmic-float 6s infinite ease-in-out;
         }
         @keyframes cosmic-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* ✅ पूर्ण पारदर्शी कार्ड (Spiritually Transparent) */
+        /* कार्ड और इनपुट */
         .card { 
-            background: rgba(255, 255, 255, 0); /* शून्य ओपेसिटी - पूरी तरह पारदर्शी */
+            background: rgba(255, 255, 255, 0.02);
             padding: 25px; border-radius: 30px; margin-bottom: 20px; 
-            border: 2px solid var(--border-glow); /* केवल सुनहरी चमकती बॉर्डर */
-            backdrop-filter: blur(1px); /* न के बराबर ब्लर */
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--border-glow);
+            backdrop-filter: blur(5px);
         }
         
-        h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; margin-top: 0; letter-spacing: 2px; font-size: 1.1rem; text-transform: uppercase; border-bottom: 2px solid var(--sun-orange); display: inline-block; padding-bottom: 5px; text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
-        label { font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; display: block; margin-top: 10px; letter-spacing: 1px; }
+        h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; margin: 0 0 15px 0; letter-spacing: 2px; border-bottom: 2px solid var(--sun-orange); display: inline-block; }
 
-        /* इनपुट भी हल्के पारदर्शी */
         input, select { 
             width: 100%; padding: 16px; margin: 8px 0 20px 0; 
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); 
             background: rgba(0,0,0,0.5); color: white; font-size: 1rem;
-            box-sizing: border-box; outline: none; transition: 0.3s;
+            box-sizing: border-box; outline: none;
         }
-        input:focus, select:focus { border-color: var(--star-gold); background: rgba(0,0,0,0.7); }
-        option { background: var(--deep-space); color: white; }
 
-        /* नारंगी और सुनहरी बटन */
         .btn-status { 
             width: 100%; padding: 18px; border: none; border-radius: 20px; 
             background: linear-gradient(135deg, var(--star-gold), var(--sun-orange)); 
             color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3); font-size: 0.9rem; letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
         }
         
-        /* ✅ NAV GRID (कांच जैसा नहीं, केवल बॉर्डर) */
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .btn-nav { background: rgba(255,255,255,0); color: white; border: 2px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
-        .btn-nav:active { background: rgba(255,255,255,0.1); border-color: white; }
-        .btn-full { grid-column: span 2; border: 2px dashed var(--star-gold); color: var(--star-gold); background: rgba(255,215,0,0.03); }
+        .btn-nav { background: rgba(255,255,255,0); color: white; border: 2px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
 
-        .footer-info { text-align: center; font-size: 10px; color: rgba(255,255,255,0.5); margin: 30px 0; letter-spacing: 2px; line-height: 2; font-weight: bold; }
+        /* 🔱 कोस्मिक फुटर - Designed by SONU NEEL */
+        .footer-info { text-align: center; font-size: 10px; color: rgba(255,255,255,0.5); margin: 30px 0; letter-spacing: 2px; font-weight: bold; }
+        .signature-line { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--star-gold); font-style: italic; margin-top: 10px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
     </style>
 </head>
 <body>
 
-    <div class="stars-container no-print"></div>
+    <div class="stars-container"></div>
 
-    <div class="solar-system no-print">
+    <div class="solar-system">
         <div class="sun"></div>
         <div class="orbit orb-1"><div class="planet-mercury"></div></div>
         <div class="orbit orb-2"><div class="planet-venus"></div></div>
@@ -188,7 +174,7 @@
         <div class="orbit orb-4"><div class="planet-mars"></div></div>
     </div>
 
-    <div class="app-header no-print">
+    <div class="app-header">
         <img src="logo.png" alt="PRATIKSHA" class="app-logo">
         <h2 style="margin:0; font-family:'Playfair Display', serif; letter-spacing: 4px; font-weight: 900; font-size: 1.6rem;">Guardian Station</h2>
         <div style="font-size: 0.6rem; color: var(--star-gold); margin-top: 5px; letter-spacing: 3px;">COSMIC COMMAND CENTER</div>
@@ -196,7 +182,7 @@
 
     <div class="container">
         
-        <a href="Dashboard.html" class="cog-dashboard-btn no-print">
+        <a href="Dashboard.html" class="cog-dashboard-btn">
             <img src="1000289866.jpg" alt="Dash Vision">
             <div style="color: var(--star-gold); font-weight: 900; font-size: 1rem; letter-spacing: 2px;">प्रतीक्षा डिजिटल डैशबोर्ड</div>
             <p style="font-size: 0.6rem; color: #fff; opacity: 0.7; margin: 5px 0 0 0;">प्रगति का अवलोकन करें</p>
@@ -204,53 +190,45 @@
 
         <div class="card">
             <h3>✨ QUICK SIGNAL</h3>
-            
             <input type="text" id="custName" placeholder="ग्राहक का नाम..." readonly style="background: rgba(255,255,255,0.03); color: var(--star-gold); font-weight: 700;">
-
             <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <input type="tel" id="adminMobile" placeholder="मोबाइल नंबर" style="margin:0; flex:1;">
-                <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:15px; border:2px solid var(--accent-gold); background:none; color:var(--accent-gold); cursor:pointer;">👤</button>
+                <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:15px; border:2px solid var(--star-gold); background:none; color:var(--star-gold); cursor:pointer;">👤</button>
             </div>
-            
             <select id="adminStatus">
                 <option value="Order Pickup">🚚 ऑर्डर पिकअप</option>
                 <option value="Processing">🧺 प्रोसेसिंग (Laundry)</option>
                 <option value="Ready to Deliver">✨ रेडी टू डिलीवर</option>
                 <option value="Delivered">✅ डिलीवर्ड (Complete)</option>
             </select>
-
             <select id="paymentMode">
                 <option value="Cash">💵 नकद (Cash)</option>
                 <option value="Online">📱 डिजिटल (UPI)</option>
                 <option value="Wallet">💳 सदस्यता (Wallet)</option>
                 <option value="Due">🔴 उधारी (Due)</option>
             </select>
-
-            <button class="btn-status" id="updateBtn" onclick="updateStatusOnly()">
-                सिग्नल सिंक करें
-            </button>
+            <button class="btn-status" id="updateBtn" onclick="updateStatusOnly()">सिग्नल सिंक करें</button>
         </div>
 
-        <div class="card no-print">
+        <div class="card">
             <h3>🚀 QUICK NAVIGATION</h3>
             <div class="nav-grid">
                 <button class="btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
                 <button class="btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER APP</button>
-                <button class="btn-nav btn-full" onclick="window.location.href='Member_Exclusive.html'">💳 MEMBER INSIGHTS</button>
+                <button class="btn-nav" style="grid-column: span 2; border: 2px dashed var(--star-gold); color: var(--star-gold);" onclick="window.location.href='Member_Exclusive.html'">💳 MEMBER INSIGHTS</button>
             </div>
         </div>
         
         <div class="footer-info">
             ।। मिशन 2047: प्रतीक्षा एवं नीति हेतु ।। <br>
-            SONU NEEL संचालित रूहानी तंत्र © 2026
+            <div class="signature-line">Designed by SONU NEEL</div>
+            सोनू नील संचालित रूहानी तंत्र © 2026
         </div>
     </div>
 
 <script>
-    // ✅ Astra v10 Engine Sync URL (पुराना सुरक्षित है)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
 
-    // 👤 कांटेक्ट लिस्ट से नाम और नंबर उठाना (पुराना Logic)
     async function getContact() {
         if (!('contacts' in navigator)) return alert("Android Chrome का उपयोग करें।");
         try {
@@ -267,7 +245,6 @@
         } catch (err) { console.error(err); }
     }
 
-    // 🚀 डेटा अपडेट और व्हाट्सएप ट्रिगर (पुराना Logic)
     function updateStatusOnly() {
         const mobile = document.getElementById('adminMobile').value;
         const name = document.getElementById('custName').value;
@@ -276,11 +253,9 @@
         const btn = document.getElementById('updateBtn');
         
         if(!mobile || mobile.length < 10) return alert("मोबाइल नंबर दर्ज करें।");
-
         btn.innerText = "सिंक हो रहा है...";
         btn.disabled = true;
 
-        // Astra v10 Logic: Due means Pending, others mean Paid
         const pStatus = (pMode === "Due") ? "Pending" : "Paid";
         const finalURL = `${scriptURL}?action=updateStatus&mobile=${mobile}&status=${encodeURIComponent(status)}&paymentStatus=${pStatus}&paymentMode=${encodeURIComponent(pMode)}`;
         
@@ -289,23 +264,19 @@
         setTimeout(() => {
             alert("सिग्नल सिंक हो गया! ✅");
             let payMsg = (pMode === "Due") ? "⏳ उधारी (Due)" : `✅ प्राप्त (${pMode})`;
-            
-            // व्हाट्सएप संदेश (Personalized)
-            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\n------------------\nनमस्ते *${name || 'ग्राहक'}*,\n\nऑर्डर स्थिति: *${status}*\nभुगतान: *${payMsg}*\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏`;
+            const waMsg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\n------------------\nनमस्ते *${name || 'ग्राहक'}*,\n\nऑर्डर स्थिति: *${status}*\nभुगतान: *${payMsg}*\n\n।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏\n\n_Designed by SONU NEEL_`;
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(waMsg)}`, '_blank');
             location.reload();
         }, 1200);
     }
-</script>
-   <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      // यह आपके sw-billing.js को एक्टिवेट करेगा
-      navigator.serviceWorker.register('./sw-billing.js')
-        .then(reg => console.log('Admin Astra: Engine Active ✅'))
-        .catch(err => console.log('Sync Error:', err));
-    });
-  }
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sww.js')
+            .then(reg => console.log('Admin Astra: Engine Active ✅'))
+            .catch(err => console.log('Sync Error:', err));
+        });
+    }
 </script> 
 </body>
 </html>
