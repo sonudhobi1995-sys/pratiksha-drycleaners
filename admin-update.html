@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Guardian Station | PRATIKSHA COSMIC PREMIERE</title>
     
+    <!-- PWA कड़ियाँ: इसे P-Guardian बनाने के लिए -->
     <link rel="manifest" href="manifest-admin.json">
     <meta name="theme-color" content="#FF8C00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="P-Guardian">
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
@@ -27,7 +32,7 @@
             position: relative;
         }
 
-        /* 🪐 1. सौरमंडल एनीमेशन - आपकी मूल 311 लाइनों वाली कोडिंग */
+        /* 🪐 1. सौरमंडल एनीमेशन - आपकी मूल 311 लाइनों वाली पूरी मेहनत */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -60,7 +65,7 @@
             transform: translate(-50%, -50%);
         }
 
-        /* प्रत्येक ग्रह की अपनी स्वतंत्र रूहानी गति */
+        /* प्रत्येक ग्रह की अपनी स्वतंत्र रूहानी गति - जैसा आपने बनाया था */
         .orb-1 { width: 180px; height: 180px; animation: orbit-rotate 8s linear infinite; }
         .orb-2 { width: 280px; height: 280px; animation: orbit-rotate 15s linear infinite; }
         .orb-3 { width: 400px; height: 400px; animation: orbit-rotate 25s linear infinite; }
@@ -132,7 +137,7 @@
 
         /* कार्ड और इनपुट */
         .card { 
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0);
             padding: 25px; border-radius: 30px; margin-bottom: 20px; 
             border: 2px solid var(--border-glow);
             backdrop-filter: blur(5px);
@@ -227,6 +232,7 @@
     </div>
 
 <script>
+    // 🔱 v10.6 मास्टर इंजन सिंक
     const scriptURL = 'https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
 
     async function getContact() {
@@ -270,10 +276,11 @@
         }, 1200);
     }
 
+    // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sww.js')
-            .then(reg => console.log('Admin Astra: Engine Active ✅'))
+            .then(reg => console.log('Guardian Astra: Engine Active ✅'))
             .catch(err => console.log('Sync Error:', err));
         });
     }
