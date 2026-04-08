@@ -192,6 +192,7 @@
     </div>
 
 <script>
+    // 🔱 v10.6 मास्टर इंजन यूआरएल (App Script)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec';
 
     function createStars() {
@@ -281,11 +282,14 @@
         if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
         const btn = document.getElementById('pickBtn');
         btn.innerText = "ब्रह्मांडीय सिंक..."; btn.disabled = true;
+        
         const details = selectedItems.map(i => i.text).join(", ");
+        // v10.6 'updateStatus' सिंक
         const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(serviceFinal)}&details=${encodeURIComponent(details)}`;
+        
         try {
-            await fetch(url, { mode: 'no-cors' });
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nपिकअप सफल: " + details)}`, '_blank');
+            await fetch(url, { method: 'GET', mode: 'no-cors' });
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✨\nपिकअप सफल: " + details + "\n\n।। ऋणानुबंध ।।")}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
     }
@@ -294,10 +298,13 @@
         const mobile = document.getElementById('delMobile').value;
         const amt = document.getElementById('amount').value;
         if(!mobile || !amt) return alert("चेक करें!");
+        
+        // v10.6 'addBill' सिंक
         const url = `${scriptURL}?action=addBill&mobile=${mobile}&amount=${amt}&mode=${document.getElementById('payMode').value}`;
+        
         try {
-            await fetch(url, { mode: 'no-cors' });
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nडिलीवरी सफल: ₹" + amt)}`, '_blank');
+            await fetch(url, { method: 'GET', mode: 'no-cors' });
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✅\nडिलीवरी सफल: ₹" + amt + "\n\n।। ऋणानुबंध ।।")}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); }
     }
