@@ -22,19 +22,21 @@
             --cream-bg: #FFFDD0;
             --diamond-silver: #e0e0e0;
             --space-dark: #010103;
+            --star-gold: #FFD700;
         }
 
         body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
         
-        /* स्टेटस बार */
+        /* स्टेटस बार (Wallet के साथ) */
         .user-status-bar {
             background: white; padding: 12px 15px; display: flex; justify-content: space-between;
             align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
             border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
+        .wallet-pill { background: var(--saturn-blue); color: var(--star-gold); padding: 5px 10px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; border: 1px solid var(--star-gold); }
 
-        /* नेविगेशन */
+        /* नेविगेशन (यथावत) */
         nav.custom-nav { 
             background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
             top: 48px; z-index: 1100; display: flex; align-items: center; 
@@ -50,7 +52,6 @@
         .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; z-index: 10; }
         .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
 
-        /* ड्रॉपडाउन */
         .dropdown-content { 
             display: none; position: absolute; top: 65px; left: 0; width: 100%;
             background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
@@ -60,113 +61,68 @@
 
         .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* वीडियो सेक्शन */
+        /* वीडियो सेक्शन (सुरक्षित) */
         .video-container { position: relative; width: 100%; height: 42vh; background: #000; overflow: hidden; }
         #heroVid { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
         .vid-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 10; }
         .v-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; }
 
-        /* फोटो स्ट्रिप */
+        /* फोटो स्ट्रिप (सुरक्षित) */
         .photo-strip { background: white; padding: 25px 0; overflow: hidden; border-bottom: 1px solid #eee; }
         .strip-track { display: flex; width: max-content; animation: scroll-images 60s linear infinite; }
         .strip-track img { width: 160px; height: 220px; object-fit: cover; background: #fff; margin: 0 12px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
         @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- तारामंडल SERVICE HUB STYLE --- */
+        /* सर्विस हब (कोस्मिक डिजाइन सुरक्षित) */
         .service-hub { 
             padding: 80px 0 140px; background: var(--space-dark); border-radius: 60px 60px 0 0; 
             margin-top: -40px; text-align: center; position: relative; z-index: 5; color: white; overflow: hidden;
         }
-        
-        /* 1. ध्रुव तारा (Polaris) */
-        .polaris {
-            position: absolute; top: 12%; right: 15%; width: 5px; height: 5px; 
-            background: white; border-radius: 50%; box-shadow: 0 0 18px 4px white; 
-            z-index: 1; animation: polaris-blink 4s ease-in-out infinite;
-        }
-        @keyframes polaris-blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
-
-        /* 2. सप्तऋषि मंडल (Saptrishi) */
-        .saptrishi-star {
-            position: absolute; width: 2.5px; height: 2.5px; background: white; 
-            border-radius: 50%; z-index: 1; box-shadow: 0 0 6px white;
-        }
-        .s1 { top: 22%; right: 28%; } .s2 { top: 19%; right: 35%; } .s3 { top: 21%; right: 41%; } 
-        .s4 { top: 26%; right: 45%; } .s5 { top: 32%; right: 42%; } .s6 { top: 38%; right: 39%; } .s7 { top: 37%; right: 32%; }
-
-        /* 3. आकाशगंगा (Milky Way Glow) */
-        .milky-way {
-            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, rgba(100,150,255,0.03) 40%, transparent 75%);
-            transform: rotate(-35deg); z-index: 0; animation: milky-drift 120s linear infinite;
-        }
-        @keyframes milky-drift { from { transform: translate(0,0) rotate(-35deg); } to { transform: translate(80px, 80px) rotate(-35deg); } }
-
-        /* टिमटिमाते सितारे */
-        .star-scatter {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px);
-            background-size: 250px 250px; animation: scatter-move 100s linear infinite; opacity: 0.4; z-index: 0;
-        }
-        @keyframes scatter-move { from { background-position: 0 0; } to { background-position: 500px 500px; } }
-
-        /* सर्विस व्हील - चक्रव्यूह */
+        .polaris { position: absolute; top: 12%; right: 15%; width: 5px; height: 5px; background: white; border-radius: 50%; box-shadow: 0 0 18px 4px white; z-index: 1; animation: polaris-blink 4s ease-in-out infinite; }
+        .saptrishi-star { position: absolute; width: 2.5px; height: 2.5px; background: white; border-radius: 50%; z-index: 1; box-shadow: 0 0 6px white; }
+        .milky-way { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, rgba(100,150,255,0.03) 40%, transparent 75%); transform: rotate(-35deg); z-index: 0; animation: milky-drift 120s linear infinite; }
         .wheel-container { position: relative; width: 340px; height: 340px; margin: 0 auto; z-index: 10; animation: rotate-chakravyuh 45s linear infinite; }
-        @keyframes rotate-chakravyuh { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .center-action { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: radial-gradient(circle, #FFD700 0%, #FF8C00 60%, #FF4500 100%); border: 4px solid white; border-radius: 50%; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; font-weight: bold; z-index: 20; box-shadow: 0 0 35px var(--sun-orange); animation: sun-pulse 4s ease-in-out infinite; }
+        .orbit-node { position: absolute; width: 90px; height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); animation: counter-rotate 45s linear infinite; z-index: 5; border: 2px solid var(--diamond-silver); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        /* सूर्य (Rapid) - स्थिर */
-        .center-action { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 110px; height: 110px; background: radial-gradient(circle, #FFD700 0%, #FF8C00 60%, #FF4500 100%);
-            border: 4px solid white; border-radius: 50%; color: white; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-decoration: none; font-weight: bold; 
-            z-index: 20; box-shadow: 0 0 35px var(--sun-orange); animation: sun-pulse 4s ease-in-out infinite;
+        /* ग्रहों की स्थिति */
+        .pos1 { top: -10px; left: 50%; margin-left: -45px; background: linear-gradient(135deg, #FFD700, #DAA520); }
+        .pos2 { top: 70px; right: 5px; background: linear-gradient(135deg, #F5F5F5, #C0C0C0); }
+        .pos3 { bottom: 70px; right: 5px; background: linear-gradient(135deg, #FF0000, #8B0000); }
+        .pos4 { bottom: -10px; left: 50%; margin-left: -45px; background: linear-gradient(135deg, #00FF7F, #006400); }
+        .pos5 { bottom: 70px; left: 5px; background: linear-gradient(135deg, #191970, #000033); }
+        .pos6 { top: 70px; left: 5px; background: linear-gradient(135deg, #8B4513, #3E1F09); }
+
+        /* 🔱 विशाल कोस्मिक फुटर - शंकर विहार मैट्रिक्स */
+        .big-footer { 
+            background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; 
+            border-top: 4px solid var(--sun-orange);
         }
-        @keyframes sun-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 60px #FFFF00; } }
-
-        /* ग्रह - डायमंड बटन्स */
-        .orbit-node { 
-            position: absolute; width: 90px; height: 90px; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-decoration: none;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            animation: counter-rotate 45s linear infinite; z-index: 5;
-            border: 2px solid var(--diamond-silver); box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        .footer-brand { font-family: 'Playfair Display'; font-size: 2.8rem; font-weight: 900; color: white; margin-bottom: 20px; }
+        .footer-address { font-size: 0.85rem; line-height: 1.8; margin-bottom: 30px; color: rgba(255,255,255,0.8); }
+        .footer-address b { color: var(--star-gold); }
+        .signature-line { 
+            margin-top: 40px; font-family: 'Playfair Display', serif; font-size: 1.1rem; 
+            color: var(--star-gold); font-style: italic; letter-spacing: 2px;
         }
-        @keyframes counter-rotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
-
-        /* ग्रहों के विशिष्ट रंग */
-        .pos1 { top: -10px; left: 50%; margin-left: -45px; background: linear-gradient(135deg, #FFD700, #DAA520); } /* बृहस्पति */
-        .pos2 { top: 70px; right: 5px; background: linear-gradient(135deg, #F5F5F5, #C0C0C0); } /* शुक्र */
-        .pos3 { bottom: 70px; right: 5px; background: linear-gradient(135deg, #FF0000, #8B0000); } /* मंगल */
-        .pos4 { bottom: -10px; left: 50%; margin-left: -45px; background: linear-gradient(135deg, #00FF7F, #006400); } /* बुध */
-        .pos5 { bottom: 70px; left: 5px; background: linear-gradient(135deg, #191970, #000033); } /* शनि */
-        .pos6 { top: 70px; left: 5px; background: linear-gradient(135deg, #8B4513, #3E1F09); } /* लेदर/छाया */
-
-        .orbit-node span { font-size: 1.5rem; filter: drop-shadow(0 0 5px black); color: white; }
-        .orbit-node p { font-size: 0.6rem; font-weight: 800; margin-top: 4px; color: white; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 1px 1px 2px black; }
-
-        /* रेटिंग और फुटर */
-        .rating-box { background: white; padding: 40px 20px; text-align: center; }
-        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
-        .rating-info { font-weight: 700; font-size: 1rem; color: var(--saturn-blue); }
-        .rating-avatars { display: flex; justify-content: center; gap: -10px; margin: 20px 0; }
-        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; margin-left: -12px; object-fit: cover; }
-
-        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; }
-        .footer-brand { font-family: 'Playfair Display'; font-size: 3.5rem; font-weight: 900; background: linear-gradient(to bottom, #ffffff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
     </style>
 </head>
 <body>
 
+    <!-- स्टेटस बार (Wallet/Status) -->
     <div class="user-status-bar">
         <div>🏠 <span id="uHouse">...</span> | 👤 <b id="uName">ग्राहक</b></div>
-        <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
-            ऑर्डर: <span id="uStatus" class="status-pill">Online</span>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <div id="uWallet" class="wallet-pill">₹0</div>
+            <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
+                <span id="uStatus" class="status-pill">Online</span>
+            </div>
         </div>
     </div>
 
+    <!-- नेविगेशन (Brand Name Updated) -->
     <nav class="custom-nav">
         <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <div class="nav-brand-wrapper">
@@ -180,17 +136,15 @@
         <div class="dropdown-content" id="navMenu">
             <a href="index.html">🏠 होम पेज</a>
             <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="process.html">⚙️ कार्य प्रक्रिया</a>
-            <a href="about.html">📖 हमारे बारे में</a>
-            <a href="contact.html">📞 संपर्क करें</a>
+            <a href="Member_Exclusive.html">💎 मेंबरशिप कार्ड</a>
             <a href="tracking.html">📦 ट्रैकिंग</a>
-            <a href="Member_Exclusive.html">📦 Member_Exclusive</a>
-            
+            <a href="contact.html">📞 संपर्क करें</a>
         </div>
     </nav>
 
     <div class="top-bar-info">★ Premium Fabric Care | Ambabari - Jaipur ★</div>
 
+    <!-- वीडियो प्लेयर (सुरक्षित) -->
     <div class="video-container">
         <video id="heroVid" autoplay muted playsinline onended="nextVid()">
             <source src="10.mp4" type="video/mp4">
@@ -203,21 +157,15 @@
         </div>
     </div>
 
+    <!-- फोटो स्लाइडर (सुरक्षित) -->
     <div class="photo-strip">
         <div class="strip-track" id="imageTrack"></div>
     </div>
 
+    <!-- कोस्मिक सर्विस हब (सुरक्षित) -->
     <section class="service-hub">
-        <div class="milky-way"></div>
-        <div class="star-scatter"></div>
-        <div class="polaris"></div>
-        <div class="saptrishi-star s1"></div><div class="saptrishi-star s2"></div>
-        <div class="saptrishi-star s3"></div><div class="saptrishi-star s4"></div>
-        <div class="saptrishi-star s5"></div><div class="saptrishi-star s6"></div>
-        <div class="saptrishi-star s7"></div>
-
+        <div class="milky-way"></div><div class="star-scatter"></div><div class="polaris"></div>
         <h2 style="font-family:'Playfair Display'; margin-bottom:60px; color:var(--sun-orange); font-size:2rem; letter-spacing:3px; position:relative;">COSMIC SERVICES</h2>
-        
         <div class="wheel-container">
             <a href="services.html" class="center-action">
                 <span style="font-size:2rem;">⚡</span>
@@ -232,18 +180,17 @@
         </div>
     </section>
 
-    <div class="rating-box">
-        <div class="stars">★★★★★</div>
-        <div class="rating-info">5.0 | 1200+ Trusted Clients</div>
-        <div class="rating-avatars">
-            <img src="1.jpg"> <img src="2.jpg"> <img src="3.jpg"> <img src="4.jpg">
-        </div>
-        <p style="color:#888; font-size:0.85rem; font-style:italic;">"शुचिता और गुणवत्ता का अटूट ऋणानुबंध"</p>
-    </div>
-
+    <!-- 🔱 अपडेटेड कोस्मिक फुटर - सोनू नील सिग्नेचर -->
     <div class="big-footer">
-        <div class="footer-brand">PRATIKSHA</div>
-        <p style="font-size: 0.65rem; opacity: 0.4; margin-top: 50px;">© 2026 PRATIKSHA DRYCLEANERS | Designed by SONU NEEL</p>
+        <div class="footer-brand">प्रतीक्षा ड्राई क्लीनर्स</div>
+        <div class="footer-address">
+            <b>पता:</b> 11, शंकर विहार, नियर 200 फीट बाईपास,<br>
+            मुरलीपुरा स्कीम, जयपुर, राजस्थान - 302039<br><br>
+            <b>मोबाइल:</b> +91 77408 70095 | <b>ईमेल:</b> sonudhobi1995@gmail.com
+        </div>
+        <div style="font-size: 0.7rem; letter-spacing: 3px; color: #999; text-transform: uppercase;">।। मिशन 2047: ऋणानुबंध ।।</div>
+        <div class="signature-line">प्रतीक्षा डिजाइन में सोनू नील</div>
+        <p style="font-size: 0.55rem; opacity: 0.3; margin-top: 20px;">© 2026 PRATIKSHA DRYCLEANERS | v10.6 GALACTIC MASTER</p>
     </div>
 
     <a href="https://wa.me/7740870095" class="btn-whatsapp">
@@ -251,27 +198,20 @@
     </a>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec';
+        // 🔱 v10.6 Galactic Engine
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
         
+        // वीडियो लॉजिक
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
-        const pBtn = document.getElementById('pBtn');
-        const sBtn = document.getElementById('sBtn');
-
         function nextVid() { vIdx = (vIdx + 1) % vList.length; play(); }
         function prevVid() { vIdx = (vIdx - 1 + vList.length) % vList.length; play(); }
-        
-        function play() { 
-            player.src = vList[vIdx]; player.load(); 
-            const curMute = player.muted;
-            player.play().then(() => { player.muted = curMute; });
-            pBtn.innerText = "⏸"; 
-        }
-
+        function play() { player.src = vList[vIdx]; player.load(); player.play(); }
         function toggleVid() { if(player.paused){ player.play(); pBtn.innerText="⏸"; } else { player.pause(); pBtn.innerText="▶"; } }
-        function toggleSound() { if (player.muted) { player.muted = false; sBtn.innerText = "🔊"; } else { player.muted = true; sBtn.innerText = "🔇"; } }
+        function toggleSound() { player.muted = !player.muted; sBtn.innerText = player.muted ? "🔇" : "🔊"; }
 
+        // फोटो स्ट्रिप लॉजिक
         const track = document.getElementById('imageTrack');
         let imgHTML = '';
         for(let i=1; i<=19; i++) { imgHTML += `<img src="${i}.jpg">`; }
@@ -284,23 +224,24 @@
 
         function logout() { if(confirm("लॉगआउट करना चाहते हैं?")){ localStorage.clear(); location.href="login.html"; } }
 
+        // v10.6 लाइव डेटा सिंक
         window.onload = function() {
-            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
+            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "🏠";
             document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
             const mobile = localStorage.getItem('userMobile');
+            
             if(mobile) {
-                fetch(`${scriptURL}?action=getStatus&mobile=${mobile}`)
+                fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`)
                 .then(r => r.json()).then(d => {
+                    if(d.balance !== undefined) document.getElementById('uWallet').innerText = "₹" + d.balance;
                     if(d.status) {
                         const s = document.getElementById('uStatus');
                         s.innerText = d.status;
                         if(d.status.includes("Ready")) s.style.background = "#2E8B57";
                     }
-                }).catch(() => {});
+                }).catch(() => { document.getElementById('uStatus').innerText = "Online"; });
             }
         };
-
-        document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
     </script>
 </body>
 </html>
