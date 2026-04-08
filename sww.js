@@ -8,7 +8,7 @@ const urlsToCache = [
   './style.css' // आपकी मुख्य डिजाइन फाइल
 ];
 
-// 1. इंस्टॉल: फाइलों को कोस्मिक मेमोरी में सुरक्षित करना
+// 1. इंस्टॉल: फाइलों को कोस्मिक मेमोरी (Cache) में सुरक्षित करना
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -30,17 +30,18 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    }).then(() => self.clients.claim()) // सभी टैब्स पर तुरंत नियंत्रण
+    }).then(() => self.clients.claim()) // सभी टैब्स पर तुरंत नियंत्रण लेना
   );
 });
 
-// 3. फेच: इंटरनेट की बाधा के बिना सेवा जारी रखना
+// 3. फेच: इंटरनेट की बाधा के बिना सेवा जारी रखना (Offline Support)
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      // अगर कैश में है तो वहां से लें, वरना नेटवर्क से खींचें
+      // अगर कैश में फाइल है तो वहीं से दें, वरना इंटरनेट (Network) से लाएं
       return response || fetch(event.request).catch(() => {
-        // अगर इंटरनेट भी नहीं है और कैश में भी नहीं, तो कम से कम मुख्य पेज दिखाएं
+        // अगर इंटरनेट नहीं है और फाइल कैश में भी नहीं है, 
+        // तो कम से कम एडमिन का मुख्य पेज (admin-update.html) दिखाएं
         if (event.request.mode === 'navigate') {
           return caches.match('./admin-update.html');
         }
