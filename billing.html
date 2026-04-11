@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Navagraha Billing | PRATIKSHA DIGITAL</title>
     
-    <!-- PWA & PDF Libraries (अतिरिक्त शक्ति) -->
     <link rel="manifest" href="manifest-admin.json">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
@@ -44,12 +43,12 @@
             opacity: 0.5;
         }
 
-        /* 🪐 तैरता हुआ सौरमंडल (आपकी मूल 450 लाइनों का रूहानी हिस्सा) */
+        /* 🪐 तैरता हुआ सौरमंडल (Floating Solar System) */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            z-index: -1; 
+            pointer-events: none; 
         }
 
         .sun {
@@ -93,7 +92,7 @@
             100% { opacity: 1; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
         }
 
-        /* नवग्रहों की कक्षाएँ और आकार (Original Navagraha Layout) */
+        /* नवग्रहों की कक्षाएँ और आकार */
         .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; }
         .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
 
@@ -119,7 +118,7 @@
         .orbit-neptune { width: 800px; height: 800px; animation-duration: 90s; }
         .planet-neptune { bottom: 50px; right: 5px; width: 14px; height: 14px; background: #2980b9; }
 
-        .orbit-pluto { width: 900px; height: 900px; animation-duration: 120s; }
+        .orbit-pluto { width: 900px; height: 900px; animation-duration: 120s; } 
         .planet-pluto { bottom: 50%; right: 1px; width: 4px; height: 4px; background: #7f8c8d; }
 
         /* ✅ कांच जैसा प्रीमियम हेडर */
@@ -135,7 +134,6 @@
 
         .container { padding: 15px; max-width: 550px; margin: auto; position: relative; z-index: 1; }
         
-        /* ✅ कांच जैसा कार्ड डिजाइन */
         .card { 
             background: var(--pure-moon); 
             backdrop-filter: blur(15px);
@@ -146,23 +144,36 @@
         }
         
         h3 { margin: 0 0 15px; color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; font-size: 1.2rem; }
+        
+        label { font-size: 0.75rem; font-weight: 800; color: rgba(255,255,255,0.7); text-transform: uppercase; display: block; margin-top: 10px; }
+        
         input, select { 
             width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; 
-            border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; box-sizing: border-box; outline: none;
+            border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; font-weight: 600; box-sizing: border-box; outline: none;
         }
+        input::placeholder { color: rgba(255,255,255,0.5); }
+        input:focus, select:focus { border-color: var(--sun-orange); background: rgba(255,255,255,0.1); }
+        option { background: var(--deep-space); color: white; }
 
         .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; transition: 0.3s; }
+        .btn-add:active { transform: scale(0.98); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
+        td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; }
         
         .total-box { 
             background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; 
             text-align: center; border: 2px solid var(--sun-orange); margin-top: 20px; 
         }
-        .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; }
+        .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; margin-top: 10px; box-shadow: 0 0 15px rgba(255, 140, 0, 0.3); }
 
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; font-size: 1.2rem; }
         
-        /* 📄 इन्वॉइस स्टाइल (Screen से छुपा हुआ) */
-        #invoice-template { display: none; width: 750px; padding: 30px; background: white; color: black; font-family: 'Inter', sans-serif; border: 1px solid #000; }
+        /* 📄 इन्वॉइस स्टाइल (PDF के लिए - स्क्रीन से बाहर) */
+        #invoice-template { position: absolute; left: -9999px; width: 210mm; background: white; color: black; padding: 15mm; box-sizing: border-box; }
+        #invoice-template * { color: black !important; }
+
+        @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         @media print { .no-print { display: none !important; } }
     </style>
@@ -179,8 +190,7 @@
     <div class="orbit orbit-saturn"><div class="planet planet-saturn"></div></div>
     <div class="orbit orbit-uranus"><div class="planet planet-uranus"></div></div>
     <div class="orbit orbit-neptune"><div class="planet planet-neptune"></div></div>
-    <div class="orbit orbit-pluto"><div class="planet planet-pluto"></div></div>
-</div>
+    <div class="orbit orbit-pluto"><div class="planet planet-pluto"></div></div> </div>
 
 <div class="billing-header no-print">
     <h1>प्रतीक्षा ड्राई क्लीनर्स</h1>
@@ -192,11 +202,13 @@
         <h3>👤 ग्राहक मेनिफेस्ट</h3>
         <div style="display:flex; gap:10px;">
             <input type="tel" id="custMobile" placeholder="9929xxxxxx" onchange="autoFetchDetails()">
-            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); cursor:pointer;">👤</button>
+            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); font-size:1.3rem; cursor:pointer;">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
+        <div style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 5px;" id="walletInfo">वॉलेट बैलेंस: ₹0.00</div>
+        
         <div style="display: flex; gap: 10px;">
-            <input type="number" id="manualBalance" placeholder="पुराना बकाया ₹" oninput="render()">
+            <input type="number" id="manualBalance" placeholder="बकाया ₹" oninput="render()">
             <input type="number" id="discountAmt" placeholder="विशेष छूट ₹" oninput="render()">
         </div>
     </div>
@@ -210,6 +222,7 @@
             <option value="home">होम (Home)</option>
         </select>
         <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
+        
         <select id="serviceType">
             <option value="Wash & Press">Wash & Press</option>
             <option value="Dry Clean">Dry Clean</option>
@@ -224,57 +237,60 @@
 
     <div class="card">
         <h3>📋 फाइनल मेनिफेस्ट</h3>
-        <table id="billTable" style="width:100%;"><tbody></tbody></table>
+        <table id="billTable"><tbody></tbody></table>
+        
         <div class="total-box">
             <div id="gTotal" class="grand-total-band">₹ 0</div>
         </div>
+
         <div class="no-print">
-            <select id="payMode"><option value="Cash">Cash</option><option value="Online">UPI</option></select>
+            <label>भुगतान का तरीका</label>
+            <select id="payMode">
+                <option value="Cash">💵 Cash</option>
+                <option value="Online">📱 UPI</option>
+                <option value="Wallet">💳 Wallet (सदस्यता)</option>
+            </select>
             <button class="btn-wa" id="syncBtn" onclick="processFinalBill()">📲 SYNC & WHATSAPP</button>
-            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:10px; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">📄 DOWNLOAD TAX INVOICE</button>
+            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:15px; padding:12px; border-radius:12px; cursor:pointer; font-weight:bold;">📄 DOWNLOAD TAX INVOICE</button>
         </div>
+        
         <div style="text-align:center; margin-top:20px; font-size:0.85rem; color:var(--accent-gold); font-weight:bold;">
             ।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏
         </div>
     </div>
 </div>
 
-<!-- 📄 प्रोफेशनल इन्वॉइस टेम्पलेट (GimBooks Style) -->
 <div id="invoice-template">
-    <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px;">
-        <h1 style="margin: 0;">PRATIKSHA DRY CLEANERS</h1>
-        <p style="margin: 2px 0;">11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
-        <p style="margin: 2px 0;">PAN: CAMPS2004H | <strong>TAX INVOICE</strong></p>
+    <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+        <h1 style="margin:0;">PRATIKSHA DRY CLEANERS</h1>
+        <p>11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
+        <p style="background:#000; color:#fff !important; display:inline-block; padding:2px 10px;">TAX INVOICE</p>
     </div>
-    <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px;">
-        <div><strong>Billed To:</strong><br><span id="pdfCustName">---</span><br>Mobile: <span id="pdfCustMob">---</span></div>
-        <div style="text-align: right;"><strong>Invoice No:</strong> <span id="pdfInvNo">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span></div>
+    <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+        <div style="border:1px solid #000; padding:10px; width:45%;">
+            <strong>Billed To:</strong><br><span id="pdfName">---</span><br>Mobile: <span id="pdfMob">---</span>
+        </div>
+        <div style="border:1px solid #000; padding:10px; width:45%; text-align:right;">
+            <strong>Inv No:</strong> <span id="pdfInv">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span>
+        </div>
     </div>
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #000; font-size: 13px;">
-        <thead><tr style="background: #eee;">
-            <th style="border: 1px solid #000; padding: 8px;">Sr.</th><th style="border: 1px solid #000; padding: 8px;">Description</th>
-            <th style="border: 1px solid #000; padding: 8px;">QTY</th><th style="border: 1px solid #000; padding: 8px;">Rate</th>
-            <th style="border: 1px solid #000; padding: 8px;">Total</th>
-        </tr></thead>
-        <tbody id="pdfItemBody"></tbody>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #000;">
+        <thead><tr style="background:#eee; border:1px solid #000;"><th>Sr.</th><th>Service</th><th>QTY</th><th>Rate</th><th>Total</th></tr></thead>
+        <tbody id="pdfBody"></tbody>
     </table>
-    <div style="text-align: right; margin-top: 20px; font-weight: bold; font-size: 18px;">FINAL TOTAL: ₹<span id="pdfFinalTotal">0</span></div>
-    <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 12px;">
-        <div>Thank you for your business!</div>
-        <div style="text-align: center; border-top: 1px solid #000; width: 150px;"><br>Authorised Signatory</div>
-    </div>
-    <div style="text-align: center; margin-top: 20px; font-style: italic; color: #888;">Designed by SONU NEEL</div>
+    <div style="text-align:right; margin-top:20px; font-weight:bold; font-size:18px;">Total: ₹<span id="pdfTotalAmt">0</span></div>
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec";
     
-    let billItems = [];
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "सूट", "कोट"],
-        women: ["साड़ी", "लहंगा", "सूट सलवार"],
-        home: ["पर्दे", "कंबल", "बेडशीट"]
+        men: ["शर्ट", "पेंट", "जींस", "सूट", "कोट", "कुर्ता-पायजामा", "टी-शर्ट", "रेगुलर कपड़े", "अन्य"],
+        women: ["साड़ी", "लहंगा", "कुर्ती", "सूट सलवार", "दुपट्टा", "गाउन", "रेगुलर कपड़े", "अन्य"],
+        home: ["पर्दे", "कंबल", "बेडशीट", "कालीन", "तौलिया", "रेगुलर कपड़े", "अन्य"]
     };
+
+    let billItems = [];
 
     function updateItems() {
         const cat = document.getElementById('itemCategory').value;
@@ -283,13 +299,27 @@
         if(cat && inventory[cat]) inventory[cat].forEach(i => sel.innerHTML += `<option value="${i}">${i}</option>`);
     }
 
+    async function autoFetchDetails() {
+        const mob = document.getElementById('custMobile').value;
+        if(mob.length < 10) return;
+        try {
+            const res = await fetch(`${SCRIPT_URL}?action=getMemberData&mobile=${mob}`);
+            const data = await res.json();
+            if(data.name !== "Guest") {
+                document.getElementById('custName').value = data.name;
+                document.getElementById('walletInfo').innerText = `वॉलेट बैलेंस: ₹${parseFloat(data.balance).toFixed(2)}`;
+                render();
+            }
+        } catch(e) {}
+    }
+
     function addItem() {
         const item = document.getElementById('itemSelect').value;
         const service = document.getElementById('serviceType').value;
         const q = parseFloat(document.getElementById('qty').value);
         const r = parseFloat(document.getElementById('rate').value);
-        if(!item || isNaN(q) || isNaN(r)) return alert("विवरण पूरा भरें!");
-        billItems.push({ name: `${item} (${service})`, q, r, total: q*r });
+        if(!item || isNaN(q) || isNaN(r)) return alert("विवरण भरें!");
+        billItems.push({name: `${item} (${service})`, q, r, total: q*r});
         render();
         document.getElementById('qty').value = ""; document.getElementById('rate').value = "";
     }
@@ -312,48 +342,48 @@
         const name = document.getElementById('custName').value;
         const mode = document.getElementById('payMode').value;
         const finalAmt = render();
-        const disc = document.getElementById('discountAmt').value || 0;
-
         if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
+        
         const syncBtn = document.getElementById('syncBtn');
         syncBtn.innerText = "✨ सिंक हो रहा है..."; syncBtn.disabled = true;
 
         const details = billItems.map(i => `${i.name}x${i.q}`).join(", ");
-        const finalSyncURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent(details)}&discount=${disc}`;
+        const finalSyncURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${mode}&details=${encodeURIComponent(details)}&discount=${document.getElementById('discountAmt').value || 0}`;
 
         try {
-            await fetch(finalSyncURL, { method: 'GET', mode: 'no-cors' });
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nकुल बिल: ₹" + finalAmt + "\n" + details)}`, '_blank');
-            alert("डेटा गूगल शीट में सुरक्षित हो गया! ✅");
-            location.reload();
+            const res = await fetch(finalSyncURL);
+            const result = await res.text();
+            if(result.includes("Error")) { alert(result); syncBtn.disabled = false; return; }
+
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nकुल बिल: ₹" + finalAmt)}`, '_blank');
+            alert("बिलिंग सफल! ✅"); location.reload();
         } catch (e) { alert("नेटवर्क एरर!"); syncBtn.disabled = false; }
     }
 
     function generateInvoicePDF() {
         const element = document.getElementById('invoice-template');
-        element.style.display = 'block';
-        document.getElementById('pdfCustName').innerText = document.getElementById('custName').value || "Guest Customer";
-        document.getElementById('pdfCustMob').innerText = document.getElementById('custMobile').value;
-        document.getElementById('pdfInvNo').innerText = "INV-" + Date.now().toString().slice(-6);
+        document.getElementById('pdfName').innerText = document.getElementById('custName').value;
+        document.getElementById('pdfMob').innerText = document.getElementById('custMobile').value;
+        document.getElementById('pdfInv').innerText = "INV-" + Date.now().toString().slice(-6);
         document.getElementById('pdfDate').innerText = new Date().toLocaleDateString('hi-IN');
-        document.getElementById('pdfFinalTotal').innerText = render();
+        document.getElementById('pdfTotalAmt').innerText = render();
         
         let html = '';
-        billItems.forEach((i, idx) => { html += `<tr><td style="border:1px solid #000; padding:8px;">${idx+1}</td><td style="border:1px solid #000; padding:8px;">${i.name}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.q}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.r}</td><td style="border:1px solid #000; padding:8px; text-align:right;">${i.total}</td></tr>`; });
-        document.getElementById('pdfItemBody').innerHTML = html;
+        billItems.forEach((i, idx) => { html += `<tr><td style="border:1px solid #000; padding:5px;">${idx+1}</td><td style="border:1px solid #000; padding:5px;">${i.name}</td><td style="border:1px solid #000; padding:5px; text-align:center;">${i.q}</td><td style="border:1px solid #000; padding:5px; text-align:center;">${i.r}</td><td style="border:1px solid #000; padding:5px; text-align:right;">${i.total}</td></tr>`; });
+        document.getElementById('pdfBody').innerHTML = html;
 
-        html2pdf().from(element).save('Pratiksha_Invoice.pdf').then(() => { element.style.display = 'none'; });
+        const opt = { margin: 10, filename: 'Invoice.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 3 }, jsPDF: { unit: 'mm', format: 'a4' } };
+        html2pdf().from(element).set(opt).save();
     }
 
-    // कॉन्टैक्ट फेच और ऑटो-डिटेल्स (Original Original Original Logic)
     async function getContact() {
         if (!('contacts' in navigator)) return alert("संपर्क के लिए Chrome का उपयोग करें।");
         try {
-            const props = ['name', 'tel'];
-            const contacts = await navigator.contacts.select(props, {multiple: false});
+            const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: false});
             if (contacts.length > 0) {
                 if (contacts[0].name) document.getElementById('custName').value = contacts[0].name[0];
                 if (contacts[0].tel) document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
+                autoFetchDetails();
             }
         } catch (err) {}
     }
