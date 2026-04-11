@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Navagraha Billing | PRATIKSHA DIGITAL</title>
     
-    <!-- PWA & PDF Libraries (अतिरिक्त शक्ति) -->
     <link rel="manifest" href="manifest-admin.json">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --deep-space: #000205; /* गहरा अंतरिक्ष */
-            --pure-moon: rgba(255, 255, 255, 0.08); /* कांच जैसा पारदर्शी */
+            --deep-space: #000205; 
+            --pure-moon: rgba(255, 255, 255, 0.08); 
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00; 
             --nebula-green: #2ecc71; 
@@ -29,7 +28,7 @@
             position: relative;
         }
 
-        /* ✨ कोस्मिक एनीमेशन (Astra v10 Standard stars) */
+        /* ✨ कोस्मिक एनीमेशन (Original stars) */
         body::before {
             content: "";
             position: fixed;
@@ -44,7 +43,7 @@
             opacity: 0.5;
         }
 
-        /* 🪐 तैरता हुआ सौरमंडल (आपकी मूल 450 लाइनों का रूहानी हिस्सा) */
+        /* 🪐 तैरता हुआ सौरमंडल */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -77,23 +76,15 @@
             animation: orbit-rotate linear infinite;
         }
 
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            animation: planet-pulse infinite alternate;
-        }
+        .planet { position: absolute; border-radius: 50%; animation: planet-pulse infinite alternate; }
 
         @keyframes orbit-rotate {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        @keyframes planet-pulse {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        }
+        @keyframes planet-pulse { 0% { opacity: 0.8; } 100% { opacity: 1; box-shadow: 0 0 10px rgba(255,255,255,0.5); } }
 
-        /* नवग्रहों की कक्षाएँ और आकार (Original Navagraha Layout) */
         .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; }
         .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
 
@@ -122,46 +113,33 @@
         .orbit-pluto { width: 900px; height: 900px; animation-duration: 120s; }
         .planet-pluto { bottom: 50%; right: 1px; width: 4px; height: 4px; background: #7f8c8d; }
 
-        /* ✅ कांच जैसा प्रीमियम हेडर */
         .billing-header { 
             background: linear-gradient(180deg, rgba(10, 25, 49, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); 
-            backdrop-filter: blur(10px);
-            padding: 35px 20px; text-align: center; 
-            border-bottom: 5px solid var(--sun-orange);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px); padding: 35px 20px; text-align: center; 
+            border-bottom: 5px solid var(--sun-orange); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .billing-header h1 { margin:0; font-family:'Playfair Display'; font-size: 2.2rem; color: var(--accent-gold); text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .billing-header p { margin:8px 0 0; font-size: 0.7rem; letter-spacing: 4px; color: white; font-weight: bold; text-transform: uppercase; }
+        .billing-header h1 { margin:0; font-family:'Playfair Display'; font-size: 2.2rem; color: var(--accent-gold); }
 
         .container { padding: 15px; max-width: 550px; margin: auto; position: relative; z-index: 1; }
-        
-        /* ✅ कांच जैसा कार्ड डिजाइन */
         .card { 
-            background: var(--pure-moon); 
-            backdrop-filter: blur(15px);
-            padding: 25px; border-radius: 20px; 
-            margin-bottom: 20px; color: white; 
-            box-shadow: 0 10px 30px rgba(255,255,255,0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--pure-moon); backdrop-filter: blur(15px);
+            padding: 25px; border-radius: 20px; margin-bottom: 20px; color: white; 
+            box-shadow: 0 10px 30px rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         h3 { margin: 0 0 15px; color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; font-size: 1.2rem; }
         input, select { 
             width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; 
-            border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; box-sizing: border-box; outline: none;
+            border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; outline: none; box-sizing: border-box;
         }
 
-        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; transition: 0.3s; }
+        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; }
         
-        .total-box { 
-            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; 
-            text-align: center; border: 2px solid var(--sun-orange); margin-top: 20px; 
-        }
+        .total-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid var(--sun-orange); margin-top: 20px; }
         .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; }
 
         .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; font-size: 1.2rem; }
         
-        /* 📄 इन्वॉइस स्टाइल (Screen से छुपा हुआ) */
         #invoice-template { display: none; width: 750px; padding: 30px; background: white; color: black; font-family: 'Inter', sans-serif; border: 1px solid #000; }
 
         @media print { .no-print { display: none !important; } }
@@ -195,6 +173,8 @@
             <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); cursor:pointer;">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
+        <div id="walletDisplay" style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 5px; font-weight: bold;">बैलेंस जाँच हो रही है...</div>
+        
         <div style="display: flex; gap: 10px;">
             <input type="number" id="manualBalance" placeholder="पुराना बकाया ₹" oninput="render()">
             <input type="number" id="discountAmt" placeholder="विशेष छूट ₹" oninput="render()">
@@ -229,22 +209,23 @@
             <div id="gTotal" class="grand-total-band">₹ 0</div>
         </div>
         <div class="no-print">
-            <select id="payMode"><option value="Cash">Cash</option><option value="Online">UPI</option></select>
+            <label style="font-size: 0.7rem; color: #aaa; display: block; margin-top: 15px;">भुगतान माध्यम</label>
+            <select id="payMode">
+                <option value="Cash">Cash</option>
+                <option value="Online">UPI</option>
+                <option value="Wallet">💳 Wallet (सदस्यता)</option>
+            </select>
             <button class="btn-wa" id="syncBtn" onclick="processFinalBill()">📲 SYNC & WHATSAPP</button>
             <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:10px; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">📄 DOWNLOAD TAX INVOICE</button>
-        </div>
-        <div style="text-align:center; margin-top:20px; font-size:0.85rem; color:var(--accent-gold); font-weight:bold;">
-            ।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏
         </div>
     </div>
 </div>
 
-<!-- 📄 प्रोफेशनल इन्वॉइस टेम्पलेट (GimBooks Style) -->
 <div id="invoice-template">
     <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px;">
-        <h1 style="margin: 0;">PRATIKSHA DRY CLEANERS</h1>
-        <p style="margin: 2px 0;">11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
-        <p style="margin: 2px 0;">PAN: CAMPS2004H | <strong>TAX INVOICE</strong></p>
+        <h1 style="margin: 0;">PRATIKSHA DRYCLEANERS</h1>
+        <p style="margin: 2px 0;">A 11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
+        <p style="margin: 2px 0;">PAN: CAMPD2004H | <strong>TAX INVOICE</strong></p>
     </div>
     <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px;">
         <div><strong>Billed To:</strong><br><span id="pdfCustName">---</span><br>Mobile: <span id="pdfCustMob">---</span></div>
@@ -270,17 +251,40 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec";
     
     let billItems = [];
+    // 🧺 २. इन्वेंट्री का विस्तार (रेगुलर और अन्य)
     const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "सूट", "कोट"],
-        women: ["साड़ी", "लहंगा", "सूट सलवार"],
-        home: ["पर्दे", "कंबल", "बेडशीट"]
+        men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "रेगुलर कपड़े", "अन्य (Other)"],
+        women: ["साड़ी", "लहंगा", "सूट सलवार", "कुर्ती", "दुपट्टा", "रेगुलर कपड़े", "अन्य (Other)"],
+        home: ["पर्दे", "कंबल", "बेडशीट", "तौलिया", "कालीन", "रेगुलर कपड़े", "अन्य (Other)"]
     };
+
+    let userCurrentWallet = 0;
 
     function updateItems() {
         const cat = document.getElementById('itemCategory').value;
         const sel = document.getElementById('itemSelect');
         sel.innerHTML = '<option value="">कपड़ा चुनें...</option>';
         if(cat && inventory[cat]) inventory[cat].forEach(i => sel.innerHTML += `<option value="${i}">${i}</option>`);
+    }
+
+    // 💳 १. वॉलेट बैलेंस का 'लाइव दर्शन'
+    async function autoFetchDetails() {
+        const mob = document.getElementById('custMobile').value;
+        if(mob.length < 10) return;
+        document.getElementById('walletDisplay').innerText = "बैलेंस खोज रहे हैं...";
+        try {
+            const res = await fetch(`${SCRIPT_URL}?action=getMemberData&mobile=${mob}`);
+            const data = await res.json();
+            if(data.name !== "Guest") {
+                document.getElementById('custName').value = data.name;
+                userCurrentWallet = parseFloat(data.balance || 0);
+                document.getElementById('walletDisplay').innerText = "वॉलेट बैलेंस: ₹" + userCurrentWallet.toFixed(2);
+                render();
+            } else {
+                document.getElementById('walletDisplay').innerText = "नया ग्राहक (वॉलेट उपलब्ध नहीं)";
+                userCurrentWallet = 0;
+            }
+        } catch(e) { document.getElementById('walletDisplay').innerText = "सर्वर सिंक एरर!"; }
     }
 
     function addItem() {
@@ -315,6 +319,12 @@
         const disc = document.getElementById('discountAmt').value || 0;
 
         if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
+
+        // 💳 ३. स्मार्ट पेमेंट मोड (Wallet Logic)
+        if(mode === "Wallet" && userCurrentWallet < finalAmt) {
+            return alert(`वॉलेट में पर्याप्त पैसे नहीं हैं! (बैलेंस: ₹${userCurrentWallet})`);
+        }
+
         const syncBtn = document.getElementById('syncBtn');
         syncBtn.innerText = "✨ सिंक हो रहा है..."; syncBtn.disabled = true;
 
@@ -345,7 +355,6 @@
         html2pdf().from(element).save('Pratiksha_Invoice.pdf').then(() => { element.style.display = 'none'; });
     }
 
-    // कॉन्टैक्ट फेच और ऑटो-डिटेल्स (Original Original Original Logic)
     async function getContact() {
         if (!('contacts' in navigator)) return alert("संपर्क के लिए Chrome का उपयोग करें।");
         try {
@@ -353,7 +362,11 @@
             const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
                 if (contacts[0].name) document.getElementById('custName').value = contacts[0].name[0];
-                if (contacts[0].tel) document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
+                if (contacts[0].tel) {
+                    let rawNum = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
+                    document.getElementById('custMobile').value = rawNum;
+                    autoFetchDetails();
+                }
             }
         } catch (err) {}
     }
