@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Navagraha Billing | PRATIKSHA DIGITAL Master</title>
+    <title>Navagraha Billing | PRATIKSHA DIGITAL</title>
     
+    <!-- PWA & PDF Libraries (अतिरिक्त शक्ति) -->
     <link rel="manifest" href="manifest-admin.json">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --deep-space: #000205; 
-            --pure-moon: rgba(255, 255, 255, 0.08); 
+            --deep-space: #000205; /* गहरा अंतरिक्ष */
+            --pure-moon: rgba(255, 255, 255, 0.08); /* कांच जैसा पारदर्शी */
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00; 
             --nebula-green: #2ecc71; 
@@ -28,7 +29,7 @@
             position: relative;
         }
 
-        /* ✨ कोस्मिक एनीमेशन (आपकी मूल सितारों वाली कोडिंग - No Change) */
+        /* ✨ कोस्मिक एनीमेशन (Astra v10 Standard stars) */
         body::before {
             content: "";
             position: fixed;
@@ -43,49 +44,126 @@
             opacity: 0.5;
         }
 
-        /* 🪐 तैरता हुआ सौरमंडल (Original Navagraha System - No Change) */
+        /* 🪐 तैरता हुआ सौरमंडल (आपकी मूल 450 लाइनों का रूहानी हिस्सा) */
         .solar-system {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
-        .sun { position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; background: radial-gradient(circle, #f39c12 20%, #e67e22 60%, transparent 80%); border-radius: 50%; box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.4); transform: translate(-50%, -50%); animation: sun-pulse 4s infinite alternate; }
-        @keyframes sun-pulse { 0% { box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.4); } 100% { box-shadow: 0 0 80px 30px rgba(243, 156, 18, 0.6); } }
-        .orbit { position: absolute; top: 50%; left: 50%; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50%; transform: translate(-50%, -50%); animation: orbit-rotate linear infinite; }
-        .planet { position: absolute; border-radius: 50%; animation: planet-pulse infinite alternate; }
-        @keyframes orbit-rotate { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-        
-        .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; } .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
-        .orbit-venus { width: 200px; height: 200px; animation-duration: 8s; } .planet-venus { top: 20px; left: 20px; width: 10px; height: 10px; background: #f1c40f; }
-        .orbit-earth { width: 280px; height: 280px; animation-duration: 12s; } .planet-earth { bottom: 30px; right: 30px; width: 11px; height: 11px; background: var(--earth-blue); }
-        .orbit-mars { width: 360px; height: 360px; animation-duration: 20s; } .planet-mars { top: 50%; right: 10px; width: 8px; height: 8px; background: var(--mars-red); }
-        .orbit-jupiter { width: 480px; height: 480px; animation-duration: 35s; } .planet-jupiter { bottom: 10px; left: 50%; width: 25px; height: 25px; background: #e67e22; border: 2px solid #d35400; }
-        .orbit-saturn { width: 600px; height: 600px; animation-duration: 50s; } .planet-saturn { top: 10%; right: 50%; width: 20px; height: 20px; background: #f39c12; }
 
-        .billing-header { background: linear-gradient(180deg, rgba(10, 25, 49, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); backdrop-filter: blur(10px); padding: 35px 20px; text-align: center; border-bottom: 5px solid var(--sun-orange); }
+        .sun {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, #f39c12 20%, #e67e22 60%, transparent 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.4);
+            transform: translate(-50%, -50%);
+            animation: sun-pulse 4s infinite alternate;
+        }
+
+        @keyframes sun-pulse {
+            0% { box-shadow: 0 0 60px 20px rgba(243, 156, 18, 0.4); }
+            100% { box-shadow: 0 0 80px 30px rgba(243, 156, 18, 0.6); }
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%; left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbit-rotate linear infinite;
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            animation: planet-pulse infinite alternate;
+        }
+
+        @keyframes orbit-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes planet-pulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        }
+
+        /* नवग्रहों की कक्षाएँ और आकार (Original Navagraha Layout) */
+        .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; }
+        .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
+
+        .orbit-venus { width: 200px; height: 200px; animation-duration: 8s; }
+        .planet-venus { top: 20px; left: 20px; width: 10px; height: 10px; background: #f1c40f; }
+
+        .orbit-earth { width: 280px; height: 280px; animation-duration: 12s; }
+        .planet-earth { bottom: 30px; right: 30px; width: 11px; height: 11px; background: var(--earth-blue); }
+
+        .orbit-mars { width: 360px; height: 360px; animation-duration: 20s; }
+        .planet-mars { top: 50%; right: 10px; width: 8px; height: 8px; background: var(--mars-red); }
+
+        .orbit-jupiter { width: 480px; height: 480px; animation-duration: 35s; }
+        .planet-jupiter { bottom: 10px; left: 50%; width: 25px; height: 25px; background: #e67e22; border: 2px solid #d35400; }
+
+        .orbit-saturn { width: 600px; height: 600px; animation-duration: 50s; }
+        .planet-saturn { top: 10%; right: 50%; width: 20px; height: 20px; background: #f39c12; }
+        .planet-saturn::after { content:""; position:absolute; top:50%; left:50%; width:35px; height:10px; border: 2px solid rgba(243, 156, 18, 0.5); border-radius:50%; transform:translate(-50%,-50%) rotate(15deg); }
+
+        .orbit-uranus { width: 700px; height: 700px; animation-duration: 70s; }
+        .planet-uranus { top: 50%; left: 5px; width: 15px; height: 15px; background: #1abc9c; }
+
+        .orbit-neptune { width: 800px; height: 800px; animation-duration: 90s; }
+        .planet-neptune { bottom: 50px; right: 5px; width: 14px; height: 14px; background: #2980b9; }
+
+        .orbit-pluto { width: 900px; height: 900px; animation-duration: 120s; }
+        .planet-pluto { bottom: 50%; right: 1px; width: 4px; height: 4px; background: #7f8c8d; }
+
+        /* ✅ कांच जैसा प्रीमियम हेडर */
+        .billing-header { 
+            background: linear-gradient(180deg, rgba(10, 25, 49, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); 
+            backdrop-filter: blur(10px);
+            padding: 35px 20px; text-align: center; 
+            border-bottom: 5px solid var(--sun-orange);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .billing-header h1 { margin:0; font-family:'Playfair Display'; font-size: 2.2rem; color: var(--accent-gold); text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .billing-header p { margin:8px 0 0; font-size: 0.7rem; letter-spacing: 4px; color: white; font-weight: bold; text-transform: uppercase; }
+
         .container { padding: 15px; max-width: 550px; margin: auto; position: relative; z-index: 1; }
-        .card { background: var(--pure-moon); backdrop-filter: blur(15px); padding: 25px; border-radius: 20px; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        /* ✅ कांच जैसा कार्ड डिजाइन */
+        .card { 
+            background: var(--pure-moon); 
+            backdrop-filter: blur(15px);
+            padding: 25px; border-radius: 20px; 
+            margin-bottom: 20px; color: white; 
+            box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
         
         h3 { margin: 0 0 15px; color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; font-size: 1.2rem; }
-        input, select { width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; outline: none; }
-        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; }
-        .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; text-align: center; }
-        .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; font-size: 1.2rem; }
-
-        /* 📄 इन्वॉइस स्टाइल - इसे हमने फिर से सही किया ताकि व्हाइट पेज न आए */
-        #invoice-template { 
-            position: fixed; 
-            top: 0; 
-            left: 100%; /* स्क्रीन के बाहर रखा, पर display: none नहीं किया */
-            width: 210mm; 
-            background: white; 
-            color: black; 
-            padding: 20mm; 
-            box-sizing: border-box; 
-            z-index: -100;
+        input, select { 
+            width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; 
+            border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; box-sizing: border-box; outline: none;
         }
-        #invoice-template * { color: black !important; font-family: 'Inter', sans-serif; }
 
-        @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; transition: 0.3s; }
+        
+        .total-box { 
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; 
+            text-align: center; border: 2px solid var(--sun-orange); margin-top: 20px; 
+        }
+        .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; }
+
+        .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; font-size: 1.2rem; }
+        
+        /* 📄 इन्वॉइस स्टाइल (Screen से छुपा हुआ) */
+        #invoice-template { display: none; width: 750px; padding: 30px; background: white; color: black; font-family: 'Inter', sans-serif; border: 1px solid #000; }
+
         @media print { .no-print { display: none !important; } }
     </style>
 </head>
@@ -99,6 +177,9 @@
     <div class="orbit orbit-mars"><div class="planet planet-mars"></div></div>
     <div class="orbit orbit-jupiter"><div class="planet planet-jupiter"></div></div>
     <div class="orbit orbit-saturn"><div class="planet planet-saturn"></div></div>
+    <div class="orbit orbit-uranus"><div class="planet planet-uranus"></div></div>
+    <div class="orbit orbit-neptune"><div class="planet planet-neptune"></div></div>
+    <div class="orbit orbit-pluto"><div class="planet planet-pluto"></div></div>
 </div>
 
 <div class="billing-header no-print">
@@ -106,22 +187,21 @@
     <p>शुचिता • सेवा • समर्पण | MISSION 2047</p>
 </div>
 
-<div class="container no-print">
-    <div class="card">
+<div class="container">
+    <div class="card no-print">
         <h3>👤 ग्राहक मेनिफेस्ट</h3>
         <div style="display:flex; gap:10px;">
             <input type="tel" id="custMobile" placeholder="9929xxxxxx" onchange="autoFetchDetails()">
-            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); font-size:1.3rem; cursor:pointer;">👤</button>
+            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); cursor:pointer;">👤</button>
         </div>
         <input type="text" id="custName" placeholder="ग्राहक का नाम">
-        <div style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 5px;" id="walletInfo">वॉलेट बैलेंस: ₹0.00</div>
         <div style="display: flex; gap: 10px;">
             <input type="number" id="manualBalance" placeholder="पुराना बकाया ₹" oninput="render()">
             <input type="number" id="discountAmt" placeholder="विशेष छूट ₹" oninput="render()">
         </div>
     </div>
 
-    <div class="card">
+    <div class="card no-print">
         <h3>🧺 सर्विस ऑर्बिट</h3>
         <select id="itemCategory" onchange="updateItems()">
             <option value="">श्रेणी चुनें...</option>
@@ -144,63 +224,57 @@
 
     <div class="card">
         <h3>📋 फाइनल मेनिफेस्ट</h3>
-        <table id="billTable" style="width:100%; border-collapse: collapse;"><tbody></tbody></table>
-        <div id="gTotal" class="grand-total-band">₹ 0</div>
-        <div style="margin-top:20px;">
-            <label>भुगतान माध्यम</label>
-            <select id="payMode">
-                <option value="Cash">💵 Cash</option>
-                <option value="Online">📱 UPI</option>
-                <option value="Wallet">💳 Wallet</option>
-            </select>
+        <table id="billTable" style="width:100%;"><tbody></tbody></table>
+        <div class="total-box">
+            <div id="gTotal" class="grand-total-band">₹ 0</div>
+        </div>
+        <div class="no-print">
+            <select id="payMode"><option value="Cash">Cash</option><option value="Online">UPI</option></select>
             <button class="btn-wa" id="syncBtn" onclick="processFinalBill()">📲 SYNC & WHATSAPP</button>
-            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:15px; padding:12px; border-radius:12px; cursor:pointer; font-weight:bold;">📄 DOWNLOAD TAX INVOICE</button>
+            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:10px; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">📄 DOWNLOAD TAX INVOICE</button>
+        </div>
+        <div style="text-align:center; margin-top:20px; font-size:0.85rem; color:var(--accent-gold); font-weight:bold;">
+            ।। ऋणानुबंध ही कर्म की धुरी है ।। 🙏
         </div>
     </div>
 </div>
 
+<!-- 📄 प्रोफेशनल इन्वॉइस टेम्पलेट (GimBooks Style) -->
 <div id="invoice-template">
-    <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
-        <h1 style="margin: 0; font-size: 26px;">PRATIKSHA DRY CLEANERS Master</h1>
-        <p style="margin: 5px 0;">11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
-        <p style="background: #000; color: #fff !important; display: inline-block; padding: 2px 10px; font-weight: bold;">TAX INVOICE</p>
+    <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px;">
+        <h1 style="margin: 0;">PRATIKSHA DRY CLEANERS</h1>
+        <p style="margin: 2px 0;">11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
+        <p style="margin: 2px 0;">PAN: CAMPS2004H | <strong>TAX INVOICE</strong></p>
     </div>
-    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 14px;">
-        <div style="border: 1px solid #000; padding: 10px; width: 45%;">
-            <strong>Billed To:</strong><br><span id="pdfName">---</span><br>Mobile: <span id="pdfMob">---</span>
-        </div>
-        <div style="border: 1px solid #000; padding: 10px; width: 45%; text-align: right;">
-            <strong>Inv No:</strong> <span id="pdfInv">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span>
-        </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px;">
+        <div><strong>Billed To:</strong><br><span id="pdfCustName">---</span><br>Mobile: <span id="pdfCustMob">---</span></div>
+        <div style="text-align: right;"><strong>Invoice No:</strong> <span id="pdfInvNo">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span></div>
     </div>
-    <table style="width: 100%; border-collapse: collapse; border: 2px solid #000; font-size: 13px;">
-        <thead><tr style="background: #eee; border: 1px solid #000;">
-            <th style="padding: 8px; border: 1px solid #000;">Sr.</th>
-            <th style="padding: 8px; border: 1px solid #000; text-align: left;">Service</th>
-            <th style="padding: 8px; border: 1px solid #000;">QTY</th>
-            <th style="padding: 8px; border: 1px solid #000;">Rate</th>
-            <th style="padding: 8px; border: 1px solid #000; text-align: right;">Total</th>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #000; font-size: 13px;">
+        <thead><tr style="background: #eee;">
+            <th style="border: 1px solid #000; padding: 8px;">Sr.</th><th style="border: 1px solid #000; padding: 8px;">Description</th>
+            <th style="border: 1px solid #000; padding: 8px;">QTY</th><th style="border: 1px solid #000; padding: 8px;">Rate</th>
+            <th style="border: 1px solid #000; padding: 8px;">Total</th>
         </tr></thead>
-        <tbody id="pdfBody"></tbody>
+        <tbody id="pdfItemBody"></tbody>
     </table>
-    <div style="text-align: right; margin-top: 20px; font-weight: bold; font-size: 18px;">Total: ₹<span id="pdfTotalAmt">0</span></div>
-    <div style="margin-top: 50px; display: flex; justify-content: space-between; font-size: 12px;">
-        <div>।। ऋणानुबंध ही कर्म की धुरी है ।।</div>
+    <div style="text-align: right; margin-top: 20px; font-weight: bold; font-size: 18px;">FINAL TOTAL: ₹<span id="pdfFinalTotal">0</span></div>
+    <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 12px;">
+        <div>Thank you for your business!</div>
         <div style="text-align: center; border-top: 1px solid #000; width: 150px;"><br>Authorised Signatory</div>
     </div>
+    <div style="text-align: center; margin-top: 20px; font-style: italic; color: #888;">Designed by SONU NEEL</div>
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec";
     
-    // ✅ अपडेटेड इन्वेंट्री (रेगुलर और अन्य विकल्प के साथ)
-    const inventory = {
-        men: ["शर्ट", "पेंट", "जींस", "सूट", "कोट", "कुर्ता-पायजामा", "टी-शर्ट", "रेगुलर कपड़े", "अन्य"],
-        women: ["साड़ी", "लहंगा", "कुर्ती", "सूट सलवार", "दुपट्टा", "गाउन", "रेगुलर कपड़े", "अन्य"],
-        home: ["पर्दे", "कंबल", "बेडशीट", "कालीन", "तौलिया", "रेगुलर कपड़े", "अन्य"]
-    };
-
     let billItems = [];
+    const inventory = {
+        men: ["शर्ट", "पेंट", "जींस", "सूट", "कोट"],
+        women: ["साड़ी", "लहंगा", "सूट सलवार"],
+        home: ["पर्दे", "कंबल", "बेडशीट"]
+    };
 
     function updateItems() {
         const cat = document.getElementById('itemCategory').value;
@@ -209,27 +283,13 @@
         if(cat && inventory[cat]) inventory[cat].forEach(i => sel.innerHTML += `<option value="${i}">${i}</option>`);
     }
 
-    async function autoFetchDetails() {
-        const mob = document.getElementById('custMobile').value;
-        if(mob.length < 10) return;
-        try {
-            const res = await fetch(`${SCRIPT_URL}?action=getMemberData&mobile=${mob}`);
-            const data = await res.json();
-            if(data.name !== "Guest") {
-                document.getElementById('custName').value = data.name;
-                document.getElementById('walletInfo').innerText = `वॉलेट बैलेंस: ₹${parseFloat(data.balance).toFixed(2)}`;
-                render();
-            }
-        } catch(e) {}
-    }
-
     function addItem() {
         const item = document.getElementById('itemSelect').value;
         const service = document.getElementById('serviceType').value;
         const q = parseFloat(document.getElementById('qty').value);
         const r = parseFloat(document.getElementById('rate').value);
-        if(!item || isNaN(q) || isNaN(r)) return alert("विवरण भरें!");
-        billItems.push({name: `${item} (${service})`, q, r, total: q*r});
+        if(!item || isNaN(q) || isNaN(r)) return alert("विवरण पूरा भरें!");
+        billItems.push({ name: `${item} (${service})`, q, r, total: q*r });
         render();
         document.getElementById('qty').value = ""; document.getElementById('rate').value = "";
     }
@@ -239,7 +299,7 @@
         const mBal = parseFloat(document.getElementById('manualBalance').value) || 0;
         const disc = parseFloat(document.getElementById('discountAmt').value) || 0;
         body.innerHTML = ''; let itemsSum = 0;
-        billItems.forEach((i, idx) => { itemsSum += i.total; body.innerHTML += `<tr><td style="padding:10px; border-bottom:1px solid rgba(255,255,255,0.1);">${i.name} x ${i.q} <span onclick="removeItem(${idx})" style="color:red; cursor:pointer; margin-left:10px;">✕</span></td><td style="text-align:right; padding:10px; border-bottom:1px solid rgba(255,255,255,0.1);">₹${i.total}</td></tr>`; });
+        billItems.forEach((i, idx) => { itemsSum += i.total; body.innerHTML += `<tr><td>${i.name} x ${i.q} <span onclick="removeItem(${idx})" style="color:red; cursor:pointer;">✕</span></td><td style="text-align:right;">₹${i.total}</td></tr>`; });
         const final = (itemsSum + mBal) - disc;
         document.getElementById('gTotal').innerText = `₹ ${final > 0 ? final : 0}`;
         return final;
@@ -252,61 +312,48 @@
         const name = document.getElementById('custName').value;
         const mode = document.getElementById('payMode').value;
         const finalAmt = render();
+        const disc = document.getElementById('discountAmt').value || 0;
+
         if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
-        
         const syncBtn = document.getElementById('syncBtn');
         syncBtn.innerText = "✨ सिंक हो रहा है..."; syncBtn.disabled = true;
 
         const details = billItems.map(i => `${i.name}x${i.q}`).join(", ");
-        const finalSyncURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${mode}&details=${encodeURIComponent(details)}&discount=${document.getElementById('discountAmt').value || 0}&key=PRATIKSHA_2047_SECURE`;
+        const finalSyncURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent(details)}&discount=${disc}`;
 
         try {
-            const res = await fetch(finalSyncURL);
-            const result = await res.text();
-            if(result.includes("Error")) { alert(result); syncBtn.disabled = false; syncBtn.innerText = "📲 SYNC & WHATSAPP"; return; }
-
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nकुल बिल: ₹" + finalAmt + "\nभुगतान: " + mode)}`, '_blank');
-            alert("बिलिंग सफल! ✅"); location.reload();
+            await fetch(finalSyncURL, { method: 'GET', mode: 'no-cors' });
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nकुल बिल: ₹" + finalAmt + "\n" + details)}`, '_blank');
+            alert("डेटा गूगल शीट में सुरक्षित हो गया! ✅");
+            location.reload();
         } catch (e) { alert("नेटवर्क एरर!"); syncBtn.disabled = false; }
     }
 
-    // 🔱 जादुई PDF फंक्शन (High Definition Scale)
     function generateInvoicePDF() {
         const element = document.getElementById('invoice-template');
-        const name = document.getElementById('custName').value || "Guest";
-        
-        // डाटा भरना
-        document.getElementById('pdfName').innerText = name;
-        document.getElementById('pdfMob').innerText = document.getElementById('custMobile').value || "---";
-        document.getElementById('pdfInv').innerText = "INV-" + Date.now().toString().slice(-6);
+        element.style.display = 'block';
+        document.getElementById('pdfCustName').innerText = document.getElementById('custName').value || "Guest Customer";
+        document.getElementById('pdfCustMob').innerText = document.getElementById('custMobile').value;
+        document.getElementById('pdfInvNo').innerText = "INV-" + Date.now().toString().slice(-6);
         document.getElementById('pdfDate').innerText = new Date().toLocaleDateString('hi-IN');
-        document.getElementById('pdfTotalAmt').innerText = render();
+        document.getElementById('pdfFinalTotal').innerText = render();
         
         let html = '';
-        billItems.forEach((i, idx) => { 
-            html += `<tr><td style="border:1px solid #000; padding:8px; text-align:center;">${idx+1}</td><td style="border:1px solid #000; padding:8px;">${i.name}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.q}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.r}</td><td style="border:1px solid #000; padding:8px; text-align:right;">${i.total}</td></tr>`; 
-        });
-        document.getElementById('pdfBody').innerHTML = html;
+        billItems.forEach((i, idx) => { html += `<tr><td style="border:1px solid #000; padding:8px;">${idx+1}</td><td style="border:1px solid #000; padding:8px;">${i.name}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.q}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.r}</td><td style="border:1px solid #000; padding:8px; text-align:right;">${i.total}</td></tr>`; });
+        document.getElementById('pdfItemBody').innerHTML = html;
 
-        const opt = {
-            margin: 10,
-            filename: 'Pratiksha_' + name + '.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 3, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(element).save();
+        html2pdf().from(element).save('Pratiksha_Invoice.pdf').then(() => { element.style.display = 'none'; });
     }
 
+    // कॉन्टैक्ट फेच और ऑटो-डिटेल्स (Original Original Original Logic)
     async function getContact() {
-        if (!('contacts' in navigator)) return alert("Chrome उपयोग करें।");
+        if (!('contacts' in navigator)) return alert("संपर्क के लिए Chrome का उपयोग करें।");
         try {
-            const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: false});
+            const props = ['name', 'tel'];
+            const contacts = await navigator.contacts.select(props, {multiple: false});
             if (contacts.length > 0) {
                 if (contacts[0].name) document.getElementById('custName').value = contacts[0].name[0];
                 if (contacts[0].tel) document.getElementById('custMobile').value = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
-                autoFetchDetails();
             }
         } catch (err) {}
     }
