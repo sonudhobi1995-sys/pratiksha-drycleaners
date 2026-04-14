@@ -195,7 +195,97 @@
 
 <script>
     // 🔱 v12.0 CHITTI SUPREME FINAL ASTRA URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxtgmZnXY17c63b_3EYNNc1Xe3W6a0e6WREgz6wQwnSXvQuREJ-vLiA1AKP6k6Z9WoIlg/exec';
+    const scriptURL = '<!DOCTYPE html>
+<html>
+<head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root { --primary: #2c3e50; --gold: #d4af37; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; padding: 20px; }
+        .member-card { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--gold); }
+        h2 { color: var(--primary); text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #1a252f; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .status-msg { text-align: center; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="member-card">
+    <h2>✨ प्रीमियम सदस्यता पंजीकरण</h2>
+    <form id="memberForm">
+        <div class="input-group">
+            <label>ग्राहक का नाम</label>
+            <input type="text" id="custName" placeholder="पूरा नाम दर्ज करें" required>
+        </div>
+        <div class="input-group">
+            <label>मोबाइल नंबर (10 अंक)</label>
+            <input type="tel" id="custMobile" pattern="[0-9]{10}" placeholder="9876xxxxxx" required>
+        </div>
+        <div class="input-group">
+            <label>सदस्यता प्रकार (Membership)</label>
+            <select id="memType">
+                <option value="Silver">Silver (Basic)</option>
+                <option value="Gold">Gold (Premium)</option>
+                <option value="Platinum">Platinum (VVIP)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>जमा राशि (Wallet Deposit)</label>
+            <input type="number" id="depositAmount" placeholder="₹0.00" required>
+        </div>
+        <div class="input-group">
+            <label>वैधता (Expiry Date)</label>
+            <input type="date" id="expiryDate" required>
+        </div>
+        
+        <button type="submit" class="btn-submit" id="submitBtn">सदस्यता सुरक्षित करें</button>
+    </form>
+    <div id="msg" class="status-msg"></div>
+</div>
+
+<script>
+    document.getElementById('memberForm').onsubmit = function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const msg = document.getElementById('msg');
+        
+        btn.disabled = true;
+        btn.innerText = "डेटा सिंक हो रहा है...";
+        msg.innerText = "";
+
+        const formData = {
+            name: document.getElementById('custName').value,
+            mobile: document.getElementById('custMobile').value,
+            type: document.getElementById('memType').value,
+            amount: document.getElementById('depositAmount').value,
+            expiry: document.getElementById('expiryDate').value
+        };
+
+        // Google Apps Script Function Call
+        google.script.run
+            .withSuccessHandler(function(response) {
+                msg.style.color = "green";
+                msg.innerText = "✅ " + formData.name + " की सदस्यता सक्रिय हो गई!";
+                document.getElementById('memberForm').reset();
+                btn.disabled = false;
+                btn.innerText = "सदस्यता सुरक्षित करें";
+            })
+            .withFailureHandler(function(err) {
+                msg.style.color = "red";
+                msg.innerText = "❌ त्रुटि: डेटा सिंक नहीं हो सका।";
+                btn.disabled = false;
+            })
+            .addNewMember(formData);
+    };
+</script>
+
+</body>
+</html>';
 
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator)) return alert("सपोर्ट नहीं है।");
