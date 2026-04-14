@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* 🪐 सौरमंडल एनीमेशन (आपकी मूल कोडिंग) */
+        /* 🪐 सौरमंडल एनीमेशन (यथावत) */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -64,7 +64,6 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* नवग्रहों की कक्षाएँ */
         .orb-1 { width: 180px; height: 180px; animation-duration: 8s; }
         .planet-mercury { top: 10px; left: 50%; width: 8px; height: 8px; background: #95a5a6; border-radius: 50%; position: absolute; }
         .orb-2 { width: 280px; height: 280px; animation-duration: 15s; }
@@ -74,7 +73,6 @@
         .orb-4 { width: 550px; height: 550px; animation-duration: 40s; }
         .planet-mars { top: 50%; right: 10px; width: 10px; height: 10px; background: #e74c3c; border-radius: 50%; position: absolute; }
 
-        /* ✨ सितारों का बहाव */
         .stars-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 200%;
@@ -85,7 +83,6 @@
         }
         @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-        /* हैडर और कार्ड्स */
         .app-header { padding: 45px 20px 25px; text-align: center; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); border-bottom: 2px solid var(--sun-orange); }
         .container { padding: 20px; max-width: 500px; margin: auto; position: relative; z-index: 1; }
         
@@ -99,9 +96,9 @@
         h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; padding-bottom: 5px; text-transform: uppercase; font-size: 1.1rem; }
         label { font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; display: block; margin-top: 15px; }
 
-        input, select { 
+        input, select, textarea { 
             width: 100%; padding: 16px; margin: 8px 0; border-radius: 15px; 
-            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.6); color: white; outline: none;
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.6); color: white; outline: none; box-sizing: border-box;
         }
 
         .btn-status { 
@@ -138,13 +135,11 @@
     </div>
 
     <div class="container">
-        <!-- डैशबोर्ड लिंक -->
         <a href="Dashboard.html" class="cog-dashboard-btn">
             <img src="1000289866.jpg" alt="Dash">
             <div style="color: var(--star-gold); font-weight: 900;">प्रतीक्षा डिजिटल डैशबोर्ड</div>
         </a>
 
-        <!-- क्विक सिग्नल कार्ड -->
         <div class="card">
             <h3>✨ QUICK SIGNAL</h3>
             <label>ग्राहक का नाम</label>
@@ -163,6 +158,9 @@
                 <option value="Delivered">✅ डिलीवर्ड (Complete)</option>
             </select>
 
+            <label>कपड़ों का विवरण (Details)</label>
+            <textarea id="adminDetails" placeholder="उदा: 2 शर्ट, 1 पर्दा..." rows="2"></textarea>
+
             <label>भुगतान माध्यम</label>
             <select id="paymentMode">
                 <option value="Cash">💵 Cash</option>
@@ -174,7 +172,6 @@
             <button class="btn-status" id="updateBtn" onclick="updateStatusOnly()">सिग्नल सिंक करें</button>
         </div>
 
-        <!-- 💳 वॉलेट रिचार्ज कार्ड (Astra v10.6 Power) -->
         <div class="card">
             <h3>💳 WALLET RECHARGE</h3>
             <label>ग्राहक मोबाइल</label>
@@ -197,7 +194,8 @@
     </div>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec';
+    // 🔱 v12.0 CHITTI SUPREME FINAL ASTRA URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxtgmZnXY17c63b_3EYNNc1Xe3W6a0e6WREgz6wQwnSXvQuREJ-vLiA1AKP6k6Z9WoIlg/exec';
 
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator)) return alert("सपोर्ट नहीं है।");
@@ -214,17 +212,23 @@
     async function updateStatusOnly() {
         const mob = document.getElementById('adminMobile').value;
         const status = document.getElementById('adminStatus').value;
+        const details = document.getElementById('adminDetails').value;
         const mode = document.getElementById('paymentMode').value;
+        const name = document.getElementById('custName').value;
         const btn = document.getElementById('updateBtn');
+        
         if(!mob) return alert("नंबर भरें!");
 
         btn.innerText = "सिंक..."; btn.disabled = true;
-        const url = `${scriptURL}?action=updateStatus&mobile=${mob}&status=${encodeURIComponent(status)}&paymentMode=${encodeURIComponent(mode)}`;
+        
+        // v12.0: 'Neural Sync' पैरामीटर्स (name, status, details, house)
+        const url = `${scriptURL}?action=updateStatus&mobile=${mob}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(status)}&details=${encodeURIComponent(details)}&paymentMode=${encodeURIComponent(mode)}`;
         
         try {
+            // no-cors mode का उपयोग ताकि मुनीम का आदेश तुरंत ब्रह्मांड में पहुँच जाए
             await fetch(url, { mode: 'no-cors' });
             alert("सिग्नल सिंक सफल! ✅");
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nस्थिति: " + status)}`, '_blank');
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✨\\nस्थिति: " + status + "\\nविवरण: " + (details || "अपडेटेड"))}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
     }
@@ -241,7 +245,7 @@
         try {
             await fetch(url, { mode: 'no-cors' });
             alert("रिचार्ज सफल! ✅");
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nआपका डिजिटल वॉलेट ₹" + amt + " से रिचार्ज हो गया है।")}`, '_blank');
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✨\\nआपका कोस्मिक वॉलेट ₹" + amt + " से रिचार्ज हो गया है।")}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
     }
