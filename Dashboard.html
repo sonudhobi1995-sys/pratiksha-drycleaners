@@ -10,7 +10,7 @@
     <style>
         :root { 
             --pure-moon: #ffffff;
-            --midnight: #000205; 
+            --midnight: #000205; /* गहरा अंतरिक्ष */
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00;
             --glass-border: rgba(255, 215, 0, 0.3);
@@ -24,201 +24,156 @@
             overflow-x: hidden;
         }
 
-        /* 🪐 सौरमंडल बैकग्राउंड (उबाहु - v10.6 विजुअल्स) */
+        /* 🪐 सौरमंडल बैकग्राउंड */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2; pointer-events: none; opacity: 0.7;
+            z-index: -2;
+            background: radial-gradient(circle at center, #001a33 0%, #000205 100%);
         }
 
-        .sun {
-            position: absolute; top: 50%; left: 50%;
-            width: 90px; height: 90px;
-            background: radial-gradient(circle, #f39c12 20%, #e67e22 60%, transparent 80%);
-            border-radius: 50%; transform: translate(-50%, -50%);
-            box-shadow: 0 0 50px rgba(243, 156, 18, 0.4);
+        .star-field {
+            position: absolute;
+            width: 200%; height: 200%;
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0));
+            background-repeat: repeat;
+            animation: moveStars 100s linear infinite;
         }
 
-        .orbit {
-            position: absolute; top: 50%; left: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 50%; transform: translate(-50%, -50%);
-            animation: orbit-rotate linear infinite;
-        }
+        @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
-        @keyframes orbit-rotate {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        /* 🏆 हैडर सेक्शन */
+        header { text-align: center; margin-bottom: 25px; }
+        .logo-ring {
+            width: 70px; height: 70px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px var(--accent-gold);
         }
+        h1 { font-family: 'Playfair Display'; font-size: 24px; color: var(--accent-gold); margin: 0; }
+        p.mission { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #aaa; }
 
-        .orb-1 { width: 200px; height: 200px; animation-duration: 12s; }
-        .orb-2 { width: 320px; height: 320px; animation-duration: 20s; }
-        .orb-3 { width: 480px; height: 480px; animation-duration: 35s; }
+        /* 📊 डैशबोर्ड ग्रिड */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+        .full-width { grid-column: span 2; }
+        .label { font-size: 11px; color: #ccc; margin-bottom: 5px; }
+        .value { font-size: 20px; font-weight: 900; color: var(--pure-moon); }
+        .gold-text { color: var(--accent-gold); }
 
-        .planet {
-            position: absolute; top: 0; left: 50%;
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--accent-gold);
-            box-shadow: 0 0 10px var(--accent-gold);
-        }
+        /* 🚀 Mission 2047 SIP Tracker */
+        .sip-tracker { margin-top: 25px; padding: 20px; background: rgba(255, 215, 0, 0.05); border-radius: 20px; border: 1px solid var(--glass-border); }
+        .sip-title { font-family: 'Playfair Display'; color: var(--accent-gold); text-align: center; margin-bottom: 15px; font-size: 18px; }
+        .progress-container { background: rgba(255,255,255,0.1); border-radius: 10px; height: 12px; margin: 10px 0; overflow: hidden; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-gold), var(--sun-orange)); transition: width 1s ease-in-out; }
+        .sip-footer { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; }
 
-        .stars {
-            position: fixed; top: 0; left: 0; width: 100%; height: 200%;
-            background-image: radial-gradient(1px 1px at 20px 30px, #fff, transparent), radial-gradient(1.5px 1.5px at 150px 150px, #fff, transparent);
-            background-size: 250px 250px;
-            animation: stars-flow 50s infinite linear;
-            z-index: -3;
+        .refresh-btn {
+            display: block; width: 100%; padding: 12px; margin-top: 20px;
+            background: var(--accent-gold); color: black; border: none;
+            border-radius: 10px; font-weight: bold; cursor: pointer;
         }
-        @keyframes stars-flow { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-
-        /* 📱 UI एलिमेंट्स */
-        .header { text-align: center; padding: 20px 0; position: relative; }
-        .header h2 { font-family: 'Playfair Display', serif; margin: 0; letter-spacing: 3px; font-weight: 900; color: var(--accent-gold); }
-        
-        .card-main { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(5px);
-            padding: 30px 20px; border-radius: 35px; 
-            text-align: center; margin-bottom: 25px; 
-            border: 2px solid var(--glass-border);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
-        }
-
-        .card-main h2 { 
-            font-size: 3.8rem; margin: 10px 0; 
-            color: var(--accent-gold); 
-            font-family: 'Playfair Display', serif;
-            text-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-        }
-        
-        .sip-box { 
-            margin-top: 20px; 
-            background: rgba(0,0,0,0.4); 
-            padding: 15px; border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .progress-bg { background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; margin: 10px 0; overflow: hidden; }
-        .progress-fill { 
-            background: linear-gradient(90deg, var(--sun-orange), var(--accent-gold)); 
-            height: 100%; width: 0%; transition: 2s ease-in-out; 
-            box-shadow: 0 0 10px var(--accent-gold);
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .stat-box { 
-            background: rgba(255, 255, 255, 0.02); 
-            padding: 22px 10px; border-radius: 25px; 
-            text-align: center; border: 2px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-        }
-        .stat-box h4 { margin: 0; color: rgba(255,255,255,0.6); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; }
-        .stat-box p { margin: 10px 0 0; font-size: 1.85rem; font-weight: 900; color: var(--accent-gold); }
-
-        .refresh-btn { 
-            width: 100%; padding: 18px; 
-            background: linear-gradient(135deg, var(--accent-gold), var(--sun-orange)); 
-            color: #000; border: none; border-radius: 20px; 
-            font-size: 1.1rem; font-weight: 900; 
-            margin-top: 25px; cursor: pointer; 
-            text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
-        }
-
-        .back-nav {
-            display: block; text-align: center; margin-top: 20px; color: white;
-            text-decoration: none; font-weight: 700; padding: 12px; 
-            border: 1px solid var(--glass-border); border-radius: 15px;
-            font-size: 0.8rem; background: rgba(0,0,0,0.3);
-        }
-
-        #sync-msg { font-size: 0.7rem; color: var(--sun-orange); text-align: center; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
+    <div class="solar-system"><div class="star-field"></div></div>
 
-    <div class="stars"></div>
-    <div class="solar-system">
-        <div class="sun"></div>
-        <div class="orbit orb-1"><div class="planet"></div></div>
-        <div class="orbit orb-2"><div class="planet" style="background:#3498db; left:0;"></div></div>
-        <div class="orbit orb-3"><div class="planet" style="background:#e74c3c; top:auto; bottom:0;"></div></div>
-    </div>
+    <header>
+        <div class="logo-ring">✨</div>
+        <h1>PRATIKSHA DIGITAL</h1>
+        <p class="mission">Mission 2047 | Pure Fabric Care</p>
+    </header>
 
-    <div class="header">
-        <h2>प्रतीक्षा डिजिटल सुप्रीम</h2>
-        <p style="margin:5px 0; color: var(--accent-gold); font-size: 11px; font-weight: 700; letter-spacing: 2px;">।। मिशन 2047: भविष्य निर्माण ।।</p>
-    </div>
-
-    <div class="card-main">
-        <span style="opacity: 0.8; font-size: 0.85rem; letter-spacing: 1px;">आज की संचित लक्ष्मी</span>
-        <h2 id="todayColl">₹ 0</h2>
-        
-        <div class="sip-box">
-            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; color: var(--accent-gold);">
-                <span>मासिक SIP लक्ष्य (₹2,500)</span>
-                <span id="perc">0%</span>
-            </div>
-            <div class="progress-bg"><div id="bar" class="progress-fill"></div></div>
-            <small id="monthlyStatus" style="display:block; margin-top:8px; color: #aaa; font-size: 0.65rem;">
-                कुल मासिक आय: ₹ 0
-            </small>
+    <div class="stats-grid">
+        <div class="stat-card full-width">
+            <div class="label">आज की कुल कमाई</div>
+            <div class="value gold-text" id="todayColl">₹ 0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">पेंडिंग आर्डर्स</div>
+            <div class="value" id="pending">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">धुलाई प्रक्रिया</div>
+            <div class="value" id="washing">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">रेडी टू डिलीवर</div>
+            <div class="value" id="ready">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">कुल एक्टिव ग्राहक</div>
+            <div class="value" id="customers">0</div>
         </div>
     </div>
 
-    <div class="grid">
-        <div class="stat-box"><h4>पेंडिंग</h4><p id="pending">0</p></div>
-        <div class="stat-box"><h4>धुलाई</h4><p id="washing">0</p></div>
-        <div class="stat-box"><h4>रेडी</h4><p id="ready">0</p></div>
-        <div class="stat-box"><h4>कुल ग्राहक</h4><p id="customers">0</p></div>
+    <div class="sip-tracker">
+        <div class="sip-title">🔱 2047 SIP संकल्प</div>
+        <div class="label" id="totalColl">कुल मासिक कमाई: ₹ 0</div>
+        <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+        <div class="sip-footer">
+            <span>लक्ष्य: ₹2500/महीना</span>
+            <span id="perc">0%</span>
+        </div>
     </div>
 
     <button class="refresh-btn" onclick="fetchData()">🔄 डेटा अपडेट करें</button>
-    <div id="sync-msg">✨ कोस्मिक डेटा सिंक हो रहा है...</div>
-    
-    <a href="admin-update.html" class="back-nav">← एडमिन पैनल पर जाएं</a>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
+        // 🔱 v11.1 Cosmic Singularity - लाइव लिंक और सुरक्षा चाबी
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwQzyVoyIBw9NuNzngHVmwxUxlYhd9sPTN1yUjkCDVReZ9XlaNG2fazVyth3anlC6xS/exec';
+        const AUTH_KEY = "PRATIKSHA_2047_SECURE";
 
-        async function fetchData() {
+        function fetchData() {
             const btn = document.querySelector('.refresh-btn');
-            const msg = document.getElementById('sync-msg');
+            btn.innerText = "✨ कोस्मिक सिंक जारी...";
             
-            btn.disabled = true;
-            btn.style.opacity = "0.6";
-            msg.style.display = "block";
-            
-            try {
-                const response = await fetch(`${scriptURL}?action=getDashboardData`);
-                const data = await response.json();
+            // v11.1 सुरक्षा चाबी (Key) के साथ डेटा कॉल
+            fetch(`${scriptURL}?action=getDashboardData&key=${AUTH_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "error") {
+                    alert("सुरक्षा त्रुटि: " + data.message);
+                    return;
+                }
 
-                // 📊 डेटा अपडेट
-                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0).toLocaleString();
+                // v11.1 डेटा मैपिंग
+                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
                 document.getElementById('pending').innerText = data.pending || 0;
                 document.getElementById('washing').innerText = data.washing || 0;
                 document.getElementById('ready').innerText = data.ready || 0;
                 document.getElementById('customers').innerText = data.totalCust || 0;
 
-                // 🎯 SIP प्रोग्रेस लॉजिक (मासिक आधार पर)
-                // नोट: यदि आपके v10.7 बैकएंड में 'monthlyTotal' नहीं है, तो यह 'todayColl' का उपयोग करेगा
-                const currentIncome = data.monthlyTotal || data.todayColl || 0;
-                const monthlyTarget = 2500;
-                let progress = Math.min((currentIncome / monthlyTarget) * 100, 100);
+                // 📊 SIP Calculation (मासिक लक्ष्य ₹2500 के आधार पर)
+                const monthlyTarget = data.sipTarget || 2500;
+                const actualMonthly = data.monthlyTotal || 0;
+                let progress = Math.min((actualMonthly / monthlyTarget) * 100, 100);
                 
                 document.getElementById('bar').style.width = progress + "%";
-                document.getElementById('perc').innerText = Math.floor(progress) + "%";
-                document.getElementById('monthlyStatus').innerText = `कुल मासिक आय: ₹ ${currentIncome.toLocaleString()} / ₹ 2,500`;
+                document.getElementById('perc').innerText = Math.round(progress) + "%";
+                document.getElementById('totalColl').innerText = 'कुल मासिक कमाई: ₹ ' + actualMonthly;
                 
-            } catch (err) {
+                btn.innerText = "🔄 डेटा अपडेट करें";
+            })
+            .catch(err => {
                 console.error(err);
-                alert("कोस्मिक सिंक विफल! नेटवर्क चेक करें।");
-            } finally {
-                btn.disabled = false;
-                btn.style.opacity = "1";
-                msg.style.display = "none";
-            }
+                btn.innerText = "🔄 डेटा अपडेट करें";
+                alert("नेटवर्क त्रुटि: कोस्मिक डेटा प्राप्त नहीं हुआ।");
+            });
         }
 
+        // लोड होते ही डेटा लाएँ
         window.onload = fetchData;
     </script>
 </body>
