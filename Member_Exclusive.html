@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Member Exclusive | Pratiksha Dry Cleaners</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -16,126 +17,196 @@
             --star-gold: #FFD700;
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--deep-space); color: white; overflow-x: hidden; }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: var(--deep-space);
+            color: white;
+            overflow-x: hidden;
+        }
 
-        .header-space { padding: 40px 20px 20px; text-align: center; }
-        
-        /* 💳 आपका जादुई मेंबरशिप कार्ड */
+        /* ✨ कोस्मिक बैकग्राउंड एनिमेशन */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #001F3F 0%, #010103 100%);
+        }
+
+        .header-space {
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        /* 💳 प्रीमियम मेंबरशिप कार्ड */
         .membership-card {
             background: var(--royal-gold);
-            border-radius: 20px;
+            margin: 0 20px;
             padding: 25px;
-            color: #1a1a1a;
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            color: black;
             position: relative;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
             overflow: hidden;
-            margin-bottom: 30px;
-            transform: translateZ(0);
-            transition: transform 0.3s;
-        }
-        .membership-card:active { transform: scale(0.97); }
-        .card-type { font-size: 0.7rem; font-weight: 900; letter-spacing: 3px; opacity: 0.7; text-transform: uppercase; }
-        
-        .balance-section { margin-top: 15px; }
-        .balance-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
-        .balance-amt { font-size: 3.5rem; font-weight: 900; font-family: 'Inter'; letter-spacing: -2px; }
-
-        .refresh-btn { 
-            background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1);
-            padding: 8px 15px; border-radius: 15px; font-size: 0.75rem; font-weight: 700;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+            transition: transform 0.3s ease;
         }
 
-        /* 📖 डिजिटल पासबुक सेक्शन */
-        .passbook-section {
-            background: white;
-            border-radius: 40px 40px 0 0;
-            min-height: 60vh;
-            padding: 30px 20px;
-            color: #1a1a1a;
-        }
-        .passbook-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .passbook-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0; }
+        .membership-card:active { transform: scale(0.98); }
 
-        .log-list { list-style: none; padding: 0; }
+        .membership-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .card-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
+        .balance-amt { font-size: 2.5rem; font-weight: 900; margin: 5px 0; }
+        .member-name { font-size: 1.1rem; font-weight: 700; margin-top: 15px; }
+
+        /* 🛡️ स्टेटस और एक्शन ग्रिड */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 25px 20px;
+        }
+
+        .action-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .action-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+        .action-label { font-size: 0.8rem; color: #ccc; }
+
+        /* 📜 डिजिटल पासबुक सेक्शन */
+        .passbook-section { padding: 0 20px 40px; }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--star-gold);
+        }
+
+        .log-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
         .log-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid #eee;
-        }
-        .log-info { display: flex; flex-direction: column; max-width: 70%; }
-        .log-desc { font-weight: 700; font-size: 0.9rem; color: #333; }
-        .log-date { font-size: 0.7rem; color: #888; font-weight: 600; }
-        .log-amt { font-weight: 900; font-size: 1rem; }
-        .log-amt.minus { color: var(--danger-red); }
-        .log-amt.plus { color: var(--success-green); }
-
-        .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .action-btn { 
-            padding: 15px; border-radius: 15px; text-decoration: none; text-align: center;
-            font-weight: 700; font-size: 0.8rem; border: 1px solid #eee; color: var(--saturn-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            animation: fadeIn 0.5s ease forwards;
         }
 
-        #loader { display: none; text-align: center; padding: 20px; color: var(--star-gold); font-weight: 800; font-size: 0.9rem; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .big-footer { 
-            background: var(--saturn-blue); color: white; padding: 50px 20px 100px; text-align: center; 
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .log-info { display: flex; flex-direction: column; }
+        .log-desc { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+        .log-date { font-size: 0.7rem; color: #888; }
+        .log-amt { font-weight: 900; }
+        .plus { color: var(--success-green); }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--star-gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
         }
-        .signature-line { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--star-gold); font-style: italic; margin-top: 20px; }
+
+        /* 📱 बॉटम नेविगेशन */
+        .nav-bar {
+            position: fixed;
+            bottom: 20px; left: 20px; right: 20px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+
+        .nav-item { color: white; text-decoration: none; font-size: 1.2rem; opacity: 0.5; }
+        .nav-item.active { opacity: 1; color: var(--star-gold); }
     </style>
 </head>
 <body>
 
+    <div class="stars-container"></div>
+
     <div class="header-space">
-        <div class="membership-card">
-            <div class="card-type">COSMIC GOLD MEMBER</div>
-            <div class="balance-section">
-                <div class="balance-label">Current Balance</div>
-                <div class="balance-amt">₹<span id="uBalance">0.00</span></div>
-                <div class="refresh-btn" onclick="fetchMemberData()">🔄 SYNC DATA</div>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 25px; align-items: flex-end;">
-                <div id="uNameDisp" style="font-weight: 800; font-size: 1.1rem; text-transform: uppercase;">...</div>
-                <div id="uExpiry" style="font-size: 0.65rem; font-weight: 700; text-align: right;">MISSION 2047<br>VALID THRU --/--</div>
-            </div>
+        <h1 style="font-family: 'Playfair Display'; margin: 0; letter-spacing: 2px;">PRATIKSHA</h1>
+        <p style="font-size: 0.6rem; letter-spacing: 4px; color: var(--star-gold); margin-top: 5px;">COSMIC EXCLUSIVE</p>
+    </div>
+
+    <div class="membership-card">
+        <div class="card-label">Cosmic Wallet Balance</div>
+        <div class="balance-amt">₹ <span id="uBalance">0.00</span></div>
+        <div class="member-name" id="uNameDisp">नमस्ते, कोस्मिक सदस्य</div>
+    </div>
+
+    <div id="loader" class="loader">✨ कोस्मिक सिंक जारी है...</div>
+
+    <div class="action-grid">
+        <div class="action-card">
+            <span class="action-icon">🚀</span>
+            <span class="action-label">फास्ट ट्रैक</span>
+        </div>
+        <div class="action-card">
+            <span class="action-icon">💎</span>
+            <span class="action-label">प्रीमियम</span>
         </div>
     </div>
 
     <div class="passbook-section">
-        <div class="passbook-header">
-            <h2>डिजिटल पासबुक</h2>
-            <div style="font-size: 0.7rem; font-weight: 800; color: var(--saturn-blue); letter-spacing: 1px;">LIVE FEED</div>
+        <div class="section-title">
+            <span>डिजिटल पासबुक</span>
+            <span style="font-size: 0.7rem; color: #888; font-family: 'Inter';">LIVE</span>
         </div>
-
-        <div id="loader">✨ ब्रह्मांडीय तिजोरी से जुड़ रहे हैं...</div>
-        <div id="logContainer" class="log-list">
+        <div id="logContainer" class="log-container">
             </div>
-
-        <div class="quick-actions">
-            <a href="https://wa.me/917740870095" class="action-btn">💬 Support</a>
-            <a href="index.html" class="action-btn" style="background: var(--saturn-blue); color: white;">🧺 Home</a>
-        </div>
     </div>
 
-    <div class="big-footer">
-        <div style="font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 10px;">प्रतीक्षा ड्राई क्लीनर्स</div>
-        <div style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 25px;">11, शंकर विहार, मुरलीपुरा, जयपुर</div>
-        
-        <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 20px;">
-            <a href="terms.html" style="color:var(--star-gold); text-decoration:none; font-size:0.7rem;">नियम एवं शर्तें</a>
-            <span style="color:rgba(255,255,255,0.2);">|</span>
-            <a href="privacy.html" style="color:var(--star-gold); text-decoration:none; font-size:0.7rem;">गोपनीयता नीति</a>
-        </div>
-
-        <div class="signature-line">Designed by SONU NEEL</div>
+    <div class="nav-bar">
+        <a href="index.html" class="nav-item">🏠</a>
+        <a href="tracking.html" class="nav-item">📦</a>
+        <a href="#" class="nav-item active">👤</a>
+        <a href="contact.html" class="nav-item">📞</a>
     </div>
 
     <script>
-        // 🔱 v10.6 Master Engine Link
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwP3iaYaIukyZeDqp-vrHrMQMCqN9Lh-q_bRA3k0O3R0MFggjjf01VT24z8Nc0XKkHU/exec';
+        // 🔱 v11.1 Cosmic Singularity - लाइव लिंक
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwQzyVoyIBw9NuNzngHVmwxUxlYhd9sPTN1yUjkCDVReZ9XlaNG2fazVyth3anlC6xS/exec';
 
         async function fetchMemberData() {
             const mobile = localStorage.getItem('userMobile');
+            
             if(!mobile) {
                 alert("लॉगिन सत्र समाप्त! कृपया पुनः लॉगिन करें।");
                 window.location.href = "login.html";
@@ -146,48 +217,42 @@
             loader.style.display = 'block';
 
             try {
-                // v10.6 'getMemberData' के जरिए बैलेंस और विवरण खींचना
+                // v11.1 इंजन से डेटा सिंक (action=getMemberData)
                 const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`);
                 const data = await response.json();
                 
                 if(data.status === "not_found") {
-                    document.getElementById('logContainer').innerHTML = "<p style='text-align:center;'>अभी कोई सदस्यता रिकॉर्ड नहीं है।</p>";
-                    loader.style.display = 'none';
+                    document.getElementById('logContainer').innerHTML = "<p style='text-align:center; padding:30px; color:#666; font-size:0.8rem;'>कोस्मिक रिकॉर्ड नहीं मिला।</p>";
                     return;
                 }
 
-                // UI अपडेट (Balance & Name)
+                // वॉलेट और नाम अपडेट
                 document.getElementById('uBalance').innerText = parseFloat(data.balance || 0).toFixed(2);
-                document.getElementById('uNameDisp').innerText = data.name || "Member";
+                document.getElementById('uNameDisp').innerText = "नमस्ते, " + (data.name || "कोस्मिक सदस्य");
                 
-                // पासबुक लॉग (डिटेल्स कॉलम से या स्मार्ट बिलिंग से)
-                // फिलहाल हम 'Details' कॉलम से ट्रांजैक्शन दिखाते हैं
+                // पासबुक में लेटेस्ट आर्डर सिंक
                 const details = data.details || "";
                 let logHTML = '';
                 
                 if(details) {
-                    const entries = details.split(',').reverse();
-                    entries.forEach(entry => {
-                        if(entry.trim()) {
-                            logHTML += `
-                                <div class="log-item">
-                                    <div class="log-info">
-                                        <span class="log-desc">${entry.trim()}</span>
-                                        <span class="log-date">हालिया गतिविधि</span>
-                                    </div>
-                                    <div class="log-amt minus">Synced</div>
-                                </div>`;
-                        }
-                    });
+                    // विवरण को सिंक फॉर्मेट में दिखाना
+                    logHTML = `
+                        <div class="log-item">
+                            <div class="log-info">
+                                <span class="log-desc">${details}</span>
+                                <span class="log-date">स्थिति: ${data.orderStatus}</span>
+                            </div>
+                            <div class="log-amt plus">Synced</div>
+                        </div>`;
                 } else {
-                    logHTML = '<p style="text-align:center; padding:20px; font-size:0.8rem; color:#888;">अभी कोई ट्रांजैक्शन इतिहास नहीं है।</p>';
+                    logHTML = '<p style="text-align:center; padding:20px; font-size:0.8rem; color:#888;">अभी कोई सक्रिय आर्डर नहीं है।</p>';
                 }
                 
                 document.getElementById('logContainer').innerHTML = logHTML;
 
             } catch (e) {
                 console.error("Sync Error:", e);
-                document.getElementById('logContainer').innerHTML = '<p style='text-align:center; color:red;'>सर्वर से जुड़ने में समस्या हुई।</p>';
+                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:var(--danger-red); padding:20px; font-size:0.8rem;">कोस्मिक नेटवर्क त्रुटि!</p>';
             } finally {
                 loader.style.display = 'none';
             }
