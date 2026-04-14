@@ -123,8 +123,8 @@
     </div>
 
     <script>
-        // 🔱 Galactic Astra v10.6 Engine URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbz74PqhVKoByI0OSzlR7zlF4OXLesIaMZDb2biruljuN78WwKL9BgW2jNIJJlVF3VW_/exec';
+        // 🔱 v11.1 Cosmic Singularity Engine URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwQzyVoyIBw9NuNzngHVmwxUxlYhd9sPTN1yUjkCDVReZ9XlaNG2fazVyth3anlC6xS/exec';
 
         document.getElementById('regForm').onsubmit = function(e) {
             e.preventDefault();
@@ -136,27 +136,34 @@
             btn.innerText = "कोस्मिक सिंक जारी...";
             btn.disabled = true;
 
-            // v10.6 अपग्रेड: अब houseNo अलग पैरामीटर के रूप में जा रहा है ताकि शीट में 'House No' कॉलम भरा रहे।
+            // v11.1 अपडेट: अब सीधे नए इंजन को डेटा भेजना
             const finalURL = `${scriptURL}?action=addCustomer&mobile=${mobile}&name=${encodeURIComponent(name)}&houseNo=${encodeURIComponent(house)}`;
 
-            // बैकएंड इंजन को डेटा भेजना
-            fetch(finalURL, { method: 'GET', mode: 'no-cors' })
-            .then(() => {
-                console.log("Astra v10.6: Customer Profile Established");
-            })
-            .catch(err => console.log("Network handled via v10.6 Protocol"));
-
-            // 1.5 सेकंड का ठहराव ताकि यूजर को सिंक महसूस हो
-            setTimeout(() => {
+            fetch(finalURL)
+            .then(res => res.json())
+            .then(data => {
                 // फोन की मेमोरी में डेटा सुरक्षित करना (localStorage)
                 localStorage.setItem('userHouse', house);
                 localStorage.setItem('userName', name);
                 localStorage.setItem('userMobile', mobile);
                 localStorage.setItem('isLoggedIn', 'true');
                 
-                // मुख्य द्वार की ओर प्रस्थान
+                btn.innerText = "प्रोफ़ाइल सुरक्षित! ✨";
+                
+                // 1 सेकंड का ठहराव ताकि यूजर को सफलता का अनुभव हो
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000);
+            })
+            .catch(err => {
+                console.error("Astra Sync Error:", err);
+                // नेटवर्क एरर होने पर भी लोकल सेव करके आगे बढ़ाना (ताकि ग्राहक न अटके)
+                localStorage.setItem('userHouse', house);
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userMobile', mobile);
+                localStorage.setItem('isLoggedIn', 'true');
                 window.location.href = "index.html";
-            }, 1500);
+            });
         };
     </script>
 </body>
