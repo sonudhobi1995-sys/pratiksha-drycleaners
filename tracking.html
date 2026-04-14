@@ -24,7 +24,7 @@
             position: relative;
         }
 
-        /* ✨ कोस्मिक बैकग्राउंड एनीमेशन (यथावत सुरक्षित) */
+        /* ✨ कोस्मिक बैकग्राउंड एनीमेशन (आपका सिग्नेचर विजुअल) */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 200%;
             background-image: 
@@ -107,15 +107,16 @@
     </div>
 
     <script>
-        // 🔱 v11.1 Cosmic Singularity Master Link
+        // 🔱 v11.1 Cosmic Singularity Master Link (आपका नया Exec URL)
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwQzyVoyIBw9NuNzngHVmwxUxlYhd9sPTN1yUjkCDVReZ9XlaNG2fazVyth3anlC6xS/exec';
-        let globalStatus = "Pickup"; 
+        let globalStatus = ""; 
         let globalDetails = "";
 
         window.onload = function() {
+            // मोबाइल नंबर लोकल स्टोरेज से उठाना (Login Page से सिंक)
             const mobile = localStorage.getItem('userMobile');
             if(!mobile) {
-                document.getElementById('inventoryList').innerText = "कृपया पहले लॉगिन करें।";
+                document.getElementById('inventoryList').innerText = "कृपया पहले पंजीकरण या लॉगिन करें।";
                 return;
             }
             document.getElementById('dispMobile').innerText = mobile;
@@ -127,35 +128,35 @@
             loader.style.display = 'block';
 
             try {
-                // v11.1 इंजन से लाइव 'getMemberData' के जरिए स्टेटस और विवरण एक साथ सिंक करना
+                // v11.1 इंजन से डेटा सिंक (action=getMemberData)
                 const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`);
                 const data = await response.json();
 
-                if(data.status === "not_found") { 
-                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय ऑर्डर (Active Order) नहीं मिला।"; 
+                if(data.status === "error" || data.status === "not_found") { 
+                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय आर्डर नहीं मिला। एडमिन द्वारा अपडेट की प्रतीक्षा करें।"; 
                     updateSteps("None");
                     return; 
                 }
 
-                // v11.1 डेटा सिंक
-                globalStatus = data.orderStatus || "Pending";
+                // v11.1 डेटा मैपिंग: Column F (Status) और Column E (Details)
+                globalStatus = data.orderStatus || "Pending"; 
                 globalDetails = data.details || "विवरण उपलब्ध नहीं";
                 
-                // सूची रेंडर करना (Col E का गहरा विवरण)
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
                 
-                // विवरण को लाइनों या कोमा के हिसाब से बांटना
+                // कपड़ों के विवरण (Col E) को लिस्ट में बदलना
                 const items = globalDetails.split('\n');
                 items.forEach(item => { 
                     if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
                 });
                 
+                // विजुअल स्टेप्स अपडेट करना
                 updateSteps(globalStatus);
 
             } catch (err) {
-                console.error("Sync Error:", err);
-                document.getElementById('inventoryList').innerText = "कोस्मिक कनेक्शन में बाधा! कृपया रिफ्रेश करें।";
+                console.error("Connectivity Issue:", err);
+                document.getElementById('inventoryList').innerText = "कोस्मिक सिंक विफल। कृपया इंटरनेट चेक करें।";
             } finally {
                 loader.style.display = 'none';
             }
@@ -163,36 +164,46 @@
 
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            const progressLine = document.getElementById('progressLine');
             
-            // 🔱 v11.1 बेहतर स्टेटस मैपिंग
+            // 🔱 'Deep Map' - हर संभव स्टेटस को स्टेप्स से जोड़ना
             const stepsMap = { 
-                "Pending": 1, "Pickup": 1, "Order Pickup": 1, "पिकअप": 1,
-                "Washing": 2, "Processing": 2, "Laundry": 2, "In Process": 2, "Process": 2,
+                "Pending": 1, "Pickup": 1, "Order Pickup": 1, "पिकअप": 1, "पेंडिंग": 1,
+                "Washing": 2, "Processing": 2, "Laundry": 2, "In Process": 2, "Process": 2, "प्रोसेसिंग": 2,
                 "Ready": 3, "Ready to Deliver": 3, "तैयार": 3,
-                "Delivered": 4, "Paid": 4, "Complete": 4
+                "Delivered": 4, "Paid": 4, "Complete": 4, "डिलीवर": 4
             };
             
-            let level = stepsMap[status] || 0;
-            const progressLine = document.getElementById('progressLine');
+            let level = 0;
+            let s = status.toString().trim().toLowerCase();
+
+            // कीवर्ड के आधार पर लेवल तय करना
+            for (let key in stepsMap) {
+                if (s.includes(key.toLowerCase())) {
+                    level = stepsMap[key];
+                    break;
+                }
+            }
             
             if (level === 0) {
                 progressLine.style.height = "0px";
                 return;
             }
 
+            // स्टेप्स को चमकाना
             for(let i=1; i<=level; i++) { 
                 const el = document.getElementById('step' + i); 
                 if(el) el.classList.add('active'); 
             }
 
-            // 4 स्टेप्स के लिए लाइन प्रोग्रेस (0, 33%, 66%, 100%)
+            // लाइन प्रोग्रेस एनीमेशन (4 स्टेप्स के लिए सटीक हाइट)
             let heightPercent = ((level - 1) / 3) * 100;
             progressLine.style.height = `${heightPercent}%`;
         }
 
         function sendToWhatsApp() {
             const mobile = localStorage.getItem('userMobile');
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते सोनू भाई,\n\nमेरे कपड़े अभी *${globalStatus}* स्टेज पर हैं।\nविवरण: ${globalDetails}\n\nधन्यवाद! 🙏`;
+            const msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते सोनू भाई,\n\nमेरा आर्डर स्टेटस: *${globalStatus}*\nआईडी: ${mobile}\n\nधन्यवाद! 🙏`;
             window.open(`https://wa.me/917740870095?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
