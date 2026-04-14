@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Track Journey | PRATIKSHA v10.6</title>
+    <title>Track Journey | PRATIKSHA v11.1</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -24,7 +24,7 @@
             position: relative;
         }
 
-        /* ✨ कोस्मिक बैकग्राउंड एनीमेशन */
+        /* ✨ कोस्मिक बैकग्राउंड एनीमेशन (यथावत सुरक्षित) */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 200%;
             background-image: 
@@ -103,12 +103,12 @@
         </div>
 
         <button class="wa-btn" onclick="sendToWhatsApp()">📲 स्टेटस के लिए पूछें</button>
-        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> PRATIKSHA DIGITAL v10.6 | SONU NEEL</div>
+        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> PRATIKSHA DIGITAL v11.1 | SONU NEEL</div>
     </div>
 
     <script>
-        // 🔱 v10.6 Galactic Engine Master Link
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxPdPCSSv4BSjhXdGpTB0-Kx9r5NBphi8ygHHzVvrf72A6A_B0R5UlWPE3OMoDA8yb8Pw/exec';
+        // 🔱 v11.1 Cosmic Singularity Master Link
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwQzyVoyIBw9NuNzngHVmwxUxlYhd9sPTN1yUjkCDVReZ9XlaNG2fazVyth3anlC6xS/exec';
         let globalStatus = "Pickup"; 
         let globalDetails = "";
 
@@ -127,24 +127,26 @@
             loader.style.display = 'block';
 
             try {
-                // v10.6 इंजन से लाइव ऑर्डर डेटा प्राप्त करना
+                // v11.1 इंजन से लाइव 'getMemberData' के जरिए स्टेटस और विवरण एक साथ सिंक करना
                 const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`);
                 const data = await response.json();
 
-                if(data.status === "not_found" || !data.details) { 
+                if(data.status === "not_found") { 
                     document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय ऑर्डर (Active Order) नहीं मिला।"; 
                     updateSteps("None");
                     return; 
                 }
 
-                // डेटा सेट करना
+                // v11.1 डेटा सिंक
                 globalStatus = data.orderStatus || "Pending";
                 globalDetails = data.details || "विवरण उपलब्ध नहीं";
                 
-                // सूची रेंडर करना
+                // सूची रेंडर करना (Col E का गहरा विवरण)
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
-                const items = globalDetails.split(',');
+                
+                // विवरण को लाइनों या कोमा के हिसाब से बांटना
+                const items = globalDetails.split('\n');
                 items.forEach(item => { 
                     if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
                 });
@@ -162,10 +164,10 @@
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             
-            // 🔱 v10.6 स्टेटस मैपिंग इंजन
+            // 🔱 v11.1 बेहतर स्टेटस मैपिंग
             const stepsMap = { 
                 "Pending": 1, "Pickup": 1, "Order Pickup": 1, "पिकअप": 1,
-                "Washing": 2, "Processing": 2, "Laundry": 2, "In Process": 2,
+                "Washing": 2, "Processing": 2, "Laundry": 2, "In Process": 2, "Process": 2,
                 "Ready": 3, "Ready to Deliver": 3, "तैयार": 3,
                 "Delivered": 4, "Paid": 4, "Complete": 4
             };
@@ -173,21 +175,19 @@
             let level = stepsMap[status] || 0;
             const progressLine = document.getElementById('progressLine');
             
-            // लाइन की हाइट कैलकुलेट करना
             if (level === 0) {
                 progressLine.style.height = "0px";
                 return;
             }
 
-            // स्टेप्स को चमकाना
             for(let i=1; i<=level; i++) { 
                 const el = document.getElementById('step' + i); 
                 if(el) el.classList.add('active'); 
             }
 
-            // लाइन को एनिमेट करना
+            // 4 स्टेप्स के लिए लाइन प्रोग्रेस (0, 33%, 66%, 100%)
             let heightPercent = ((level - 1) / 3) * 100;
-            progressLine.style.height = `calc(${heightPercent}% )`;
+            progressLine.style.height = `${heightPercent}%`;
         }
 
         function sendToWhatsApp() {
