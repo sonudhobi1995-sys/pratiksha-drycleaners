@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Track Journey | PRATIKSHA v11.1</title>
+    <title>Track Journey | PRATIKSHA v12.0</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -24,7 +24,6 @@
             position: relative;
         }
 
-        /* ✨ कोस्मिक बैकग्राउंड एनीमेशन (आपका सिग्नेचर विजुअल) */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 200%;
             background-image: 
@@ -50,7 +49,6 @@
 
         .back-btn { display: inline-block; margin-bottom: 25px; color: var(--mercury-green); text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
 
-        /* 4-स्टेप्स प्रोग्रेस बार */
         .step-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; position: relative; }
         .step { display: flex; align-items: center; gap: 20px; opacity: 0.3; transition: all 0.8s ease; font-weight: 700; color: var(--saturn-blue); }
         .step.active { opacity: 1; }
@@ -103,17 +101,16 @@
         </div>
 
         <button class="wa-btn" onclick="sendToWhatsApp()">📲 स्टेटस के लिए पूछें</button>
-        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> PRATIKSHA DIGITAL v11.1 | SONU NEEL</div>
+        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> PRATIKSHA DIGITAL v12.0 | SONU NEEL</div>
     </div>
 
     <script>
-        // 🔱 v11.1 Cosmic Singularity Master Link (आपका नया Exec URL)
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwQzyVoyIBw9NuNzngHVmwxUxlYhd9sPTN1yUjkCDVReZ9XlaNG2fazVyth3anlC6xS/exec';
+        // 🔱 PRATIKSHA DIGITAL - CHITTI SUPREME FINAL ASTRA URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxtgmZnXY17c63b_3EYNNc1Xe3W6a0e6WREgz6wQwnSXvQuREJ-vLiA1AKP6k6Z9WoIlg/exec';
         let globalStatus = ""; 
         let globalDetails = "";
 
         window.onload = function() {
-            // मोबाइल नंबर लोकल स्टोरेज से उठाना (Login Page से सिंक)
             const mobile = localStorage.getItem('userMobile');
             if(!mobile) {
                 document.getElementById('inventoryList').innerText = "कृपया पहले पंजीकरण या लॉगिन करें।";
@@ -128,7 +125,7 @@
             loader.style.display = 'block';
 
             try {
-                // v11.1 इंजन से डेटा सिंक (action=getMemberData)
+                // v12.0 इंजन से डेटा सिंक
                 const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`);
                 const data = await response.json();
 
@@ -138,25 +135,22 @@
                     return; 
                 }
 
-                // v11.1 डेटा मैपिंग: Column F (Status) और Column E (Details)
                 globalStatus = data.orderStatus || "Pending"; 
-                globalDetails = data.details || "विवरण उपलब्ध नहीं";
+                globalDetails = data.orderDetails || "विवरण उपलब्ध नहीं";
                 
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
                 
-                // कपड़ों के विवरण (Col E) को लिस्ट में बदलना
+                // कपड़ों के विवरण को लिस्ट में बदलना
                 const items = globalDetails.split('\n');
                 items.forEach(item => { 
                     if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
                 });
                 
-                // विजुअल स्टेप्स अपडेट करना
                 updateSteps(globalStatus);
 
             } catch (err) {
-                console.error("Connectivity Issue:", err);
-                document.getElementById('inventoryList').innerText = "कोस्मिक सिंक विफल। कृपया इंटरनेट चेक करें।";
+                document.getElementById('inventoryList').innerText = "कोस्मिक सिंक विफल।";
             } finally {
                 loader.style.display = 'none';
             }
@@ -166,20 +160,19 @@
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             const progressLine = document.getElementById('progressLine');
             
-            // 🔱 'Deep Map' - हर संभव स्टेटस को स्टेप्स से जोड़ना
+            // 🔱 'Munim Map' - मुनीम द्वारा डाले गए किसी भी कीवर्ड को पहचानना
             const stepsMap = { 
-                "Pending": 1, "Pickup": 1, "Order Pickup": 1, "पिकअप": 1, "पेंडिंग": 1,
-                "Washing": 2, "Processing": 2, "Laundry": 2, "In Process": 2, "Process": 2, "प्रोसेसिंग": 2,
-                "Ready": 3, "Ready to Deliver": 3, "तैयार": 3,
-                "Delivered": 4, "Paid": 4, "Complete": 4, "डिलीवर": 4
+                "pending": 1, "pickup": 1, "पिकअप": 1, "पेंडिंग": 1,
+                "washing": 2, "processing": 2, "process": 2, "प्रोसेसिंग": 2, "धुलाई": 2,
+                "ready": 3, "तैयार": 3,
+                "delivered": 4, "paid": 4, "डिलीवर": 4
             };
             
             let level = 0;
             let s = status.toString().trim().toLowerCase();
 
-            // कीवर्ड के आधार पर लेवल तय करना
             for (let key in stepsMap) {
-                if (s.includes(key.toLowerCase())) {
+                if (s.includes(key)) {
                     level = stepsMap[key];
                     break;
                 }
@@ -190,13 +183,11 @@
                 return;
             }
 
-            // स्टेप्स को चमकाना
             for(let i=1; i<=level; i++) { 
                 const el = document.getElementById('step' + i); 
                 if(el) el.classList.add('active'); 
             }
 
-            // लाइन प्रोग्रेस एनीमेशन (4 स्टेप्स के लिए सटीक हाइट)
             let heightPercent = ((level - 1) / 3) * 100;
             progressLine.style.height = `${heightPercent}%`;
         }
