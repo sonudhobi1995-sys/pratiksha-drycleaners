@@ -229,7 +229,7 @@
             // no-cors mode का उपयोग ताकि मुनीम का आदेश तुरंत ब्रह्मांड में पहुँच जाए
             await fetch(url, { mode: 'no-cors' });
             alert("सिग्नल सिंक सफल! ✅");
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✨\\nस्थिति: " + status + "\\nविवरण: " + (details || "अपडेटेड"))}`, '_blank');
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* स्थिति: " + status + " विवरण: " + (details || "अपडेटेड"))}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
     }
