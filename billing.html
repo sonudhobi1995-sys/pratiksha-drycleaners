@@ -143,18 +143,35 @@
             text-transform: uppercase;
         }
 
+        label {
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            color: rgba(255,255,255,0.7); 
+            text-transform: uppercase; 
+            display: block; 
+            margin-top: 15px; 
+        }
+
         input, select { 
             width: 100%; 
             padding: 16px; 
             margin: 8px 0 15px 0; 
             border-radius: 12px; 
-            border: 1.5px solid rgba(255,255,255,0.1); 
-            background: rgba(255,255,255,0.05); 
-            color: white; 
+            border: 1.5px solid rgba(255,255,255,0.2); 
+            background: rgba(0, 0, 0, 0.85); /* गहरा काला बैकग्राउंड ताकि टेक्स्ट हमेशा साफ दिखे */
+            color: #ffffff !important; /* टेक्स्ट हमेशा सफेद रहे */
             font-size: 1rem; 
             outline: none; 
             box-sizing: border-box;
         }
+        
+        /* ड्रॉपडाउन के अंदर के ऑप्शंस के लिए फिक्स */
+        select option {
+            background-color: #001F3F !important;
+            color: #ffffff !important;
+            padding: 12px;
+        }
+
         input:focus, select:focus { border-color: var(--accent-gold); }
 
         .btn-add { 
@@ -212,6 +229,7 @@
         }
         .btn-nav-back:hover { background: rgba(255,215,0,0.1); border-color: var(--accent-gold); }
         
+        /* 📄 पीडीएफ टैक्स इनवाइस के लिए हिडन टेम्प्लेट */
         #invoice-template { display: none; width: 750px; padding: 30px; background: white; color: black; font-family: 'Inter', sans-serif; border: 1px solid #000; }
 
         @media print { .no-print { display: none !important; } }
@@ -307,30 +325,57 @@
     </div>
 </div>
 
+<!-- 📄 प्रोफेशनल टैक्स इनवाइस टेम्प्लेट (PDF के लिए) -->
 <div id="invoice-template">
     <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px;">
-        <h1 style="margin: 0;">PRATIKSHA DRYCLEANERS</h1>
-        <p style="margin: 2px 0;">A 11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
-        <p style="margin: 2px 0;">PAN: CAMPD2004H | <strong>TAX INVOICE</strong></p>
+        <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 22px;">PRATIKSHA DRYCLEANERS</h1>
+        <p style="margin: 2px 0; font-size: 11px;">A-11, Shankar Vihar Road, Muralipura, Jaipur | 7740870095</p>
+        <p style="margin: 2px 0; font-size: 11px;">PAN: CAMPD2004H | <strong>TAX INVOICE / BILL OF SUPPLY</strong></p>
     </div>
-    <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px;">
+
+    <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 12px;">
         <div><strong>Billed To:</strong><br><span id="pdfCustName">---</span><br>Mobile: <span id="pdfCustMob">---</span></div>
         <div style="text-align: right;"><strong>Invoice No:</strong> <span id="pdfInvNo">---</span><br><strong>Date:</strong> <span id="pdfDate">---</span></div>
     </div>
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #000; font-size: 13px;">
-        <thead><tr style="background: #eee;">
-            <th style="border: 1px solid #000; padding: 8px;">Sr.</th><th style="border: 1px solid #000; padding: 8px;">Description</th>
-            <th style="border: 1px solid #000; padding: 8px;">QTY</th><th style="border: 1px solid #000; padding: 8px;">Rate</th>
-            <th style="border: 1px solid #000; padding: 8px;">Total</th>
-        </tr></thead>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; border: 1px solid #000; font-size: 11px;">
+        <thead>
+            <tr style="background: #f2f2f2;">
+                <th style="border: 1px solid #000; padding: 6px; text-align: center;">Sr.</th>
+                <th style="border: 1px solid #000; padding: 6px; text-align: left;">Description (विवरण)</th>
+                <th style="border: 1px solid #000; padding: 6px; text-align: center;">QTY</th>
+                <th style="border: 1px solid #000; padding: 6px; text-align: center;">Rate</th>
+                <th style="border: 1px solid #000; padding: 6px; text-align: right;">Total</th>
+            </tr>
+        </thead>
         <tbody id="pdfItemBody"></tbody>
     </table>
-    <div style="text-align: right; margin-top: 20px; font-weight: bold; font-size: 18px;">FINAL TOTAL: ₹<span id="pdfFinalTotal">0</span></div>
-    <div style="margin-top: 40px; display: flex; justify-content: space-between; font-size: 12px;">
-        <div>Thank you for your business!</div>
-        <div style="text-align: center; border-top: 1px solid #000; width: 150px;"><br>Authorised Signatory</div>
+
+    <!-- 📊 बकाया और छूट का हिसाब बॉक्स -->
+    <div style="margin-top: 15px; border-top: 1px dashed #000; padding-top: 10px; font-size: 12px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span>Items Subtotal:</span>
+            <span>₹<span id="pdfSubTotal">0</span></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span>पुराना बकाया (Previous Due):</span>
+            <span>+ ₹<span id="pdfDue">0</span></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span>विशेष छूट (Special Discount):</span>
+            <span>- ₹<span id="pdfDisc">0</span></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-top: 2px solid #000; padding-top: 6px; font-weight: bold; font-size: 15px;">
+            <span>GRAND TOTAL:</span>
+            <span>₹<span id="pdfFinalTotal">0</span></span>
+        </div>
     </div>
-    <div style="text-align: center; margin-top: 20px; font-style: italic; color: #888;">Designed by SONU NEEL</div>
+
+    <div style="margin-top: 30px; display: flex; justify-content: space-between; font-size: 11px;">
+        <div>धन्यवाद! आपकी सेवा ही हमारा संकल्प है।</div>
+        <div style="text-align: center; border-top: 1px solid #000; width: 130px; padding-top: 4px;">Authorised Signatory</div>
+    </div>
+    <div style="text-align: center; margin-top: 15px; font-style: italic; font-size: 9px; color: #555;">Designed by SONU NEEL | Mission 2047</div>
 </div>
 
 <script>
@@ -387,10 +432,17 @@
         const mBal = parseFloat(document.getElementById('manualBalance').value) || 0;
         const disc = parseFloat(document.getElementById('discountAmt').value) || 0;
         body.innerHTML = ''; let itemsSum = 0;
-        billItems.forEach((i, idx) => { itemsSum += i.total; body.innerHTML += `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:10px 0;">${i.name} x ${i.q} <span onclick="removeItem(${idx})" style="color:var(--mars-red); cursor:pointer; font-weight:bold; margin-left:10px;">✕</span></td><td style="text-align:right; padding:10px 0; font-weight:bold;">₹${i.total}</td></tr>`; });
+        billItems.forEach((i, idx) => { 
+            itemsSum += i.total; 
+            body.innerHTML += `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+                <td style="padding:10px 0;">${i.name} (Qty: ${i.q} × ₹${i.r}) <span onclick="removeItem(${idx})" style="color:var(--mars-red); cursor:pointer; font-weight:bold; margin-left:10px;">✕</span></td>
+                <td style="text-align:right; padding:10px 0; font-weight:bold;">₹${i.total}</td>
+            </tr>`; 
+        });
         const final = (itemsSum + mBal) - disc;
-        document.getElementById('gTotal').innerText = `₹ ${final > 0 ? final : 0}`;
-        return final;
+        const finalTotal = final > 0 ? final : 0;
+        document.getElementById('gTotal').innerText = `₹ ${finalTotal}`;
+        return finalTotal;
     }
 
     function removeItem(idx) { billItems.splice(idx, 1); render(); }
@@ -399,43 +451,115 @@
         const mob = document.getElementById('custMobile').value;
         const name = document.getElementById('custName').value;
         const mode = document.getElementById('payMode').value;
-        const finalAmt = render();
-        const disc = document.getElementById('discountAmt').value || 0;
+        
+        let itemsSum = 0;
+        billItems.forEach(i => { itemsSum += i.total; });
 
-        if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
+        const mBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        const disc = parseFloat(document.getElementById('discountAmt').value) || 0;
+        const finalTotal = render();
 
-        if(mode === "Wallet" && userCurrentWallet < finalAmt) {
-            return alert(`वॉलेट में पर्याप्त पैसे नहीं हैं! (बैलेंस: ₹${userCurrentWallet})`);
+        if(!mob || billItems.length === 0) return alert("मोबाइल नंबर और कपड़ों का विवरण भरना अनिवार्य है!");
+
+        if(mode === "Wallet" && userCurrentWallet < finalTotal) {
+            return alert(`वॉलेट में पर्याप्त राशि नहीं है! (वर्तमान बैलेंस: ₹${userCurrentWallet})`);
         }
 
         const syncBtn = document.getElementById('syncBtn');
-        syncBtn.innerText = "✨ सिंक हो रहा है..."; syncBtn.disabled = true;
+        syncBtn.innerText = "✨ सिंक और WhatsApp..."; syncBtn.disabled = true;
 
-        const details = billItems.map(i => `${i.name}x${i.q}`).join(", ");
-        const finalSyncURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalAmt}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent(details)}&discount=${disc}`;
+        const detailsStr = billItems.map(i => `${i.name} (QTY: ${i.q} x ₹${i.r} = ₹${i.total})`).join(", ");
+        const finalSyncURL = `${SCRIPT_URL}?action=addBill&mobile=${mob}&name=${encodeURIComponent(name)}&amount=${finalTotal}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent(detailsStr)}&discount=${disc}`;
 
         try {
             await fetch(finalSyncURL, { method: 'GET', mode: 'no-cors' });
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स*\nकुल बिल: ₹" + finalAmt + "\n" + details)}`, '_blank');
-            alert("डेटा गूगल शीट में सुरक्षित हो गया! ✅");
+
+            let waDetailsText = "";
+            billItems.forEach((i, idx) => {
+                waDetailsText += `*${idx + 1}. ${i.name}* \n   • Qty: ${i.q} | Rate: ₹${i.r} | Total: ₹${i.total}\n`;
+            });
+
+            let message = `✨ *प्रतीक्षा ड्राईक्लीनर्स* ✨\n` +
+                          `अम्बाबाड़ी, जयपुर | 📞 7740870095\n\n` +
+                          `नमस्ते *${name || 'प्रिय ग्राहक'} जी*,\n` +
+                          `आपके वस्त्रों का सेवा विवरण नीचे प्रस्तुत है:\n\n` +
+                          `${waDetailsText}\n` +
+                          `----------------------------------\n` +
+                          `🔹 कपड़ों का कुल योग: ₹${itemsSum}\n` +
+                          (mBal > 0 ? `🔹 पुराना बकाया: + ₹${mBal}\n` : ``) +
+                          (disc > 0 ? `🔹 विशेष छूट: - ₹${disc}\n` : ``) +
+                          `📌 *कुल देय राशि (Grand Total): ₹${finalTotal}*\n` +
+                          `💳 भुगतान माध्यम: *${mode}*\n` +
+                          `----------------------------------\n` +
+                          `🙏 धन्यवाद! आपकी सेवा ही हमारा संकल्प है।\n` +
+                          `_Mission 2047 | PRATIKSHA DIGITAL_`;
+
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(message)}`, '_blank');
+            
+            alert("डेटा गूगल शीट में सुरक्षित हो गया और WhatsApp संदेश तैयार है! ✅");
             location.reload();
-        } catch (e) { alert("नेटवर्क एरर!"); syncBtn.disabled = false; }
+
+        } catch (e) { 
+            alert("नेटवर्क त्रुटि! कृपया पुनः प्रयास करें।"); 
+            syncBtn.disabled = false; 
+            syncBtn.innerText = "📲 SYNC & WHATSAPP";
+        }
     }
 
     function generateInvoicePDF() {
         const element = document.getElementById('invoice-template');
         element.style.display = 'block';
+        element.style.position = 'absolute';
+        element.style.left = '-9999px';
+
         document.getElementById('pdfCustName').innerText = document.getElementById('custName').value || "Guest Customer";
-        document.getElementById('pdfCustMob').innerText = document.getElementById('custMobile').value;
+        document.getElementById('pdfCustMob').innerText = document.getElementById('custMobile').value || "---";
         document.getElementById('pdfInvNo').innerText = "INV-" + Date.now().toString().slice(-6);
         document.getElementById('pdfDate').innerText = new Date().toLocaleDateString('hi-IN');
-        document.getElementById('pdfFinalTotal').innerText = render();
         
+        let itemsSum = 0;
         let html = '';
-        billItems.forEach((i, idx) => { html += `<tr><td style="border:1px solid #000; padding:8px;">${idx+1}</td><td style="border:1px solid #000; padding:8px;">${i.name}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.q}</td><td style="border:1px solid #000; padding:8px; text-align:center;">${i.r}</td><td style="border:1px solid #000; padding:8px; text-align:right;">${i.total}</td></tr>`; });
+        if (billItems.length === 0) {
+            html = `<tr><td colspan="5" style="border:1px solid #000; padding:10px; text-align:center;">कोई आइटम नहीं जोड़ा गया</td></tr>`;
+        } else {
+            billItems.forEach((i, idx) => { 
+                itemsSum += i.total;
+                html += `<tr>
+                    <td style="border:1px solid #000; padding:6px; text-align:center;">${idx+1}</td>
+                    <td style="border:1px solid #000; padding:6px;">${i.name}</td>
+                    <td style="border:1px solid #000; padding:6px; text-align:center;">${i.q}</td>
+                    <td style="border:1px solid #000; padding:6px; text-align:center;">${i.r}</td>
+                    <td style="border:1px solid #000; padding:6px; text-align:right;">${i.total}</td>
+                </tr>`; 
+            });
+        }
         document.getElementById('pdfItemBody').innerHTML = html;
 
-        html2pdf().from(element).save('Pratiksha_Invoice.pdf').then(() => { element.style.display = 'none'; });
+        const mBal = parseFloat(document.getElementById('manualBalance').value) || 0;
+        const disc = parseFloat(document.getElementById('discountAmt').value) || 0;
+        const finalTotal = (itemsSum + mBal) - disc;
+
+        document.getElementById('pdfSubTotal').innerText = itemsSum;
+        document.getElementById('pdfDue').innerText = mBal;
+        document.getElementById('pdfDisc').innerText = disc;
+        document.getElementById('pdfFinalTotal').innerText = finalTotal > 0 ? finalTotal : 0;
+
+        const opt = {
+            margin:       10,
+            filename:     'Pratiksha_Tax_Invoice.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(element).set(opt).save().then(() => { 
+            element.style.display = 'none'; 
+            element.style.position = 'static';
+            element.style.left = 'auto';
+        }).catch(err => {
+            console.error("PDF Error: ", err);
+            element.style.display = 'none';
+        });
     }
 
     async function getContact() {
