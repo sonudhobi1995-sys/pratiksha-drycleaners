@@ -19,16 +19,19 @@
         body { 
             font-family: 'Inter', 'Mukta', sans-serif; 
             background: var(--midnight); 
-            margin: 0; padding: 15px;
+            margin: 0; padding: 0;
             color: white;
             overflow-x: hidden;
+            position: relative;
         }
 
+        /* 🌌 कोस्मिक सौरमंडल बैकग्राउंड */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             background: radial-gradient(circle at center, #001a33 0%, #000205 100%);
+            pointer-events: none;
         }
 
         .star-field {
@@ -43,7 +46,15 @@
 
         @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
-        header { text-align: center; margin-bottom: 25px; }
+        /* हेडर */
+        header { 
+            text-align: center; 
+            padding: 35px 20px 20px; 
+            background: rgba(0,0,0,0.5); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 2px solid var(--sun-orange); 
+        }
+
         .logo-ring {
             width: 70px; height: 70px;
             border: 2px solid var(--accent-gold);
@@ -51,35 +62,103 @@
             margin: 0 auto 10px;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 0 20px var(--accent-gold);
+            font-size: 1.5rem;
         }
-        h1 { font-family: 'Playfair Display'; font-size: 24px; color: var(--accent-gold); margin: 0; }
-        p.mission { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #aaa; }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        h1 { font-family: 'Playfair Display'; font-size: 26px; color: var(--accent-gold); margin: 0; letter-spacing: 2px; }
+        p.mission { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #aaa; margin-top: 5px; }
+
+        /* 💻 डेस्कटॉप और मोबाइल के लिए मुख्य डैशबोर्ड ग्रिड */
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px 40px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* लैपटॉप या बड़ी स्क्रीन के लिए (768px से ऊपर) मल्टी-कॉलम लेआउट */
+        @media (min-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stats-grid {
+                grid-column: span 2;
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+            .full-width {
+                grid-column: span 2 !important;
+            }
+        }
+
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+
         .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 15px;
+            border-radius: 20px;
+            padding: 25px 20px;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: 0.3s;
         }
+        .stat-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
+
         .full-width { grid-column: span 2; }
-        .label { font-size: 11px; color: #ccc; margin-bottom: 5px; }
-        .value { font-size: 20px; font-weight: 900; color: var(--pure-moon); }
-        .gold-text { color: var(--accent-gold); }
+        .label { font-size: 12px; color: #ccc; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .value { font-size: 28px; font-weight: 900; color: var(--pure-moon); }
+        .gold-text { color: var(--accent-gold); font-size: 32px; }
 
-        .sip-tracker { margin-top: 25px; padding: 20px; background: rgba(255, 215, 0, 0.05); border-radius: 20px; border: 1px solid var(--glass-border); }
-        .sip-title { font-family: 'Playfair Display'; color: var(--accent-gold); text-align: center; margin-bottom: 15px; font-size: 18px; }
-        .progress-container { background: rgba(255,255,255,0.1); border-radius: 10px; height: 12px; margin: 10px 0; overflow: hidden; }
-        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-gold), var(--sun-orange)); transition: width 1s ease-in-out; }
-        .sip-footer { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; }
-
-        .refresh-btn {
-            display: block; width: 100%; padding: 12px; margin-top: 20px;
-            background: var(--accent-gold); color: black; border: none;
-            border-radius: 10px; font-weight: bold; cursor: pointer;
+        /* SIP संकल्प ट्रैकर कार्ड */
+        .sip-tracker { 
+            background: rgba(255, 215, 0, 0.04); 
+            border-radius: 25px; 
+            border: 1px solid var(--glass-border); 
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            grid-column: span 1;
         }
+        @media (min-width: 768px) {
+            .sip-tracker { grid-column: span 2; }
+        }
+
+        .sip-title { font-family: 'Playfair Display'; color: var(--accent-gold); text-align: center; margin-bottom: 20px; font-size: 22px; letter-spacing: 1px; }
+        .progress-container { background: rgba(255,255,255,0.1); border-radius: 12px; height: 16px; margin: 15px 0; overflow: hidden; border: 1px solid rgba(255,215,0,0.2); }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-gold), var(--sun-orange)); transition: width 1s ease-in-out; border-radius: 12px; }
+        .sip-footer { display: flex; justify-content: space-between; font-size: 13px; color: #ccc; font-weight: bold; }
+
+        /* नेविगेशन और एक्शन बटन */
+        .action-panel {
+            grid-column: span 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .action-panel { grid-column: span 2; }
+        }
+
+        .refresh-btn, .nav-admin-btn {
+            display: block; width: 100%; padding: 18px; 
+            border: none; border-radius: 15px; font-weight: 900; 
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px;
+            text-align: center; text-decoration: none; font-size: 1rem;
+            transition: 0.3s;
+        }
+        .refresh-btn { background: var(--accent-gold); color: black; box-shadow: 0 5px 20px rgba(255,215,0,0.3); }
+        .refresh-btn:hover { transform: scale(1.02); }
+
+        .nav-admin-btn { background: rgba(255,255,255,0.08); color: white; border: 1.5px solid var(--glass-border); }
+        .nav-admin-btn:hover { background: rgba(255,215,0,0.15); border-color: var(--accent-gold); }
     </style>
 </head>
 <body>
@@ -88,43 +167,52 @@
     <header>
         <div class="logo-ring">✨</div>
         <h1>PRATIKSHA DIGITAL</h1>
-        <p class="mission">Mission 2047 | Pure Fabric Care</p>
+        <p class="mission">Mission 2047 | Pure Fabric Care Command Center</p>
     </header>
 
-    <div class="stats-grid">
-        <div class="stat-card full-width">
-            <div class="label">आज की कुल कमाई (Live)</div>
-            <div class="value gold-text" id="todayColl">₹ 0</div>
+    <div class="dashboard-container">
+        <!-- लाइव कमाई और आँकड़े -->
+        <div class="stats-grid full-width">
+            <div class="stat-card full-width" style="background: rgba(255,215,0,0.06);">
+                <div class="label">आज की कुल कमाई (Live Collection)</div>
+                <div class="value gold-text" id="todayColl">₹ 0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">पेंडिंग आर्डर्स</div>
+                <div class="value" id="pending">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">धुलाई प्रक्रिया</div>
+                <div class="value" id="washing">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">रेडी टू डिलीवर</div>
+                <div class="value" id="ready">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">कुल एक्टिव ग्राहक</div>
+                <div class="value" id="customers">0</div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="label">पेंडिंग आर्डर्स</div>
-            <div class="value" id="pending">0</div>
+
+        <!-- 2047 SIP संकल्प ट्रैकर -->
+        <div class="sip-tracker">
+            <div class="sip-title">🔱 2047 SIP संकल्प</div>
+            <div class="label" id="totalColl" style="text-align: center; font-size: 14px; color: var(--accent-gold);">मासिक प्रगति: ₹ 0</div>
+            <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+            <div class="sip-footer">
+                <span>मासिक लक्ष्य: ₹2,500</span>
+                <span id="perc">0%</span>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="label">धुलाई प्रक्रिया</div>
-            <div class="value" id="washing">0</div>
-        </div>
-        <div class="stat-card">
-            <div class="label">रेडी टू डिलीवर</div>
-            <div class="value" id="ready">0</div>
-        </div>
-        <div class="stat-card">
-            <div class="label">कुल एक्टिव ग्राहक</div>
-            <div class="value" id="customers">0</div>
+
+        <!-- एक्शन और नेविगेशन पैनल -->
+        <div class="action-panel">
+            <button class="refresh-btn" onclick="fetchData()">🔄 कोस्मिक सिंक करें</button>
+            <a href="admin-update.html" class="nav-admin-btn">🛡️ गार्डियन स्टेशन (Admin) जाएं</a>
+            <a href="index.html" class="nav-admin-btn" style="background:none; border-color:rgba(255,255,255,0.2);">🏠 मुख्य द्वार (Home) जाएं</a>
         </div>
     </div>
-
-    <div class="sip-tracker">
-        <div class="sip-title">🔱 2047 SIP संकल्प</div>
-        <div class="label" id="totalColl">मासिक प्रगति: ₹ 0</div>
-        <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
-        <div class="sip-footer">
-            <span>लक्ष्य: ₹2,500/महीना</span>
-            <span id="perc">0%</span>
-        </div>
-    </div>
-
-    <button class="refresh-btn" onclick="fetchData()">🔄 कोस्मिक सिंक करें</button>
 
     <script>
         // 🔱 PRATIKSHA DIGITAL - CHITTI SUPREME v12.0 URL
@@ -140,10 +228,11 @@
             .then(data => {
                 if (data.status === "error") {
                     alert("सुरक्षा त्रुटि: " + data.message);
+                    btn.innerText = "🔄 कोस्मिक सिंक करें";
                     return;
                 }
 
-                // v12.0 डेटा मैपिंग - Chitti Engine Logic
+                // v12.0 डेटा मैपिंग
                 document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
                 document.getElementById('pending').innerText = data.pending || 0;
                 document.getElementById('washing').innerText = data.washing || 0;
@@ -151,9 +240,8 @@
                 document.getElementById('customers').innerText = data.totalCust || 0;
 
                 // 📊 Mission 2047 SIP Tracker Logic
-                // चूँकि मासिक डेटा 'Billing' शीट से आ रहा है, हम 2500 का लक्ष्य मान रहे हैं
                 const monthlyTarget = 2500;
-                const actualMonthly = data.todayColl; // यहाँ आप monthlyTotal डेटा भी सिंक कर सकते हैं
+                const actualMonthly = data.todayColl || 0; 
                 let progress = Math.min((actualMonthly / monthlyTarget) * 100, 100);
                 
                 document.getElementById('bar').style.width = progress + "%";
