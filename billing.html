@@ -12,12 +12,13 @@
     <style>
         :root { 
             --deep-space: #000205; 
-            --pure-moon: rgba(255, 255, 255, 0.08); 
+            --pure-moon: rgba(255, 255, 255, 0.05); 
             --accent-gold: #FFD700;
             --sun-orange: #FF8C00; 
             --nebula-green: #2ecc71; 
             --mars-red: #e74c3c;
             --earth-blue: #3498db;
+            --glass-border: rgba(255, 215, 0, 0.3);
         }
 
         body { 
@@ -28,7 +29,7 @@
             position: relative;
         }
 
-        /* ✨ कोस्मिक एनीमेशन (Original stars) */
+        /* ✨ कोस्मिक एनीमेशन */
         body::before {
             content: "";
             position: fixed;
@@ -76,69 +77,140 @@
             animation: orbit-rotate linear infinite;
         }
 
-        .planet { position: absolute; border-radius: 50%; animation: planet-pulse infinite alternate; }
-
         @keyframes orbit-rotate {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        @keyframes planet-pulse { 0% { opacity: 0.8; } 100% { opacity: 1; box-shadow: 0 0 10px rgba(255,255,255,0.5); } }
-
         .orbit-mercury { width: 150px; height: 150px; animation-duration: 5s; }
-        .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; }
+        .planet-mercury { top: 15px; left: 50%; width: 6px; height: 6px; background: #95a5a6; position: absolute; border-radius: 50%; }
 
         .orbit-venus { width: 200px; height: 200px; animation-duration: 8s; }
-        .planet-venus { top: 20px; left: 20px; width: 10px; height: 10px; background: #f1c40f; }
+        .planet-venus { top: 20px; left: 20px; width: 10px; height: 10px; background: #f1c40f; position: absolute; border-radius: 50%; }
 
         .orbit-earth { width: 280px; height: 280px; animation-duration: 12s; }
-        .planet-earth { bottom: 30px; right: 30px; width: 11px; height: 11px; background: var(--earth-blue); }
+        .planet-earth { bottom: 30px; right: 30px; width: 11px; height: 11px; background: var(--earth-blue); position: absolute; border-radius: 50%; }
 
         .orbit-mars { width: 360px; height: 360px; animation-duration: 20s; }
-        .planet-mars { top: 50%; right: 10px; width: 8px; height: 8px; background: var(--mars-red); }
-
-        .orbit-jupiter { width: 480px; height: 480px; animation-duration: 35s; }
-        .planet-jupiter { bottom: 10px; left: 50%; width: 25px; height: 25px; background: #e67e22; border: 2px solid #d35400; }
-
-        .orbit-saturn { width: 600px; height: 600px; animation-duration: 50s; }
-        .planet-saturn { top: 10%; right: 50%; width: 20px; height: 20px; background: #f39c12; }
-        .planet-saturn::after { content:""; position:absolute; top:50%; left:50%; width:35px; height:10px; border: 2px solid rgba(243, 156, 18, 0.5); border-radius:50%; transform:translate(-50%,-50%) rotate(15deg); }
-
-        .orbit-uranus { width: 700px; height: 700px; animation-duration: 70s; }
-        .planet-uranus { top: 50%; left: 5px; width: 15px; height: 15px; background: #1abc9c; }
-
-        .orbit-neptune { width: 800px; height: 800px; animation-duration: 90s; }
-        .planet-neptune { bottom: 50px; right: 5px; width: 14px; height: 14px; background: #2980b9; }
-
-        .orbit-pluto { width: 900px; height: 900px; animation-duration: 120s; }
-        .planet-pluto { bottom: 50%; right: 1px; width: 4px; height: 4px; background: #7f8c8d; }
+        .planet-mars { top: 50%; right: 10px; width: 8px; height: 8px; background: var(--mars-red); position: absolute; border-radius: 50%; }
 
         .billing-header { 
             background: linear-gradient(180deg, rgba(10, 25, 49, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); 
             backdrop-filter: blur(10px); padding: 35px 20px; text-align: center; 
             border-bottom: 5px solid var(--sun-orange); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .billing-header h1 { margin:0; font-family:'Playfair Display'; font-size: 2.2rem; color: var(--accent-gold); }
+        .billing-header h1 { margin:0; font-family:'Playfair Display'; font-size: 2.2rem; color: var(--accent-gold); letter-spacing: 2px; }
 
-        .container { padding: 15px; max-width: 550px; margin: auto; position: relative; z-index: 1; }
+        /* 💻 डेस्कटॉप और मोबाइल दोनों के लिए स्मार्ट रिस्पॉन्सिव ग्रिड */
+        .container { 
+            padding: 25px; 
+            max-width: 1200px; 
+            margin: auto; 
+            position: relative; 
+            z-index: 1; 
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        /* लैपटॉप और डेस्कटॉप (768px से बड़ी स्क्रीन) के लिए मल्टी-कॉलम लेआउट */
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .full-desktop {
+                grid-column: span 2;
+            }
+        }
+
         .card { 
-            background: var(--pure-moon); backdrop-filter: blur(15px);
-            padding: 25px; border-radius: 20px; margin-bottom: 20px; color: white; 
-            box-shadow: 0 10px 30px rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--pure-moon); 
+            backdrop-filter: blur(15px);
+            padding: 30px; 
+            border-radius: 25px; 
+            color: white; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        h3 { margin: 0 0 15px; color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 3px solid var(--sun-orange); display: inline-block; font-size: 1.2rem; }
+        h3 { 
+            margin: 0 0 20px; 
+            color: var(--accent-gold); 
+            font-family: 'Playfair Display', serif; 
+            border-bottom: 3px solid var(--sun-orange); 
+            display: inline-block; 
+            font-size: 1.2rem; 
+            text-transform: uppercase;
+        }
+
         input, select { 
-            width: 100%; padding: 15px; margin: 8px 0; border-radius: 12px; 
-            border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; outline: none; box-sizing: border-box;
+            width: 100%; 
+            padding: 16px; 
+            margin: 8px 0 15px 0; 
+            border-radius: 12px; 
+            border: 1.5px solid rgba(255,255,255,0.1); 
+            background: rgba(255,255,255,0.05); 
+            color: white; 
+            font-size: 1rem; 
+            outline: none; 
+            box-sizing: border-box;
         }
+        input:focus, select:focus { border-color: var(--accent-gold); }
 
-        .btn-add { background: var(--accent-gold); color: var(--deep-space); width: 100%; border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-weight: 800; text-transform: uppercase; margin-top: 10px; }
+        .btn-add { 
+            background: var(--accent-gold); 
+            color: var(--deep-space); 
+            width: 100%; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn-add:hover { transform: scale(1.02); }
         
-        .total-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid var(--sun-orange); margin-top: 20px; }
-        .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.5rem; font-weight: 900; }
+        .total-box { 
+            background: rgba(255,255,255,0.03); 
+            padding: 20px; 
+            border-radius: 15px; 
+            text-align: center; 
+            border: 2px solid var(--sun-orange); 
+            margin-top: 20px; 
+        }
+        .grand-total-band { background: var(--sun-orange); color: white; padding: 15px; border-radius: 10px; font-size: 1.6rem; font-weight: 900; }
 
-        .btn-wa { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-weight: 900; margin-top: 20px; cursor: pointer; font-size: 1.2rem; }
+        .btn-wa { 
+            background: #25D366; 
+            color: white; 
+            width: 100%; 
+            padding: 20px; 
+            border: none; 
+            border-radius: 15px; 
+            font-weight: 900; 
+            margin-top: 20px; 
+            cursor: pointer; 
+            font-size: 1.2rem; 
+            transition: 0.3s;
+        }
+        .btn-wa:hover { transform: scale(1.02); }
+
+        .btn-nav-back {
+            display: block;
+            text-align: center;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn-nav-back:hover { background: rgba(255,215,0,0.1); border-color: var(--accent-gold); }
         
         #invoice-template { display: none; width: 750px; padding: 30px; background: white; color: black; font-family: 'Inter', sans-serif; border: 1px solid #000; }
 
@@ -153,70 +225,84 @@
     <div class="orbit orbit-venus"><div class="planet planet-venus"></div></div>
     <div class="orbit orbit-earth"><div class="planet planet-earth"></div></div>
     <div class="orbit orbit-mars"><div class="planet planet-mars"></div></div>
-    <div class="orbit orbit-jupiter"><div class="planet planet-jupiter"></div></div>
-    <div class="orbit orbit-saturn"><div class="planet planet-saturn"></div></div>
-    <div class="orbit orbit-uranus"><div class="planet planet-uranus"></div></div>
-    <div class="orbit orbit-neptune"><div class="planet planet-neptune"></div></div>
-    <div class="orbit orbit-pluto"><div class="planet planet-pluto"></div></div>
 </div>
 
 <div class="billing-header no-print">
     <h1>प्रतीक्षा ड्राई क्लीनर्स</h1>
-    <p>शुचिता • सेवा • समर्पण | MISSION 2047</p>
+    <p style="color: var(--accent-gold); margin-top: 5px; letter-spacing: 1px;">शुचिता • सेवा • समर्पण | MISSION 2047</p>
 </div>
 
 <div class="container">
+    <!-- कार्ड 1: ग्राहक मेनिफेस्ट -->
     <div class="card no-print">
         <h3>👤 ग्राहक मेनिफेस्ट</h3>
+        <label>मोबाइल नंबर</label>
         <div style="display:flex; gap:10px;">
-            <input type="tel" id="custMobile" placeholder="9929xxxxxx" onchange="autoFetchDetails()">
-            <button type="button" onclick="getContact()" style="padding:0 15px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); cursor:pointer;">👤</button>
+            <input type="tel" id="custMobile" placeholder="9929xxxxxx" onchange="autoFetchDetails()" style="margin:0;">
+            <button type="button" onclick="getContact()" style="padding:0 20px; border-radius:12px; border:2px solid var(--accent-gold); background:none; color: var(--accent-gold); cursor:pointer; font-weight:bold;">👤</button>
         </div>
-        <input type="text" id="custName" placeholder="ग्राहक का नाम">
-        <div id="walletDisplay" style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 5px; font-weight: bold;">बैलेंस जाँच हो रही है...</div>
         
-        <div style="display: flex; gap: 10px;">
-            <input type="number" id="manualBalance" placeholder="पुराना बकाया ₹" oninput="render()">
-            <input type="number" id="discountAmt" placeholder="विशेष छूट ₹" oninput="render()">
+        <label style="margin-top: 15px;">ग्राहक का नाम</label>
+        <input type="text" id="custName" placeholder="ग्राहक का नाम">
+        <div id="walletDisplay" style="font-size: 0.85rem; color: var(--accent-gold); margin-top: 5px; font-weight: bold;">बैलेंस जाँच हो रही है...</div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 10px;">
+            <div style="flex:1;">
+                <label>पुराना बकाया ₹</label>
+                <input type="number" id="manualBalance" placeholder="0" oninput="render()">
+            </div>
+            <div style="flex:1;">
+                <label>विशेष छूट ₹</label>
+                <input type="number" id="discountAmt" placeholder="0" oninput="render()">
+            </div>
         </div>
     </div>
 
+    <!-- कार्ड 2: सर्विस ऑर्बिट -->
     <div class="card no-print">
         <h3>🧺 सर्विस ऑर्बिट</h3>
+        <label>श्रेणी चुनें</label>
         <select id="itemCategory" onchange="updateItems()">
             <option value="">श्रेणी चुनें...</option>
             <option value="men">पुरुष (Men)</option>
             <option value="women">महिला (Women)</option>
             <option value="home">होम (Home)</option>
         </select>
+
+        <label>कपड़ा चुनें</label>
         <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
+
+        <label>सर्विस का प्रकार</label>
         <select id="serviceType">
             <option value="Wash & Press">Wash & Press</option>
             <option value="Dry Clean">Dry Clean</option>
             <option value="Steam Press">Steam Press</option>
         </select>
-        <div style="display:flex; gap:10px;">
-            <input type="number" id="qty" placeholder="नग">
-            <input type="number" id="rate" placeholder="दर ₹">
+
+        <div style="display:flex; gap:15px;">
+            <div style="flex:1;"><label>नग (Quantity)</label><input type="number" id="qty" placeholder="1"></div>
+            <div style="flex:1;"><label>दर (Rate ₹)</label><input type="number" id="rate" placeholder="0"></div>
         </div>
         <button class="btn-add" onclick="addItem()">+ लिस्ट में जोड़ें</button>
     </div>
 
-    <div class="card">
+    <!-- कार्ड 3: फाइनल मेनिफेस्ट (डेस्कटॉप पर दोनों कॉलम कवर करेगा) -->
+    <div class="card full-desktop">
         <h3>📋 फाइनल मेनिफेस्ट</h3>
-        <table id="billTable" style="width:100%;"><tbody></tbody></table>
+        <table id="billTable" style="width:100%; margin-top: 10px;"><tbody></tbody></table>
         <div class="total-box">
             <div id="gTotal" class="grand-total-band">₹ 0</div>
         </div>
         <div class="no-print">
-            <label style="font-size: 0.7rem; color: #aaa; display: block; margin-top: 15px;">भुगतान माध्यम</label>
+            <label style="font-size: 0.8rem; color: #aaa; display: block; margin-top: 20px;">भुगतान माध्यम</label>
             <select id="payMode">
                 <option value="Cash">Cash</option>
                 <option value="Online">UPI</option>
                 <option value="Wallet">💳 Wallet (सदस्यता)</option>
             </select>
             <button class="btn-wa" id="syncBtn" onclick="processFinalBill()">📲 SYNC & WHATSAPP</button>
-            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1px solid white; color:white; margin-top:10px; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer;">📄 DOWNLOAD TAX INVOICE</button>
+            <button onclick="generateInvoicePDF()" style="width:100%; background:none; border:1.5px solid white; color:white; margin-top:15px; padding:18px; border-radius:15px; font-weight:bold; cursor:pointer; transition:0.3s;">📄 DOWNLOAD TAX INVOICE</button>
+            <a href="admin-update.html" class="btn-nav-back">🔙 गार्डियन स्टेशन (Admin) पर लौटें</a>
         </div>
     </div>
 </div>
@@ -251,7 +337,6 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec";
     
     let billItems = [];
-    // 🧺 २. इन्वेंट्री का विस्तार (रेगुलर और अन्य)
     const inventory = {
         men: ["शर्ट", "पेंट", "जींस", "टी-शर्ट", "सूट", "कोट", "रेगुलर कपड़े", "अन्य (Other)"],
         women: ["साड़ी", "लहंगा", "सूट सलवार", "कुर्ती", "दुपट्टा", "रेगुलर कपड़े", "अन्य (Other)"],
@@ -267,7 +352,6 @@
         if(cat && inventory[cat]) inventory[cat].forEach(i => sel.innerHTML += `<option value="${i}">${i}</option>`);
     }
 
-    // 💳 १. वॉलेट बैलेंस का 'लाइव दर्शन'
     async function autoFetchDetails() {
         const mob = document.getElementById('custMobile').value;
         if(mob.length < 10) return;
@@ -303,7 +387,7 @@
         const mBal = parseFloat(document.getElementById('manualBalance').value) || 0;
         const disc = parseFloat(document.getElementById('discountAmt').value) || 0;
         body.innerHTML = ''; let itemsSum = 0;
-        billItems.forEach((i, idx) => { itemsSum += i.total; body.innerHTML += `<tr><td>${i.name} x ${i.q} <span onclick="removeItem(${idx})" style="color:red; cursor:pointer;">✕</span></td><td style="text-align:right;">₹${i.total}</td></tr>`; });
+        billItems.forEach((i, idx) => { itemsSum += i.total; body.innerHTML += `<tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:10px 0;">${i.name} x ${i.q} <span onclick="removeItem(${idx})" style="color:var(--mars-red); cursor:pointer; font-weight:bold; margin-left:10px;">✕</span></td><td style="text-align:right; padding:10px 0; font-weight:bold;">₹${i.total}</td></tr>`; });
         const final = (itemsSum + mBal) - disc;
         document.getElementById('gTotal').innerText = `₹ ${final > 0 ? final : 0}`;
         return final;
@@ -320,7 +404,6 @@
 
         if(!mob || billItems.length === 0) return alert("विवरण अधूरा है!");
 
-        // 💳 ३. स्मार्ट पेमेंट मोड (Wallet Logic)
         if(mode === "Wallet" && userCurrentWallet < finalAmt) {
             return alert(`वॉलेट में पर्याप्त पैसे नहीं हैं! (बैलेंस: ₹${userCurrentWallet})`);
         }
