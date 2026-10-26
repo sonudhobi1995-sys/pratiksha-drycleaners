@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* 🪐 सौरमंडल एनीमेशन (यथावत) */
+        /* 🪐 सौरमंडल एनीमेशन */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -83,38 +83,120 @@
         }
         @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-        .app-header { padding: 45px 20px 25px; text-align: center; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); border-bottom: 2px solid var(--sun-orange); }
-        .container { padding: 20px; max-width: 500px; margin: auto; position: relative; z-index: 1; }
+        .app-header { 
+            padding: 45px 20px 25px; 
+            text-align: center; 
+            background: rgba(0, 0, 0, 0.7); 
+            backdrop-filter: blur(5px); 
+            border-bottom: 2px solid var(--sun-orange); 
+        }
+
+        /* 💻 डेस्कटॉप और मोबाइल दोनों के लिए स्मार्ट रिस्पॉन्सिव ग्रिड */
+        .container { 
+            padding: 25px; 
+            max-width: 1200px; 
+            margin: auto; 
+            position: relative; 
+            z-index: 1; 
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 25px;
+        }
+
+        /* लैपटॉप और डेस्कटॉप (768px से बड़ी स्क्रीन) के लिए मल्टी-कॉलम डैशबोर्ड */
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1.2fr 1fr; 
+            }
+            .full-desktop {
+                grid-column: span 2; 
+            }
+        }
         
         .card { 
             background: rgba(255, 255, 255, 0.02); 
-            padding: 25px; border-radius: 30px; margin-bottom: 20px; 
+            padding: 30px; 
+            border-radius: 30px; 
             border: 2px solid var(--border-glow);
             backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
-        h3 { color: var(--star-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; padding-bottom: 5px; text-transform: uppercase; font-size: 1.1rem; }
-        label { font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; display: block; margin-top: 15px; }
+        h3 { 
+            color: var(--star-gold); 
+            font-family: 'Playfair Display', serif; 
+            border-bottom: 2px solid var(--sun-orange); 
+            display: inline-block; 
+            padding-bottom: 5px; 
+            text-transform: uppercase; 
+            font-size: 1.2rem; 
+        }
+
+        label { 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            color: rgba(255,255,255,0.7); 
+            text-transform: uppercase; 
+            display: block; 
+            margin-top: 18px; 
+        }
 
         input, select, textarea { 
-            width: 100%; padding: 16px; margin: 8px 0; border-radius: 15px; 
-            border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.6); color: white; outline: none; box-sizing: border-box;
+            width: 100%; 
+            padding: 16px; 
+            margin: 8px 0; 
+            border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.2); 
+            background: rgba(0,0,0,0.6); 
+            color: white; 
+            outline: none; 
+            box-sizing: border-box;
+            font-size: 1rem;
         }
 
         .btn-status { 
-            width: 100%; padding: 18px; border: none; border-radius: 20px; 
+            width: 100%; 
+            padding: 18px; 
+            border: none; 
+            border-radius: 20px; 
             background: linear-gradient(135deg, var(--star-gold), var(--sun-orange)); 
-            color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 15px;
+            color: #000; 
+            font-weight: 900; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            margin-top: 20px;
+            transition: 0.3s;
         }
+        .btn-status:hover { transform: scale(1.02); }
 
         .cog-dashboard-btn {
-            background: none; border: 2px solid var(--star-gold); border-radius: 30px; padding: 20px;
-            text-align: center; text-decoration: none; display: block; margin-bottom: 20px;
+            background: none; 
+            border: 2px solid var(--star-gold); 
+            border-radius: 30px; 
+            padding: 20px;
+            text-align: center; 
+            text-decoration: none; 
+            display: block; 
         }
-        .cog-dashboard-btn img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--star-gold); margin-bottom: 10px; }
+        .cog-dashboard-btn img { 
+            width: 70px; height: 70px; 
+            border-radius: 50%; 
+            border: 2px solid var(--star-gold); 
+            margin-bottom: 10px; 
+        }
 
-        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .btn-nav { background: none; color: white; border: 1px solid rgba(255,255,255,0.3); padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; }
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-nav { 
+            background: none; color: white; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            padding: 18px; border-radius: 15px; 
+            font-weight: bold; cursor: pointer; 
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-nav:hover { background: rgba(255,215,0,0.1); border-color: var(--star-gold); }
     </style>
 </head>
 <body>
@@ -130,24 +212,29 @@
     </div>
 
     <div class="app-header">
-        <h2 style="margin:0; font-family:'Playfair Display'; letter-spacing: 3px;">Guardian Station</h2>
-        <div style="font-size: 0.6rem; color: var(--star-gold);">COSMIC COMMAND CENTER</div>
+        <h2 style="margin:0; font-family:'Playfair Display'; letter-spacing: 3px; font-size: 2rem;">Guardian Station</h2>
+        <div style="font-size: 0.7rem; color: var(--star-gold); margin-top: 5px; letter-spacing: 2px;">COSMIC COMMAND CENTER</div>
     </div>
 
     <div class="container">
-        <a href="Dashboard.html" class="cog-dashboard-btn">
-            <img src="1000289866.jpg" alt="Dash">
-            <div style="color: var(--star-gold); font-weight: 900;">प्रतीक्षा डिजिटल डैशबोर्ड</div>
-        </a>
+        <!-- डैशबोर्ड बटन (पूरे डेस्कटॉप पर फैलेगा) -->
+        <div class="full-desktop">
+            <a href="Dashboard.html" class="cog-dashboard-btn">
+                <img src="1000289866.jpg" alt="Dash">
+                <div style="color: var(--star-gold); font-weight: 900; font-size: 1.1rem;">प्रतीक्षा डिजिटल डैशबोर्ड</div>
+            </a>
+        </div>
 
+        <!-- कार्ड 1: क्विक सिग्नल -->
         <div class="card">
             <h3>✨ QUICK SIGNAL</h3>
             <label>ग्राहक का नाम</label>
             <input type="text" id="custName" placeholder="नाम..." readonly style="color: var(--star-gold); font-weight: bold;">
             
+            <label>मोबाइल नंबर</label>
             <div style="display: flex; gap: 10px;">
                 <input type="tel" id="adminMobile" placeholder="मोबाइल नंबर" style="flex:1;">
-                <button onclick="getContact('adminMobile', 'custName')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:12px; padding:0 15px;">👤</button>
+                <button onclick="getContact('adminMobile', 'custName')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:15px; padding:0 20px; cursor:pointer;">👤</button>
             </div>
             
             <label>ऑर्डर स्थिति</label>
@@ -159,7 +246,7 @@
             </select>
 
             <label>कपड़ों का विवरण (Details)</label>
-            <textarea id="adminDetails" placeholder="उदा: 2 शर्ट, 1 पर्दा..." rows="2"></textarea>
+            <textarea id="adminDetails" placeholder="उदा: 2 शर्ट, 1 पर्दा..." rows="3"></textarea>
 
             <label>भुगतान माध्यम</label>
             <select id="paymentMode">
@@ -172,23 +259,28 @@
             <button class="btn-status" id="updateBtn" onclick="updateStatusOnly()">सिग्नल सिंक करें</button>
         </div>
 
-        <div class="card">
-            <h3>💳 WALLET RECHARGE</h3>
-            <label>ग्राहक मोबाइल</label>
-            <div style="display: flex; gap: 10px;">
-                <input type="tel" id="rechargeMobile" placeholder="नंबर..." style="flex:1;">
-                <button onclick="getContact('rechargeMobile')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:12px; padding:0 15px;">👤</button>
+        <!-- दाहिनी ओर के कार्ड्स का ग्रुप -->
+        <div style="display: flex; flex-direction: column; gap: 25px;">
+            <!-- कार्ड 2: वॉलेट रिचार्ज -->
+            <div class="card" style="margin: 0;">
+                <h3>💳 WALLET RECHARGE</h3>
+                <label>ग्राहक मोबाइल</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="tel" id="rechargeMobile" placeholder="नंबर..." style="flex:1;">
+                    <button onclick="getContact('rechargeMobile')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:15px; padding:0 20px; cursor:pointer;">👤</button>
+                </div>
+                <label>राशि (₹)</label>
+                <input type="number" id="rechargeAmount" placeholder="1000" style="font-size: 1.5rem; text-align: center; color: var(--sun-orange); font-weight: 900;">
+                <button class="btn-status" id="rechargeBtn" onclick="rechargeWallet()">खाते में पैसे जोड़ें</button>
             </div>
-            <label>राशि (₹)</label>
-            <input type="number" id="rechargeAmount" placeholder="1000" style="font-size: 1.5rem; text-align: center; color: var(--sun-orange); font-weight: 900;">
-            <button class="btn-status" id="rechargeBtn" onclick="rechargeWallet()">खाते में पैसे जोड़ें</button>
-        </div>
 
-        <div class="card">
-            <h3>🚀 NAVIGATION</h3>
-            <div class="nav-grid">
-                <button class="btn-nav" onclick="window.location.href='billing.html'">🧾 BILLING</button>
-                <button class="btn-nav" onclick="window.location.href='driver-app.html'">🚚 DRIVER</button>
+            <!-- कार्ड 3: नेविगेशन -->
+            <div class="card" style="margin: 0;">
+                <h3>🚀 NAVIGATION</h3>
+                <div class="nav-grid" style="margin-top: 15px;">
+                    <a href="billing.html" class="btn-nav">🧾 BILLING</a>
+                    <a href="driver-app.html" class="btn-nav">🚚 DRIVER</a>
+                </div>
             </div>
         </div>
     </div>
@@ -197,7 +289,6 @@
     // 🔱 v12.0 CHITTI SUPREME FINAL ASTRA URL
     const scriptURL = "https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec";
     
-
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator)) return alert("सपोर्ट नहीं है।");
         try {
@@ -222,11 +313,9 @@
 
         btn.innerText = "सिंक..."; btn.disabled = true;
         
-        // v12.0: 'Neural Sync' पैरामीटर्स (name, status, details, house)
         const url = `${scriptURL}?action=updateStatus&mobile=${mob}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(status)}&details=${encodeURIComponent(details)}&paymentMode=${encodeURIComponent(mode)}`;
         
         try {
-            // no-cors mode का उपयोग ताकि मुनीम का आदेश तुरंत ब्रह्मांड में पहुँच जाए
             await fetch(url, { mode: 'no-cors' });
             alert("सिग्नल सिंक सफल! ✅");
             window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* स्थिति: " + status + " विवरण: " + (details || "अपडेटेड"))}`, '_blank');
