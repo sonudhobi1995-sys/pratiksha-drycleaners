@@ -299,11 +299,26 @@
         btn.innerText = "ब्रह्मांडीय सिंक..."; btn.disabled = true;
         
         const details = selectedItems.map(i => i.text).join(", ");
+        const formattedItems = selectedItems.map(i => `▪️ ${i.text}`).join("\n");
         const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent('Order Pickup: ' + serviceFinal)}&details=${encodeURIComponent(details)}`;
+
+        const pickupMsg =
+            `✨ *PRATIKSHA DRY CLEANERS* ✨\n` +
+            `━━━━━━━━━━━━━━━━\n\n` +
+            `नमस्ते *${name} जी*,\n\n` +
+            `आपका सामान सेवा हेतु सफलतापूर्वक प्राप्त कर लिया गया है।\n\n` +
+            `📋 *PICKUP DETAILS*\n\n` +
+            `${formattedItems}\n` +
+            `▪️ *Service:* ${serviceFinal}\n` +
+            `▪️ *Status:* ✅ Received Successfully\n\n` +
+            `━━━━━━━━━━━━━━━━\n` +
+            `हम आपके भरोसे और संतुष्टि को प्राथमिकता देते हैं।\n\n` +
+            `🙏 *Thank You for Choosing Pratiksha Dry Cleaners!*\n` +
+            `_Quality Care | Premium Cleaning_`;
         
         try {
             await fetch(url, { method: 'GET', mode: 'no-cors' });
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते *" + name + " जी*,\nआपके वस्त्र पिकअप कर लिए गए हैं:\n" + details + "\n\n🙏 धन्यवाद! | Mission 2047")}`, '_blank');
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(pickupMsg)}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
     }
@@ -316,10 +331,24 @@
         if(!mobile || !amt) return alert("चेक करें!");
         
         const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent('Driver Delivery Completed')}`;
+
+        const deliveryMsg =
+            `✨ *PRATIKSHA DRY CLEANERS* ✨\n` +
+            `━━━━━━━━━━━━━━━━\n\n` +
+            `नमस्ते *${name} जी*,\n\n` +
+            `आपका सामान सफलतापूर्वक डिलीवर कर दिया गया है।\n\n` +
+            `🚚 *DELIVERY DETAILS*\n\n` +
+            `▪️ *Amount Paid:* ₹${amt}\n` +
+            `▪️ *Payment Mode:* ${mode}\n` +
+            `▪️ *Status:* ✅ Delivered Successfully\n\n` +
+            `━━━━━━━━━━━━━━━━\n` +
+            `आपके विश्वास और हमारे साथ जुड़े रहने के लिए हृदय से धन्यवाद।\n\n` +
+            `🙏 *Thank You for Choosing Pratiksha Dry Cleaners!*\n` +
+            `_Quality Care | Premium Cleaning_`;
         
         try {
             await fetch(url, { method: 'GET', mode: 'no-cors' });
-            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✅\nनमस्ते *" + name + " जी*,\nआपके वस्त्र सफलतापूर्वक डिलीवर कर दिए गए हैं।\nकुल भुगतान: ₹" + amt + " (" + mode + ")\n\n🙏 धन्यवाद! | Mission 2047")}`, '_blank');
+            window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(deliveryMsg)}`, '_blank');
             location.reload();
         } catch (e) { alert("त्रुटि!"); }
     }
