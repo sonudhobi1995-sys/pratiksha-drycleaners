@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Driver Station | Cosmic Fleet</title>
+    <title>Driver Station | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -25,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* 🌌 1. मंदाकिनी (The Milky Way Layer) */
+        /* मंदाकिनी (The Milky Way Layer) */
         .milky-way {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -33,7 +33,7 @@
             z-index: -10;
         }
 
-        /* ✨ 2. एनिमेटेड तारे (Twinkling Stars Layer) */
+        /* एनिमेटेड तारे (Twinkling Stars Layer) */
         .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -9; pointer-events: none; }
         .star {
             position: absolute; background: white; border-radius: 50%;
@@ -42,7 +42,7 @@
         }
         @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
 
-        /* 🪐 3. सजीव सौरमंडल (Moving Solar System) */
+        /* सजीव सौरमंडल (Moving Solar System) */
         .solar-system {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 100%; height: 100%; z-index: -8; pointer-events: none; opacity: 0.4;
@@ -63,8 +63,8 @@
         }
         @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* 📱 UI एलीमेंट्स */
-        .app-header { padding: 40px 15px 25px; text-align: center; border-bottom: 2px solid var(--sun-orange); backdrop-filter: blur(5px); position: relative; z-index: 10; }
+        /* UI एलीमेंट्स */
+        .app-header { padding: 36px 15px 22px; text-align: center; border-bottom: 2px solid var(--sun-orange); backdrop-filter: blur(5px); position: relative; z-index: 10; }
         
         .card { 
             background: rgba(255, 255, 255, 0.03); 
@@ -76,7 +76,7 @@
             position: relative; z-index: 10;
         }
         
-        h3 { color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 20px; letter-spacing: 2px; }
+        h3 { color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 20px; letter-spacing: 1.5px; }
         label { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-top: 15px; display: block; letter-spacing: 1.5px; }
 
         input, select { 
@@ -121,8 +121,8 @@
     </div>
 
     <div class="app-header">
-        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.6rem; letter-spacing: 3px; color: var(--accent-gold);">PRATIKSHA LOGISTICS</h2>
-        <div style="font-size: 0.6rem; letter-spacing: 3px; color: #fff; margin-top: 5px; opacity: 0.8;">Unified Cosmic Fleet Engine</div>
+        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.35rem; letter-spacing: 1px; color: var(--accent-gold);">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h2>
+        <div style="font-size: 0.65rem; letter-spacing: 1.5px; color: #fff; margin-top: 6px; opacity: 0.85;">जयपुर, राजस्थान • पिकअप एवं डिलीवरी स्टेशन</div>
     </div>
 
     <div class="container">
@@ -139,12 +139,12 @@
                 
                 <label>श्रेणी</label>
                 <div class="cat-grid">
-                    <button class="cat-btn" onclick="loadItems('men', this)">पुरुष</button>
-                    <button class="cat-btn" onclick="loadItems('women', this)">महिला</button>
-                    <button class="cat-btn" onclick="loadItems('kids', this)">बच्चे</button>
-                    <button class="cat-btn" onclick="loadItems('home', this)">होम</button>
-                    <button class="cat-btn" onclick="loadItems('winter', this)">विंटर</button>
-                    <button class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
+                    <button type="button" class="cat-btn" onclick="loadItems('men', this)">पुरुष</button>
+                    <button type="button" class="cat-btn" onclick="loadItems('women', this)">महिला</button>
+                    <button type="button" class="cat-btn" onclick="loadItems('kids', this)">बच्चे</button>
+                    <button type="button" class="cat-btn" onclick="loadItems('home', this)">होम</button>
+                    <button type="button" class="cat-btn" onclick="loadItems('winter', this)">विंटर</button>
+                    <button type="button" class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
                 </div>
 
                 <label>विवरण</label>
@@ -161,9 +161,9 @@
                     <select id="itemNote"><option value="OK">OK ✅</option><option value="दाग">दाग ⚠️</option><option value="कटा">कटा ❌</option><option value="बटन">बटन 🔘</option></select>
                 </div>
 
-                <button onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
+                <button type="button" onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
                 <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
-                <button class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">पिकअप संपन्न करें & WhatsApp</button>
+                <button type="button" class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">पिकअप संपन्न करें & WhatsApp</button>
             </div>
         </div>
 
@@ -185,7 +185,7 @@
                     <option value="Online">📱 Online</option>
                     <option value="Wallet">💳 Wallet</option>
                 </select>
-                <button class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न ✅</button>
+                <button type="button" class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न ✅</button>
             </div>
         </div>
     </div>
@@ -197,6 +197,10 @@
 
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec';
+
+    function normalizeMobile(raw) {
+        return (raw || "").toString().replace(/\D/g, "").slice(-10);
+    }
 
     function createStars() {
         const container = document.getElementById('starsContainer');
@@ -214,28 +218,40 @@
     window.onload = () => { createStars(); };
 
     async function getContact(mobileId, nameId) {
-        if (!('contacts' in navigator)) return alert("सपोर्ट नहीं है");
+        if (!('contacts' in navigator) || !('ContactsManager' in window)) {
+            return alert("कांटेक्ट पिकर इस ब्राउज़र या डिवाइस में उपलब्ध नहीं है। कृपया Android Chrome का उपयोग करें या नंबर सीधे टाइप करें।");
+        }
         try {
             const props = ['name', 'tel'];
-            const contacts = await navigator.contacts.select(props, {multiple: false});
-            if (contacts.length > 0) {
-                let rawNum = contacts[0].tel[0].replace(/\D/g, '');
-                document.getElementById(mobileId).value = rawNum.slice(-10);
-                if(contacts[0].name) document.getElementById(nameId).value = contacts[0].name[0];
+            const contacts = await navigator.contacts.select(props, { multiple: false });
+            if (contacts && contacts.length > 0) {
+                if (contacts[0].tel && contacts[0].tel.length > 0) {
+                    const rawNum = normalizeMobile(contacts[0].tel[0]);
+                    document.getElementById(mobileId).value = rawNum;
+                    fetchCustomerName(mobileId, nameId);
+                }
+                if (nameId && contacts[0].name && contacts[0].name.length > 0) {
+                    document.getElementById(nameId).value = contacts[0].name[0];
+                }
             }
-        } catch (err) { console.log("Cancelled"); }
+        } catch (err) {
+            if (err && err.name !== 'AbortError') {
+                alert("कांटेक्ट नहीं खुल सका। कृपया अनुमति जांचें या नंबर सीधे टाइप करें।");
+            }
+        }
     }
 
     async function fetchCustomerName(mobileId, nameId) {
-        const mob = document.getElementById(mobileId).value;
-        if(mob.length < 10) return;
+        const mob = normalizeMobile(document.getElementById(mobileId).value);
+        document.getElementById(mobileId).value = mob;
+        if (mob.length < 10) return;
         try {
-            const res = await fetch(`${scriptURL}?action=getMemberData&mobile=${mob}`);
+            const res = await fetch(`${scriptURL}?action=getMemberData&mobile=${encodeURIComponent(mob)}`);
             const data = await res.json();
-            if(data.name && data.name !== "Guest") {
+            if (data.name && data.name !== "Guest") {
                 document.getElementById(nameId).value = data.name;
             }
-        } catch(e) { console.log("Fetch error"); }
+        } catch (e) { console.log("Fetch error"); }
     }
 
     function switchTab(secId, navId) {
@@ -249,9 +265,9 @@
         men: ["शर्ट", "पेंट", "जींस", "ट्राउज़र", "टी-शर्ट", "पोलो टी-शर्ट", "सूट", "ब्लेज़र", "कोट", "कुर्ता", "पायजामा", "धोती", "शॉर्ट्स / बरमूडा", "अन्य"],
         women: ["साड़ी", "भारी साड़ी", "ब्लाउज़", "सूट सलवार", "कुर्ती", "कुर्ता सेट", "लहंगा", "दुपट्टा", "लेगिंग्स", "प्लाज़ो", "टॉप", "जींस", "गाउन / मैक्सी", "अन्य"],
         kids: ["बाबा सूट", "फ्रॉक", "टॉप", "टी-शर्ट", "शर्ट", "पेंट / निक्कर", "जींस", "स्कूल ड्रेस", "कुर्ता पायजामा", "अन्य"],
-       home: ["बेड शीट", "डबल बेड शीट", "तकिया कवर", "पर्दे", "दरवाज़े के पर्दे", "कंबल", "सिंगल कंबल", "डबल कंबल", "रजाई", "कम्फ़र्टर", "तौलिया", "बाथ मैट", "कालीन / दरी", "सोफ़ा कवर", "कुशन कवर", "अन्य"],
+        home: ["बेड शीट", "डबल बेड शीट", "तकिया कवर", "पर्दे", "दरवाज़े के पर्दे", "कंबल", "सिंगल कंबल", "डबल कंबल", "रजाई", "कम्फ़र्टर", "तौलिया", "बाथ मैट", "कालीन / दरी", "सोफ़ा कवर", "कुशन कवर", "अन्य"],
         winter: ["जैकैट", "पफ़र जैकेट", "लेदर जैकेट", "ब्लेज़र", "ओवरकोट", "वूलन कोट", "विंडचीटर", "श्रग", "स्वेटर", "कार्डिगन", "पुलओवर", "हाई-नेक स्वेटर", "स्वेटशर्ट / हुडी", "हाफ स्वेटर", "शॉल", "पश्मीना शॉल", "कश्मीरी शॉल", "वूलन स्टोल", "मफलर", "वूलन दुपट्टा", "थर्मल टॉप", "थर्मल बॉटम", "वूलन लेगिंग्स", "वूलन कैप", "मंकी कैप", "दस्ताने", "वूलन मोज़े", "नेक वार्मर", "अन्य"],
-        other: ["बैग", "स्कूल बैग", "हैंडबैग", "टोपी", "मोज़े", "रुमाल", "बेल्ट", "जूते / चप्पल", "अन्य"],
+        other: ["बैग", "स्कूल बैग", "हैंडबैग", "टोपी", "मोज़े", "रुमाल", "बेल्ट", "जूते / चप्पल", "अन्य"]
     };
 
     function loadItems(cat, btn) {
@@ -259,16 +275,18 @@
         btn.classList.add('active');
         const sel = document.getElementById('itemSelect');
         sel.innerHTML = '<option value="">कपड़ा चुनें</option>';
-        inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
+        if (inventory[cat]) {
+            inventory[cat].forEach(i => { sel.innerHTML += `<option value="${i}">${i}</option>`; });
+        }
     }
 
     let selectedItems = [];
     function addToInv() {
         const item = document.getElementById('itemSelect').value;
-        const qty = document.getElementById('itemQty').value;
+        const qty = parseFloat(document.getElementById('itemQty').value);
         const service = document.getElementById('serviceType').value;
         const note = document.getElementById('itemNote').value;
-        if(!item || !qty) return alert("चेक करें!");
+        if (!item || isNaN(qty) || qty <= 0) return alert("कृपया कपड़ा और मात्रा सही भरें!");
         selectedItems.push({ text: `${item} (${qty}) - ${service} [${note}]`, id: Date.now() });
         renderList();
     }
@@ -291,66 +309,82 @@
     }
 
     async function submitPickup() {
-        const mobile = document.getElementById('pickMobile').value;
-        const name = document.getElementById('pickName').value || "ग्राहक";
+        const mobile = normalizeMobile(document.getElementById('pickMobile').value);
+        const name = document.getElementById('pickName').value || "सम्मानित ग्राहक";
         const serviceFinal = document.getElementById('serviceType').value;
-        if(!mobile || selectedItems.length === 0) return alert("अधूरा डेटा!");
+        if (mobile.length < 10 || selectedItems.length === 0) return alert("कृपया सही मोबाइल नंबर और कम से कम एक कपड़ा जोड़ें!");
+        
         const btn = document.getElementById('pickBtn');
-        btn.innerText = "ब्रह्मांडीय सिंक..."; btn.disabled = true;
+        btn.innerText = "सिंक हो रहा है...";
+        btn.disabled = true;
         
         const details = selectedItems.map(i => i.text).join(", ");
         const formattedItems = selectedItems.map(i => `▪️ ${i.text}`).join("\n");
-        const url = `${scriptURL}?action=updateStatus&mobile=${mobile}&name=${encodeURIComponent(name)}&status=${encodeURIComponent('Order Pickup: ' + serviceFinal)}&details=${encodeURIComponent(details)}`;
+        const url = `${scriptURL}?action=updateStatus&mobile=${encodeURIComponent(mobile)}&name=${encodeURIComponent(name)}&status=${encodeURIComponent('Order Pickup: ' + serviceFinal)}&details=${encodeURIComponent(details)}`;
 
         const pickupMsg =
-            `✨ *PRATIKSHA DRY CLEANERS* ✨\n` +
+            `✨ *प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स* ✨\n` +
+            `📍 *जयपुर, राजस्थान* | 📞 *7740870095*\n` +
             `━━━━━━━━━━━━━━━━\n\n` +
             `नमस्ते *${name} जी*,\n\n` +
-            `आपका सामान सेवा हेतु सफलतापूर्वक प्राप्त कर लिया गया है।\n\n` +
+            `प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान की ओर से आपका सामान सेवा हेतु प्राप्त कर लिया गया है।\n\n` +
             `📋 *PICKUP DETAILS*\n\n` +
             `${formattedItems}\n` +
             `▪️ *Service:* ${serviceFinal}\n` +
             `▪️ *Status:* ✅ Received Successfully\n\n` +
             `━━━━━━━━━━━━━━━━\n` +
-            `हम आपके भरोसे और संतुष्टि को प्राथमिकता देते हैं।\n\n` +
-            `🙏 *Thank You for Choosing Pratiksha Dry Cleaners!*\n` +
-            `_Quality Care | Premium Cleaning_`;
+            `शुचिता • सेवा • समर्पण\n` +
+            `🙏 *धन्यवाद!*\n` +
+            `_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान_`;
         
         try {
             await fetch(url, { method: 'GET', mode: 'no-cors' });
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(pickupMsg)}`, '_blank');
             location.reload();
-        } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
+        } catch (e) {
+            alert("त्रुटि! कृपया पुनः प्रयास करें।");
+            btn.disabled = false;
+            btn.innerText = "पिकअप संपन्न करें & WhatsApp";
+        }
     }
 
     async function confirmDelivery() {
-        const mobile = document.getElementById('delMobile').value;
-        const name = document.getElementById('delName').value || "ग्राहक";
-        const amt = document.getElementById('amount').value;
+        const mobile = normalizeMobile(document.getElementById('delMobile').value);
+        const name = document.getElementById('delName').value || "सम्मानित ग्राहक";
+        const amt = parseFloat(document.getElementById('amount').value);
         const mode = document.getElementById('payMode').value;
-        if(!mobile || !amt) return alert("चेक करें!");
+        if (mobile.length < 10 || isNaN(amt) || amt < 0) return alert("कृपया सही मोबाइल नंबर और राशि भरें!");
+
+        const btn = document.getElementById('delBtn');
+        btn.innerText = "सिंक हो रहा है...";
+        btn.disabled = true;
         
-        const url = `${scriptURL}?action=addBill&mobile=${mobile}&name=${encodeURIComponent(name)}&amount=${amt}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent('Driver Delivery Completed')}`;
+        const url = `${scriptURL}?action=addBill&mobile=${encodeURIComponent(mobile)}&name=${encodeURIComponent(name)}&amount=${encodeURIComponent(amt)}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent('Delivery Completed')}`;
 
         const deliveryMsg =
-            `✨ *PRATIKSHA DRY CLEANERS* ✨\n` +
+            `✨ *प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स* ✨\n` +
+            `📍 *जयपुर, राजस्थान* | 📞 *7740870095*\n` +
             `━━━━━━━━━━━━━━━━\n\n` +
             `नमस्ते *${name} जी*,\n\n` +
-            `आपका सामान सफलतापूर्वक डिलीवर कर दिया गया है।\n\n` +
+            `प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान की ओर से आपका सामान डिलीवर कर दिया गया है।\n\n` +
             `🚚 *DELIVERY DETAILS*\n\n` +
             `▪️ *Amount Paid:* ₹${amt}\n` +
             `▪️ *Payment Mode:* ${mode}\n` +
             `▪️ *Status:* ✅ Delivered Successfully\n\n` +
             `━━━━━━━━━━━━━━━━\n` +
-            `आपके विश्वास और हमारे साथ जुड़े रहने के लिए हृदय से धन्यवाद।\n\n` +
-            `🙏 *Thank You for Choosing Pratiksha Dry Cleaners!*\n` +
-            `_Quality Care | Premium Cleaning_`;
+            `शुचिता • सेवा • समर्पण\n` +
+            `🙏 *धन्यवाद!*\n` +
+            `_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान_`;
         
         try {
             await fetch(url, { method: 'GET', mode: 'no-cors' });
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(deliveryMsg)}`, '_blank');
             location.reload();
-        } catch (e) { alert("त्रुटि!"); }
+        } catch (e) {
+            alert("त्रुटि! कृपया पुनः प्रयास करें।");
+            btn.disabled = false;
+            btn.innerText = "डिलीवरी संपन्न ✅";
+        }
     }
 </script>
 </body>
