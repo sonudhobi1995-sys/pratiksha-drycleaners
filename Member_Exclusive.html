@@ -4,156 +4,361 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Member Exclusive | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --royal-gold: linear-gradient(135deg, #d4af37 0%, #f9f295 45%, #b8860b 70%, #f9f295 100%);
-            --deep-space: #010103;
-            --saturn-blue: #001F3F;
-            --success-green: #27ae60;
-            --danger-red: #e74c3c;
-            --star-gold: #FFD700;
+            --ivory-canvas: #FAF7F2;
+            --card-surface: #FFFFFF;
+            --royal-navy: #13294B;
+            --saffron-copper: #C86D2D;
+            --antique-gold: #B48A2C;
+            --emerald-seal: #1E6F50;
+            --slate-ink: #3B4A62;
+            --hairline-border: #E5DCCB;
+            --soft-sand: #F3ECE0;
+            --danger-crimson: #B42318;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', 'Mukta', sans-serif;
+            font-family: 'Mukta', 'Inter', sans-serif;
             margin: 0;
-            background: var(--deep-space);
-            color: white;
+            background-color: var(--ivory-canvas);
+            background-image:
+                radial-gradient(circle at 15% 12%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 85% 88%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+            color: var(--royal-navy);
             overflow-x: hidden;
-            padding-bottom: 85px;
+            padding-bottom: 92px;
         }
 
-        .stars-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #001F3F 0%, #010103 100%);
+        .header-band {
+            background: var(--card-surface);
+            border-bottom: 3px solid var(--saffron-copper);
+            padding: 24px 20px 20px;
+            text-align: center;
+            box-shadow: 0 4px 18px rgba(19, 41, 75, 0.05);
         }
 
-        .header-space { padding: 36px 20px 20px; text-align: center; }
+        .org-pill {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--saffron-copper);
+            background: var(--soft-sand);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--hairline-border);
+            margin-bottom: 8px;
+        }
+
+        .header-band h1 {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            margin: 0;
+            font-size: clamp(19px, 3vw, 25px);
+            font-weight: 900;
+            color: var(--royal-navy);
+        }
+
+        .header-band p {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--slate-ink);
+            margin: 6px 0 0;
+        }
+
+        .page-wrap {
+            max-width: 720px;
+            margin: 22px auto 0;
+        }
 
         .membership-card {
-            background: var(--royal-gold);
+            background: linear-gradient(135deg, #13294B 0%, #1E3F73 65%, #274C86 100%);
             margin: 0 20px;
-            padding: 25px;
-            border-radius: 20px;
-            color: black;
+            padding: 26px 24px;
+            border-radius: 18px;
+            color: #FFFFFF;
             position: relative;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            border: 1.5px solid var(--antique-gold);
+            box-shadow: 0 12px 28px rgba(19, 41, 75, 0.16);
+            transition: transform 0.25s ease;
         }
 
-        .membership-card:active { transform: scale(0.98); }
-
-        .membership-card::before {
+        .membership-card::after {
             content: '';
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shine 4s infinite;
+            top: 10px;
+            right: 10px;
+            bottom: 10px;
+            left: 10px;
+            border: 1px dashed rgba(243, 236, 224, 0.25);
+            border-radius: 12px;
+            pointer-events: none;
         }
 
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .membership-card:active {
+            transform: scale(0.99);
         }
 
-        .card-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0.75; }
-        .balance-amt { font-size: 2.5rem; font-weight: 900; margin: 5px 0; }
-        .member-name { font-size: 1.1rem; font-weight: 700; margin-top: 15px; }
-        .brand-sub { font-size: 0.7rem; font-weight: 700; margin-top: 4px; opacity: 0.8; }
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
 
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 25px 20px; }
+        .card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            color: #F3DCC0;
+        }
+
+        .member-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(200, 109, 45, 0.25);
+            color: #FFE4C4;
+            border: 1px solid rgba(200, 109, 45, 0.6);
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .balance-amt {
+            font-size: 38px;
+            font-weight: 700;
+            margin: 10px 0 4px;
+            color: #FFFFFF;
+            letter-spacing: 0.5px;
+        }
+
+        .member-name {
+            font-size: 17px;
+            font-weight: 700;
+            margin-top: 14px;
+            color: #FFFDF9;
+        }
+
+        .brand-sub {
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 4px;
+            color: #DCE5F2;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            padding: 20px;
+        }
+
         .action-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 15px; border-radius: 15px; text-align: center; backdrop-filter: blur(10px);
+            background: var(--card-surface);
+            border: 1px solid var(--hairline-border);
+            border-bottom: 3px solid var(--antique-gold);
+            padding: 16px 14px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(19, 41, 75, 0.04);
         }
 
-        .action-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
-        .action-label { font-size: 0.8rem; color: #ccc; }
+        .action-icon {
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: block;
+            color: var(--saffron-copper);
+        }
 
-        .passbook-section { padding: 0 20px 20px; }
+        .action-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--royal-navy);
+        }
+
+        .passbook-section {
+            padding: 0 20px 24px;
+        }
+
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; color: var(--star-gold);
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--royal-navy);
         }
 
-        .log-container { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
-        .log-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.5s ease forwards; }
-        .log-item:last-child { border-bottom: none; }
+        .live-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--emerald-seal);
+            background: #EAF6F0;
+            border: 1px solid #B7DEC9;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-family: 'Inter', sans-serif;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .log-container {
+            background: var(--card-surface);
+            border-radius: 16px;
+            padding: 8px 14px;
+            border: 1px solid var(--hairline-border);
+            box-shadow: 0 6px 20px rgba(19, 41, 75, 0.04);
+        }
 
-        .log-info { display: flex; flex-direction: column; width: 72%; }
-        .log-desc { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; color: #fff; word-break: break-word; }
-        .log-date { font-size: 0.72rem; color: #aaa; }
-        .log-amt { font-weight: 900; text-align: right; font-size: 0.85rem; }
-        .plus { color: var(--success-green); }
+        .log-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 4px;
+            border-bottom: 1px solid var(--hairline-border);
+        }
 
-        .loader { display: none; text-align: center; padding: 16px; color: var(--star-gold); font-size: 0.85rem; letter-spacing: 1.5px; }
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-info {
+            display: flex;
+            flex-direction: column;
+            width: 74%;
+        }
+
+        .log-desc {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: var(--royal-navy);
+            white-space: pre-line;
+            word-break: break-word;
+        }
+
+        .log-date {
+            font-size: 12px;
+            color: var(--slate-ink);
+            font-weight: 600;
+        }
+
+        .log-amt {
+            font-weight: 700;
+            text-align: right;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #EAF6F0;
+            border: 1px solid #B7DEC9;
+        }
+
+        .plus {
+            color: var(--emerald-seal);
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 14px;
+            color: var(--saffron-copper);
+            font-size: 13px;
+            font-weight: 700;
+        }
 
         .nav-bar {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); height: 60px; border-radius: 30px; display: flex; justify-content: space-around; align-items: center; border: 1px solid rgba(255,255,255,0.1); z-index: 100;
+            position: fixed;
+            bottom: 16px;
+            left: 20px;
+            right: 20px;
+            max-width: 680px;
+            margin: 0 auto;
+            background: var(--card-surface);
+            height: 60px;
+            border-radius: 999px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1.5px solid var(--hairline-border);
+            box-shadow: 0 10px 26px rgba(19, 41, 75, 0.14);
+            z-index: 100;
         }
 
-        .nav-item { color: white; text-decoration: none; font-size: 1.2rem; opacity: 0.5; }
-        .nav-item.active { opacity: 1; color: var(--star-gold); }
+        .nav-item {
+            color: var(--slate-ink);
+            text-decoration: none;
+            font-size: 19px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active {
+            color: #FFFFFF;
+            background: var(--royal-navy);
+        }
     </style>
 </head>
 <body>
 
-    <div class="stars-container"></div>
+    <header class="header-band">
+        <div class="org-pill">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
+        <h1>सदस्य विशेष पोर्टल</h1>
+        <p>शुचिता • सेवा • समर्पण | MISSION 2047</p>
+    </header>
 
-    <div class="header-space">
-        <h1 style="font-family: 'Playfair Display'; margin: 0; font-size: 1.45rem; letter-spacing: 1px; color: var(--star-gold);">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h1>
-        <p style="font-size: 0.68rem; letter-spacing: 2px; color: #ccc; margin-top: 6px;">जयपुर, राजस्थान • शुचिता • सेवा • समर्पण</p>
-    </div>
+    <main class="page-wrap">
+        <section class="membership-card" aria-label="सदस्य वॉलेट कार्ड">
+            <div class="card-top-row">
+                <span class="card-label">Wallet Balance</span>
+                <span class="member-badge">सदस्य खाता</span>
+            </div>
+            <div class="balance-amt">₹ <span id="uBalance">0.00</span></div>
+            <div class="member-name" id="uNameDisp">नमस्ते, सम्मानित सदस्य</div>
+            <div class="brand-sub">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</div>
+        </section>
 
-    <div class="membership-card">
-        <div class="card-label">Wallet Balance</div>
-        <div class="balance-amt">₹ <span id="uBalance">0.00</span></div>
-        <div class="member-name" id="uNameDisp">नमस्ते, सम्मानित सदस्य</div>
-        <div class="brand-sub">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</div>
-    </div>
+        <div id="loader" class="loader">सिंक जारी है...</div>
 
-    <div id="loader" class="loader">✨ सिंक जारी है...</div>
+        <section class="action-grid" aria-label="सदस्य सुविधाएं">
+            <div class="action-card">
+                <span class="action-icon">◈</span>
+                <span class="action-label">फास्ट ट्रैक</span>
+            </div>
+            <div class="action-card">
+                <span class="action-icon">✦</span>
+                <span class="action-label">प्रीमियम सेवा</span>
+            </div>
+        </section>
 
-    <div class="action-grid">
-        <div class="action-card">
-            <span class="action-icon">🚀</span>
-            <span class="action-label">फास्ट ट्रैक</span>
-        </div>
-        <div class="action-card">
-            <span class="action-icon">💎</span>
-            <span class="action-label">प्रीमियम</span>
-        </div>
-    </div>
+        <section class="passbook-section" aria-label="डिजिटल पासबुक">
+            <div class="section-title">
+                <span>डिजिटल पासबुक</span>
+                <span class="live-tag">LIVE SYNC</span>
+            </div>
+            <div id="logContainer" class="log-container"></div>
+        </section>
+    </main>
 
-    <div class="passbook-section">
-        <div class="section-title">
-            <span>डिजिटल पासबुक</span>
-            <span style="font-size: 0.7rem; color: #aaa; font-family: 'Inter';">LIVE SYNC</span>
-        </div>
-        <div id="logContainer" class="log-container"></div>
-    </div>
-
-    <div class="nav-bar">
-        <a href="index.html" class="nav-item">🏠</a>
-        <a href="tracking.html" class="nav-item">📦</a>
-        <a href="#" class="nav-item active">👤</a>
-        <a href="contact.html" class="nav-item">📞</a>
-    </div>
+    <nav class="nav-bar" aria-label="मुख्य नेविगेशन">
+        <a href="index.html" class="nav-item" title="मुख्य द्वार">⌂</a>
+        <a href="tracking.html" class="nav-item" title="ट्रैकिंग">⌖</a>
+        <a href="#" class="nav-item active" title="सदस्य खाता">◉</a>
+        <a href="contact.html" class="nav-item" title="संपर्क">☎</a>
+    </nav>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec';
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxrvVW7RC6bxel3KVerx6AQb-Ool4BzrYAdbeQRbBXglZ7EV9N0l8uVQ-kcDJaXC__t/exec";
 
         function normalizeMobile(raw) {
             return (raw || "").toString().replace(/\D/g, "").slice(-10);
@@ -161,7 +366,7 @@
 
         async function fetchMemberData() {
             const mobile = normalizeMobile(localStorage.getItem('userMobile'));
-            
+
             if (!mobile || mobile.length < 10) {
                 window.location.href = "login.html";
                 return;
@@ -173,15 +378,15 @@
             try {
                 const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${encodeURIComponent(mobile)}`);
                 const data = await response.json();
-                
+
                 if (data.status === "not_found") {
-                    document.getElementById('logContainer').innerHTML = "<p style='text-align:center; padding:30px; color:#aaa; font-size:0.85rem;'>सदस्यता रिकॉर्ड नहीं मिला।</p>";
+                    document.getElementById('logContainer').innerHTML = "<p style='text-align:center; padding:26px; color:#3B4A62; font-size:14px; font-weight:600;'>सदस्यता रिकॉर्ड नहीं मिला।</p>";
                     return;
                 }
 
                 document.getElementById('uBalance').innerText = parseFloat(data.balance || 0).toFixed(2);
                 document.getElementById('uNameDisp').innerText = "नमस्ते, " + (data.name || "सम्मानित सदस्य");
-                
+
                 const orderText = data.orderDetails || data.details || "";
                 const statusText = data.orderStatus || "प्रतीक्षित";
                 const timeText = data.syncTime || "";
@@ -197,13 +402,13 @@
                             <div class="log-amt plus">Active</div>
                         </div>`;
                 } else {
-                    logHTML = '<p style="text-align:center; padding:20px; font-size:0.85rem; color:#aaa;">अभी कोई सक्रिय आर्डर नहीं है।</p>';
+                    logHTML = '<p style="text-align:center; padding:20px; font-size:14px; color:#3B4A62; font-weight:600;">अभी कोई सक्रिय आर्डर नहीं है।</p>';
                 }
-                
+
                 document.getElementById('logContainer').innerHTML = logHTML;
 
             } catch (e) {
-                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:var(--danger-red); padding:20px; font-size:0.85rem;">नेटवर्क त्रुटि! कृपया पुनः प्रयास करें।</p>';
+                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:#B42318; padding:20px; font-size:14px; font-weight:700;">नेटवर्क त्रुटि! कृपया पुनः प्रयास करें।</p>';
             } finally {
                 loader.style.display = 'none';
             }
