@@ -4,139 +4,351 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Driver Station | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        :root { 
-            --midnight: #000205;
-            --accent-gold: #FFD700;
-            --sun-orange: #FF8C00;
-            --glass-border: rgba(255, 215, 0, 0.3);
-            --error-red: #ff4d4d;
+        :root {
+            --ivory-canvas: #FAF7F2;
+            --card-surface: #FFFFFF;
+            --royal-navy: #13294B;
+            --saffron-copper: #C86D2D;
+            --antique-gold: #B48A2C;
+            --emerald-seal: #1E6F50;
+            --slate-ink: #3B4A62;
+            --hairline-border: #E5DCCB;
+            --soft-sand: #F3ECE0;
+            --danger-crimson: #B42318;
         }
 
-        body { 
-            font-family: 'Inter', 'Mukta', sans-serif; 
-            background: var(--midnight); 
-            color: white; 
-            margin: 0; 
-            padding-bottom: 100px; 
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mukta', 'Inter', sans-serif;
+            background-color: var(--ivory-canvas);
+            background-image:
+                radial-gradient(circle at 12% 10%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 88% 85%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+            color: var(--royal-navy);
+            margin: 0;
+            padding-bottom: 96px;
             overflow-x: hidden;
         }
 
-        /* मंदाकिनी (The Milky Way Layer) */
-        .milky-way {
+        .app-header {
+            padding: 24px 16px 20px;
+            text-align: center;
+            background: var(--card-surface);
+            border-bottom: 3px solid var(--saffron-copper);
+            box-shadow: 0 4px 18px rgba(19, 41, 75, 0.05);
+        }
+
+        .org-kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--saffron-copper);
+            background: var(--soft-sand);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--hairline-border);
+            margin-bottom: 6px;
+        }
+
+        .app-header h2 {
+            margin: 0;
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: clamp(19px, 3vw, 26px);
+            font-weight: 900;
+            color: var(--royal-navy);
+        }
+
+        .app-header .sub-line {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--slate-ink);
+            margin-top: 6px;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 8px 4px;
+        }
+
+        .card {
+            background: var(--card-surface);
+            padding: 24px;
+            border-radius: 18px;
+            margin: 18px 14px;
+            border: 1px solid var(--hairline-border);
+            border-top: 4px solid var(--antique-gold);
+            box-shadow: 0 8px 24px rgba(19, 41, 75, 0.05);
+        }
+
+        h3 {
+            color: var(--royal-navy);
+            font-family: 'Playfair Display', 'Mukta', serif;
+            border-bottom: 2px solid var(--saffron-copper);
+            display: inline-block;
+            padding-bottom: 4px;
+            margin: 0 0 14px 0;
+            font-size: 19px;
+            font-weight: 900;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--slate-ink);
+            margin-top: 14px;
+            display: block;
+            letter-spacing: 0.4px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px 15px;
+            margin: 6px 0 10px 0;
+            border-radius: 12px;
+            border: 1.5px solid var(--hairline-border);
+            background: var(--ivory-canvas);
+            color: var(--royal-navy);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--saffron-copper);
+            background: #FFFFFF;
+        }
+
+        .contact-btn {
+            padding: 0 16px;
+            border-radius: 12px;
+            border: 1.5px solid var(--antique-gold);
+            background: var(--soft-sand);
+            color: var(--royal-navy);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .contact-btn:hover {
+            background: var(--saffron-copper);
+            border-color: var(--saffron-copper);
+            color: #FFFFFF;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 8px 0 16px;
+        }
+
+        .cat-btn {
+            background: var(--ivory-canvas);
+            border: 1.5px solid var(--hairline-border);
+            padding: 11px 6px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            color: var(--royal-navy);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cat-btn.active {
+            background: var(--saffron-copper);
+            border-color: var(--saffron-copper);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(200, 109, 45, 0.22);
+        }
+
+        .btn-add {
+            background: var(--soft-sand);
+            color: var(--royal-navy);
+            width: 100%;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            border: 1.5px dashed var(--saffron-copper);
+            margin: 8px 0 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-add:hover {
+            background: #EADEC9;
+        }
+
+        .btn-primary {
+            background: var(--royal-navy);
+            color: #FFFFFF;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            box-shadow: 0 6px 16px rgba(19, 41, 75, 0.14);
+        }
+
+        .btn-primary:hover {
+            background: var(--saffron-copper);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .btn-success {
+            background: var(--emerald-seal);
+            color: #FFFFFF;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 6px 16px rgba(30, 111, 80, 0.16);
+        }
+
+        .btn-success:hover {
+            opacity: 0.92;
+        }
+
+        .btn-success:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        #liveList {
+            margin-top: 10px;
+            background: var(--ivory-canvas);
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px dashed var(--antique-gold);
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--hairline-border);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .remove-btn {
+            color: var(--danger-crimson);
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--danger-crimson);
+            background: #FFF5F5;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .nav-bar {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #000205 100%);
-            z-index: -10;
+            bottom: 14px;
+            left: 16px;
+            right: 16px;
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--card-surface);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 10px;
+            border-radius: 999px;
+            border: 1.5px solid var(--hairline-border);
+            z-index: 1000;
+            box-shadow: 0 10px 26px rgba(19, 41, 75, 0.14);
         }
 
-        /* एनिमेटेड तारे (Twinkling Stars Layer) */
-        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -9; pointer-events: none; }
-        .star {
-            position: absolute; background: white; border-radius: 50%;
-            animation: twinkle var(--duration) infinite ease-in-out;
-            opacity: 0.5;
-        }
-        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
-
-        /* सजीव सौरमंडल (Moving Solar System) */
-        .solar-system {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 100%; height: 100%; z-index: -8; pointer-events: none; opacity: 0.4;
-        }
-        .sun {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 60px; height: 60px; background: radial-gradient(circle, #ffcc00, #ff8800, transparent);
-            border-radius: 50%; box-shadow: 0 0 50px #ff8800;
-        }
-        .orbit {
-            position: absolute; top: 50%; left: 50%; border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50%; transform: translate(-50%, -50%);
-            animation: rotate linear infinite;
-        }
-        .planet {
-            position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
-            border-radius: 50%;
-        }
-        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        /* UI एलीमेंट्स */
-        .app-header { padding: 36px 15px 22px; text-align: center; border-bottom: 2px solid var(--sun-orange); backdrop-filter: blur(5px); position: relative; z-index: 10; }
-        
-        .card { 
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 25px; border-radius: 35px; 
-            margin: 20px 15px; 
-            border: 2px solid var(--glass-border);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-            position: relative; z-index: 10;
-        }
-        
-        h3 { color: var(--accent-gold); font-family: 'Playfair Display', serif; border-bottom: 2px solid var(--sun-orange); display: inline-block; margin-bottom: 20px; letter-spacing: 1.5px; }
-        label { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-top: 15px; display: block; letter-spacing: 1.5px; }
-
-        input, select { 
-            width: 100%; padding: 16px; margin: 8px 0 12px 0; 
-            border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(0,0,0,0.6); color: #fff; font-size: 1rem;
-            box-sizing: border-box; outline: none;
+        .nav-item {
+            background: none;
+            border: none;
+            color: var(--slate-ink);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 700;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            cursor: pointer;
+            width: 48%;
+            padding: 10px 12px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
         }
 
-        select option { background-color: #001F3F; color: white; }
+        .nav-item.active {
+            color: #FFFFFF;
+            background: var(--royal-navy);
+        }
 
-        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); padding: 12px 5px; border-radius: 15px; font-size: 0.75rem; font-weight: 800; color: white; cursor: pointer; transition: 0.3s; }
-        .cat-btn.active { background: var(--sun-orange); border-color: var(--sun-orange); box-shadow: 0 0 15px var(--sun-orange); }
+        .nav-item span {
+            font-size: 18px;
+        }
 
-        .btn-add { background: none; color: var(--accent-gold); width: 100%; padding: 15px; border-radius: 18px; font-weight: 800; border: 1px dashed var(--accent-gold); margin-bottom: 15px; cursor: pointer; }
-        .btn-primary { background: linear-gradient(135deg, var(--sun-orange), #ff4500); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-        .btn-success { background: linear-gradient(135deg, #128C7E, #075E54); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-
-        #liveList { margin-top: 15px; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 20px; border: 1px dashed var(--accent-gold); }
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; }
-        .remove-btn { color: var(--error-red); font-weight: 900; cursor: pointer; border: 1px solid var(--error-red); padding: 4px 8px; border-radius: 8px; font-size: 0.65rem; }
-
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.9); display: flex; justify-content: space-around; padding: 15px 0 25px; border-top: 1px solid var(--glass-border); z-index: 1000; backdrop-filter: blur(10px); }
-        .nav-item { background: none; border: none; color: #64748b; font-size: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 800; cursor: pointer; width: 50%; }
-        .nav-item.active { color: var(--accent-gold); text-shadow: 0 0 10px var(--accent-gold); }
-        .nav-item span { font-size: 1.8rem; }
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <div class="milky-way"></div>
-    <div class="stars-layer" id="starsContainer"></div>
-    
-    <div class="solar-system">
-        <div class="sun"></div>
-        <div class="orbit" style="width:140px; height:140px; animation-duration: 10s;"><div class="planet" style="width:6px; height:6px; background:#aaa;"></div></div>
-        <div class="orbit" style="width:200px; height:200px; animation-duration: 20s;"><div class="planet" style="width:10px; height:10px; background:#e3bb76;"></div></div>
-        <div class="orbit" style="width:280px; height:280px; animation-duration: 30s;"><div class="planet" style="width:11px; height:11px; background:#2271b3;"></div></div>
-        <div class="orbit" style="width:360px; height:360px; animation-duration: 45s;"><div class="planet" style="width:8px; height:8px; background:#e27b58;"></div></div>
-    </div>
+    <header class="app-header">
+        <div class="org-kicker">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
+        <h2>ड्राइवर स्टेशन • पिकअप व डिलीवरी</h2>
+        <div class="sub-line">शुचिता • सेवा • समर्पण | MISSION 2047</div>
+    </header>
 
-    <div class="app-header">
-        <h2 style="margin:0; font-family:'Playfair Display'; font-size: 1.35rem; letter-spacing: 1px; color: var(--accent-gold);">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h2>
-        <div style="font-size: 0.65rem; letter-spacing: 1.5px; color: #fff; margin-top: 6px; opacity: 0.85;">जयपुर, राजस्थान • पिकअप एवं डिलीवरी स्टेशन</div>
-    </div>
-
-    <div class="container">
+    <main class="container">
         <!-- पिकअप सेक्शन -->
-        <div id="pickup-sec" class="app-sec">
+        <section id="pickup-sec" class="app-sec" aria-label="नया पिकअप">
             <div class="card">
-                <h3>🧺 नया पिकअप</h3>
+                <h3>नया पिकअप</h3>
                 <label>ग्राहक मोबाइल</label>
-                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                     <input type="tel" id="pickMobile" placeholder="9929xxxxxx" style="margin:0; flex:1;" onchange="fetchCustomerName('pickMobile', 'pickName')">
-                    <button type="button" style="padding:0 15px; border-radius:15px; border:1px solid var(--accent-gold); background:none; color:var(--accent-gold);" onclick="getContact('pickMobile', 'pickName')">👤</button>
+                    <button type="button" class="contact-btn" onclick="getContact('pickMobile', 'pickName')">संपर्क</button>
                 </div>
-                <input type="text" id="pickName" placeholder="नाम..." style="color:var(--accent-gold); font-weight:bold;">
-                
+                <input type="text" id="pickName" placeholder="ग्राहक का नाम..." style="color:#C86D2D; font-weight:700;">
+
                 <label>श्रेणी</label>
                 <div class="cat-grid">
                     <button type="button" class="cat-btn" onclick="loadItems('men', this)">पुरुष</button>
@@ -147,75 +359,65 @@
                     <button type="button" class="cat-btn" onclick="loadItems('other', this)">अन्य</button>
                 </div>
 
-                <label>विवरण</label>
+                <label>विवरण व सेवा</label>
                 <select id="serviceType">
-                    <option value="सामान्य प्रेस">💨 सामान्य प्रेस</option>
-                    <option value="स्टीम प्रेस">💎 स्टीम प्रेस</option>
-                    <option value="धुलाई प्रेस">🧼 धुलाई प्रेस</option>
-                    <option value="ड्राई क्लीनिंग">✨ ड्राई क्लीनिंग</option>
+                    <option value="सामान्य प्रेस">सामान्य प्रेस</option>
+                    <option value="स्टीम प्रेस">स्टीम प्रेस</option>
+                    <option value="धुलाई प्रेस">धुलाई प्रेस</option>
+                    <option value="ड्राई क्लीनिंग">ड्राई क्लीनिंग</option>
                 </select>
                 <select id="itemSelect"><option value="">कपड़ा चुनें...</option></select>
-                
+
                 <div style="display:flex; gap:10px;">
-                    <input type="number" id="itemQty" value="1">
-                    <select id="itemNote"><option value="OK">OK ✅</option><option value="दाग">दाग ⚠️</option><option value="कटा">कटा ❌</option><option value="बटन">बटन 🔘</option></select>
+                    <input type="number" id="itemQty" value="1" min="1">
+                    <select id="itemNote">
+                        <option value="OK">OK</option>
+                        <option value="दाग">दाग</option>
+                        <option value="कटा">कटा</option>
+                        <option value="बटन">बटन</option>
+                    </select>
                 </div>
 
                 <button type="button" onclick="addToInv()" class="btn-add">+ लिस्ट में जोड़ें</button>
-                <div id="liveList"><b>📋 लिस्ट:</b><div id="listContent"></div></div>
-                <button type="button" class="btn-primary" style="margin-top:20px;" id="pickBtn" onclick="submitPickup()">पिकअप संपन्न करें & WhatsApp</button>
+                <div id="liveList"><b>पिकअप सूची:</b><div id="listContent"></div></div>
+                <button type="button" class="btn-primary" style="margin-top:16px;" id="pickBtn" onclick="submitPickup()">पिकअप संपन्न करें व WhatsApp भेजें</button>
             </div>
-        </div>
+        </section>
 
         <!-- डिलीवरी सेक्शन -->
-        <div id="delivery-sec" class="app-sec hidden">
+        <section id="delivery-sec" class="app-sec hidden" aria-label="डिलीवरी स्टेशन">
             <div class="card">
-                <h3>🚚 डिलीवरी मिशन</h3>
-                <label>मोबाइल</label>
-                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                <h3>डिलीवरी स्टेशन</h3>
+                <label>ग्राहक मोबाइल</label>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                     <input type="tel" id="delMobile" placeholder="9929xxxxxx" style="margin:0; flex:1;" onchange="fetchCustomerName('delMobile', 'delName')">
-                    <button type="button" style="padding:0 15px; border-radius:15px; border:1px solid var(--accent-gold); background:none; color:var(--accent-gold);" onclick="getContact('delMobile', 'delName')">👤</button>
+                    <button type="button" class="contact-btn" onclick="getContact('delMobile', 'delName')">संपर्क</button>
                 </div>
-                <input type="text" id="delName" placeholder="नाम" style="color:var(--accent-gold); font-weight:bold;">
+                <input type="text" id="delName" placeholder="ग्राहक का नाम" style="color:#C86D2D; font-weight:700;">
                 <label>राशि (₹)</label>
-                <input type="number" id="amount" placeholder="0.00" style="font-size: 1.8rem; text-align: center; color: var(--sun-orange); font-weight: 900;">
-                <label>माध्यम</label>
+                <input type="number" id="amount" placeholder="0.00" style="font-size: 24px; text-align: center; color: #C86D2D; font-weight: 700;">
+                <label>भुगतान माध्यम</label>
                 <select id="payMode">
-                    <option value="Cash">💵 Cash</option>
-                    <option value="Online">📱 Online</option>
-                    <option value="Wallet">💳 Wallet</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Online">Online / UPI</option>
+                    <option value="Wallet">Wallet</option>
                 </select>
-                <button type="button" class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न ✅</button>
+                <button type="button" class="btn-success" id="delBtn" onclick="confirmDelivery()">डिलीवरी संपन्न करें व WhatsApp भेजें</button>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <div class="nav-bar">
-        <div class="nav-item active" id="nav-pick" onclick="switchTab('pickup-sec', 'nav-pick')"><span>🧺</span>पिकअप</div>
-        <div class="nav-item" id="nav-del" onclick="switchTab('delivery-sec', 'nav-del')"><span>🚚</span>डिलीवरी</div>
-    </div>
+    <nav class="nav-bar" aria-label="पिकअप और डिलीवरी स्विचर">
+        <button type="button" class="nav-item active" id="nav-pick" onclick="switchTab('pickup-sec', 'nav-pick')"><span>🧺</span>पिकअप</button>
+        <button type="button" class="nav-item" id="nav-del" onclick="switchTab('delivery-sec', 'nav-del')"><span>🚚</span>डिलीवरी</button>
+    </nav>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec';
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxrvVW7RC6bxel3KVerx6AQb-Ool4BzrYAdbeQRbBXglZ7EV9N0l8uVQ-kcDJaXC__t/exec";
 
     function normalizeMobile(raw) {
         return (raw || "").toString().replace(/\D/g, "").slice(-10);
     }
-
-    function createStars() {
-        const container = document.getElementById('starsContainer');
-        for (let i = 0; i < 70; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
-            container.appendChild(star);
-        }
-    }
-    window.onload = () => { createStars(); };
 
     async function getContact(mobileId, nameId) {
         if (!('contacts' in navigator) || !('ContactsManager' in window)) {
@@ -298,7 +500,7 @@
             listDiv.innerHTML += `
                 <div class="list-item">
                     <span>• ${item.text}</span>
-                    <span class="remove-btn" onclick="removeItem(${item.id})">❌ हटाएँ</span>
+                    <span class="remove-btn" onclick="removeItem(${item.id})">हटाएँ</span>
                 </div>`;
         });
     }
@@ -313,30 +515,30 @@
         const name = document.getElementById('pickName').value || "सम्मानित ग्राहक";
         const serviceFinal = document.getElementById('serviceType').value;
         if (mobile.length < 10 || selectedItems.length === 0) return alert("कृपया सही मोबाइल नंबर और कम से कम एक कपड़ा जोड़ें!");
-        
+
         const btn = document.getElementById('pickBtn');
         btn.innerText = "सिंक हो रहा है...";
         btn.disabled = true;
-        
+
         const details = selectedItems.map(i => i.text).join(", ");
-        const formattedItems = selectedItems.map(i => `▪️ ${i.text}`).join("\n");
+        const formattedItems = selectedItems.map(i => `• ${i.text}`).join("\n");
         const url = `${scriptURL}?action=updateStatus&mobile=${encodeURIComponent(mobile)}&name=${encodeURIComponent(name)}&status=${encodeURIComponent('Order Pickup: ' + serviceFinal)}&details=${encodeURIComponent(details)}`;
 
         const pickupMsg =
-            `✨ *प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स* ✨\n` +
-            `📍 *जयपुर, राजस्थान* | 📞 *7740870095*\n` +
+            `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\n` +
+            `जयपुर, राजस्थान | 📞 7740870095\n` +
             `━━━━━━━━━━━━━━━━\n\n` +
             `नमस्ते *${name} जी*,\n\n` +
             `प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान की ओर से आपका सामान सेवा हेतु प्राप्त कर लिया गया है।\n\n` +
-            `📋 *PICKUP DETAILS*\n\n` +
+            `*PICKUP DETAILS*\n\n` +
             `${formattedItems}\n` +
-            `▪️ *Service:* ${serviceFinal}\n` +
-            `▪️ *Status:* ✅ Received Successfully\n\n` +
+            `• *Service:* ${serviceFinal}\n` +
+            `• *Status:* Received Successfully\n\n` +
             `━━━━━━━━━━━━━━━━\n` +
             `शुचिता • सेवा • समर्पण\n` +
-            `🙏 *धन्यवाद!*\n` +
+            `धन्यवाद!\n` +
             `_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान_`;
-        
+
         try {
             await fetch(url, { method: 'GET', mode: 'no-cors' });
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(pickupMsg)}`, '_blank');
@@ -344,7 +546,7 @@
         } catch (e) {
             alert("त्रुटि! कृपया पुनः प्रयास करें।");
             btn.disabled = false;
-            btn.innerText = "पिकअप संपन्न करें & WhatsApp";
+            btn.innerText = "पिकअप संपन्न करें व WhatsApp भेजें";
         }
     }
 
@@ -358,24 +560,24 @@
         const btn = document.getElementById('delBtn');
         btn.innerText = "सिंक हो रहा है...";
         btn.disabled = true;
-        
+
         const url = `${scriptURL}?action=addBill&mobile=${encodeURIComponent(mobile)}&name=${encodeURIComponent(name)}&amount=${encodeURIComponent(amt)}&mode=${encodeURIComponent(mode)}&details=${encodeURIComponent('Delivery Completed')}`;
 
         const deliveryMsg =
-            `✨ *प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स* ✨\n` +
-            `📍 *जयपुर, राजस्थान* | 📞 *7740870095*\n` +
+            `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\n` +
+            `जयपुर, राजस्थान | 📞 7740870095\n` +
             `━━━━━━━━━━━━━━━━\n\n` +
             `नमस्ते *${name} जी*,\n\n` +
             `प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान की ओर से आपका सामान डिलीवर कर दिया गया है।\n\n` +
-            `🚚 *DELIVERY DETAILS*\n\n` +
-            `▪️ *Amount Paid:* ₹${amt}\n` +
-            `▪️ *Payment Mode:* ${mode}\n` +
-            `▪️ *Status:* ✅ Delivered Successfully\n\n` +
+            `*DELIVERY DETAILS*\n\n` +
+            `• *Amount Paid:* ₹${amt}\n` +
+            `• *Payment Mode:* ${mode}\n` +
+            `• *Status:* Delivered Successfully\n\n` +
             `━━━━━━━━━━━━━━━━\n` +
             `शुचिता • सेवा • समर्पण\n` +
-            `🙏 *धन्यवाद!*\n` +
+            `धन्यवाद!\n` +
             `_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान_`;
-        
+
         try {
             await fetch(url, { method: 'GET', mode: 'no-cors' });
             window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(deliveryMsg)}`, '_blank');
@@ -383,7 +585,7 @@
         } catch (e) {
             alert("त्रुटि! कृपया पुनः प्रयास करें।");
             btn.disabled = false;
-            btn.innerText = "डिलीवरी संपन्न ✅";
+            btn.innerText = "डिलीवरी संपन्न करें व WhatsApp भेजें";
         }
     }
 </script>
