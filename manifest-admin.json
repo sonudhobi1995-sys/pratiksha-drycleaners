@@ -1,11 +1,11 @@
 {
-  "name": "Pratiksha Admin Station",
-  "short_name": "P-Guardian",
-  "description": "Pratiksha Dry Cleaners - Manager Command Center",
+  "name": "प्रतीक्षा नीति गार्डियन स्टेशन | जयपुर, राजस्थान",
+  "short_name": "प्रतीक्षा गार्डियन",
+  "description": "प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान - सेवा प्रबंधन केंद्र",
   "start_url": "admin-update.html",
   "display": "standalone",
-  "background_color": "#000205",
-  "theme_color": "#FF8C00",
+  "background_color": "#FAF7F2",
+  "theme_color": "#13294B",
   "orientation": "portrait",
   "icons": [
     {
