@@ -3,113 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Track Journey | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>ऑर्डर ट्रैकिंग | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        :root { 
-            --sun-orange: #FF8C00; 
-            --mercury-green: #2E8B57; 
-            --saturn-blue: #001F3F; 
-            --cream-light: #FFFDD0; 
-            --gold-accent: #D4AF37; 
+        :root {
+            --ivory-canvas: #FAF7F2;
+            --card-surface: #FFFFFF;
+            --royal-navy: #13294B;
+            --saffron-copper: #C86D2D;
+            --antique-gold: #B48A2C;
+            --emerald-seal: #1E6F50;
+            --slate-ink: #3B4A62;
+            --hairline-border: #E5DCCB;
+            --soft-sand: #F3ECE0;
         }
 
-        body { 
-            font-family: 'Inter', 'Mukta', sans-serif; 
-            background-color: var(--cream-light); 
-            margin: 0; padding: 20px; color: #333; 
-            min-height: 100vh; overflow-x: hidden;
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mukta', 'Inter', sans-serif;
+            background-color: var(--ivory-canvas);
+            background-image:
+                radial-gradient(circle at 12% 10%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 88% 85%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+            margin: 0;
+            padding: 24px 16px 40px;
+            color: var(--royal-navy);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .track-container {
+            max-width: 480px;
+            margin: auto;
+            background: var(--card-surface);
+            padding: 30px 22px;
+            border-radius: 22px;
+            border: 1.5px solid var(--hairline-border);
+            border-top: 5px solid var(--saffron-copper);
+            box-shadow: 0 12px 30px rgba(19, 41, 75, 0.07);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 18px;
+            padding: 7px 14px;
+            background: var(--soft-sand);
+            border: 1px solid var(--hairline-border);
+            border-radius: 10px;
+            color: var(--royal-navy);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--saffron-copper);
+            border-color: var(--saffron-copper);
+            color: #FFFFFF;
+        }
+
+        .status-header {
+            text-align: center;
+            margin-bottom: 26px;
+            border-bottom: 2px solid var(--hairline-border);
+            padding-bottom: 16px;
+        }
+
+        .org-kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--saffron-copper);
+            background: var(--soft-sand);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--hairline-border);
+            margin-bottom: 8px;
+        }
+
+        .status-header h2 {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            color: var(--royal-navy);
+            font-size: clamp(22px, 4vw, 28px);
+            font-weight: 900;
+            margin: 0;
+        }
+
+        .brand-tag {
+            font-size: 13px;
+            color: var(--slate-ink);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .tracking-id-pill {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--emerald-seal);
+            background: #EAF6F0;
+            border: 1px solid #C6E5D4;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin-top: 18px;
             position: relative;
         }
 
-        .stars-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 200%;
-            background-image: 
-                radial-gradient(1.5px 1.5px at 20px 30px, var(--sun-orange), transparent),
-                radial-gradient(2px 2px at 150px 150px, var(--mercury-green), transparent);
-            background-size: 300px 300px;
-            animation: stars-stream 60s infinite linear;
-            z-index: -1; opacity: 0.15;
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0.45;
+            transition: opacity 0.4s ease;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--slate-ink);
+            position: relative;
+            z-index: 1;
         }
-        @keyframes stars-stream { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
-        .track-container { 
-            max-width: 450px; margin: auto; 
-            background: white; 
-            padding: 35px 20px; border-radius: 40px; 
-            backdrop-filter: blur(10px); 
-            border: 2px solid var(--gold-accent); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+        .step.active {
+            opacity: 1;
+            color: var(--royal-navy);
         }
-        
-        .status-header { text-align: center; margin-bottom: 35px; border-bottom: 2px solid var(--sun-orange); padding-bottom: 15px; }
-        .status-header h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); font-size: 1.7rem; margin: 0; }
-        .brand-tag { font-size: 0.72rem; color: var(--saturn-blue); font-weight: 700; margin-top: 4px; }
 
-        .back-btn { display: inline-block; margin-bottom: 25px; color: var(--mercury-green); text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
-
-        .step-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; position: relative; }
-        .step { display: flex; align-items: center; gap: 20px; opacity: 0.35; transition: all 0.8s ease; font-weight: 700; color: var(--saturn-blue); position: relative; z-index: 1; }
-        .step.active { opacity: 1; }
-
-        .circle { 
-            width: 45px; height: 45px; border-radius: 50%; 
-            background: #eee; 
-            display: flex; align-items: center; justify-content: center; 
-            color: #777; font-size: 1.1rem; z-index: 2; 
-            border: 2px solid #ddd; font-weight: 900;
+        .circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--soft-sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate-ink);
+            font-size: 15px;
+            z-index: 2;
+            border: 2px solid var(--hairline-border);
+            font-weight: 700;
             flex-shrink: 0;
+            transition: all 0.35s ease;
         }
-        .active .circle { background: var(--sun-orange); color: white; border-color: var(--gold-accent); box-shadow: 0 0 15px rgba(255, 140, 0, 0.4); }
-        
-        .line { position: absolute; left: 21px; top: 22px; bottom: 22px; width: 3px; background: #eee; z-index: 0; }
-        .line-progress { position: absolute; left: 21px; top: 22px; width: 3px; max-height: calc(100% - 44px); background: var(--sun-orange); z-index: 1; transition: height 1s ease; }
-        
-        .inventory-card { background: #fdfae1; border: 1.5px dashed var(--gold-accent); border-radius: 25px; padding: 25px; margin-top: 40px; }
-        .inventory-title { font-family: 'Playfair Display', serif; color: var(--saturn-blue); border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px; margin-bottom: 15px; font-weight: 900; font-size: 1.1rem; }
-        #inventoryList div { margin-bottom: 12px; padding-left: 15px; border-left: 3px solid var(--mercury-green); font-size: 0.92rem; font-weight: 600; color: #444; word-break: break-word; }
 
-        .wa-btn { width: 100%; margin-top: 30px; background: var(--mercury-green); color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
-        .footer-blessing { text-align: center; font-size: 0.75rem; color: var(--saturn-blue); margin-top: 40px; font-weight: bold; line-height: 1.5; }
-        
-        #loader { text-align: center; padding: 20px; color: var(--sun-orange); font-weight: 800; display: none; }
+        .active .circle {
+            background: var(--saffron-copper);
+            color: #FFFFFF;
+            border-color: var(--antique-gold);
+            box-shadow: 0 4px 12px rgba(200, 109, 45, 0.25);
+        }
+
+        .step.completed .circle {
+            background: var(--emerald-seal);
+            color: #FFFFFF;
+            border-color: var(--emerald-seal);
+        }
+
+        .line {
+            position: absolute;
+            left: 19.5px;
+            top: 21px;
+            bottom: 21px;
+            width: 3px;
+            background: var(--hairline-border);
+            z-index: 0;
+        }
+
+        .line-progress {
+            position: absolute;
+            left: 19.5px;
+            top: 21px;
+            width: 3px;
+            max-height: calc(100% - 42px);
+            background: var(--saffron-copper);
+            z-index: 1;
+            transition: height 0.7s ease;
+        }
+
+        .inventory-card {
+            background: var(--ivory-canvas);
+            border: 1.5px dashed var(--antique-gold);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 32px;
+        }
+
+        .inventory-title {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            color: var(--royal-navy);
+            border-bottom: 1.5px solid var(--hairline-border);
+            padding-bottom: 8px;
+            margin-bottom: 14px;
+            font-weight: 900;
+            font-size: 17px;
+        }
+
+        #inventoryList div {
+            margin-bottom: 10px;
+            padding-left: 12px;
+            border-left: 3.5px solid var(--emerald-seal);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--slate-ink);
+            word-break: break-word;
+        }
+
+        #inventoryList div:last-child {
+            margin-bottom: 0;
+        }
+
+        .wa-btn {
+            width: 100%;
+            margin-top: 24px;
+            background: var(--emerald-seal);
+            color: #FFFFFF;
+            border: none;
+            padding: 16px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 6px 16px rgba(30, 111, 80, 0.16);
+        }
+
+        .wa-btn:hover {
+            opacity: 0.92;
+        }
+
+        .footer-blessing {
+            text-align: center;
+            font-size: 12px;
+            color: var(--slate-ink);
+            margin-top: 26px;
+            padding-top: 16px;
+            border-top: 1px solid var(--hairline-border);
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        #loader {
+            text-align: center;
+            padding: 14px;
+            color: var(--saffron-copper);
+            font-weight: 700;
+            font-size: 14px;
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="stars-container"></div>
-    <div class="track-container">
-        <a href="index.html" class="back-btn">← मुख्य द्वार</a>
+    <main class="track-container" aria-label="ऑर्डर स्थिति ट्रैकिंग">
+        <a href="index.html" class="back-btn">← मुख्य द्वार (Home)</a>
         <div class="status-header">
-            <h2>शुद्धिकरण चक्र</h2>
-            <div class="brand-tag">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
-            <div style="font-size: 0.7rem; color: var(--mercury-green); margin-top: 8px; letter-spacing: 1px; font-weight: bold;">ORDER TRACKING ID: <span id="dispMobile">...</span></div>
+            <div class="org-kicker">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
+            <h2>ऑर्डर स्थिति एवं विवरण</h2>
+            <div class="brand-tag">शुचिता • सेवा • समर्पण</div>
+            <div class="tracking-id-pill">ORDER ID / MOBILE: <span id="dispMobile">...</span></div>
         </div>
 
-        <div id="loader">✨ डेटा सिंक हो रहा है...</div>
+        <div id="loader">लाइव स्थिति सिंक हो रही है...</div>
 
         <div class="step-container" id="stepsContent">
             <div class="line"></div>
             <div class="line-progress" id="progressLine" style="height: 0px;"></div>
-            <div class="step" id="step1"><div class="circle">1</div> 🧺 पिकअप (Picked Up)</div>
-            <div class="step" id="step2"><div class="circle">2</div> 🧼 प्रक्रिया (In Process)</div>
-            <div class="step" id="step3"><div class="circle">3</div> ✨ तैयार (Ready)</div>
-            <div class="step" id="step4"><div class="circle">4</div> ✅ डिलीवर (Delivered)</div>
+            <div class="step" id="step1"><div class="circle">1</div> <span>पिकअप (Picked Up)</span></div>
+            <div class="step" id="step2"><div class="circle">2</div> <span>प्रक्रिया (In Process)</span></div>
+            <div class="step" id="step3"><div class="circle">3</div> <span>तैयार (Ready)</span></div>
+            <div class="step" id="step4"><div class="circle">4</div> <span>डिलीवर (Delivered)</span></div>
         </div>
 
-        <div class="inventory-card">
-            <div class="inventory-title">Manifest / कपड़ों की सूची</div>
+        <section class="inventory-card" aria-label="कपड़ों व सेवा का विवरण">
+            <div class="inventory-title">कपड़ों व सेवा का विवरण (Manifest)</div>
             <div id="inventoryList">विवरण खोजा जा रहा है...</div>
-        </div>
+        </section>
 
-        <button class="wa-btn" onclick="sendToWhatsApp()">📲 स्टेटस के लिए पूछें</button>
-        <div class="footer-blessing">शुचिता • सेवा • समर्पण<br>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान | Mission 2047</div>
-    </div>
+        <button type="button" class="wa-btn" onclick="sendToWhatsApp()">WhatsApp पर स्थिति की जानकारी लें</button>
+        <div class="footer-blessing">शुचिता • सेवा • समर्पण<br>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान | Mission 2047</div>
+    </main>
 
     <script>
-        const scriptURL = "https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec";
-        let globalStatus = ""; 
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxrvVW7RC6bxel3KVerx6AQb-Ool4BzrYAdbeQRbBXglZ7EV9N0l8uVQ-kcDJaXC__t/exec";
+        let globalStatus = "";
         let globalDetails = "";
 
         function normalizeMobile(raw) {
@@ -134,23 +325,30 @@
                 const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${encodeURIComponent(mobile)}`);
                 const data = await response.json();
 
-                if (data.status === "error" || data.status === "not_found") { 
-                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय आर्डर नहीं मिला। अपडेट की प्रतीक्षा करें।"; 
+                if (data.status === "error" || data.status === "not_found") {
+                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय ऑर्डर नहीं मिला। नए अपडेट की प्रतीक्षा करें।";
                     updateSteps("None");
-                    return; 
+                    return;
                 }
 
-                globalStatus = data.orderStatus || "Pending"; 
+                globalStatus = data.orderStatus || data.status || "Pending";
                 globalDetails = data.orderDetails || data.details || "विवरण उपलब्ध नहीं";
-                
+
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
-                
-                const items = globalDetails.split('\n');
-                items.forEach(item => { 
-                    if (item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
+
+                const items = globalDetails.split(/\n|,\s*(?=[अ-हA-Za-z0-9])/);
+                let hasItem = false;
+                items.forEach(item => {
+                    if (item.trim()) {
+                        invList.innerHTML += `<div>${item.trim()}</div>`;
+                        hasItem = true;
+                    }
                 });
-                
+                if (!hasItem) {
+                    invList.innerHTML = `<div>${globalDetails}</div>`;
+                }
+
                 updateSteps(globalStatus);
 
             } catch (err) {
@@ -161,17 +359,17 @@
         }
 
         function updateSteps(status) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active', 'completed'));
             const progressLine = document.getElementById('progressLine');
             const stepsContent = document.getElementById('stepsContent');
-            
-            const stepsMap = { 
+
+            const stepsMap = {
                 "pending": 1, "pickup": 1, "पिकअप": 1, "पेंडिंग": 1,
-                "washing": 2, "processing": 2, "process": 2, "प्रोसेसिंग": 2, "धुलाई": 2,
+                "washing": 2, "processing": 2, "process": 2, "प्रोसेसिंग": 2, "प्रक्रिया": 2, "धुलाई": 2,
                 "ready": 3, "तैयार": 3,
                 "delivered": 4, "paid": 4, "डिलीवर": 4
             };
-            
+
             let level = 0;
             const s = (status || "").toString().trim().toLowerCase();
 
@@ -181,18 +379,21 @@
                     break;
                 }
             }
-            
+
             if (level === 0) {
                 progressLine.style.height = "0px";
                 return;
             }
 
-            for (let i = 1; i <= level; i++) { 
-                const el = document.getElementById('step' + i); 
-                if (el) el.classList.add('active'); 
+            for (let i = 1; i <= level; i++) {
+                const el = document.getElementById('step' + i);
+                if (el) {
+                    el.classList.add('active');
+                    if (i < level) el.classList.add('completed');
+                }
             }
 
-            const totalTrackHeight = Math.max(0, stepsContent.offsetHeight - 44);
+            const totalTrackHeight = Math.max(0, stepsContent.offsetHeight - 42);
             const ratio = (level - 1) / 3;
             progressLine.style.height = `${Math.round(totalTrackHeight * ratio)}px`;
         }
@@ -200,7 +401,7 @@
         function sendToWhatsApp() {
             const mobile = normalizeMobile(localStorage.getItem('userMobile')) || "उपलब्ध नहीं";
             const statusDisp = globalStatus || "प्रतीक्षित";
-            const msg = `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\nजयपुर, राजस्थान | 📞 7740870095\n\nनमस्ते सोनू भाई,\n\nमेरा आर्डर स्टेटस: *${statusDisp}*\nआईडी: ${mobile}\n\nधन्यवाद! 🙏`;
+            const msg = `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\nजयपुर, राजस्थान | 📞 7740870095\n\nनमस्ते,\n\nमेरी ऑर्डर स्थिति: *${statusDisp}*\nमोबाइल / ID: ${mobile}\n\nशुचिता • सेवा • समर्पण`;
             window.open(`https://wa.me/917740870095?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
