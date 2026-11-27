@@ -1,118 +1,187 @@
 :root {
-    --sun-orange: #FF8C00; /* सूर्य देव का ऊर्जावान रंग - Header */
-    --mercury-green: #2E8B57; /* बुध का प्राकृतिक हरा - Buttons/Highlights */
-    --saturn-blue: #001F3F; /* शनि का गहरा नीला - Footer/Top-bar */
-    --cream-light: #FFFDD0; /* क्रीम कलर - Background */
-    --gold-accent: #D4AF37; /* आपकी पुरानी कोडिंग का गोल्ड टच */
+    --ivory-canvas: #FAF7F2;      /* शुद्ध क्रीम कैनवास (पृष्ठभूमि) */
+    --card-surface: #FFFFFF;      /* कार्ड एवं पैनल की साफ़ सतह */
+    --royal-navy: #13294B;        /* शाही जयपुर नील (शीर्षक, फुटर व मुख्य संरचना) */
+    --saffron-copper: #C86D2D;    /* केसरिया-ताँबा (आत्मीयता व मुख्य संकेत) */
+    --antique-gold: #B48A2C;      /* संयत स्वर्ण (सूक्ष्म सीमा व सम्मान रेखा) */
+    --emerald-seal: #1E6F50;      /* पन्ना हरा (सक्रिय क्रिया व विश्वास संकेत) */
+    --slate-ink: #3B4A62;         /* संतुलित पठनीय स्लेट टेक्स्ट */
+    --hairline-border: #E5DCCB;   /* सौम्य विभाजक रेखा */
+    --soft-sand: #F3ECE0;         /* कोमल रेत/क्रीम हाइलाइट */
 }
 
-body { 
-    font-family: 'Inter', sans-serif; 
-    margin: 0; 
-    background: var(--cream-light); /* सफेद की जगह क्रीम */
-    color: #333; 
-    overflow-x: hidden; 
+* {
+    box-sizing: border-box;
 }
 
-.container { width: 90%; margin: auto; }
-
-/* Top Bar - शनि का नीला प्रभाव */
-.top-bar { 
-    background: var(--saturn-blue); 
-    color: white; 
-    text-align: center; 
-    padding: 10px; 
-    font-size: 0.7rem; 
-    letter-spacing: 1px; 
+body {
+    font-family: 'Mukta', 'Inter', sans-serif;
+    margin: 0;
+    background-color: var(--ivory-canvas);
+    background-image:
+        radial-gradient(circle at 12% 10%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 88% 85%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+    color: var(--royal-navy);
+    overflow-x: hidden;
+    line-height: 1.65;
 }
 
-/* Navbar - सूर्य देव का प्रभाव (Header) */
-.navbar { 
-    padding: 12px 0; 
-    border-bottom: 2px solid var(--gold-accent); 
-    position: sticky; 
-    top: 0; 
-    background: var(--sun-orange); /* सूर्य का रंग */
-    z-index: 100; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.container {
+    width: min(92%, 1120px);
+    margin: auto;
 }
 
-.nav-flex { display: flex; justify-content: space-between; align-items: center; }
-.logo-box { display: flex; align-items: center; gap: 12px; }
-.p-name { 
-    font-family: 'Playfair Display', serif; 
-    font-size: 1.6rem; 
-    color: white; /* सूर्य के रंग पर सफेद जमेगा */
-    font-weight: 900; 
-    line-height: 1; 
-} 
-.p-sub { 
-    font-size: 0.65rem; 
-    color: var(--saturn-blue); /* गहरा नीला फॉर कंट्रास्ट */
-    letter-spacing: 3px; 
-    font-weight: 700; 
-    text-transform: uppercase; 
+/* शीर्ष संदेश पट्टी */
+.top-bar {
+    background: var(--soft-sand);
+    color: var(--royal-navy);
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--hairline-border);
 }
 
-/* बटन - बुध का हरा (Pickup Service) */
-.pick-up-btn { 
-    background: var(--mercury-green); 
-    color: white; 
-    padding: 8px 15px; 
-    text-decoration: none; 
-    border-radius: 25px; 
-    font-weight: 600; 
-    font-size: 0.75rem; 
-    border: 1px solid white;
+/* मुख्य नेविगेशन बार */
+.navbar {
+    padding: 12px 0;
+    border-bottom: 3px solid var(--saffron-copper);
+    position: sticky;
+    top: 0;
+    background: var(--royal-navy);
+    z-index: 100;
+    box-shadow: 0 6px 18px rgba(19, 41, 75, 0.14);
 }
 
-/* Hero Section */
-.hero { padding: 40px 0; background: var(--cream-light); }
-.since-tag { color: var(--mercury-green); font-size: 0.7rem; font-weight: 700; }
-.hero h1 { 
-    font-family: 'Playfair Display'; 
-    font-size: 2rem; 
-    margin: 15px 0; 
-    color: var(--saturn-blue); 
-    line-height: 1.2; 
-}
-.gold-highlight { border-bottom: 4px solid var(--mercury-green); }
-
-/* Horizontal Scroll - कार्ड्स की क्रीम और हरी थीम */
-.v-card { 
-    min-width: 180px; 
-    background: white; 
-    border-radius: 12px; 
-    overflow: hidden; 
-    border: 1px solid #ddd; 
-}
-.v-card h3 { 
-    font-size: 0.8rem; 
-    text-align: center; 
-    padding: 10px; 
-    margin: 0; 
-    color: var(--mercury-green); 
-    font-weight: 700; 
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
 }
 
-/* Contact Card */
-.contact-card { 
-    background: #fdfae1; /* क्रीम का एक और शेड */
-    padding: 20px; 
-    border-radius: 15px; 
-    margin-top: 20px; 
-    border: 1px solid var(--gold-accent);
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-/* Footer - शनि का गहरा नीला */
-footer { 
-    background: var(--saturn-blue); 
-    text-align: center; 
-    padding: 30px; 
-    font-size: 0.65rem; 
-    color: #cbd5e0; 
-    border-top: 1px solid var(--gold-accent); 
-    line-height: 1.6; 
+.p-name {
+    font-family: 'Playfair Display', 'Mukta', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    color: #FFFFFF;
+    font-weight: 900;
+    line-height: 1.15;
 }
 
-.whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; width: 55px; z-index: 1000; }
+.p-sub {
+    font-size: 11px;
+    color: #F3DCC0;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* पिकअप व सेवा बटन */
+.pick-up-btn {
+    background: var(--emerald-seal);
+    color: #FFFFFF;
+    padding: 9px 18px;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    transition: background 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+}
+
+.pick-up-btn:hover {
+    background: var(--saffron-copper);
+}
+
+/* हीरो सेक्शन */
+.hero {
+    padding: 40px 0;
+    background: transparent;
+}
+
+.since-tag {
+    display: inline-block;
+    color: var(--saffron-copper);
+    background: var(--soft-sand);
+    border: 1px solid var(--hairline-border);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', 'Mukta', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 900;
+    margin: 14px 0;
+    color: var(--royal-navy);
+    line-height: 1.25;
+}
+
+.gold-highlight {
+    border-bottom: 3px solid var(--saffron-copper);
+    padding-bottom: 2px;
+}
+
+/* क्षैतिज कार्ड पट्टी */
+.v-card {
+    min-width: 184px;
+    background: var(--card-surface);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1.5px solid var(--hairline-border);
+    border-top: 3px solid var(--antique-gold);
+    box-shadow: 0 6px 16px rgba(19, 41, 75, 0.05);
+}
+
+.v-card h3 {
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 12px;
+    margin: 0;
+    color: var(--royal-navy);
+    font-weight: 700;
+}
+
+/* संपर्क कार्ड */
+.contact-card {
+    background: var(--card-surface);
+    padding: 22px;
+    border-radius: 16px;
+    margin-top: 20px;
+    border: 1.5px solid var(--hairline-border);
+    border-left: 5px solid var(--saffron-copper);
+    box-shadow: 0 8px 20px rgba(19, 41, 75, 0.05);
+}
+
+/* फुटर */
+footer {
+    background: var(--royal-navy);
+    text-align: center;
+    padding: 36px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #E6EDF6;
+    border-top: 4px solid var(--saffron-copper);
+    line-height: 1.7;
+}
+
+.whatsapp-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    z-index: 1000;
+    filter: drop-shadow(0 8px 18px rgba(19, 41, 75, 0.22));
+}
