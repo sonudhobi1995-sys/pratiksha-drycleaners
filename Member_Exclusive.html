@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Member Exclusive | Pratiksha Dry Cleaners</title>
+    <title>Member Exclusive | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;700;900&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -18,11 +18,12 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', 'Mukta', sans-serif;
             margin: 0;
             background: var(--deep-space);
             color: white;
             overflow-x: hidden;
+            padding-bottom: 85px;
         }
 
         .stars-container {
@@ -32,7 +33,7 @@
             background: radial-gradient(circle at center, #001F3F 0%, #010103 100%);
         }
 
-        .header-space { padding: 40px 20px 20px; text-align: center; }
+        .header-space { padding: 36px 20px 20px; text-align: center; }
 
         .membership-card {
             background: var(--royal-gold);
@@ -63,9 +64,10 @@
             100% { left: 100%; }
         }
 
-        .card-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
+        .card-label { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; opacity: 0.75; }
         .balance-amt { font-size: 2.5rem; font-weight: 900; margin: 5px 0; }
         .member-name { font-size: 1.1rem; font-weight: 700; margin-top: 15px; }
+        .brand-sub { font-size: 0.7rem; font-weight: 700; margin-top: 4px; opacity: 0.8; }
 
         .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 25px 20px; }
         .action-card {
@@ -77,24 +79,25 @@
         .action-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
         .action-label { font-size: 0.8rem; color: #ccc; }
 
-        .passbook-section { padding: 0 20px 40px; }
+        .passbook-section { padding: 0 20px 20px; }
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; color: var(--star-gold);
+            font-size: 1.4rem; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; color: var(--star-gold);
         }
 
         .log-container { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
         .log-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.5s ease forwards; }
+        .log-item:last-child { border-bottom: none; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .log-info { display: flex; flex-direction: column; width: 70%; }
-        .log-desc { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; color: #fff; }
-        .log-date { font-size: 0.7rem; color: #888; }
-        .log-amt { font-weight: 900; text-align: right; }
+        .log-info { display: flex; flex-direction: column; width: 72%; }
+        .log-desc { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; color: #fff; word-break: break-word; }
+        .log-date { font-size: 0.72rem; color: #aaa; }
+        .log-amt { font-weight: 900; text-align: right; font-size: 0.85rem; }
         .plus { color: var(--success-green); }
 
-        .loader { display: none; text-align: center; padding: 20px; color: var(--star-gold); font-size: 0.8rem; letter-spacing: 2px; }
+        .loader { display: none; text-align: center; padding: 16px; color: var(--star-gold); font-size: 0.85rem; letter-spacing: 1.5px; }
 
         .nav-bar {
             position: fixed; bottom: 20px; left: 20px; right: 20px;
@@ -110,17 +113,18 @@
     <div class="stars-container"></div>
 
     <div class="header-space">
-        <h1 style="font-family: 'Playfair Display'; margin: 0; letter-spacing: 2px;">PRATIKSHA</h1>
-        <p style="font-size: 0.6rem; letter-spacing: 4px; color: var(--star-gold); margin-top: 5px;">COSMIC EXCLUSIVE</p>
+        <h1 style="font-family: 'Playfair Display'; margin: 0; font-size: 1.45rem; letter-spacing: 1px; color: var(--star-gold);">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h1>
+        <p style="font-size: 0.68rem; letter-spacing: 2px; color: #ccc; margin-top: 6px;">जयपुर, राजस्थान • शुचिता • सेवा • समर्पण</p>
     </div>
 
     <div class="membership-card">
-        <div class="card-label">Cosmic Wallet Balance</div>
+        <div class="card-label">Wallet Balance</div>
         <div class="balance-amt">₹ <span id="uBalance">0.00</span></div>
-        <div class="member-name" id="uNameDisp">नमस्ते, कोस्मिक सदस्य</div>
+        <div class="member-name" id="uNameDisp">नमस्ते, सम्मानित सदस्य</div>
+        <div class="brand-sub">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</div>
     </div>
 
-    <div id="loader" class="loader">✨ कोस्मिक सिंक जारी है...</div>
+    <div id="loader" class="loader">✨ सिंक जारी है...</div>
 
     <div class="action-grid">
         <div class="action-card">
@@ -136,7 +140,7 @@
     <div class="passbook-section">
         <div class="section-title">
             <span>डिजिटल पासबुक</span>
-            <span style="font-size: 0.7rem; color: #888; font-family: 'Inter';">LIVE SYNC</span>
+            <span style="font-size: 0.7rem; color: #aaa; font-family: 'Inter';">LIVE SYNC</span>
         </div>
         <div id="logContainer" class="log-container"></div>
     </div>
@@ -149,14 +153,16 @@
     </div>
 
     <script>
-        // 🔱 PRATIKSHA DIGITAL - CHITTI SUPREME FINAL ASTRA URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec';
 
+        function normalizeMobile(raw) {
+            return (raw || "").toString().replace(/\D/g, "").slice(-10);
+        }
+
         async function fetchMemberData() {
-            const mobile = localStorage.getItem('userMobile');
+            const mobile = normalizeMobile(localStorage.getItem('userMobile'));
             
-            if(!mobile) {
-                alert("लॉगिन सत्र समाप्त! कृपया पुनः लॉगिन करें।");
+            if (!mobile || mobile.length < 10) {
                 window.location.href = "login.html";
                 return;
             }
@@ -165,38 +171,39 @@
             loader.style.display = 'block';
 
             try {
-                // v12.0 इंजन से डेटा सिंक
-                const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`);
+                const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${encodeURIComponent(mobile)}`);
                 const data = await response.json();
                 
-                if(data.status === "not_found") {
-                    document.getElementById('logContainer').innerHTML = "<p style='text-align:center; padding:30px; color:#666; font-size:0.8rem;'>कोस्मिक रिकॉर्ड नहीं मिला।</p>";
+                if (data.status === "not_found") {
+                    document.getElementById('logContainer').innerHTML = "<p style='text-align:center; padding:30px; color:#aaa; font-size:0.85rem;'>सदस्यता रिकॉर्ड नहीं मिला।</p>";
                     return;
                 }
 
                 document.getElementById('uBalance').innerText = parseFloat(data.balance || 0).toFixed(2);
-                document.getElementById('uNameDisp').innerText = "नमस्ते, " + (data.name || "कोस्मिक सदस्य");
+                document.getElementById('uNameDisp').innerText = "नमस्ते, " + (data.name || "सम्मानित सदस्य");
                 
+                const orderText = data.orderDetails || data.details || "";
+                const statusText = data.orderStatus || "प्रतीक्षित";
+                const timeText = data.syncTime || "";
+
                 let logHTML = '';
-                
-                // मुनीम द्वारा डाली गई डिटेल्स (Col E) और स्टेटस का संगम
-                if(data.orderDetails) {
+                if (orderText) {
                     logHTML = `
                         <div class="log-item">
                             <div class="log-info">
-                                <span class="log-desc">${data.orderDetails}</span>
-                                <span class="log-date">Status: ${data.orderStatus} | ${data.syncTime}</span>
+                                <span class="log-desc">${orderText}</span>
+                                <span class="log-date">स्थिति: ${statusText}${timeText ? " | " + timeText : ""}</span>
                             </div>
                             <div class="log-amt plus">Active</div>
                         </div>`;
                 } else {
-                    logHTML = '<p style="text-align:center; padding:20px; font-size:0.8rem; color:#888;">अभी कोई सक्रिय आर्डर नहीं है।</p>';
+                    logHTML = '<p style="text-align:center; padding:20px; font-size:0.85rem; color:#aaa;">अभी कोई सक्रिय आर्डर नहीं है।</p>';
                 }
                 
                 document.getElementById('logContainer').innerHTML = logHTML;
 
             } catch (e) {
-                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:var(--danger-red); padding:20px; font-size:0.8rem;">कोस्मिक नेटवर्क त्रुटि!</p>';
+                document.getElementById('logContainer').innerHTML = '<p style="text-align:center; color:var(--danger-red); padding:20px; font-size:0.85rem;">नेटवर्क त्रुटि! कृपया पुनः प्रयास करें।</p>';
             } finally {
                 loader.style.display = 'none';
             }
