@@ -1,61 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Conditions | PRATIKSHA DRY CLEANERS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>नियम व शर्तें | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        :root { --sun-orange: #FF8C00; --mercury-green: #2E8B57; --saturn-blue: #001F3F; --cream-bg: #FFFDD0; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--cream-bg); color: #333; line-height: 1.6; margin: 0; }
-        nav { background: var(--sun-orange); padding: 15px; text-align: center; color: white; font-family: 'Playfair Display', serif; font-weight: 900; text-transform: uppercase; }
-        .container { max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-top: 6px solid var(--saturn-blue); }
-        h1 { color: var(--saturn-blue); font-size: 1.5rem; border-bottom: 2px solid var(--mercury-green); padding-bottom: 10px; }
-        h3 { color: var(--mercury-green); font-size: 1rem; margin-top: 25px; text-transform: uppercase; }
-        p, li { font-size: 0.9rem; color: #555; }
-        .highlight { background: #fff8e1; padding: 10px; border-left: 4px solid var(--sun-orange); font-weight: 600; font-size: 0.85rem; }
-        footer { background: var(--saturn-blue); color: white; text-align: center; padding: 30px; font-size: 0.8rem; margin-top: 50px; }
-        .back-link { display: inline-block; margin-top: 20px; color: var(--sun-orange); text-decoration: none; font-weight: bold; font-size: 0.85rem; }
+        :root {
+            --ivory-canvas: #FAF7F2;
+            --card-surface: #FFFFFF;
+            --royal-navy: #13294B;
+            --saffron-copper: #C86D2D;
+            --antique-gold: #B48A2C;
+            --emerald-seal: #1E6F50;
+            --slate-ink: #3B4A62;
+            --hairline-border: #E5DCCB;
+            --soft-sand: #F3ECE0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mukta', 'Inter', sans-serif;
+            background-color: var(--ivory-canvas);
+            background-image:
+                radial-gradient(circle at 12% 10%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 88% 85%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+            color: var(--royal-navy);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header.top-nav {
+            background: var(--royal-navy);
+            padding: 18px 20px;
+            text-align: center;
+            color: #FFFFFF;
+            border-bottom: 3px solid var(--saffron-copper);
+            box-shadow: 0 6px 18px rgba(19, 41, 75, 0.14);
+        }
+
+        header.top-nav .brand-title {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 900;
+            letter-spacing: 0.4px;
+            margin: 0;
+        }
+
+        header.top-nav .brand-sub {
+            font-size: 12px;
+            font-weight: 600;
+            color: #F3DCC0;
+            margin-top: 4px;
+            letter-spacing: 0.8px;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 34px auto;
+            background: var(--card-surface);
+            padding: 38px 34px;
+            border-radius: 20px;
+            border: 1.5px solid var(--hairline-border);
+            border-top: 5px solid var(--saffron-copper);
+            box-shadow: 0 12px 30px rgba(19, 41, 75, 0.06);
+        }
+
+        .doc-kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--saffron-copper);
+            background: var(--soft-sand);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--hairline-border);
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            color: var(--royal-navy);
+            font-size: clamp(24px, 3.6vw, 32px);
+            font-weight: 900;
+            margin: 0 0 14px 0;
+            border-bottom: 2px solid var(--hairline-border);
+            padding-bottom: 12px;
+        }
+
+        .intro-lead {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--slate-ink);
+            margin-bottom: 18px;
+        }
+
+        .highlight {
+            background: var(--soft-sand);
+            padding: 16px 18px;
+            border-left: 5px solid var(--saffron-copper);
+            border-radius: 0 12px 12px 0;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--royal-navy);
+            margin: 18px 0 24px;
+        }
+
+        h3 {
+            color: var(--emerald-seal);
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: 19px;
+            font-weight: 900;
+            margin: 26px 0 8px 0;
+        }
+
+        p,
+        li {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--slate-ink);
+            margin: 0 0 10px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 8px 0 16px 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 26px;
+            padding: 12px 20px;
+            background: var(--royal-navy);
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: background 0.2s ease;
+        }
+
+        .back-link:hover {
+            background: var(--saffron-copper);
+        }
+
+        footer {
+            background: var(--royal-navy);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 36px 20px;
+            font-size: 13px;
+            margin-top: 48px;
+            border-top: 4px solid var(--saffron-copper);
+        }
+
+        footer .footer-sub {
+            color: #F3DCC0;
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 20px 14px;
+                padding: 26px 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav>Pratiksha Dry Cleaners</nav>
-    <div class="container">
-        <h1>Terms & Conditions</h1>
-        <p>Welcome to Pratiksha Dry Cleaners. By using our services, you agree to comply with the following professional terms:</p>
-        
-        <div class="highlight">Note: Free Pickup & Delivery is only available on orders above ₹250 within Ambabari regions.</div>
+    <header class="top-nav">
+        <div class="brand-title">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</div>
+        <div class="brand-sub">जयपुर, राजस्थान • शुचिता • सेवा • समर्पण</div>
+    </header>
 
-        <h3>1. Liability & Compensation</h3>
+    <main class="container">
+        <div class="doc-kicker">आधिकारिक नियम व शर्तें • Terms & Conditions</div>
+        <h1>नियम एवं शर्तें (Terms & Conditions)</h1>
+        <p class="intro-lead"><strong>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</strong> में आपका स्वागत है। हमारी सेवाओं का उपयोग करके आप निम्नलिखित सेवा नियमों व शर्तों का पालन करने के लिए सहमत होते हैं:</p>
+
+        <div class="highlight">सूचना: निर्धारित सेवा क्षेत्र एवं न्यूनतम ऑर्डर शर्तों के अनुसार पिकअप व डिलीवरी तथा ई-मित्र सेवाएं पारदर्शी नियमों के अधीन प्रदान की जाती हैं।</div>
+
+        <h3>1. उत्तरदायित्व एवं क्षतिपूर्ति (Liability & Compensation)</h3>
         <ul>
-            <li>In the event of loss or damage, our liability is limited to a maximum of 10 times the cleaning charge or ₹2,500, whichever is lower.</li>
-            <li>We are not responsible for damage to weak/old fabrics, color bleeding, or ornaments that cannot withstand the cleaning process.</li>
+            <li>किसी दुर्भाग्यपूर्ण स्थिति में वस्त्र के नुकसान या क्षति की स्थिति में, हमारा अधिकतम उत्तरदायित्व संबंधित सेवा शुल्क के 10 गुना या ₹2,500 (जो भी कम हो) तक सीमित रहेगा।</li>
+            <li>पुराने या कमज़ोर कपड़ों, स्वाभाविक रूप से रंग छोड़ने वाले वस्त्रों, या ऐसी सजावट/कढ़ाई/बटनों के लिए हम उत्तरदायी नहीं होंगे जो धुलाई या प्रेस की सामान्य प्रक्रिया सहन न कर सकें।</li>
         </ul>
 
-        <h3>2. Stain Removal</h3>
+        <h3>2. दाग हटाने की सीमा (Stain Removal)</h3>
         <ul>
-            <li>We put our best effort into stain removal, but 100% removal of stubborn or aged stains is not guaranteed as it may damage the fabric fibers.</li>
+            <li>हम दाग हटाने के लिए पूर्ण प्रयास और उचित माध्यमों का उपयोग करते हैं, लेकिन पुराने या ज़िद्दी दाग 100% निकलने की गारंटी नहीं दी जा सकती क्योंकि अधिक दबाव से कपड़े के रेशे खराब हो सकते हैं।</li>
         </ul>
 
-        <h3>3. Delivery & Express Service</h3>
+        <h3>3. सुपुर्दगी एवं त्वरित सेवा (Delivery & Express Service)</h3>
         <ul>
-            <li>Standard delivery time is 3-4 working days.</li>
-            <li><strong>Express Service:</strong> Delivery within 24 hours incurs a 50% additional surcharge on the total bill.</li>
+            <li>सामान्य सेवा के अंतर्गत सुपुर्दगी (Delivery) की अवधि आमतौर पर 3 से 4 कार्य दिवस रहती है।</li>
+            <li><strong>त्वरित सेवा (Express Service):</strong> 24 घंटे के भीतर डिलीवरी या विशेष प्राथमिकता के लिए कुल बिल पर 50% अतिरिक्त शुल्क लागू हो सकता है।</li>
         </ul>
 
-        <h3>4. Customer Responsibility</h3>
+        <h3>4. ग्राहक की जिम्मेदारी (Customer Responsibility)</h3>
         <ul>
-            <li>Please check all pockets before handing over garments. We are not responsible for cash, jewelry, or valuables left inside.</li>
-            <li>Inspect your garments at the time of delivery. Claims after delivery will not be entertained.</li>
+            <li>कृपया वस्त्र सौंपने से पहले सभी जेबों की अच्छी तरह जाँच कर लें। जेब या वस्त्र में रह गई नकदी, आभूषण या अन्य कीमती वस्तुओं के लिए हम उत्तरदायी नहीं होंगे।</li>
+            <li>डिलीवरी के समय कृपया अपने वस्त्रों की जाँच अवश्य कर लें; डिलीवरी पूर्ण होने के बाद के दावों पर विचार करना संभव नहीं होगा।</li>
         </ul>
 
-        <h3>5. Unclaimed Items</h3>
+        <h3>5. बिना दावा की गई वस्तुएं (Unclaimed Items)</h3>
         <ul>
-            <li>Garments not collected within 30 days of the delivery date are not our responsibility for storage or safety.</li>
+            <li>सुपुर्दगी तिथि से 30 दिनों के भीतर न ली गई वस्तुओं के भंडारण या सुरक्षा की जिम्मेदारी सेवा केंद्र की नहीं रहेगी।</li>
         </ul>
 
-        <a href="index.html" class="back-link">← Back to Home</a>
-    </div>
-    <footer>© 2026 PRATIKSHA DRY CLEANERS | Ambabari, Jaipur</footer>
+        <a href="index.html" class="back-link">← मुख्य द्वार (Home) पर लौटें</a>
+    </main>
+
+    <footer>
+        <div>© 2026 प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</div>
+        <div class="footer-sub">शुचिता • सेवा • समर्पण | Mission 2047</div>
+    </footer>
 </body>
 </html>
