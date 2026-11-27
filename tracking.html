@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Track Journey | PRATIKSHA v12.0</title>
+    <title>Track Journey | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -45,29 +45,31 @@
         }
         
         .status-header { text-align: center; margin-bottom: 35px; border-bottom: 2px solid var(--sun-orange); padding-bottom: 15px; }
-        .status-header h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); font-size: 1.8rem; margin: 0; }
+        .status-header h2 { font-family: 'Playfair Display', serif; color: var(--saturn-blue); font-size: 1.7rem; margin: 0; }
+        .brand-tag { font-size: 0.72rem; color: var(--saturn-blue); font-weight: 700; margin-top: 4px; }
 
         .back-btn { display: inline-block; margin-bottom: 25px; color: var(--mercury-green); text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
 
         .step-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; position: relative; }
-        .step { display: flex; align-items: center; gap: 20px; opacity: 0.3; transition: all 0.8s ease; font-weight: 700; color: var(--saturn-blue); }
+        .step { display: flex; align-items: center; gap: 20px; opacity: 0.35; transition: all 0.8s ease; font-weight: 700; color: var(--saturn-blue); position: relative; z-index: 1; }
         .step.active { opacity: 1; }
 
         .circle { 
             width: 45px; height: 45px; border-radius: 50%; 
             background: #eee; 
             display: flex; align-items: center; justify-content: center; 
-            color: #777; font-size: 1.1rem; z-index: 1; 
+            color: #777; font-size: 1.1rem; z-index: 2; 
             border: 2px solid #ddd; font-weight: 900;
+            flex-shrink: 0;
         }
         .active .circle { background: var(--sun-orange); color: white; border-color: var(--gold-accent); box-shadow: 0 0 15px rgba(255, 140, 0, 0.4); }
         
-        .line { position: absolute; left: 22.5px; top: 0; width: 3px; height: 100%; background: #eee; z-index: 0; }
-        .line-progress { position: absolute; left: 22.5px; top: 0; width: 3px; background: var(--sun-orange); z-index: 0; transition: height 1s ease; }
+        .line { position: absolute; left: 21px; top: 22px; bottom: 22px; width: 3px; background: #eee; z-index: 0; }
+        .line-progress { position: absolute; left: 21px; top: 22px; width: 3px; max-height: calc(100% - 44px); background: var(--sun-orange); z-index: 1; transition: height 1s ease; }
         
         .inventory-card { background: #fdfae1; border: 1.5px dashed var(--gold-accent); border-radius: 25px; padding: 25px; margin-top: 40px; }
         .inventory-title { font-family: 'Playfair Display', serif; color: var(--saturn-blue); border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px; margin-bottom: 15px; font-weight: 900; font-size: 1.1rem; }
-        #inventoryList div { margin-bottom: 12px; padding-left: 15px; border-left: 3px solid var(--mercury-green); font-size: 0.92rem; font-weight: 600; color: #444; }
+        #inventoryList div { margin-bottom: 12px; padding-left: 15px; border-left: 3px solid var(--mercury-green); font-size: 0.92rem; font-weight: 600; color: #444; word-break: break-word; }
 
         .wa-btn { width: 100%; margin-top: 30px; background: var(--mercury-green); color: white; border: none; padding: 18px; border-radius: 20px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
         .footer-blessing { text-align: center; font-size: 0.75rem; color: var(--saturn-blue); margin-top: 40px; font-weight: bold; line-height: 1.5; }
@@ -81,10 +83,11 @@
         <a href="index.html" class="back-btn">← मुख्य द्वार</a>
         <div class="status-header">
             <h2>शुद्धिकरण चक्र</h2>
-            <div style="font-size: 0.7rem; color: var(--mercury-green); margin-top: 10px; letter-spacing: 1px; font-weight: bold;">ORDER TRACKING ID: <span id="dispMobile">...</span></div>
+            <div class="brand-tag">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
+            <div style="font-size: 0.7rem; color: var(--mercury-green); margin-top: 8px; letter-spacing: 1px; font-weight: bold;">ORDER TRACKING ID: <span id="dispMobile">...</span></div>
         </div>
 
-        <div id="loader">✨ कोस्मिक डेटा सिंक हो रहा है...</div>
+        <div id="loader">✨ डेटा सिंक हो रहा है...</div>
 
         <div class="step-container" id="stepsContent">
             <div class="line"></div>
@@ -96,23 +99,26 @@
         </div>
 
         <div class="inventory-card">
-            <div class="inventory-title"> Manifest / कपड़ों की सूची</div>
+            <div class="inventory-title">Manifest / कपड़ों की सूची</div>
             <div id="inventoryList">विवरण खोजा जा रहा है...</div>
         </div>
 
         <button class="wa-btn" onclick="sendToWhatsApp()">📲 स्टेटस के लिए पूछें</button>
-        <div class="footer-blessing">।। ऋणानुबंध ही सेवा का आधार है ।। <br> PRATIKSHA DIGITAL v12.0 | SONU NEEL</div>
+        <div class="footer-blessing">शुचिता • सेवा • समर्पण<br>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान | Mission 2047</div>
     </div>
 
     <script>
-        // 🔱 PRATIKSHA DIGITAL - CHITTI SUPREME FINAL ASTRA URL
         const scriptURL = "https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec";
         let globalStatus = ""; 
         let globalDetails = "";
 
+        function normalizeMobile(raw) {
+            return (raw || "").toString().replace(/\D/g, "").slice(-10);
+        }
+
         window.onload = function() {
-            const mobile = localStorage.getItem('userMobile');
-            if(!mobile) {
+            const mobile = normalizeMobile(localStorage.getItem('userMobile'));
+            if (!mobile || mobile.length < 10) {
                 document.getElementById('inventoryList').innerText = "कृपया पहले पंजीकरण या लॉगिन करें।";
                 return;
             }
@@ -125,32 +131,30 @@
             loader.style.display = 'block';
 
             try {
-                // v12.0 इंजन से डेटा सिंक
-                const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`);
+                const response = await fetch(`${scriptURL}?action=getMemberData&mobile=${encodeURIComponent(mobile)}`);
                 const data = await response.json();
 
-                if(data.status === "error" || data.status === "not_found") { 
-                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय आर्डर नहीं मिला। एडमिन द्वारा अपडेट की प्रतीक्षा करें।"; 
+                if (data.status === "error" || data.status === "not_found") { 
+                    document.getElementById('inventoryList').innerText = "अभी कोई सक्रिय आर्डर नहीं मिला। अपडेट की प्रतीक्षा करें।"; 
                     updateSteps("None");
                     return; 
                 }
 
                 globalStatus = data.orderStatus || "Pending"; 
-                globalDetails = data.orderDetails || "विवरण उपलब्ध नहीं";
+                globalDetails = data.orderDetails || data.details || "विवरण उपलब्ध नहीं";
                 
                 const invList = document.getElementById('inventoryList');
                 invList.innerHTML = '';
                 
-                // कपड़ों के विवरण को लिस्ट में बदलना
                 const items = globalDetails.split('\n');
                 items.forEach(item => { 
-                    if(item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
+                    if (item.trim()) invList.innerHTML += `<div>• ${item.trim()}</div>`; 
                 });
                 
                 updateSteps(globalStatus);
 
             } catch (err) {
-                document.getElementById('inventoryList').innerText = "कोस्मिक सिंक विफल।";
+                document.getElementById('inventoryList').innerText = "सिंक विफल। कृपया पुनः प्रयास करें।";
             } finally {
                 loader.style.display = 'none';
             }
@@ -159,8 +163,8 @@
         function updateSteps(status) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             const progressLine = document.getElementById('progressLine');
+            const stepsContent = document.getElementById('stepsContent');
             
-            // 🔱 'Munim Map' - मुनीम द्वारा डाले गए किसी भी कीवर्ड को पहचानना
             const stepsMap = { 
                 "pending": 1, "pickup": 1, "पिकअप": 1, "पेंडिंग": 1,
                 "washing": 2, "processing": 2, "process": 2, "प्रोसेसिंग": 2, "धुलाई": 2,
@@ -169,9 +173,9 @@
             };
             
             let level = 0;
-            let s = status.toString().trim().toLowerCase();
+            const s = (status || "").toString().trim().toLowerCase();
 
-            for (let key in stepsMap) {
+            for (const key in stepsMap) {
                 if (s.includes(key)) {
                     level = stepsMap[key];
                     break;
@@ -183,18 +187,20 @@
                 return;
             }
 
-            for(let i=1; i<=level; i++) { 
+            for (let i = 1; i <= level; i++) { 
                 const el = document.getElementById('step' + i); 
-                if(el) el.classList.add('active'); 
+                if (el) el.classList.add('active'); 
             }
 
-            let heightPercent = ((level - 1) / 3) * 100;
-            progressLine.style.height = `${heightPercent}%`;
+            const totalTrackHeight = Math.max(0, stepsContent.offsetHeight - 44);
+            const ratio = (level - 1) / 3;
+            progressLine.style.height = `${Math.round(totalTrackHeight * ratio)}px`;
         }
 
         function sendToWhatsApp() {
-            const mobile = localStorage.getItem('userMobile');
-            const msg = `*प्रतीक्षा ड्राईक्लीनर्स* ✨\nनमस्ते सोनू भाई,\n\nमेरा आर्डर स्टेटस: *${globalStatus}*\nआईडी: ${mobile}\n\nधन्यवाद! 🙏`;
+            const mobile = normalizeMobile(localStorage.getItem('userMobile')) || "उपलब्ध नहीं";
+            const statusDisp = globalStatus || "प्रतीक्षित";
+            const msg = `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\nजयपुर, राजस्थान | 📞 7740870095\n\nनमस्ते सोनू भाई,\n\nमेरा आर्डर स्टेटस: *${statusDisp}*\nआईडी: ${mobile}\n\nधन्यवाद! 🙏`;
             window.open(`https://wa.me/917740870095?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
