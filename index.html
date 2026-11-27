@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PRATIKSHA DRYCLEANERS | Cosmic Hub</title>
-    
+    <title>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान</title>
+
     <script>
         if (localStorage.getItem('isLoggedIn') !== 'true') {
             window.location.href = "login.html";
@@ -12,125 +12,489 @@
     </script>
 
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF8C00">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Inter:wght@400;600;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
-    
+    <meta name="theme-color" content="#13294B">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --sun-orange: #FF8C00;
-            --saturn-blue: #001F3F;
-            --cream-bg: #FFFDD0;
-            --diamond-silver: #e0e0e0;
-            --space-dark: #010103;
-            --star-gold: #FFD700;
+            --ivory-canvas: #FAF7F2;
+            --card-surface: #FFFFFF;
+            --royal-navy: #13294B;
+            --saffron-copper: #C86D2D;
+            --antique-gold: #B48A2C;
+            --emerald-seal: #1E6F50;
+            --slate-ink: #3B4A62;
+            --hairline-border: #E5DCCB;
+            --soft-sand: #F3ECE0;
         }
 
-        body { font-family: 'Inter', 'Mukta', sans-serif; margin: 0; padding: 0; background-color: var(--cream-bg); color: #333; overflow-x: hidden; }
-        
-        /* स्टेटस बार */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mukta', 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--ivory-canvas);
+            background-image:
+                radial-gradient(circle at 12% 10%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 88% 85%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+            color: var(--royal-navy);
+            overflow-x: hidden;
+        }
+
+        /* शीर्ष स्थिति पट्टी */
         .user-status-bar {
-            background: white; padding: 12px 15px; display: flex; justify-content: space-between;
-            align-items: center; font-size: 0.85rem; position: sticky; top: 0; z-index: 1200;
-            border-bottom: 3px solid var(--sun-orange); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: var(--card-surface);
+            padding: 11px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            border-bottom: 2px solid var(--hairline-border);
+            color: var(--slate-ink);
         }
-        .status-pill { background: var(--sun-orange); color: white; padding: 5px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
-        .wallet-pill { background: var(--saturn-blue); color: var(--star-gold); padding: 5px 10px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; border: 1px solid var(--star-gold); }
 
-        /* नेविगेशन */
-        nav.custom-nav { 
-            background: var(--saturn-blue); padding: 5px 15px; position: sticky; 
-            top: 48px; z-index: 1100; display: flex; align-items: center; 
-            justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.2); height: 65px;
+        .status-pill {
+            background: var(--saffron-copper);
+            color: #FFFFFF;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.4px;
+            white-space: nowrap;
         }
-        .nav-brand-wrapper { 
-            position: absolute; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; gap: 8px; 
+
+        .wallet-pill {
+            background: var(--soft-sand);
+            color: var(--royal-navy);
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            border: 1.5px solid var(--antique-gold);
+            white-space: nowrap;
         }
-        .nav-brand-wrapper img { height: 45px; width: auto; border-radius: 8px; border: 1.5px solid white; background: white; }
-        .nav-brand-wrapper span { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1rem; color: white; letter-spacing: 0.5px; white-space: nowrap; }
 
-        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; z-index: 10; }
-        .menu-icon div { width: 25px; height: 3px; background: white; border-radius: 2px; }
-
-        /* ड्रॉपडाउन मेन्यू (केवल ग्राहक उपयोगी पेज और नियम व शर्तें) */
-        .dropdown-content { 
-            display: none; position: absolute; top: 65px; left: 0; width: 100%;
-            background: white; border-bottom: 5px solid var(--sun-orange); z-index: 1150; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        /* मुख्य नेविगेशन */
+        nav.custom-nav {
+            background: var(--royal-navy);
+            padding: 6px 16px;
+            position: sticky;
+            top: 44px;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 66px;
+            border-bottom: 3px solid var(--saffron-copper);
+            box-shadow: 0 6px 18px rgba(19, 41, 75, 0.14);
         }
-        .dropdown-content a { display: block; padding: 18px 25px; color: var(--saturn-blue); text-decoration: none; font-weight: 700; border-bottom: 1px solid #f0f0f0; transition: 0.3s; }
 
-        .top-bar-info { background: var(--saturn-blue); color: #FFFDD0; text-align: center; padding: 10px; font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+        .nav-brand-wrapper {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 66vw;
+        }
+
+        .nav-brand-wrapper img {
+            height: 42px;
+            width: auto;
+            border-radius: 8px;
+            border: 1.5px solid var(--antique-gold);
+            background: #FFFFFF;
+            padding: 2px;
+        }
+
+        .nav-brand-wrapper span {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-weight: 900;
+            font-size: 15px;
+            color: #FFFFFF;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 30px;
+            z-index: 10;
+        }
+
+        .menu-icon div {
+            width: 24px;
+            height: 2.5px;
+            background: #FFFFFF;
+            border-radius: 2px;
+        }
+
+        .nav-right-btns {
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-icon-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .nav-icon-btn:hover {
+            background: var(--saffron-copper);
+            border-color: var(--saffron-copper);
+        }
+
+        /* ड्रॉपडाउन मेन्यू */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 66px;
+            left: 0;
+            width: 100%;
+            background: var(--card-surface);
+            border-bottom: 4px solid var(--saffron-copper);
+            z-index: 1150;
+            box-shadow: 0 14px 28px rgba(19, 41, 75, 0.14);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 15px 24px;
+            color: var(--royal-navy);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            border-bottom: 1px solid var(--hairline-border);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--soft-sand);
+            color: var(--saffron-copper);
+        }
+
+        /* स्वागत पट्टी */
+        .top-bar-info {
+            background: var(--soft-sand);
+            color: var(--royal-navy);
+            text-align: center;
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.6px;
+            border-bottom: 1px solid var(--hairline-border);
+        }
 
         /* वीडियो सेक्शन */
-        .video-container { position: relative; width: 100%; height: 50vh; max-height: 600px; background: #000; overflow: hidden; }
-        #heroVid { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
-        .vid-controls { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 10; }
-        .v-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.5); color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; }
-
-        /* फोटो स्ट्रिप */
-        .photo-strip { background: white; padding: 25px 0; overflow: hidden; border-bottom: 1px solid #eee; }
-        .strip-track { display: flex; width: max-content; animation: scroll-images 60s linear infinite; }
-        .strip-track img { width: 160px; height: 220px; object-fit: cover; background: #fff; margin: 0 12px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        @keyframes scroll-images { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* --- तारामंडल SERVICE HUB STYLE --- */
-        .service-hub { 
-            padding: 80px 0 140px; background: var(--space-dark); border-radius: 60px 60px 0 0; 
-            margin-top: -40px; text-align: center; position: relative; z-index: 5; color: white; overflow: hidden;
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 48vh;
+            min-height: 260px;
+            max-height: 540px;
+            background: var(--royal-navy);
+            overflow: hidden;
         }
-        
-        .polaris { position: absolute; top: 12%; right: 15%; width: 5px; height: 5px; background: white; border-radius: 50%; box-shadow: 0 0 18px 4px white; z-index: 1; animation: polaris-blink 4s ease-in-out infinite; }
-        @keyframes polaris-blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
-        .saptrishi-star { position: absolute; width: 2.5px; height: 2.5px; background: white; border-radius: 50%; z-index: 1; box-shadow: 0 0 6px white; }
-        .s1 { top: 22%; right: 28%; } .s2 { top: 19%; right: 35%; } .s3 { top: 21%; right: 41%; } .s4 { top: 26%; right: 45%; } .s5 { top: 32%; right: 42%; } .s6 { top: 38%; right: 39%; } .s7 { top: 37%; right: 32%; }
-        .milky-way { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, rgba(100,150,255,0.03) 40%, transparent 75%); transform: rotate(-35deg); z-index: 0; animation: milky-drift 120s linear infinite; }
-        .star-scatter { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 10px); background-size: 250px 250px; animation: scatter-move 100s linear infinite; opacity: 0.4; z-index: 0; }
 
-        /* सर्विस व्हील - चक्रव्यूह */
-        .wheel-container { position: relative; width: 340px; height: 340px; margin: 0 auto; z-index: 10; animation: rotate-chakravyuh 45s linear infinite; }
-        @keyframes rotate-chakravyuh { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        #heroVid {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.92;
+        }
 
-        .center-action { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110px; height: 110px; background: radial-gradient(circle, #FFD700 0%, #FF8C00 60%, #FF4500 100%); border: 4px solid white; border-radius: 50%; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; font-weight: bold; z-index: 20; box-shadow: 0 0 35px var(--sun-orange); animation: sun-pulse 4s ease-in-out infinite; }
-        @keyframes sun-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 60px #FFFF00; } }
+        .vid-controls {
+            position: absolute;
+            bottom: 18px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            z-index: 10;
+        }
 
-        .orbit-node { position: absolute; width: 90px; height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); animation: counter-rotate 45s linear infinite; z-index: 5; border: 2px solid var(--diamond-silver); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
-        @keyframes counter-rotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        .v-btn {
+            background: rgba(19, 41, 75, 0.82);
+            backdrop-filter: blur(6px);
+            border: 1.5px solid rgba(255, 255, 255, 0.55);
+            color: #FFFFFF;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
 
-        .pos1 { top: -10px; left: 50%; margin-left: -45px; background: linear-gradient(135deg, #FFD700, #DAA520); }
-        .pos2 { top: 70px; right: 5px; background: linear-gradient(135deg, #F5F5F5, #C0C0C0); }
-        .pos3 { bottom: 70px; right: 5px; background: linear-gradient(135deg, #FF0000, #8B0000); }
-        .pos4 { bottom: -10px; left: 50%; margin-left: -45px; background: linear-gradient(135deg, #00FF7F, #006400); }
-        .pos5 { bottom: 70px; left: 5px; background: linear-gradient(135deg, #191970, #000033); }
-        .pos6 { top: 70px; left: 5px; background: linear-gradient(135deg, #8B4513, #3E1F09); }
+        .v-btn:hover {
+            background: var(--saffron-copper);
+        }
 
-        .orbit-node span { font-size: 1.5rem; filter: drop-shadow(0 0 5px black); color: white; }
-        .orbit-node p { font-size: 0.6rem; font-weight: 800; margin-top: 4px; color: white; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 1px 1px 2px black; }
+        /* झलक फोटो पट्टी */
+        .photo-strip {
+            background: var(--card-surface);
+            padding: 22px 0;
+            overflow: hidden;
+            border-bottom: 1px solid var(--hairline-border);
+        }
 
-        /* रेटिंग और फुटर */
-        .rating-box { background: white; padding: 40px 20px; text-align: center; }
-        .stars { color: #FFD700; font-size: 1.8rem; margin-bottom: 12px; letter-spacing: 5px; }
-        .rating-info { font-weight: 700; font-size: 1rem; color: var(--saturn-blue); }
-        .rating-avatars { display: flex; justify-content: center; gap: -10px; margin: 20px 0; }
-        .rating-avatars img { width: 45px; height: 45px; border-radius: 50%; border: 3px solid white; margin-left: -12px; object-fit: cover; }
+        .strip-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-images 60s linear infinite;
+        }
 
-        /* 🔱 कोस्मिक फुटर (नियम व शर्तें लिंक के साथ) */
-        .big-footer { background: var(--saturn-blue); color: white; padding: 70px 20px 110px; text-align: center; border-top: 4px solid var(--sun-orange); }
-        .footer-brand { font-family: 'Playfair Display'; font-size: 2.8rem; font-weight: 900; color: white; margin-bottom: 20px; }
-        .footer-address { font-size: 0.85rem; line-height: 1.8; margin-bottom: 25px; color: rgba(255,255,255,0.8); }
-        .footer-address b { color: var(--star-gold); }
-        .footer-links { margin-bottom: 25px; }
-        .footer-links a { color: var(--star-gold); text-decoration: underline; font-weight: bold; font-size: 0.9rem; }
-        .signature-line { margin-top: 40px; font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--star-gold); font-style: italic; letter-spacing: 2px; }
-        
-        .btn-whatsapp { position: fixed; bottom: 25px; right: 25px; z-index: 2000; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+        .strip-track img {
+            width: 156px;
+            height: 210px;
+            object-fit: cover;
+            background: var(--soft-sand);
+            margin: 0 10px;
+            border-radius: 14px;
+            border: 1.5px solid var(--hairline-border);
+            box-shadow: 0 6px 14px rgba(19, 41, 75, 0.06);
+        }
+
+        @keyframes scroll-images {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* सेवा मंडप (संतुलित कार्ड ग्रिड - बिना किसी भ्रमित करने वाले चक्र के) */
+        .service-hub {
+            padding: 54px 20px 64px;
+            background: var(--ivory-canvas);
+            text-align: center;
+        }
+
+        .hub-kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--saffron-copper);
+            background: var(--soft-sand);
+            padding: 4px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--hairline-border);
+            margin-bottom: 10px;
+        }
+
+        .hub-heading {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            margin: 0 auto 10px;
+            color: var(--royal-navy);
+            font-size: clamp(24px, 3.8vw, 34px);
+            font-weight: 900;
+        }
+
+        .hub-subtitle {
+            max-width: 640px;
+            margin: 0 auto 34px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--slate-ink);
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .service-tile {
+            background: var(--card-surface);
+            border: 1.5px solid var(--hairline-border);
+            border-top: 4px solid var(--antique-gold);
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-decoration: none;
+            color: var(--royal-navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(19, 41, 75, 0.05);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .service-tile:hover {
+            transform: translateY(-3px);
+            border-top-color: var(--saffron-copper);
+            box-shadow: 0 12px 26px rgba(19, 41, 75, 0.09);
+        }
+
+        .service-tile.featured-tile {
+            background: linear-gradient(135deg, #FFFDF9 0%, #FBF1E1 100%);
+            border-top: 4px solid var(--saffron-copper);
+        }
+
+        .tile-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--soft-sand);
+            border: 1px solid var(--hairline-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--saffron-copper);
+            font-weight: 700;
+        }
+
+        .tile-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--royal-navy);
+        }
+
+        .tile-desc {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--slate-ink);
+        }
+
+        /* ग्राहक विश्वास व सम्मान */
+        .rating-box {
+            background: var(--card-surface);
+            padding: 44px 20px;
+            text-align: center;
+            border-top: 1px solid var(--hairline-border);
+        }
+
+        .stars {
+            color: var(--antique-gold);
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+        }
+
+        .rating-info {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--royal-navy);
+        }
+
+        .rating-avatars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .rating-avatars img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--saffron-copper);
+            object-fit: cover;
+        }
+
+        /* फुटर */
+        .big-footer {
+            background: var(--royal-navy);
+            color: #FFFFFF;
+            padding: 56px 20px 88px;
+            text-align: center;
+            border-top: 4px solid var(--saffron-copper);
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+
+        .footer-address {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 22px;
+            color: #E6EDF6;
+        }
+
+        .footer-address b {
+            color: #F3DCC0;
+        }
+
+        .footer-links {
+            margin-bottom: 22px;
+        }
+
+        .footer-links a {
+            color: #F3DCC0;
+            text-decoration: underline;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .signature-line {
+            margin-top: 28px;
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: 16px;
+            color: #FFFFFF;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .btn-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: var(--emerald-seal);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 8px 22px rgba(19, 41, 75, 0.24);
+            border: 2px solid #FFFFFF;
+        }
+
+        @media (max-width: 600px) {
+            .nav-brand-wrapper span {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="user-status-bar">
-        <div>🏠 <span id="uHouse">...</span> | 👤 <b id="uName">ग्राहक</b></div>
-        <div style="display:flex; gap:10px; align-items:center;">
+        <div>🏠 <span id="uHouse">...</span> | 👤 <b id="uName">सम्मानित ग्राहक</b></div>
+        <div style="display:flex; gap:8px; align-items:center;">
             <div id="uWallet" class="wallet-pill">₹0</div>
             <div onclick="window.location.href='tracking.html'" style="cursor:pointer;">
                 <span id="uStatus" class="status-pill">Online</span>
@@ -142,98 +506,132 @@
         <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <div class="nav-brand-wrapper">
             <img src="logo.png" alt="Logo">
-            <span>PRATIKSHA DRYCLEANERS</span>
+            <span>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</span>
         </div>
         <div class="nav-right-btns">
-            <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="location.reload()">🔄</button>
-            <button style="background:none; border:none; font-size:1.4rem; color:white; cursor:pointer;" onclick="logout()">🚪</button>
+            <button type="button" class="nav-icon-btn" onclick="location.reload()">↻</button>
+            <button type="button" class="nav-icon-btn" onclick="logout()">लॉगआउट</button>
         </div>
         <div class="dropdown-content" id="navMenu">
-            <a href="index.html">🏠 होम पेज</a>
-            <a href="services.html">🧺 हमारी सेवाएं</a>
-            <a href="process.html">⚙️ कार्य प्रक्रिया</a>
-            <a href="about.html">📖 हमारे बारे में</a>
-            <a href="contact.html">📞 संपर्क करें</a>
-            <a href="tracking.html">📦 ट्रैकिंग</a>
-            <a href="Member_Exclusive.html">💎 मेंबरशिप कार्ड</a>
-            <a href="terms.html">📜 नियम व शर्तें (Terms & Conditions)</a>
+            <a href="index.html">होम पेज (Home)</a>
+            <a href="services.html">हमारी सेवाएं (Services)</a>
+            <a href="process.html">कार्य प्रक्रिया (Process)</a>
+            <a href="about.html">हमारी विरासत (Legacy)</a>
+            <a href="contact.html">संपर्क करें (Contact)</a>
+            <a href="tracking.html">ऑर्डर ट्रैकिंग (Tracking)</a>
+            <a href="Member_Exclusive.html">सदस्य पोर्टल (Member Card)</a>
+            <a href="terms.html">नियम व शर्तें (Terms & Conditions)</a>
         </div>
     </nav>
 
-    <div class="top-bar-info">★ Premium Fabric Care | Ambabari - Jaipur ★</div>
+    <div class="top-bar-info">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान | शुचिता • सेवा • समर्पण</div>
 
     <div class="video-container" onclick="toggleVid()">
         <video id="heroVid" autoplay muted playsinline onended="nextVid()">
             <source src="10.mp4" type="video/mp4">
         </video>
         <div class="vid-controls">
-            <button class="v-btn" onclick="event.stopPropagation(); prevVid();">◀</button>
-            <button class="v-btn" id="sBtn" onclick="event.stopPropagation(); toggleSound();">🔇</button>
-            <button class="v-btn" onclick="event.stopPropagation(); nextVid();">▶</button>
+            <button type="button" class="v-btn" onclick="event.stopPropagation(); prevVid();">◀ पिछला</button>
+            <button type="button" class="v-btn" id="sBtn" onclick="event.stopPropagation(); toggleSound();">🔇 ध्वनि</button>
+            <button type="button" class="v-btn" onclick="event.stopPropagation(); nextVid();">अगला ▶</button>
         </div>
     </div>
 
     <div class="photo-strip"><div class="strip-track" id="imageTrack"></div></div>
 
     <section class="service-hub">
-        <div class="milky-way"></div><div class="star-scatter"></div><div class="polaris"></div>
-        <div class="saptrishi-star s1"></div><div class="saptrishi-star s2"></div><div class="saptrishi-star s3"></div>
-        <div class="saptrishi-star s4"></div><div class="saptrishi-star s5"></div><div class="saptrishi-star s6"></div><div class="saptrishi-star s7"></div>
+        <div class="hub-kicker">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
+        <h2 class="hub-heading">हमारी विश्वसनीय सेवाएं</h2>
+        <p class="hub-subtitle">शुचिता और पारदर्शिता के साथ वस्त्र शुद्धि, स्टीम प्रेस, ई-मित्र जनसेवा और सहज ऑर्डर ट्रैकिंग।</p>
 
-        <h2 style="font-family:'Playfair Display'; margin-bottom:60px; color:var(--sun-orange); font-size:2rem; letter-spacing:3px; position:relative;">COSMIC SERVICES</h2>
-        
-        <div class="wheel-container">
-            <a href="services.html" class="center-action"><span style="font-size:2rem;">⚡</span><p>RAPID</p></a>
-            <a href="services.html#dry" class="orbit-node pos1"><span>🧺</span><p>Dry Clean</p></a>
-            <a href="services.html#iron" class="orbit-node pos2"><span>👔</span><p>Steam Iron</p></a>
-            <a href="services.html#wed" class="orbit-node pos3"><span>💃</span><p>Wedding</p></a>
-            <a href="services.html#home" class="orbit-node pos4"><span>🏠</span><p>Home Care</p></a>
-            <a href="services.html#shoe" class="orbit-node pos5"><span>👟</span><p>Shoes</p></a>
-            <a href="services.html#leather" class="orbit-node pos6"><span>🧥</span><p>Leather</p></a>
+        <div class="services-grid">
+            <a href="services.html" class="service-tile featured-tile">
+                <div class="tile-icon">⚡</div>
+                <div class="tile-title">त्वरित सेवा केंद्र</div>
+                <div class="tile-desc">सभी वस्त्र व सेवा दरें देखें</div>
+            </a>
+            <a href="services.html#dry" class="service-tile">
+                <div class="tile-icon">❖</div>
+                <div class="tile-title">ड्राई क्लीनिंग</div>
+                <div class="tile-desc">नाज़ुक व कीमती वस्त्रों की सुरक्षित सफाई</div>
+            </a>
+            <a href="services.html#iron" class="service-tile">
+                <div class="tile-icon">◈</div>
+                <div class="tile-title">स्टीम प्रेस</div>
+                <div class="tile-desc">बेदाग व सहज सिलवट-मुक्त फिनिश</div>
+            </a>
+            <a href="services.html#wed" class="service-tile">
+                <div class="tile-icon">✦</div>
+                <div class="tile-title">विवाह एवं उत्सव परिधान</div>
+                <div class="tile-desc">लहंगा, साड़ी व शेरवानी की विशेष देखभाल</div>
+            </a>
+            <a href="services.html#home" class="service-tile">
+                <div class="tile-icon">⌂</div>
+                <div class="tile-title">होम केयर</div>
+                <div class="tile-desc">पर्दे, कंबल, रजाई व बेड शीट सेवा</div>
+            </a>
+            <a href="services.html#shoe" class="service-tile">
+                <div class="tile-icon">◉</div>
+                <div class="tile-title">जूते एवं फुटवियर</div>
+                <div class="tile-desc">गहरी सफाई व संरक्षित देखभाल</div>
+            </a>
+            <a href="services.html#leather" class="service-tile">
+                <div class="tile-icon">◈</div>
+                <div class="tile-title">लेदर एवं विंटर केयर</div>
+                <div class="tile-desc">जैकेट व ऊनी वस्त्रों का विशेष उपचार</div>
+            </a>
+            <a href="tracking.html" class="service-tile">
+                <div class="tile-icon">⌖</div>
+                <div class="tile-title">ऑर्डर ट्रैकिंग</div>
+                <div class="tile-desc">अपने ऑर्डर की लाइव स्थिति जांचें</div>
+            </a>
         </div>
     </section>
 
-    <div class="rating-box">
+    <section class="rating-box" aria-label="ग्राहक विश्वास">
         <div class="stars">★★★★★</div>
-        <div class="rating-info">5.0 | 1200+ Trusted Clients</div>
-        <div class="rating-avatars"><img src="1.jpg"><img src="2.jpg"><img src="3.jpg"><img src="4.jpg"></div>
-        <p style="color:#888; font-size:0.85rem; font-style:italic;">"शुचिता और गुणवत्ता का अटूट ऋणानुबंध"</p>
-    </div>
+        <div class="rating-info">5.0 | 1200+ Trusted Families • जयपुर, राजस्थान</div>
+        <div class="rating-avatars">
+            <img src="1.jpg" alt="Family 1">
+            <img src="2.jpg" alt="Family 2">
+            <img src="3.jpg" alt="Family 3">
+            <img src="4.jpg" alt="Family 4">
+        </div>
+        <p style="color:#3B4A62; font-size:14px; font-style:italic; font-weight:600;">"शुचिता और गुणवत्ता का अटूट ऋणानुबंध"</p>
+    </section>
 
-    <!-- 🔱 कोस्मिक फुटर MATRIX -->
-    <div class="big-footer">
-        <div class="footer-brand">प्रतीक्षा ड्राई क्लीनर्स</div>
+    <footer class="big-footer">
+        <div class="footer-brand">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</div>
         <div class="footer-address">
-            <b>पता:</b> 11, शंकर विहार, नियर 200 फीट बाईपास,<br>
-            मुरलीपुरा स्कीम, जयपुर, राजस्थान - 302039<br><br>
+            <b>सेवा केंद्र:</b> जयपुर, राजस्थान<br>
             <b>मोबाइल:</b> +91 77408 70095 | <b>ईमेल:</b> sonudhobi1995@gmail.com
         </div>
         <div class="footer-links">
-            <a href="terms.html">📜 नियम व शर्तें (Terms & Conditions)</a>
+            <a href="terms.html">नियम व शर्तें (Terms & Conditions)</a>
         </div>
-        <div style="font-size: 0.7rem; letter-spacing: 3px; color: #999; text-transform: uppercase;">।। मिशन 2047: ऋणानुबंध ।।</div>
-        <div class="signature-line">प्रतीक्षा डिजाइन में सोनू नील</div>
-    </div>
+        <div style="font-size: 12px; letter-spacing: 2px; color: #DCE5F2; font-weight: 700;">शुचिता • सेवा • समर्पण | MISSION 2047</div>
+        <div class="signature-line">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</div>
+    </footer>
 
-    <a href="https://wa.me/7740870095?text=नमस्ते, मुझे पिकअप चाहिए।" class="btn-whatsapp">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="60" alt="WA">
+    <a href="https://wa.me/917740870095?text=नमस्ते, मुझे पिकअप चाहिए।" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+        WhatsApp पिकअप
     </a>
 
     <script>
-        const scriptURL = "https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec";
-        
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxrvVW7RC6bxel3KVerx6AQb-Ool4BzrYAdbeQRbBXglZ7EV9N0l8uVQ-kcDJaXC__t/exec";
+
         const vList = ["10.mp4", "packaging.mp4", "steam.mp4", "wedding.mp4", "winter.mp4", "winter1.mp4"];
         let vIdx = 0;
         const player = document.getElementById('heroVid');
 
         function nextVid() { vIdx = (vIdx + 1) % vList.length; player.src = vList[vIdx]; player.play(); }
         function prevVid() { vIdx = (vIdx - 1 + vList.length) % vList.length; player.src = vList[vIdx]; player.play(); }
-        function toggleVid() { if(player.paused) player.play(); else player.pause(); }
-        function toggleSound() { player.muted = !player.muted; document.getElementById('sBtn').innerText = player.muted ? "🔇" : "🔊"; }
+        function toggleVid() { if (player.paused) player.play(); else player.pause(); }
+        function toggleSound() { player.muted = !player.muted; document.getElementById('sBtn').innerText = player.muted ? "🔇 ध्वनि" : "🔊 ध्वनि"; }
 
         const track = document.getElementById('imageTrack');
         let imgHTML = '';
-        for(let i=1; i<=19; i++) { imgHTML += `<img src="${i}.jpg">`; }
+        for (let i = 1; i <= 19; i++) { imgHTML += `<img src="${i}.jpg" alt="सेवा झलक ${i}">`; }
         track.innerHTML = imgHTML + imgHTML;
 
         function toggleMenu() {
@@ -241,26 +639,36 @@
             m.style.display = (m.style.display === 'block') ? 'none' : 'block';
         }
 
-        function logout() { if(confirm("लॉगआउट?")){ localStorage.clear(); location.href="login.html"; } }
+        function logout() { if (confirm("क्या आप लॉगआउट करना चाहते हैं?")) { localStorage.clear(); location.href = "login.html"; } }
+
+        function normalizeMobile(raw) {
+            return (raw || "").toString().replace(/\D/g, "").slice(-10);
+        }
 
         window.onload = function() {
-            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "🏠";
-            document.getElementById('uName').innerText = localStorage.getItem('userName') || "Guest";
-            const mobile = localStorage.getItem('userMobile');
-            if(mobile) {
-                fetch(`${scriptURL}?action=getMemberData&mobile=${mobile}`)
-                .then(r => r.json()).then(d => {
-                    if(d.balance !== undefined) document.getElementById('uWallet').innerText = "₹" + d.balance;
-                    if(d.status) {
-                        const s = document.getElementById('uStatus');
-                        s.innerText = d.status;
-                        if(d.status.includes("Ready")) s.style.background = "#2E8B57";
-                    }
-                }).catch(() => { document.getElementById('uStatus').innerText = "Online"; });
+            document.getElementById('uHouse').innerText = localStorage.getItem('userHouse') || "H-1";
+            document.getElementById('uName').innerText = localStorage.getItem('userName') || "सम्मानित ग्राहक";
+            const mobile = normalizeMobile(localStorage.getItem('userMobile'));
+            if (mobile && mobile.length >= 10) {
+                fetch(`${scriptURL}?action=getMemberData&mobile=${encodeURIComponent(mobile)}`)
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.balance !== undefined) document.getElementById('uWallet').innerText = "₹" + parseFloat(d.balance || 0).toFixed(0);
+                        if (d.name && !localStorage.getItem('userName')) document.getElementById('uName').innerText = d.name;
+                        const st = d.orderStatus || d.status;
+                        if (st) {
+                            const s = document.getElementById('uStatus');
+                            s.innerText = st;
+                            if (st.toLowerCase().includes("ready") || st.includes("तैयार") || st.includes("delivered")) {
+                                s.style.background = "#1E6F50";
+                            }
+                        }
+                    })
+                    .catch(() => { document.getElementById('uStatus').innerText = "Online"; });
             }
         };
 
-        document.onclick = (e) => { if(!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display='none'; };
+        document.onclick = (e) => { if (!e.target.closest('.custom-nav')) document.getElementById('navMenu').style.display = 'none'; };
     </script>
 </body>
 </html>
