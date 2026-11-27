@@ -4,86 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>डैशबोर्ड | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;700&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        :root { 
-            --pure-moon: #ffffff;
-            --midnight: #000205; 
-            --accent-gold: #FFD700;
-            --sun-orange: #FF8C00;
-            --glass-border: rgba(255, 215, 0, 0.3);
+        :root {
+            --ivory-canvas: #FAF7F2;
+            --card-surface: #FFFFFF;
+            --royal-navy: #13294B;
+            --saffron-copper: #C86D2D;
+            --antique-gold: #B48A2C;
+            --emerald-seal: #1E6F50;
+            --slate-ink: #3B4A62;
+            --hairline-border: #E5DCCB;
+            --soft-sand: #F3ECE0;
         }
 
-        body { 
-            font-family: 'Inter', 'Mukta', sans-serif; 
-            background: var(--midnight); 
-            margin: 0; padding: 0;
-            color: white;
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mukta', 'Inter', sans-serif;
+            background-color: var(--ivory-canvas);
+            background-image:
+                radial-gradient(circle at 12% 10%, rgba(200, 109, 45, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 88% 85%, rgba(19, 41, 75, 0.05) 0%, transparent 45%);
+            margin: 0;
+            padding: 0;
+            color: var(--royal-navy);
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* कोस्मिक सौरमंडल बैकग्राउंड */
-        .solar-system {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at center, #001a33 0%, #000205 100%);
-            pointer-events: none;
+        /* शीर्ष पटल / हेडर */
+        header {
+            background: var(--card-surface);
+            border-bottom: 3px solid var(--saffron-copper);
+            padding: 26px 20px 22px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(19, 41, 75, 0.06);
         }
 
-        .star-field {
-            position: absolute;
-            width: 200%; height: 200%;
-            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0));
-            background-repeat: repeat;
-            animation: moveStars 100s linear infinite;
+        .crest-badge {
+            width: 66px;
+            height: 66px;
+            margin: 0 auto 12px;
+            border-radius: 18px;
+            background: var(--soft-sand);
+            border: 1.5px solid var(--antique-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            color: var(--saffron-copper);
+            box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.85);
         }
 
-        @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-50%); } }
-
-        /* हेडर */
-        header { 
-            text-align: center; 
-            padding: 35px 20px 20px; 
-            background: rgba(0,0,0,0.5); 
-            backdrop-filter: blur(10px); 
-            border-bottom: 2px solid var(--sun-orange); 
+        .org-kicker {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--saffron-copper);
+            background: var(--soft-sand);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--hairline-border);
+            margin-bottom: 8px;
         }
 
-        .logo-ring {
-            width: 70px; height: 70px;
-            border: 2px solid var(--accent-gold);
-            border-radius: 50%;
-            margin: 0 auto 10px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 20px var(--accent-gold);
-            font-size: 1.5rem;
+        h1 {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            font-size: clamp(20px, 3.2vw, 28px);
+            font-weight: 900;
+            color: var(--royal-navy);
+            margin: 0;
+            letter-spacing: 0.4px;
         }
 
-        h1 { font-family: 'Playfair Display'; font-size: 24px; color: var(--accent-gold); margin: 0; letter-spacing: 1.5px; }
-        p.mission { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #ccc; margin-top: 6px; }
+        p.mission {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--slate-ink);
+            margin: 8px 0 0;
+            letter-spacing: 0.6px;
+        }
 
-        /* मुख्य डैशबोर्ड ग्रिड */
+        /* मुख्य कंटेनर */
         .dashboard-container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px 40px;
+            max-width: 1120px;
+            margin: 28px auto;
+            padding: 0 20px 44px;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 25px;
-            position: relative;
-            z-index: 1;
+            gap: 24px;
         }
 
-        .stats-grid { 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 20px; 
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
         }
 
         @media (min-width: 600px) {
@@ -92,98 +113,202 @@
             }
         }
 
-        @media (min-width: 768px) {
-            .dashboard-container {
-                grid-template-columns: 1fr 1fr;
-            }
+        @media (min-width: 900px) {
             .stats-grid {
-                grid-column: 1 / -1;
                 grid-template-columns: repeat(4, 1fr);
             }
             .stats-grid .highlight-card {
                 grid-column: 1 / -1;
             }
-            .sip-tracker,
-            .action-panel {
-                grid-column: 1 / -1;
-            }
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 25px 20px;
+            background: var(--card-surface);
+            border: 1px solid var(--hairline-border);
+            border-top: 4px solid var(--antique-gold);
+            border-radius: 16px;
+            padding: 22px 18px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-        .stat-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
-
-        .highlight-card { background: rgba(255,215,0,0.06); }
-        .label { font-size: 12px; color: #ccc; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-        .value { font-size: 28px; font-weight: 900; color: var(--pure-moon); }
-        .gold-text { color: var(--accent-gold); font-size: 32px; }
-
-        /* SIP संकल्प ट्रैकर कार्ड */
-        .sip-tracker { 
-            background: rgba(255, 215, 0, 0.04); 
-            border-radius: 25px; 
-            border: 1px solid var(--glass-border); 
-            padding: 30px;
-            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(19, 41, 75, 0.05);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .sip-title { font-family: 'Playfair Display'; color: var(--accent-gold); text-align: center; margin-bottom: 20px; font-size: 22px; letter-spacing: 1px; }
-        .progress-container { background: rgba(255,255,255,0.1); border-radius: 12px; height: 16px; margin: 15px 0; overflow: hidden; border: 1px solid rgba(255,215,0,0.2); }
-        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-gold), var(--sun-orange)); transition: width 1s ease-in-out; border-radius: 12px; }
-        .sip-footer { display: flex; justify-content: space-between; font-size: 13px; color: #ccc; font-weight: bold; }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-top-color: var(--saffron-copper);
+            box-shadow: 0 12px 28px rgba(19, 41, 75, 0.09);
+        }
 
-        /* नेविगेशन और एक्शन बटन */
-        .action-panel {
+        .highlight-card {
+            background: linear-gradient(135deg, #FFFDF9 0%, #FBF3E4 100%);
+            border-top: 4px solid var(--saffron-copper);
+            border-color: #DFC79B;
+        }
+
+        .label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--slate-ink);
+            margin-bottom: 8px;
+            letter-spacing: 0.4px;
+        }
+
+        .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--royal-navy);
+            line-height: 1.2;
+        }
+
+        .copper-text {
+            color: var(--saffron-copper);
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        /* SIP संकल्प कार्ड */
+        .sip-tracker {
+            background: var(--card-surface);
+            border-radius: 18px;
+            border: 1px solid var(--hairline-border);
+            border-left: 5px solid var(--emerald-seal);
+            padding: 26px;
+            box-shadow: 0 8px 24px rgba(19, 41, 75, 0.05);
+        }
+
+        .sip-title {
+            font-family: 'Playfair Display', 'Mukta', serif;
+            color: var(--royal-navy);
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .sip-sub {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--saffron-copper);
+            margin-bottom: 14px;
+        }
+
+        .progress-container {
+            background: var(--soft-sand);
+            border-radius: 999px;
+            height: 16px;
+            margin: 14px 0;
+            overflow: hidden;
+            border: 1px solid var(--hairline-border);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--saffron-copper), var(--emerald-seal));
+            transition: width 0.9s ease-in-out;
+            border-radius: 999px;
+        }
+
+        .sip-footer {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--slate-ink);
+            font-weight: 700;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-
-        .refresh-btn, .nav-admin-btn {
-            display: block; width: 100%; padding: 18px; 
-            border: none; border-radius: 15px; font-weight: 900; 
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px;
-            text-align: center; text-decoration: none; font-size: 1rem;
-            box-sizing: border-box;
-            transition: 0.3s;
-        }
-        .refresh-btn { background: var(--accent-gold); color: black; box-shadow: 0 5px 20px rgba(255,215,0,0.3); }
-        .refresh-btn:hover { transform: scale(1.02); }
-
-        .nav-admin-btn { background: rgba(255,255,255,0.08); color: white; border: 1.5px solid var(--glass-border); }
-        .nav-admin-btn:hover { background: rgba(255,215,0,0.15); border-color: var(--accent-gold); }
 
         .status-note {
             text-align: center;
             font-size: 13px;
-            color: #ffd700;
-            min-height: 18px;
+            font-weight: 600;
+            color: var(--emerald-seal);
+            min-height: 20px;
+        }
+
+        .status-note.error {
+            color: #B42318;
+        }
+
+        /* एक्शन और नेविगेशन बटन */
+        .action-panel {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        @media (min-width: 700px) {
+            .action-panel {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .refresh-btn,
+        .nav-admin-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            font-family: 'Mukta', 'Inter', sans-serif;
+            transition: all 0.25s ease;
+        }
+
+        .refresh-btn {
+            background: var(--royal-navy);
+            color: #FFFFFF;
+            border: 1.5px solid var(--royal-navy);
+            box-shadow: 0 6px 18px rgba(19, 41, 75, 0.16);
+        }
+
+        .refresh-btn:hover {
+            background: var(--saffron-copper);
+            border-color: var(--saffron-copper);
+        }
+
+        .nav-admin-btn {
+            background: var(--card-surface);
+            color: var(--royal-navy);
+            border: 1.5px solid var(--hairline-border);
+        }
+
+        .nav-admin-btn:hover {
+            border-color: var(--saffron-copper);
+            background: var(--soft-sand);
+        }
+
+        footer {
+            text-align: center;
+            padding: 16px 20px 28px;
+            font-size: 12px;
+            color: var(--slate-ink);
+            border-top: 1px solid var(--hairline-border);
+            background: rgba(255, 255, 255, 0.65);
         }
     </style>
 </head>
 <body>
-    <div class="solar-system"><div class="star-field"></div></div>
-
     <header>
-        <div class="logo-ring">✨</div>
-        <h1>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h1>
-        <p class="mission">जयपुर, राजस्थान • शुचिता • सेवा • समर्पण | MISSION 2047</p>
+        <div class="crest-badge">❖</div>
+        <div class="org-kicker">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स • जयपुर, राजस्थान</div>
+        <h1>सेवा एवं संग्रह डैशबोर्ड</h1>
+        <p class="mission">शुचिता • सेवा • समर्पण | MISSION 2047</p>
     </header>
 
-    <div class="dashboard-container">
-        <div class="stats-grid">
+    <main class="dashboard-container">
+        <section class="stats-grid" aria-label="मुख्य आँकड़े">
             <div class="stat-card highlight-card">
                 <div class="label">आज की कुल कमाई (Live Collection)</div>
-                <div class="value gold-text" id="todayColl">₹ 0</div>
+                <div class="value copper-text" id="todayColl">₹ 0</div>
             </div>
             <div class="stat-card">
                 <div class="label">पेंडिंग आर्डर्स</div>
@@ -201,67 +326,79 @@
                 <div class="label">कुल एक्टिव ग्राहक</div>
                 <div class="value" id="customers">0</div>
             </div>
-        </div>
+        </section>
 
-        <div class="sip-tracker">
-            <div class="sip-title">🔱 2047 SIP संकल्प</div>
-            <div class="label" id="totalColl" style="text-align: center; font-size: 14px; color: var(--accent-gold);">मासिक SIP लक्ष्य: ₹ 2,500</div>
-            <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+        <section class="sip-tracker" aria-label="SIP संकल्प ट्रैकर">
+            <div class="sip-title">2047 SIP संकल्प</div>
+            <div class="sip-sub" id="totalColl">मासिक SIP लक्ष्य: ₹ 2,500</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="bar"></div>
+            </div>
             <div class="sip-footer">
                 <span>मासिक लक्ष्य: ₹2,500</span>
                 <span id="perc">0%</span>
             </div>
-        </div>
+        </section>
 
         <div class="status-note" id="syncStatus"></div>
 
-        <div class="action-panel">
-            <button class="refresh-btn" onclick="fetchData()">🔄 कोस्मिक सिंक करें</button>
-            <a href="admin-update.html" class="nav-admin-btn">🛡️ गार्डियन स्टेशन (Admin) जाएं</a>
-            <a href="index.html" class="nav-admin-btn" style="background:none; border-color:rgba(255,255,255,0.2);">🏠 मुख्य द्वार (Home) जाएं</a>
-        </div>
-    </div>
+        <nav class="action-panel" aria-label="त्वरित कार्रवाई">
+            <button type="button" class="refresh-btn" onclick="fetchData()">डेटा सिंक करें</button>
+            <a href="admin-update.html" class="nav-admin-btn">गार्डियन स्टेशन (Admin)</a>
+            <a href="index.html" class="nav-admin-btn">मुख्य द्वार (Home)</a>
+        </nav>
+    </main>
+
+    <footer>
+        प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान • शुचिता • सेवा • समर्पण
+    </footer>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec';
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxrvVW7RC6bxel3KVerx6AQb-Ool4BzrYAdbeQRbBXglZ7EV9N0l8uVQ-kcDJaXC__t/exec";
         const AUTH_KEY = "PRATIKSHA_2047_SECURE";
 
         function fetchData() {
             const btn = document.querySelector('.refresh-btn');
             const statusEl = document.getElementById('syncStatus');
-            btn.innerText = "🌀 सिंक हो रहा है...";
+            btn.innerText = "सिंक हो रहा है...";
+            statusEl.classList.remove("error");
             statusEl.innerText = "";
-            
-            fetch(`${scriptURL}?action=getDashboardData&key=${AUTH_KEY}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "error") {
-                    statusEl.innerText = "सिंक सूचना: " + data.message;
-                    btn.innerText = "🔄 कोस्मिक सिंक करें";
-                    return;
-                }
 
-                document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
-                document.getElementById('pending').innerText = data.pending || 0;
-                document.getElementById('washing').innerText = data.washing || 0;
-                document.getElementById('ready').innerText = data.ready || 0;
-                document.getElementById('customers').innerText = data.totalCust || 0;
+            fetch(`${scriptURL}?action=getDashboardData&key=${encodeURIComponent(AUTH_KEY)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "error") {
+                        statusEl.classList.add("error");
+                        statusEl.innerText = "सिंक सूचना: " + data.message;
+                        btn.innerText = "डेटा सिंक करें";
+                        return;
+                    }
 
-                const monthlyTarget = 2500;
-                const sipAmount = typeof data.sipMonthly === "number" ? data.sipMonthly : 2500;
-                let progress = Math.min((sipAmount / monthlyTarget) * 100, 100);
-                
-                document.getElementById('bar').style.width = progress + "%";
-                document.getElementById('perc').innerText = Math.round(progress) + "%";
-                document.getElementById('totalColl').innerText = 'मासिक SIP संकल्प: ₹ ' + sipAmount + ' / ₹ ' + monthlyTarget;
-                
-                btn.innerText = "🔄 कोस्मिक सिंक करें";
-            })
-            .catch(err => {
-                console.error(err);
-                statusEl.innerText = "डेटा सिंक करने में समस्या आई। कृपया पुनः प्रयास करें।";
-                btn.innerText = "🔄 कोस्मिक सिंक करें";
-            });
+                    document.getElementById('todayColl').innerText = '₹ ' + (data.todayColl || 0);
+                    document.getElementById('pending').innerText = data.pending || 0;
+                    document.getElementById('washing').innerText = data.washing || 0;
+                    document.getElementById('ready').innerText = data.ready || 0;
+                    document.getElementById('customers').innerText = data.totalCust || 0;
+
+                    const monthlyTarget = 2500;
+                    const sipAmount = typeof data.sipMonthly === "number" ? data.sipMonthly : 2500;
+                    const progress = Math.min((sipAmount / monthlyTarget) * 100, 100);
+
+                    document.getElementById('bar').style.width = progress + "%";
+                    document.getElementById('perc').innerText = Math.round(progress) + "%";
+                    document.getElementById('totalColl').innerText = 'मासिक SIP संकल्प: ₹ ' + sipAmount + ' / ₹ ' + monthlyTarget;
+
+                    if (data.syncTime) {
+                        statusEl.innerText = "अंतिम सिंक (IST): " + data.syncTime;
+                    }
+                    btn.innerText = "डेटा सिंक करें";
+                })
+                .catch(err => {
+                    console.error(err);
+                    statusEl.classList.add("error");
+                    statusEl.innerText = "डेटा सिंक करने में समस्या आई। कृपया पुनः प्रयास करें।";
+                    btn.innerText = "डेटा सिंक करें";
+                });
         }
 
         window.onload = fetchData;
