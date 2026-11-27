@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Guardian Station | PRATIKSHA COSMIC PREMIERE</title>
+    <title>Guardian Station | प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
     
@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* 🪐 सौरमंडल एनीमेशन */
+        /* सौरमंडल एनीमेशन */
         .solar-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -84,14 +84,14 @@
         @keyframes stars-stream { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
         .app-header { 
-            padding: 45px 20px 25px; 
+            padding: 40px 20px 25px; 
             text-align: center; 
             background: rgba(0, 0, 0, 0.7); 
             backdrop-filter: blur(5px); 
             border-bottom: 2px solid var(--sun-orange); 
         }
 
-        /* 💻 डेस्कटॉप और मोबाइल दोनों के लिए स्मार्ट रिस्पॉन्सिव ग्रिड */
+        /* डेस्कटॉप और मोबाइल दोनों के लिए स्मार्ट रिस्पॉन्सिव ग्रिड */
         .container { 
             padding: 25px; 
             max-width: 1200px; 
@@ -103,7 +103,6 @@
             gap: 25px;
         }
 
-        /* लैपटॉप और डेस्कटॉप (768px से बड़ी स्क्रीन) के लिए मल्टी-कॉलम डैशबोर्ड */
         @media (min-width: 768px) {
             .container {
                 grid-template-columns: 1.2fr 1fr; 
@@ -212,20 +211,18 @@
     </div>
 
     <div class="app-header">
-        <h2 style="margin:0; font-family:'Playfair Display'; letter-spacing: 3px; font-size: 2rem;">Guardian Station</h2>
-        <div style="font-size: 0.7rem; color: var(--star-gold); margin-top: 5px; letter-spacing: 2px;">COSMIC COMMAND CENTER</div>
+        <h2 style="margin:0; font-family:'Playfair Display'; letter-spacing: 2px; font-size: 1.7rem; color: var(--star-gold);">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h2>
+        <div style="font-size: 0.72rem; color: #ddd; margin-top: 6px; letter-spacing: 1.5px;">जयपुर, राजस्थान • गार्डियन स्टेशन • शुचिता • सेवा • समर्पण</div>
     </div>
 
     <div class="container">
-        <!-- डैशबोर्ड बटन (पूरे डेस्कटॉप पर फैलेगा) -->
         <div class="full-desktop">
             <a href="Dashboard.html" class="cog-dashboard-btn">
                 <img src="1000289866.jpg" alt="Dash">
-                <div style="color: var(--star-gold); font-weight: 900; font-size: 1.1rem;">प्रतीक्षा डिजिटल डैशबोर्ड</div>
+                <div style="color: var(--star-gold); font-weight: 900; font-size: 1.1rem;">प्रतीक्षा नीति डैशबोर्ड | जयपुर, राजस्थान</div>
             </a>
         </div>
 
-        <!-- कार्ड 1: क्विक सिग्नल -->
         <div class="card">
             <h3>✨ QUICK SIGNAL</h3>
             <label>ग्राहक का नाम</label>
@@ -233,8 +230,8 @@
             
             <label>मोबाइल नंबर</label>
             <div style="display: flex; gap: 10px;">
-                <input type="tel" id="adminMobile" placeholder="मोबाइल नंबर" style="flex:1;">
-                <button onclick="getContact('adminMobile', 'custName')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:15px; padding:0 20px; cursor:pointer;">👤</button>
+                <input type="tel" id="adminMobile" placeholder="9929xxxxxx" style="flex:1;">
+                <button type="button" onclick="getContact('adminMobile', 'custName')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:15px; padding:0 20px; cursor:pointer;">👤</button>
             </div>
             
             <label>ऑर्डर स्थिति</label>
@@ -259,22 +256,19 @@
             <button class="btn-status" id="updateBtn" onclick="updateStatusOnly()">सिग्नल सिंक करें</button>
         </div>
 
-        <!-- दाहिनी ओर के कार्ड्स का ग्रुप -->
         <div style="display: flex; flex-direction: column; gap: 25px;">
-            <!-- कार्ड 2: वॉलेट रिचार्ज -->
             <div class="card" style="margin: 0;">
                 <h3>💳 WALLET RECHARGE</h3>
                 <label>ग्राहक मोबाइल</label>
                 <div style="display: flex; gap: 10px;">
-                    <input type="tel" id="rechargeMobile" placeholder="नंबर..." style="flex:1;">
-                    <button onclick="getContact('rechargeMobile')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:15px; padding:0 20px; cursor:pointer;">👤</button>
+                    <input type="tel" id="rechargeMobile" placeholder="9929xxxxxx" style="flex:1;">
+                    <button type="button" onclick="getContact('rechargeMobile')" style="background:none; border:1.5px solid var(--star-gold); color:var(--star-gold); border-radius:15px; padding:0 20px; cursor:pointer;">👤</button>
                 </div>
                 <label>राशि (₹)</label>
                 <input type="number" id="rechargeAmount" placeholder="1000" style="font-size: 1.5rem; text-align: center; color: var(--sun-orange); font-weight: 900;">
-                <button class="btn-status" id="rechargeBtn" onclick="rechargeWallet()">खाते में पैसे जोड़ें</button>
+                <button class="btn-status" id="rechargeBtn" onclick="rechargeWallet()">खाते में पैसे जोड़ें</button>
             </div>
 
-            <!-- कार्ड 3: नेविगेशन -->
             <div class="card" style="margin: 0;">
                 <h3>🚀 NAVIGATION</h3>
                 <div class="nav-grid" style="margin-top: 15px;">
@@ -286,58 +280,83 @@
     </div>
 
 <script>
-    // 🔱 v12.0 CHITTI SUPREME FINAL ASTRA URL
     const scriptURL = "https://script.google.com/macros/s/AKfycbx4VuHLbIRMNN68guX10VCWz5OBloN7I5NuFq-Be7EHROXAXWhczPEYxCXswgVal18Quw/exec";
+
+    function normalizeMobile(raw) {
+        return (raw || "").toString().replace(/\D/g, "").slice(-10);
+    }
     
     async function getContact(mobileId, nameId) {
-        if (!('contacts' in navigator)) return alert("सपोर्ट नहीं है।");
+        if (!('contacts' in navigator) || !('ContactsManager' in window)) {
+            return alert("कांटेक्ट पिकर इस ब्राउज़र या डिवाइस में उपलब्ध नहीं है। कृपया Android Chrome का उपयोग करें या नंबर सीधे टाइप करें।");
+        }
         try {
-            const contacts = await navigator.contacts.select(['name', 'tel'], {multiple: false});
-            if (contacts.length > 0) {
-                let rawNum = contacts[0].tel[0].replace(/\D/g, '').slice(-10);
-                document.getElementById(mobileId).value = rawNum;
-                if(nameId && contacts[0].name) document.getElementById(nameId).value = contacts[0].name[0];
+            const contacts = await navigator.contacts.select(['name', 'tel'], { multiple: false });
+            if (contacts && contacts.length > 0) {
+                if (contacts[0].tel && contacts[0].tel.length > 0) {
+                    const rawNum = normalizeMobile(contacts[0].tel[0]);
+                    document.getElementById(mobileId).value = rawNum;
+                }
+                if (nameId && contacts[0].name && contacts[0].name.length > 0) {
+                    document.getElementById(nameId).value = contacts[0].name[0];
+                }
             }
-        } catch (err) {}
+        } catch (err) {
+            if (err && err.name !== 'AbortError') {
+                alert("कांटेक्ट नहीं खुल सका। कृपया ब्राउज़र में अनुमति जांचें या पेज HTTPS पर खोलें।");
+            }
+        }
     }
 
     async function updateStatusOnly() {
-        const mob = document.getElementById('adminMobile').value;
+        const mob = normalizeMobile(document.getElementById('adminMobile').value);
         const status = document.getElementById('adminStatus').value;
         const details = document.getElementById('adminDetails').value;
         const mode = document.getElementById('paymentMode').value;
         const name = document.getElementById('custName').value;
         const btn = document.getElementById('updateBtn');
         
-        if(!mob) return alert("नंबर भरें!");
+        if (mob.length < 10) return alert("कृपया सही 10 अंकों का मोबाइल नंबर भरें!");
 
-        btn.innerText = "सिंक..."; btn.disabled = true;
+        btn.innerText = "सिंक...";
+        btn.disabled = true;
         
-        const url = `${scriptURL}?action=updateStatus&mobile=${mob}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(status)}&details=${encodeURIComponent(details)}&paymentMode=${encodeURIComponent(mode)}`;
+        const url = `${scriptURL}?action=updateStatus&mobile=${encodeURIComponent(mob)}&name=${encodeURIComponent(name)}&status=${encodeURIComponent(status)}&details=${encodeURIComponent(details)}&paymentMode=${encodeURIComponent(mode)}`;
         
         try {
             await fetch(url, { mode: 'no-cors' });
+            const msg = `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\nजयपुर, राजस्थान | 📞 7740870095\n\nनमस्ते *${name || 'सम्मानित ग्राहक'} जी*,\nस्थिति: *${status}*\nविवरण: ${details || "अपडेटेड"}\n\n_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान_`;
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
             alert("सिग्नल सिंक सफल! ✅");
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* स्थिति: " + status + " विवरण: " + (details || "अपडेटेड"))}`, '_blank');
             location.reload();
-        } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
+        } catch (e) {
+            alert("त्रुटि! कृपया पुनः प्रयास करें।");
+            btn.disabled = false;
+            btn.innerText = "सिग्नल सिंक करें";
+        }
     }
 
     async function rechargeWallet() {
-        const mob = document.getElementById('rechargeMobile').value;
-        const amt = document.getElementById('rechargeAmount').value;
+        const mob = normalizeMobile(document.getElementById('rechargeMobile').value);
+        const amt = parseFloat(document.getElementById('rechargeAmount').value);
         const btn = document.getElementById('rechargeBtn');
-        if(!mob || !amt) return alert("विवरण भरें!");
+        if (mob.length < 10 || isNaN(amt) || amt <= 0) return alert("कृपया सही मोबाइल नंबर और राशि भरें!");
 
-        btn.innerText = "प्रोसेस..."; btn.disabled = true;
-        const url = `${scriptURL}?action=rechargeWallet&mobile=${mob}&amount=${amt}`;
+        btn.innerText = "प्रोसेस...";
+        btn.disabled = true;
+        const url = `${scriptURL}?action=rechargeWallet&mobile=${encodeURIComponent(mob)}&amount=${encodeURIComponent(amt)}`;
 
         try {
             await fetch(url, { mode: 'no-cors' });
-            alert("रिचार्ज सफल! ✅");
-            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent("*प्रतीक्षा ड्राईक्लीनर्स* ✨\\nआपका कोस्मिक वॉलेट ₹" + amt + " से रिचार्ज हो गया है।")}`, '_blank');
+            const msg = `*प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स* ✨\nजयपुर, राजस्थान | 📞 7740870095\n\nआपका वॉलेट *₹${amt}* से रिचार्ज हो गया है।\n\n_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान_`;
+            window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(msg)}`, '_blank');
+            alert("रिचार्ज अनुरोध भेजा गया! ✅");
             location.reload();
-        } catch (e) { alert("त्रुटि!"); btn.disabled = false; }
+        } catch (e) {
+            alert("त्रुटि! कृपया पुनः प्रयास करें।");
+            btn.disabled = false;
+            btn.innerText = "खाते में पैसे जोड़ें";
+        }
     }
 </script>
 </body>
