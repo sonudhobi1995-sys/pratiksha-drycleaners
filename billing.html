@@ -246,8 +246,8 @@
 </div>
 
 <div class="billing-header no-print">
-    <h1>प्रतीक्षा ड्राई क्लीनर्स</h1>
-    <p style="color: var(--accent-gold); margin-top: 5px; letter-spacing: 1px;">शुचिता • सेवा • समर्पण | MISSION 2047</p>
+    <h1>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स</h1>
+    <p style="color: var(--accent-gold); margin-top: 5px; letter-spacing: 1px;">जयपुर, राजस्थान • शुचिता • सेवा • समर्पण | MISSION 2047</p>
 </div>
 
 <div class="container">
@@ -330,8 +330,8 @@
 <!-- 📄 प्रोफेशनल टैक्स इनवाइस टेम्प्लेट (PDF के लिए) -->
 <div id="invoice-template">
     <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px;">
-        <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 22px;">PRATIKSHA DRYCLEANERS</h1>
-        <p style="margin: 2px 0; font-size: 11px;">वैशाली, जयपुर | 📞 7740870095</p>
+        <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 20px;">PRATIKSHA NITI E-MITRA & DRYCLEANERS</h1>
+        <p style="margin: 2px 0; font-size: 11px;">जयपुर, राजस्थान | 📞 7740870095</p>
         <p style="margin: 2px 0; font-size: 11px;">PAN: CAMPD2004H | <strong>TAX INVOICE / BILL OF SUPPLY</strong></p>
     </div>
 
@@ -374,10 +374,10 @@
     </div>
 
     <div style="margin-top: 30px; display: flex; justify-content: space-between; font-size: 11px;">
-        <div>धन्यवाद! आपकी सेवा ही हमारा संकल्प है।</div>
+        <div>प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान</div>
         <div style="text-align: center; border-top: 1px solid #000; width: 130px; padding-top: 4px;">Authorised Signatory</div>
     </div>
-    <div style="text-align: center; margin-top: 15px; font-style: italic; font-size: 9px; color: #555;">Designed by SONU NEEL | Mission 2047</div>
+    <div style="text-align: center; margin-top: 15px; font-style: italic; font-size: 9px; color: #555;">प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान | Mission 2047</div>
 </div>
 
 <script>
@@ -490,25 +490,35 @@
         try {
             await fetch(finalSyncURL, { method: 'GET', mode: 'no-cors' });
 
+            const invNo = "PN-" + Date.now().toString().slice(-6);
+            const billDate = new Date().toLocaleDateString('hi-IN');
+
             let waDetailsText = "";
             billItems.forEach((i, idx) => {
-                waDetailsText += `*${idx + 1}. ${i.name}* \n   • Qty: ${i.q} | Rate: ₹${i.r} | Total: ₹${i.total}\n`;
+                waDetailsText += `${idx + 1}. *${i.name}*\n` +
+                                 `    मात्रा: ${i.q}  |  दर: ₹${i.r}  |  *राशि: ₹${i.total}*\n`;
             });
 
-            let message = `✨ *प्रतीक्षा ड्राईक्लीनर्स* ✨\n` +
-                          `वैशाली, जयपुर | 📞 7740870095\n\n` +
-                          `नमस्ते *${name || 'प्रिय ग्राहक'} जी*,\n` +
-                          `आपके वस्त्रों का सेवा विवरण नीचे प्रस्तुत है:\n\n` +
+            let message = `╔════════════════════════════╗\n` +
+                          `   *प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स*\n` +
+                          `╚════════════════════════════╝\n` +
+                          `📍 *जयपुर, राजस्थान*  |  📞 *7740870095*\n` +
+                          `🧾 *बिल नं.:* ${invNo}   |   *दिनांक:* ${billDate}\n` +
+                          `────────────────────────────────────\n` +
+                          `नमस्ते *${name || 'सम्मानित ग्राहक'} जी*,\n` +
+                          `प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान की ओर से आपकी सेवा का आधिकारिक विवरण नीचे दिया गया है:\n\n` +
                           `${waDetailsText}\n` +
-                          `----------------------------------\n` +
-                          `🔹 कपड़ों का कुल योग: ₹${itemsSum}\n` +
-                          (mBal > 0 ? `🔹 पुराना बकाया: + ₹${mBal}\n` : ``) +
-                          (disc > 0 ? `🔹 विशेष छूट: - ₹${disc}\n` : ``) +
-                          `📌 *कुल देय राशि (Grand Total): ₹${finalTotal}*\n` +
-                          `💳 भुगतान माध्यम: *${mode}*\n` +
-                          `----------------------------------\n` +
-                          `🙏 धन्यवाद! आपकी सेवा ही हमारा संकल्प है।\n` +
-                          `_ | PRATIKSHA NITI_`;
+                          `────────────────────────────────────\n` +
+                          `वस्त्र/सेवा कुल योग :  *₹${itemsSum}*\n` +
+                          (mBal > 0 ? `पुराना बकाया राशि   :  *+ ₹${mBal}*\n` : ``) +
+                          (disc > 0 ? `विशेष छूट (Discount):  *- ₹${disc}*\n` : ``) +
+                          `════════════════════════════════════\n` +
+                          `💰 *कुल देय राशि (GRAND TOTAL): ₹${finalTotal}*\n` +
+                          `💳 *भुगतान माध्यम:* ${mode}\n` +
+                          `════════════════════════════════════\n` +
+                          `शुचिता • सेवा • समर्पण\n` +
+                          `प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स, जयपुर, राजस्थान — आपका विश्वास ही हमारी सबसे बड़ी पूंजी है।\n` +
+                          `_प्रतीक्षा नीति ई-मित्र एंड ड्राई क्लीनर्स | जयपुर, राजस्थान | Mission 2047_`;
 
             window.open(`https://wa.me/91${mob}?text=${encodeURIComponent(message)}`, '_blank');
             
@@ -562,7 +572,7 @@
 
         const opt = {
             margin:       10,
-            filename:     'Pratiksha_Tax_Invoice.pdf',
+            filename:     'Pratiksha_Niti_Tax_Invoice.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
